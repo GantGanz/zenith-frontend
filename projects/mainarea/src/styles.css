@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+
+
+body {
+    background-color: #F6F8FD;
+    font-family: 'Inter', sans-serif;
+}
+
+.custom-btn {
+    background-color: #1089FF !important;
+}
+
+.custom-text {
+    color: #1089FF;
+}
+
+.box {
+    border-color: rgb(215, 215, 215);
+    border-radius: 16px;
+}

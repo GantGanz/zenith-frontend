@@ -23,7 +23,11 @@
               "projects/mainarea/src/assets"
             ],
             "styles": [
-              "projects/mainarea/src/styles.css"
+              "projects/mainarea/src/styles.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           },
@@ -117,7 +121,11 @@
               "projects/memberarea/src/assets"
             ],
             "styles": [
-              "projects/memberarea/src/styles.css"
+              "projects/memberarea/src/styles.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           },
@@ -211,7 +219,11 @@
               "projects/adminarea/src/assets"
             ],
             "styles": [
-              "projects/adminarea/src/styles.css"
+              "projects/adminarea/src/styles.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           },

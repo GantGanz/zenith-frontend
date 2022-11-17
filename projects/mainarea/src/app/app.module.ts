@@ -13,6 +13,7 @@ import { AppRouting } from './app.routing';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
+import { StepsModule } from 'primeng/steps';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     DropdownModule,
     ImageModule,
     FileUploadModule,
-    HttpClientModule
+    HttpClientModule,
+    StepsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

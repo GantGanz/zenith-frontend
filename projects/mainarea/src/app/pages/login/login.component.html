@@ -1,14 +1,19 @@
 
 <div class="grid h-screen w-full">
     <div class="col-5 hidden lg:block">
-        <div class="flex align-content-center justify-content-center flex-wrap h-screen box-side">
+        <div class=" text-center mt-8">
+            <p-image src="../../../assets/zenith_logo.png" alt="Image" width="100"></p-image>
+        </div>
+        <div class="flex align-content-center justify-content-center flex-wrap box-side lg:mt-5">
             <p-image src="../../../assets/ilustrasi 1.png" alt="Image" width="400"></p-image>
         </div>
     </div>
 
     <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap">
         <div class="col-7">
-            <!-- <p-image class="align-item-center" src="../../../assets/zenith_logo.png" alt="Image" width="50"></p-image> -->
+            <div class="text-center mb-3 lg:hidden">
+                <p-image src="../../../assets/zenith_logo.png" alt="Image" width="70"></p-image>
+            </div>
             <h2 class="text-center">Login</h2>
             <form class="mt-4 mb-5">
                 <div class="field">
@@ -20,7 +25,7 @@
                     <input pInputText id="password" name="password" type="password" class="w-full p-inputtext-sm" required>
                 </div>
                 <div class="mt-4">
-                    <button pButton class="w-full justify-content-center custom-btn" type="button" id="btnLogin" name="btnLogin" routerLink="/home">Login</button>
+                    <button pButton class="w-full justify-content-center custom-btn" type="button" id="btnLogin" name="btnLogin" routerLink="/home/member">Login</button>
                 </div>
             </form>
             <div class="mb-4">
@@ -29,4 +34,3 @@
         </div>
     </div>
 </div>
-

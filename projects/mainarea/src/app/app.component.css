@@ -1,3 +1,7 @@
 .box-side {
     background-color: #F6F8FD;
 }
+
+body {
+    overflow-y: hidden;
+}

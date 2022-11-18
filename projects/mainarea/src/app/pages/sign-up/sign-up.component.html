@@ -1,74 +1,117 @@
 <div class="grid h-screen w-full" *ngIf="signUpView">
     <div class="col-5 hidden lg:block">
-        <div class="flex justify-content-center mt-8 box-side">
-            <p-image src="../../../assets/images/ilustrasi sign-up.png" alt="Image" width="400"></p-image>
+        <div class="max-h-screen">
+        <div class="flex align-content-center justify-content-center flex-wrap h-screen box-side">
+                <p-image src="../../../assets/ilustrasi sign-up.png" alt="Image" width="400"></p-image>
+            </div>
         </div>
     </div>
 
-    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap">
-        <div class="col-7" *ngIf="signUp">
-            <h2 class="text-center">Sign-Up</h2>
-            <form class="mt-4 mb-5">
+    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap" *ngIf="signUp">
+        <div class="col-7">
+            <form class="mt-4 mb-5" [formGroup]="registerForm"
+                (ngSubmit)="registerForm.controls['fullname'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid && clickSignUp()">
+                <h2 class="text-center">Sign-Up</h2>
                 <div class="field">
-                    <label for="fullName">Full Name<span class="text-red-500">*</span></label>
-                    <input pInputText id="fullName" name="fullName" type="text" class="w-full p-inputtext-sm" required>
+                    <label for="fullnameInput">Full Name<span class="text-red-500">*</span></label>
+                    <input pInputText id="fullnameInput" name="fullnameInput" type="text" class="w-full p-inputtext-sm"
+                        formControlName="fullname" required>
+                    <small
+                        *ngIf="registerForm.controls['fullname'].invalid && (registerForm.controls['fullname'].dirty || registerForm.controls['fullname'].touched)"
+                        class="p-error">Please enter your name</small>
                 </div>
                 <div class="field mt-4">
                     <label for="email">Email<span class="text-red-500">*</span></label>
-                    <input pInputText id="email" name="email" type="email" class="w-full p-inputtext-sm" required>
+                    <input pInputText id="email" name="email" type="email" class="w-full p-inputtext-sm"
+                        formControlName="email" required>
+                    <small
+                        *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)"
+                        class="p-error">Please enter your email</small>
                 </div>
                 <div class="field mt-4">
                     <label for="password">Password<span class="text-red-500">*</span></label>
-                    <input pInputText id="password" name="password" type="password" class="w-full p-inputtext-sm" required>
+                    <input pInputText id="password" name="password" type="password" class="w-full p-inputtext-sm"
+                        formControlName="password" required>
+                    <small
+                        *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
+                        class="p-error">Please enter your password</small>
                 </div>
                 <div class="mt-4">
-                    <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit" id="btnSignUp" name="btnSignUp" (click)=" clickSignUp()">Next</button>
+                    <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"
+                        id="btnLogin" name="btnLogin">Next</button>
                 </div>
             </form>
             <div class="mb-4">
-                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm" type="button" name="btnBackToLogin">Have an account? <span class="font-semibold custom-text" routerLink="/login">Login</span></button>
+                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm"
+                    type="submit" id="btnStudentLogin" name="btnStudentLogin">Have an account? <span
+                        class="font-semibold custom-text" routerLink="/login">Login</span></button>
             </div>
         </div>
+    </div>
 
-        <div class="col-7" *ngIf="accountDtl" id="stepAccountDtl">
+    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap" *ngIf="accountDtl">
+        <div class="col-7">
             <h2 class="text-center">Account Detail</h2>
-            <form class="mt-4 mb-5">
+            <form class="mt-4 mb-5" [formGroup]="registerForm"
+                (ngSubmit)="registerForm.controls['company'].valid && registerForm.controls['industry'].valid && registerForm.controls['position'].valid && clickAccountDtl()">
                 <div class="field mt-4">
                     <label for="companyName">Company<span class="text-red-500">*</span></label>
-                    <input pInputText id="companyName" name="companyName" type="text" class="w-full p-inputtext-sm" required>
+                    <input pInputText id="companyName" name="companyName" type="text" class="w-full p-inputtext-sm"
+                        required formControlName="company">
+                    <small
+                        *ngIf="registerForm.controls['company'].invalid && (registerForm.controls['company'].dirty || registerForm.controls['company'].touched)"
+                        class="p-error">Please enter your company</small>
                 </div>
                 <div class="field">
-                     <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" name="industryName" id="industryName"></p-dropdown>
+                    <label for="industryName">Industry<span class="text-red-500">*</span></label>
+                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" name="industryName"
+                        id="industryName" formControlName="industry" placeholder="Select an Industry"></p-dropdown>
+                    <small
+                        *ngIf="registerForm.controls['industry'].invalid && (registerForm.controls['industry'].dirty || registerForm.controls['industry'].touched)"
+                        class="p-error">Please choose your industry</small>
                 </div>
                 <div class="field">
                     <label for="positionName">Position<span class="text-red-500">*</span></label>
-                   <p-dropdown [options]="positions" styleClass="w-full" optionLabel="name" name="positionName" id="positionName"></p-dropdown>
+                    <p-dropdown [options]="positions" styleClass="w-full" optionLabel="name" name="positionName"
+                        id="positionName" formControlName="position" placeholder="Select a Position"></p-dropdown>
+                    <small
+                        *ngIf="registerForm.controls['position'].invalid && (registerForm.controls['position'].dirty || registerForm.controls['position'].touched)"
+                        class="p-error">Please choose your position</small>
                 </div>
                 <div class="mt-4">
-                    <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit" id="btnAccountDetail" name="btnAccountDetail" (click)="clickAccountDtl()">Next</button>
+                    <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"
+                        id="btnAccountDetail" name="btnAccountDetail">Next</button>
                 </div>
             </form>
             <div class="mb-4">
-                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm" type="button" name="btnBackToLogin">Have an account? <span class="font-semibold custom-text" routerLink="/login">Login</span></button>
+                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm"
+                    type="submit" name="btnStudentLogin">Have an account? <span class="font-semibold custom-text"
+                        routerLink="/login">Login</span></button>
             </div>
         </div>
 
-        <div class="col-7" *ngIf="verification">
+    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap"
+        *ngIf="verification">
+        <div class="col-7">
             <div class="text-center">
                 <h2>Verification</h2>
-            <small>We have send a verification code  to your email Please check your e-mail and type code here</small>
+                <small>We have send a verification code to your email Please check your e-mail and type code
+                    here</small>
             </div>
-            <form class="mt-4 mb-5 mx-6">
+            <form class="mt-4 mb-5 mx-6" [formGroup]="verificationCode" (ngSubmit)="verificationCode.valid && clickVerify()">
                 <div class="field mt-4">
-                    <input pInputText id="verificationCode" name="verificationCode" type="text" class="w-full p-inputtext-sm" required>
+                    <input pInputText id="verificationCode" name="verificationCode" type="text"
+                        class="w-full p-inputtext-sm" required formControlName="verificationCode">
                 </div>
                 <div class="mt-4 text-center">
-                    <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit" id="btnVerify" name="btnVerify" (click)="clickVerify()">Verify</button>
+                    <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"
+                        id="btnVerify" name="btnVerify">Verify</button>
                 </div>
             </form>
             <div class="mb-4">
-                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm" type="button" name="btnBackToLogin">Have an account? <span class="font-semibold custom-text" routerLink="/login">Login</span></button>
+                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm"
+                    type="submit" name="btnStudentLogin">Have an account? <span class="font-semibold custom-text"
+                        routerLink="/login">Login</span></button>
             </div>
         </div>
 

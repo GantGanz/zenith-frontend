@@ -1,15 +1,26 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { MenuItem } from 'primeng/api';
+
 
 @Component({
     selector: "sign-up",
     templateUrl: "./sign-up.component.html"
 })
-export class SignUpComponent {
-
+export class SignUpComponent implements OnInit {
 
     signUp = true
     accountDtl = false
     verification = false
+
+    items: MenuItem[] = []
+
+    ngOnInit(): void {
+        this.items = [
+            { label: "Sign Up" },
+            { label: "Account Detail" },
+            { label: "Verification" }
+        ]
+    }
 
     industries: any = [
         { name: "ddddd" },

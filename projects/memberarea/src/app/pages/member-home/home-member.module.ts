@@ -1,4 +1,6 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { HomeMemberComponent } from "./home-member.component";
 import { HomeMemberRouting } from "./home-member.routing";
 
@@ -8,12 +10,11 @@ import { HomeMemberRouting } from "./home-member.routing";
         HomeMemberComponent
     ],
     imports: [
-        HomeMemberRouting
+        RouterModule, HomeMemberRouting, CommonModule
     ],
     exports: [
         HomeMemberComponent
     ]
 })
-
 
 export class HomeMemberModule { }

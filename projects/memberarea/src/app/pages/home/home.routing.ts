@@ -1,16 +1,16 @@
 import { Component, NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { MainContentComponent } from "../../components/main-content/content.component";
-import { HomeMemberComponent } from "./home-member.component";
+import { ContentComponent } from "../../components/content/content.component";
+import { HomeComponent } from "./home.component";
 
 const routes: Routes = [
     {
-        path: "member",
-        component: MainContentComponent,
+        path: "",
+        component: ContentComponent,
         children: [
             {
                 path: "",
-                component: HomeMemberComponent
+                component: HomeComponent
             }
         ]
     }
@@ -25,4 +25,4 @@ const routes: Routes = [
     ]
 })
 
-export class HomeMemberRouting { }
+export class HomeRouting { }

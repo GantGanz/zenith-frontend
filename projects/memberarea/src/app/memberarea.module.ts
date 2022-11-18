@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
-import { HomeMemberModule } from "./pages/member-home/home-member.module";
+import { HomeModule } from "./pages/home/home.module";
 
 @NgModule({
     imports: [
-        HomeMemberModule
+        HomeModule
     ],
     exports: [
-        HomeMemberModule
+        HomeModule
     ]
 })
 

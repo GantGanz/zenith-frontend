@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
-import { MainContentModule } from "projects/memberarea/src/app/components/main-content/content.module"
+import { ContentModule } from "projects/memberarea/src/app/components/content/content.module"
 import { MemberAreaModule } from "projects/memberarea/src/app/memberarea.module"
 import { memberAreaRoutes } from "projects/memberarea/src/app/memberarea.routing"
 import { LoginComponent } from "./pages/login/login.component"
@@ -28,7 +28,7 @@ const mainRoutes: Routes = [
     imports: [
         RouterModule.forRoot(mainRoutes),
         MemberAreaModule,
-        MainContentModule
+        ContentModule
     ],
     exports: [
         RouterModule

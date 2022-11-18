@@ -1,3 +1,4 @@
+import { NgIf } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { MenuItem } from 'primeng/api';
 
@@ -11,8 +12,12 @@ export class SignUpComponent implements OnInit {
     signUp = true
     accountDtl = false
     verification = false
+    verificationSuccess = false
+    signUpView = true
 
+    stepsIndex: number = 0
     items: MenuItem[] = []
+
 
     ngOnInit(): void {
         this.items = [
@@ -40,10 +45,17 @@ export class SignUpComponent implements OnInit {
         this.accountDtl = true
         this.signUp = false
         this.verification = false
+        this.stepsIndex += 1
     }
+
     clickAccountDtl() {
         this.accountDtl = false
         this.signUp = false
         this.verification = true
+        this.stepsIndex += 1
+    }
+    clickVerify() {
+        this.signUpView = false
+        this.verificationSuccess = true
     }
 }

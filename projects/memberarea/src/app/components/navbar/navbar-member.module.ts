@@ -6,6 +6,8 @@ import { DropdownModule } from 'primeng/dropdown'
 import { RouterModule } from "@angular/router";
 import { NavbarMemberComponent } from "./navbar-member.component";
 import { FooterComponent } from "../footer/footer.component";
+import { ImageModule } from 'primeng/image';
+
 
 @NgModule({
     declarations: [
@@ -16,7 +18,8 @@ import { FooterComponent } from "../footer/footer.component";
         TabMenuModule,
         MenuModule,
         MenubarModule,
-        DropdownModule
+        DropdownModule,
+        ImageModule
     ],
     exports: [
         NavbarMemberComponent, FooterComponent

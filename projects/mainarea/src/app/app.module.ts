@@ -14,6 +14,7 @@ import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
 import { StepsModule } from 'primeng/steps';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { StepsModule } from 'primeng/steps';
     FileUploadModule,
     HttpClientModule,
     StepsModule,
-
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

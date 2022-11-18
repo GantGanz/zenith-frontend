@@ -1,8 +1,19 @@
 import { Routes } from "@angular/router";
+import { ContentComponent } from "./components/content/content.component";
 
 export const memberAreaRoutes: Routes = [
     {
-        path: "home",
-        loadChildren: () => import("./pages/member-home/home-member.module").then(u => u.HomeMemberModule)
+        path: "feed",
+        loadChildren: () => import("./pages/home/home.module").then(u => u.HomeModule)
+    },
+    {
+        path: "courses",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/course/course.module").then(cr => cr.CourseModule)
+    },
+    {
+        path: "events",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/member-event/event.module").then(ev => ev.EventModule)
     }
 ]

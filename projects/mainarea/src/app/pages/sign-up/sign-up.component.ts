@@ -15,7 +15,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
     signUp = true
     accountDtl = false
     verification = false
+    verificationSuccess = false
+    signUpView = true
 
+    stepsIndex: number = 0
     items: MenuItem[] = []
 
     registerForm = this.fb.group({
@@ -67,7 +70,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.accountDtl = true
         this.signUp = false
         this.verification = false
+        this.stepsIndex += 1
     }
+
     clickAccountDtl() {
         this.accountDtl = false
         this.signUp = false

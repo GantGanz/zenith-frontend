@@ -1,6 +1,6 @@
 import { ArticleData } from './article-data' 
 
-export interface ArticleFindByIdRes { 
+export interface ArticleRes { 
 	 data: ArticleData 
 } 
 

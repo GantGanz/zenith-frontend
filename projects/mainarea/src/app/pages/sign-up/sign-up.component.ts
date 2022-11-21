@@ -6,6 +6,9 @@ import { SignUpService } from "../../service/sign-up.service";
 import { UserService } from "../../service/user.service";
 import { PositionsRes } from "../../../../../interface/position/positions-res";
 import { PositionService } from "../../service/position.service";
+import { IndustriesRes } from "projects/interface/industry/industries-res";
+import { IndustryService } from "../../service/industry.service";
+import { ToastrService } from "ngx-toastr";
 
 
 @Component({
@@ -14,6 +17,12 @@ import { PositionService } from "../../service/position.service";
 })
 export class SignUpComponent implements OnInit, OnDestroy {
 
+    private sendVerificationSubscription?: Subscription
+    private verificateCodeSubscription?: Subscription
+    private registerSubscription?: Subscription
+    private positionsSubscription?: Subscription
+    private industriesSubscription?: Subscription
+
     signUp = true
     accountDtl = false
     verification = false
@@ -21,8 +30,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
     signUpView = true
 
     positionsRes!: PositionsRes
-    positions: any[] =[]
-    
+    industriesRes!: IndustriesRes
+
+    positions: any[] = []
+    industries: any[] = []
+
     stepsIndex: number = 0
     items: MenuItem[] = []
 
@@ -39,14 +51,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
         verificationCode: ['', [Validators.required]],
     })
 
-
-    private sendVerificationSubscription?: Subscription
-    private verificateCodeSubscription?: Subscription
-    private registerSubscription?: Subscription
-    private positionsSubscription?: Subscription
-
     constructor(private fb: FormBuilder, private signUpService: SignUpService,
-        private userService: UserService, private positionService: PositionService) { }
+        private userService: UserService, private positionService: PositionService,
+        private industryService: IndustryService, private toast: ToastrService) { }
 
     ngOnInit(): void {
 
@@ -56,20 +63,27 @@ export class SignUpComponent implements OnInit, OnDestroy {
             { label: "Verification" }
         ]
 
-        this.positionsSubscription = this.positionService.getAll().subscribe(result=>{
-            this.positionsRes = result     
-            for(let i=0;i<this.positionsRes.data.length;i++){
-                this.positions.push({name:this.positionsRes.data[i].industryName, code: this.positionsRes.data[i].industryCode, id: this.positionsRes.data[i].id})
+        this.positionsSubscription = this.positionService.getAll().subscribe(result => {
+            this.positionsRes = result
+            for (let i = 0; i < this.positionsRes.data.length; i++) {
+                this.positions.push({
+                    name: this.positionsRes.data[i].industryName,
+                    code: this.positionsRes.data[i].industryCode,
+                    id: this.positionsRes.data[i].id
+                })
+            }
+        })
+        this.industriesSubscription = this.industryService.getAll().subscribe(result => {
+            this.industriesRes = result
+            for (let i = 0; i < this.industriesRes.data.length; i++) {
+                this.industries.push({
+                    name: this.industriesRes.data[i].industryName,
+                    code: this.industriesRes.data[i].industryCode,
+                    id: this.industriesRes.data[i].id
+                })
             }
         })
     }
- 
-    industries: any = [
-        { name: "1" },
-        { name: "2" },
-        { name: "3" },
-        { name: "4" }
-    ]
 
     clickSignUp() {
         this.accountDtl = true
@@ -82,10 +96,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.accountDtl = false
         this.signUp = false
         this.verification = true
+        this.stepsIndex += 1
         this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).subscribe(() => {
         })
         console.log(this.registerForm.value)
-        
+
     }
 
     clickVerify() {
@@ -93,6 +108,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).subscribe(u => {
             if (u) {
                 this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(() => { })
+                this.signUpView = false
+                this.verificationSuccess = true
             }
         })
     }
@@ -102,5 +119,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.verificateCodeSubscription?.unsubscribe()
         this.registerSubscription?.unsubscribe()
         this.positionsSubscription?.unsubscribe()
+        this.industriesSubscription?.unsubscribe()
     }
 }

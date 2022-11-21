@@ -1,14 +1,12 @@
 <div class="grid h-screen w-full" *ngIf="signUpView">
     <div class="col-5 hidden lg:block">
-        <div class="max-h-screen">
-        <div class="flex align-content-center justify-content-center flex-wrap h-screen box-side">
-                <p-image src="../../../assets/images/ilustrasi sign-up.png" alt="Image" width="400"></p-image>
-            </div>
+        <div class="flex justify-content-center mt-8 box-side">
+            <p-image src="../../../assets/images/ilustrasi sign-up.png" alt="Image" width="400"></p-image>
         </div>
     </div>
 
-    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap" *ngIf="signUp">
-        <div class="col-7">
+    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap">
+        <div class="col-7" *ngIf="signUp">
             <form class="mt-4 mb-5" [formGroup]="registerForm"
                 (ngSubmit)="registerForm.controls['fullname'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid && clickSignUp()">
                 <h2 class="text-center">Sign-Up</h2>
@@ -20,6 +18,7 @@
                         *ngIf="registerForm.controls['fullname'].invalid && (registerForm.controls['fullname'].dirty || registerForm.controls['fullname'].touched)"
                         class="p-error">Please enter your name</small>
                 </div>
+                
                 <div class="field mt-4">
                     <label for="email">Email<span class="text-red-500">*</span></label>
                     <input pInputText id="email" name="email" type="email" class="w-full p-inputtext-sm"
@@ -47,10 +46,8 @@
                         class="font-semibold custom-text" routerLink="/login">Login</span></button>
             </div>
         </div>
-    </div>
-
-    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap" *ngIf="accountDtl">
-        <div class="col-7">
+    
+        <div class="col-7" *ngIf="accountDtl" id="stepAccountDtl">
             <h2 class="text-center">Account Detail</h2>
             <form class="mt-4 mb-5" [formGroup]="registerForm"
                 (ngSubmit)="registerForm.controls['company'].valid && registerForm.controls['industry'].valid && registerForm.controls['position'].valid && clickAccountDtl()">
@@ -64,7 +61,7 @@
                 </div>
                 <div class="field">
                     <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" name="industryName"
+                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
                         id="industryName" formControlName="industry" placeholder="Select an Industry">
                     </p-dropdown>
                     <small
@@ -90,10 +87,8 @@
                         routerLink="/login">Login</span></button>
             </div>
         </div>
-
-    <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap"
-        *ngIf="verification">
-        <div class="col-7">
+        
+        <div class="col-7" *ngIf="verification">
             <div class="text-center">
                 <h2>Verification</h2>
                 <small>We have send a verification code to your email Please check your e-mail and type code
@@ -115,7 +110,7 @@
                         routerLink="/login">Login</span></button>
             </div>
         </div>
-
+    
         <div class="col-7">
             <p-steps styleclass="border-none" [model]="items" [activeIndex]="stepsIndex"></p-steps>
         </div>

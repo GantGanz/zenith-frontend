@@ -6,6 +6,9 @@ import { Component } from "@angular/core";
 })
 export class IndustryListComponent {
 
+    first = 0;
+    rows = 10;
+
     industries: any = [
         {
             no: "1",
@@ -13,4 +16,24 @@ export class IndustryListComponent {
             name: "Healthcare and Social Assistance",
         }
     ]
+
+    next() {
+        this.first = this.first + this.rows;
+    }
+
+    prev() {
+        this.first = this.first - this.rows;
+    }
+
+    reset() {
+        this.first = 0;
+    }
+
+    isLastPage(): boolean {
+        return this.industries ? this.first === (this.industries.length - this.rows) : true;
+    }
+
+    isFirstPage(): boolean {
+        return this.industries ? this.first === 0 : true;
+    }
 }

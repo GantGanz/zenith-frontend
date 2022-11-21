@@ -14,4 +14,4 @@ import { ContentComponent } from "./content.component";
         ContentComponent
     ]
 })
-export class ContentModule { }
+export class ContentMemberModule { }

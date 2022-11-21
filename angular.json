@@ -217,7 +217,8 @@
             "tsConfig": "projects/adminarea/tsconfig.app.json",
             "assets": [
               "projects/adminarea/src/favicon.ico",
-              "projects/adminarea/src/assets"
+              "projects/adminarea/src/assets",
+              "projects/adminarea/src/assets/images"
             ],
             "styles": [
               "projects/adminarea/src/styles.css",

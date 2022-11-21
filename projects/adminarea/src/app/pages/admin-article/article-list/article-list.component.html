@@ -1,0 +1,31 @@
+
+<div class="container">
+    <h2 class="my-4">List Of Articles</h2>
+    <div class="my-3">
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition" routerLink="/articles/new"><i class="pi pi-plus" style="font-size: 12px"></i>New</button>
+    </div>
+
+    <p-table [value]="articles" styleClass="md:col-8">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th>title</th>
+                <th>content</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-article>
+            <tr>
+                <td>{{article.no}}</td>
+                <td>{{article.title}}</td>
+                <td>{{article.content}}</td>
+                <td>
+                    <div class="flex flex-row">
+                        <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/articles/edit/:id"><i class="pi pi-file-edit"></i></button>
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i class="pi pi-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table> 
+</div>

@@ -30,7 +30,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         position: ['', [Validators.required]]
     })
 
-    verificationCode :any = this.fb.group({
+    verificationCode: any = this.fb.group({
         verificationCode: ['', [Validators.required]],
     })
 
@@ -40,10 +40,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private registerSubscription?: Subscription
 
     constructor(private fb: FormBuilder, private signUpService: SignUpService,
-        private userService : UserService) { }
+        private userService: UserService) { }
 
     ngOnInit(): void {
-
 
         this.items = [
             { label: "Sign Up" },
@@ -84,9 +83,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     clickVerify() {
         this.verificationCode.addControl('email', this.fb.control(this.registerForm.value.email, [Validators.required]))
-        this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).subscribe(u=>{
-            if(u){
-                this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(()=>{})
+        this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).subscribe(u => {
+            if (u) {
+                this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(() => { })
             }
         })
     }

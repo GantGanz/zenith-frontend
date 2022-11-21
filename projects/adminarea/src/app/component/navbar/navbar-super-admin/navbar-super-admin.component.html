@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md">
+  <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand"><img src="./assets/images/zenith.png" alt="zenith logo" style="width: 3rem;"></a>
+      <div class="collapse navbar-collapse justify-content-start" id="navbarTogglerDemo01">
+          <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page">Dashboard</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  Data Master
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/users/list">Users</a></li>
+                  <li><a class="dropdown-item" routerLink="/positions/list">Position</a></li>
+                  <li><a class="dropdown-item" routerLink="/industries/list">Industry</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                  Information Reports
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/member-informations">Members Information</a></li>
+                  <li><a class="dropdown-item">Members Income</a></li>
+                </ul>
+              </li>
+          </ul>
+          <div class="btn-group">
+              <img src="../../../assets/photoProfile.png" alt="super admin photo"
+                  class="dropdown-toggle photoProfile border-none" data-bs-toggle="dropdown"
+                  data-bs-display="static">
+              <ul
+                  class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">
+                  <li><button class="dropdown-item" type="button">View Profile</button></li>
+                  <li><button class="dropdown-item text-danger btnLogout" type="button" routerLink="/login">Logout</button></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</nav>

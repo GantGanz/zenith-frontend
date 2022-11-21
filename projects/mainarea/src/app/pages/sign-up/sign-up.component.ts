@@ -4,6 +4,8 @@ import { MenuItem } from 'primeng/api';
 import { Subscription } from "rxjs";
 import { SignUpService } from "../../service/sign-up.service";
 import { UserService } from "../../service/user.service";
+import { PositionsRes } from "../../../../../interface/position/positions-res";
+import { PositionService } from "../../service/position.service";
 
 
 @Component({
@@ -18,6 +20,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
     verificationSuccess = false
     signUpView = true
 
+    positionsRes!: PositionsRes
+    positions: any[] =[]
+    
     stepsIndex: number = 0
     items: MenuItem[] = []
 
@@ -38,9 +43,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private sendVerificationSubscription?: Subscription
     private verificateCodeSubscription?: Subscription
     private registerSubscription?: Subscription
+    private positionsSubscription?: Subscription
 
     constructor(private fb: FormBuilder, private signUpService: SignUpService,
-        private userService: UserService) { }
+        private userService: UserService, private positionService: PositionService) { }
 
     ngOnInit(): void {
 
@@ -49,20 +55,20 @@ export class SignUpComponent implements OnInit, OnDestroy {
             { label: "Account Detail" },
             { label: "Verification" }
         ]
-    }
 
+        this.positionsSubscription = this.positionService.getAll().subscribe(result=>{
+            this.positionsRes = result     
+            for(let i=0;i<this.positionsRes.data.length;i++){
+                this.positions.push({name:this.positionsRes.data[i].industryName, code: this.positionsRes.data[i].industryCode, id: this.positionsRes.data[i].id})
+            }
+        })
+    }
+ 
     industries: any = [
         { name: "1" },
         { name: "2" },
         { name: "3" },
         { name: "4" }
-    ]
-
-    positions: any = [
-        { name: "Position 1" },
-        { name: "Position 2" },
-        { name: "Position 3" },
-        { name: "Position 4" }
     ]
 
     clickSignUp() {
@@ -77,8 +83,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.signUp = false
         this.verification = true
         this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).subscribe(() => {
-
         })
+        console.log(this.registerForm.value)
+        
     }
 
     clickVerify() {
@@ -94,5 +101,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.sendVerificationSubscription?.unsubscribe()
         this.verificateCodeSubscription?.unsubscribe()
         this.registerSubscription?.unsubscribe()
+        this.positionsSubscription?.unsubscribe()
     }
 }

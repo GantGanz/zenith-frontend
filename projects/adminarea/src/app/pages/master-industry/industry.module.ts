@@ -7,7 +7,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext'
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button'
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -19,7 +19,8 @@ import { ButtonModule } from 'primeng/button'
         TooltipModule,
         InputTextModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialogModule
     ],
     exports: [
         IndustryListComponent, IndustryInsertComponent, IndustryUpdateComponent

@@ -87,8 +87,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
                 this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(() => { })
             }
         })
-        this.signUpView = false
-        this.verificationSuccess = true
     }
 
     ngOnDestroy(): void {

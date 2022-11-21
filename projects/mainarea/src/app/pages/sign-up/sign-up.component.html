@@ -50,7 +50,7 @@
         <div class="col-7" *ngIf="accountDtl" id="stepAccountDtl">
             <h2 class="text-center">Account Detail</h2>
             <form class="mt-4 mb-5" [formGroup]="registerForm"
-                (ngSubmit)="registerForm.controls['company'].valid && registerForm.controls['industry'].valid && registerForm.controls['position'].valid && clickAccountDtl()">
+                (ngSubmit)="registerForm.controls['company'].valid && registerForm.controls['industryId'].valid && registerForm.controls['positionId'].valid && clickAccountDtl()">
                 <div class="field mt-4">
                     <label for="companyName">Company<span class="text-red-500">*</span></label>
                     <input pInputText id="companyName" name="companyName" type="text" class="w-full p-inputtext-sm"
@@ -62,18 +62,18 @@
                 <div class="field">
                     <label for="industryName">Industry<span class="text-red-500">*</span></label>
                     <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
-                        id="industryName" formControlName="industry" placeholder="Select an Industry">
+                        id="industryName" formControlName="industryId" placeholder="Select an Industry">
                     </p-dropdown>
                     <small
-                        *ngIf="registerForm.controls['industry'].invalid && (registerForm.controls['industry'].dirty || registerForm.controls['industry'].touched)"
+                        *ngIf="registerForm.controls['industryId'].invalid && (registerForm.controls['industryId'].dirty || registerForm.controls['industryId'].touched)"
                         class="p-error">Please choose your industry</small>
                 </div>
                 <div class="field">
                     <label for="positionName">Position<span class="text-red-500">*</span></label>
                     <p-dropdown [options]="positions" styleClass="w-full" optionLabel="name" optionValue="id" name="positionName"
-                        id="positionName" formControlName="position" placeholder="Select a Position"></p-dropdown>
+                        id="positionName" formControlName="positionId" placeholder="Select a Position"></p-dropdown>
                     <small
-                        *ngIf="registerForm.controls['position'].invalid && (registerForm.controls['position'].dirty || registerForm.controls['position'].touched)"
+                        *ngIf="registerForm.controls['positionId'].invalid && (registerForm.controls['positionId'].dirty || registerForm.controls['positionId'].touched)"
                         class="p-error">Please choose your position</small>
                 </div>
                 <div class="mt-4">

@@ -3,6 +3,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CourseComponent } from "./course.component";
 import { CourseRouting } from "./course.routing";
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from "primeng/button";
 
 
 @NgModule({
@@ -10,7 +12,11 @@ import { CourseRouting } from "./course.routing";
         CourseComponent
     ],
     imports: [
-        RouterModule, CommonModule, CourseRouting
+        RouterModule,
+        CommonModule,
+        CourseRouting,
+        CardModule,
+        ButtonModule
     ],
     exports: [
         CourseComponent

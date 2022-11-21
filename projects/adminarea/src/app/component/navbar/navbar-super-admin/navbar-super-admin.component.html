@@ -4,11 +4,11 @@
           aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand"><img src="./assets/images/zenith.png" alt="zenith logo" style="width: 3rem;"></a>
+      <a class="navbar-brand"><img src="../../../../assets/images/zenith_logo.png" alt="zenith logo" style="width: 3rem;"></a>
       <div class="collapse navbar-collapse justify-content-start">
           <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
               <li class="nav-item">
-                  <a class="nav-link active" aria-current="page">Dashboard</a>
+                  <a class="nav-link active" aria-current="page" routerLink="/dashboard/super-admin">Dashboard</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -31,9 +31,9 @@
               </li>
           </ul>
           <div class="btn-group">
-              <img src="../../../../assets/images/profile_admin.png" alt="super admin photo"
-                  class="dropdown-toggle photoProfile border-none profile-pic" data-bs-toggle="dropdown"
-                  data-bs-display="static">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../../../../assets/images/profile_admin.png" class="profile-pic" alt="photo member">
+              </a>
               <ul
                   class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">
                   <li><button class="dropdown-item" type="button">View Profile</button></li>

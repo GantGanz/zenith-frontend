@@ -17,22 +17,12 @@ const mainRoutes: Routes = [
         pathMatch: "full"
     },
     {
-        path: "admin",
-        children: [
-            {
-                path: "login",
-                component: LoginComponent
-            },
-        ]
+        path: "admin/login",
+        component: LoginComponent
     },
     {
-        path: "member",
-        children: [
-            {
-                path: "login",
-                component: LoginComponent
-            }
-        ]
+        path: "member/login",
+        component: LoginComponent
     },
     {
         path: "sign-up",

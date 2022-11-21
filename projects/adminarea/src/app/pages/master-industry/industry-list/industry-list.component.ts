@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -10,8 +10,8 @@ export class IndustryListComponent implements OnInit {
 
     first = 0;
     rows = 10;
-    // position: string;
-    // industries: any[] = []
+    position!: string;
+    msgs: Message[] = [];
 
     constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig) { }
 
@@ -34,10 +34,10 @@ export class IndustryListComponent implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                // this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
+                this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
             },
             reject: () => {
-                // this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+                this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
             },
             key: "positionDialog"
         });

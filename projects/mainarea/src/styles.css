@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
 body {
-    /* background-color: #F6F8FD; */
     background-color: #F8F8F8;
     font-family: 'Inter', sans-serif;
 }
@@ -17,4 +16,9 @@ body {
 .box {
     border-color: rgb(215, 215, 215);
     border-radius: 16px;
+}
+
+.profile-pic {
+    width: 40px;
+    border-radius: 50%;
 }

@@ -12,13 +12,27 @@ import { SignUpComponent } from "./pages/sign-up/sign-up.component"
 
 const mainRoutes: Routes = [
     {
-        path: "",
-        redirectTo: "/login",
+        path: " ",
+        redirectTo: "/member/login",
         pathMatch: "full"
     },
     {
-        path: "login",
-        component: LoginComponent
+        path: "admin",
+        children: [
+            {
+                path: "login",
+                component: LoginComponent
+            },
+        ]
+    },
+    {
+        path: "member",
+        children: [
+            {
+                path: "login",
+                component: LoginComponent
+            }
+        ]
     },
     {
         path: "sign-up",

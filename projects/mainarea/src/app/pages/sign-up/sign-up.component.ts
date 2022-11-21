@@ -12,6 +12,10 @@ import { UserService } from "../../service/user.service";
 })
 export class SignUpComponent implements OnInit, OnDestroy {
 
+    private sendVerificationSubscription?: Subscription
+    private verificateCodeSubscription?: Subscription
+    private registerSubscription?: Subscription
+
     signUp = true
     accountDtl = false
     verification = false
@@ -20,6 +24,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     stepsIndex: number = 0
     items: MenuItem[] = []
+
+    constructor(private fb: FormBuilder, private signUpService: SignUpService,
+        private userService: UserService) { }
 
     registerForm = this.fb.group({
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
@@ -33,14 +40,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     verificationCode: any = this.fb.group({
         verificationCode: ['', [Validators.required]],
     })
-
-
-    private sendVerificationSubscription?: Subscription
-    private verificateCodeSubscription?: Subscription
-    private registerSubscription?: Subscription
-
-    constructor(private fb: FormBuilder, private signUpService: SignUpService,
-        private userService: UserService) { }
 
     ngOnInit(): void {
 
@@ -76,8 +75,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.accountDtl = false
         this.signUp = false
         this.verification = true
+        this.stepsIndex += 1
         this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).subscribe(() => {
-
         })
     }
 
@@ -88,6 +87,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
                 this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(() => { })
             }
         })
+        this.signUpView = false
+        this.verificationSuccess = true
     }
 
     ngOnDestroy(): void {

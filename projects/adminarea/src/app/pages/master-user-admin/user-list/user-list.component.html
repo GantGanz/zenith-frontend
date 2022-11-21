@@ -5,7 +5,7 @@
         <button pButton class="p-button-sm btn-custom" type="button" id="insertUser" name="insertUser" routerLink="/users/new"><i class="pi pi-plus" style="font-size: 12px"></i>New</button>
     </div>
 
-    <p-table [value]="users">
+    <p-table [value]="users" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
         <ng-template pTemplate="header">
             <tr>
                 <th>No</th>

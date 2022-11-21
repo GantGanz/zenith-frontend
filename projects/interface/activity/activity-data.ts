@@ -10,6 +10,7 @@ export interface ActivityData {
 	 fee: number 
 	 activityTypeId: string 
 	 activityTypeName: string 
+	 activityTypeCode: string 
 	 creatorName: string 
 	 createdBy: string 
 	 createdAt: string

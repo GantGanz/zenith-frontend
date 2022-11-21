@@ -1,0 +1,3 @@
+export enum ROLECODE{
+    SUPERADMIN="SA", ADMIN="ADM", MEMBER="MMB"
+}

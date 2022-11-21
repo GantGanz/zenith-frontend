@@ -5,12 +5,15 @@ import { Router } from "@angular/router";
     selector: "app-login",
     templateUrl: "./login.component.html"
 })
-export class LoginComponent implements OnInit{ 
-    constructor(private router:Router){}
-    
+
+export class LoginComponent implements OnInit {
+
+    memberLogin = true
+
+    constructor(private router: Router) { }
+
     ngOnInit(): void {
-        if(this.router.url=='/admin/login')
-        console.log(this.router.url);
+        if (this.router.url == "/admin/login")
+            this.memberLogin = false
     }
-    
 }

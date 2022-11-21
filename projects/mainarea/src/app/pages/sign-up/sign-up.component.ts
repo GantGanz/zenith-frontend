@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { MenuItem } from 'primeng/api';
 import { Subscription } from "rxjs";
 import { SignUpService } from "../../service/sign-up.service";

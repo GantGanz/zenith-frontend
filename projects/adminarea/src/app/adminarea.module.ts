@@ -3,8 +3,6 @@ import { ArticleModule } from "./pages/admin-article/article.module";
 import { IndustryModule } from "./pages/master-industry/industry.module";
 import { PositionModule } from "./pages/master-position/position.module";
 import { UserModule } from "./pages/master-user-admin/user.module";
-import { ReportIncomeComponent } from "./pages/member-report-income/report-income.component";
-import { ReportMemberComponent } from "./pages/member-report-info/report-member.component";
 import { ReportMemberModule } from "./pages/member-report-info/report-member.module";
 
 

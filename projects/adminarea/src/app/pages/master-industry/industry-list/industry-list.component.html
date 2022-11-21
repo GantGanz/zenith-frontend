@@ -22,7 +22,8 @@
                 <td>
                     <div class="flex flex-row">
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/industries/edit/:id"><i class="pi pi-file-edit"></i></button>
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i class="pi pi-trash"></i></button>
+                        <!-- <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog> -->
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" (click)="confirmPosition('top')"><i class="pi pi-trash"></i></button>
                     </div>
                 </td>
             </tr>

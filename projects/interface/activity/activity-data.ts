@@ -1,3 +1,5 @@
+import { AttachmentActivityData } from "../attachment-activity/attachment-activity-data"
+
 export interface ActivityData { 
 	 id: string 
 	 activityTitle: string 
@@ -10,6 +12,9 @@ export interface ActivityData {
 	 activityTypeName: string 
 	 creatorName: string 
 	 createdBy: string 
-	 isActive: boolean 
+	 createdAt: string
+	 updatedAt: string
+	 isActive: boolean
+	 attachmentActivityDatas: AttachmentActivityData[]
 } 
 

@@ -43,8 +43,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
         email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
         password: ['', [Validators.required]],
         company: ['', [Validators.required]],
-        industry: ['', [Validators.required]],
-        position: ['', [Validators.required]]
+        industryId: ['', [Validators.required]],
+        positionId: ['', [Validators.required]]
     })
 
     verificationCode: any = this.fb.group({
@@ -99,8 +99,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.stepsIndex += 1
         this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).subscribe(() => {
         })
-        console.log(this.registerForm.value)
-
     }
 
     clickVerify() {

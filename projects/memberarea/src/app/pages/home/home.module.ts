@@ -3,6 +3,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { HomeComponent } from "./home.component";
 import { HomeRouting } from "./home.routing";
+import { ButtonModule } from "primeng/button";
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -10,7 +12,11 @@ import { HomeRouting } from "./home.routing";
         HomeComponent
     ],
     imports: [
-        RouterModule, HomeRouting, CommonModule
+        RouterModule,
+        HomeRouting,
+        CommonModule,
+        ButtonModule,
+        InputTextModule
     ],
     exports: [
         HomeComponent

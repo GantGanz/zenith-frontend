@@ -8,7 +8,6 @@ import { PositionsRes } from "../../../../../interface/position/positions-res";
 import { PositionService } from "../../service/position.service";
 import { IndustriesRes } from "projects/interface/industry/industries-res";
 import { IndustryService } from "../../service/industry.service";
-import { ToastrService } from "ngx-toastr";
 
 
 @Component({
@@ -53,7 +52,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     constructor(private fb: FormBuilder, private signUpService: SignUpService,
         private userService: UserService, private positionService: PositionService,
-        private industryService: IndustryService, private toast: ToastrService) { }
+        private industryService: IndustryService) { }
 
     ngOnInit(): void {
 

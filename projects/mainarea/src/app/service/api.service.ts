@@ -30,18 +30,18 @@ export class ApiService{
         return result
     }
     
-    getPhoto(): number | null {
+    getPhoto(): string | null {
         const data = localStorage.getItem('data')
-        let result: null| number = 0
+        let result: null| string = ''
         if (data){
             result = JSON.parse(data).fileId
         }
         return result
     }
     
-    getId(): number {
+    getId(): string {
         const data = localStorage.getItem('data')
-        let result: number = 0
+        let result: string = ''
         if (data){
             result = JSON.parse(data).id
         }

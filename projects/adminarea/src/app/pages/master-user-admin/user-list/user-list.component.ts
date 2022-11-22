@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
 export class UserListComponent {
 
     first = 0;
-    rows = 10;
+    rows = 5;
 
     users: any = [
         {

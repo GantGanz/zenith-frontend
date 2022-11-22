@@ -9,6 +9,10 @@ body {
     background-color: #1089FF !important;
 }
 
+.btn-sec {
+    color: rgb(86, 86, 86) !important;
+}
+
 .custom-text {
     color: #1089FF;
 }
@@ -21,4 +25,14 @@ body {
 .profile-pic {
     width: 40px;
     border-radius: 50%;
+}
+
+.img-comment {
+    width: 35px;
+    border-radius: 50%;
+}
+
+.img-post {
+    width: 180px;
+    height: 120;
 }

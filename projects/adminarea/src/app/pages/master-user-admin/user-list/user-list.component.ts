@@ -13,9 +13,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
 
     usersRes!: UsersRes
-
-    rows = 10;
+    
     first = 0;
+    rows = 10;
 
     private usersSubscription?: Subscription
 

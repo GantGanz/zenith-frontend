@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
 body {
-    background-color: #F8F8F8;
+    background-color: #f2f2f2;
     font-family: 'Inter', sans-serif;
 }
 
 .custom-btn {
     background-color: #1089FF !important;
+}
+
+.btn-sec {
+    color: rgb(86, 86, 86) !important;
 }
 
 .custom-text {
@@ -21,4 +25,14 @@ body {
 .profile-pic {
     width: 40px;
     border-radius: 50%;
+}
+
+.img-comment {
+    width: 35px;
+    border-radius: 50%;
+}
+
+.img-post {
+    width: 180px;
+    height: 120;
 }

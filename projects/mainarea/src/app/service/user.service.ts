@@ -16,8 +16,8 @@ export class UserService {
         return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/users/register`, data)
     }
 
-    getAll(data: any): Observable<UsersRes> {
-        return this.http.get<UsersRes>(`${BASE_URL.LOCALHOST}/users?offset=${data.offset}&limit=100`)
+    getAll(): Observable<UsersRes> {
+        return this.http.get<UsersRes>(`${BASE_URL.LOCALHOST}/users`)
     }
 
     insert(data: any): Observable<InsertRes>{

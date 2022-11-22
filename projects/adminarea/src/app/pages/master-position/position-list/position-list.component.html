@@ -2,7 +2,7 @@
 <div class="container">
     <h2 class="my-4">List Of Positions</h2>
     <div class="my-3">
-        <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition" routerLink="/positions/new"><i class="pi pi-plus" style="font-size: 12px"></i>New</button>
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition" routerLink="/positions/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
     </div>
 
     <p-table [value]="positions" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
@@ -21,7 +21,7 @@
                 <td>{{position.name}}</td>
 
                 <td style="text-align: center ;">
-                    <div class="text-align-center">
+                    <div>
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/positions/edit/:id"><i class="pi pi-file-edit"></i></button>
                         <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i class="pi pi-trash"></i></button>
                     </div>

@@ -2,10 +2,10 @@
 <div class="container">
     <h2 class="my-4">List Of Users</h2>
     <div class="my-3">
-        <button pButton class="p-button-sm btn-custom" type="button" id="insertUser" name="insertUser" routerLink="/users/new"><i class="pi pi-plus" style="font-size: 12px"></i>New</button>
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertUser" name="insertUser" routerLink="/users/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
     </div>
 
-    <p-table [value]="users" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <p-table [value]="usersRes.data" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both">
         <ng-template pTemplate="header">
             <tr>
                 <th>No</th>
@@ -22,16 +22,16 @@
         <ng-template pTemplate="body" let-user let-i="rowIndex">
             <tr>
                 <td>{{i+1}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.company}}</td>
-                <td>{{user.industry}}</td>
-                <td>{{user.position}}</td>
-                <td>{{user.role}}</td>
-                <td><img class="photoProfile profile-pic" src="{{fileLink}}{{user.file}}" alt="user pic"></td>
+                <td>{{usersRes.data[i].fullname}}</td>
+                <td>{{usersRes.data[i].email}}</td>
+                <td>{{usersRes.data[i].company}}</td>
+                <td>{{usersRes.data[i].industryName}}</td>
+                <td>{{usersRes.data[i].positionName}}</td>
+                <td>{{usersRes.data[i].roleName}}</td>
+                <td><img class="photoProfile profile-pic" src="{{fileLink}}{{usersRes.data[i].fileId}}" alt="user pic"></td>
                 <td>
                     <div class="flex flex-row">
-                        <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/users/edit/:id"><i class="pi pi-file-edit"></i></button>
+                        <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/users/edit/{{usersRes.data[i].id}}"><i class="pi pi-file-edit"></i></button>
                         <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i class="pi pi-trash"></i></button>
                     </div>
                 </td>

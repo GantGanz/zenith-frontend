@@ -5,6 +5,9 @@ export interface PaymentActivityData {
 	 fileId: string 
 	 userId: string 
 	 activityId: string 
+	 activityTitle: string
 	 createdAt: string 
+	 updatedAt: string
+	 version: number
 } 
 

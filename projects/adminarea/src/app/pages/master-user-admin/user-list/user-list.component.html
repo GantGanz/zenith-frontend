@@ -19,16 +19,16 @@
                 <th>Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-user>
+        <ng-template pTemplate="body" let-user let-i="rowIndex">
             <tr>
-                <td>{{user.no}}</td>
-                <td>{{user.fullName}}</td>
+                <td>{{i+1}}</td>
+                <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.company}}</td>
                 <td>{{user.industry}}</td>
                 <td>{{user.position}}</td>
                 <td>{{user.role}}</td>
-                <td><img class="photoProfile" [src]="user.profilePic" alt="user pic"></td>
+                <td><img class="photoProfile profile-pic" src="{{fileLink}}{{user.file}}" alt="user pic"></td>
                 <td>
                     <div class="flex flex-row">
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/users/edit/:id"><i class="pi pi-file-edit"></i></button>

@@ -14,7 +14,6 @@ export class UserListComponent implements OnInit, OnDestroy{
 
     usersRes!: UsersRes
     
-    first = 0;
     rows = 10;
     
     users: any[] = []

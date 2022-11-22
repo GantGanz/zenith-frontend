@@ -32,4 +32,16 @@ export class UserService {
     update(data: any):Observable<UpdateRes>{
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users`,data)
     }
+
+    countMember():Observable<number>{
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-member`)
+    }
+
+    countAdmin():Observable<number>{
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-admin`)
+    }
+
+    countPremium():Observable<number>{
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-premium`)
+    }
 }

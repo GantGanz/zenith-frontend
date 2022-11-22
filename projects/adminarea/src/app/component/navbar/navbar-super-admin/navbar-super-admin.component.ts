@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
 
@@ -6,8 +7,8 @@ import { ApiService } from "projects/mainarea/src/app/service/api.service";
     selector: "navbar-super-admin",
     templateUrl: "./navbar-super-admin.component.html",
 })
-export class NavbarSuperAdminComponent implements OnInit, OnDestroy {
-    constructor(private apiService: ApiService) { }
+export class NavbarSuperAdminComponent implements OnInit {
+    constructor(private apiService: ApiService, private router:Router) { }
     
     fileLink=BASE_URL.FILE
     fileId: string | null = ''
@@ -15,6 +16,9 @@ export class NavbarSuperAdminComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.fileId = this.apiService.getPhoto()
     }
-    ngOnDestroy(): void {
+    
+    logout(){
+        this.apiService.logout()
+        this.router.navigateByUrl('/admin/login')
     }
 }

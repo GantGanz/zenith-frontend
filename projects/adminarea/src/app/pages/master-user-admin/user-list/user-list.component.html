@@ -16,6 +16,7 @@
                 <th>Position</th>
                 <th>Role</th>
                 <th>Profile Picture</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </ng-template>
@@ -29,6 +30,12 @@
                 <td>{{usersRes.data[i].positionName}}</td>
                 <td>{{usersRes.data[i].roleName}}</td>
                 <td><img class="photoProfile profile-pic" src="{{fileLink}}{{usersRes.data[i].fileId}}" alt="user pic"></td>
+                <div *ngIf="usersRes.data[i].isActive; else elseBlock">
+                    <td class="flex justify-content-center align-content-center"><i class="pi pi-check-circle text-primary"></i></td>
+                </div>
+                <ng-template #elseBlock>
+                    <td class="flex justify-content-center align-content-center"><i class="pi pi-times text-danger"></i></td>
+                </ng-template>
                 <td>
                     <div class="flex flex-row">
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/users/edit/{{usersRes.data[i].id}}"><i class="pi pi-file-edit"></i></button>

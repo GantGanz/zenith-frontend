@@ -66,8 +66,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
             this.positionsRes = result
             for (let i = 0; i < this.positionsRes.data.length; i++) {
                 this.positions.push({
-                    name: this.positionsRes.data[i].industryName,
-                    code: this.positionsRes.data[i].industryCode,
+                    name: this.positionsRes.data[i].positionName,
+                    code: this.positionsRes.data[i].positionCode,
                     id: this.positionsRes.data[i].id
                 })
             }

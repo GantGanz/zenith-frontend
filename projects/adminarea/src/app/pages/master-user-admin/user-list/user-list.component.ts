@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { UsersRes } from "projects/interface/user/users-res";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -18,12 +19,19 @@ export class UserListComponent implements OnInit, OnDestroy{
     
     users: any[] = []
 
+    pagination ={
+        limit:0,
+        offset:0
+    }
+
     private usersSubscription?: Subscription
 
     constructor(private userService: UserService){}
   
     ngOnInit(): void {
-        this.usersSubscription = this.userService.getAll().subscribe(result=>{
+        this.pagination.limit = this.rows
+        this.pagination.offset = this.first
+        this.usersSubscription = this.userService.getAll(this.pagination).subscribe(result=>{
             this.usersRes = result
             for(let i=0;i<this.usersRes.data.length;i++){
                 this.users.push({
@@ -38,26 +46,6 @@ export class UserListComponent implements OnInit, OnDestroy{
                 })
             }
         })
-    }
-
-    next() {
-        this.first = this.first + this.rows;
-    }
-
-    prev() {
-        this.first = this.first - this.rows;
-    }
-
-    reset() {
-        this.first = 0;
-    }
-
-    isLastPage(): boolean {
-        return this.users ? this.first === (this.users.length - this.rows) : true;
-    }
-
-    isFirstPage(): boolean {
-        return this.users ? this.first === 0 : true;
     }
 
     ngOnDestroy(): void {

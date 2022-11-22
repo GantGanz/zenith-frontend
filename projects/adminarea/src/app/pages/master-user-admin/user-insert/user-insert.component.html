@@ -3,33 +3,33 @@
     <div class="card bg-white col-12 lg:col-8 lg:col-offset-2 md:col-10 md:col-offset-1 mt-5">
         <h3 class="text-center text-3xl mt-4">Insert User Admin</h3>
 
-        <form class="formgrid grid mx-4 md:mx-6 my-5">
+        <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="userInsertForm" (ngSubmit)="clickInsert()">
             <div class="field col-12 md:col-6">
                 <label for="fullName">Full Name<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="fullName" name="fullName" required>
+                <input pInputText class="w-full" type="text" id="fullName" name="fullName" formControlName="fullname" required>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="email">Email<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="email" id="email" name="email" required>
+                <input pInputText class="w-full" type="email" id="email" name="email" formControlName="email" required>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="company">Company<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="company" name="company" required>
+                <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" required>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" name="industryName"
-                    id="industryName" placeholder="Select an Industry">
+                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
+                    id="industryName" placeholder="Select an Industry" formControlName="industryId">
                 </p-dropdown>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="positionName">Position<span class="text-red-500">*</span></label>
-                <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="name" name="positionName"
-                    id="positionName" placeholder="Select Position">
+                <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="name" optionValue="id" name="positionName"
+                    id="positionName" placeholder="Select Position" formControlName="positionId">
                 </p-dropdown>
             </div>
             <div class="field col-12 flex flex-row gap-2 mt-2">
-                <button pButton class="p-button-outlined" type="button" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
+                <button pButton class="p-button-outlined" type="submit" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
                 <button pButton type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
             </div>
         </form>

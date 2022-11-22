@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { UsersRes } from "projects/interface/user/users-res";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -13,18 +14,36 @@ export class UserListComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
 
     usersRes!: UsersRes
+<<<<<<< HEAD
 
     first = 0;
+=======
+    
+>>>>>>> 8ead08d6c7597711791d306a9f48144b2f037c34
     rows = 10;
 
     users: any[] = []
+<<<<<<< HEAD
+=======
+
+    pagination ={
+        limit:0,
+        offset:0
+    }
+>>>>>>> 8ead08d6c7597711791d306a9f48144b2f037c34
 
     private usersSubscription?: Subscription
 
     constructor(private userService: UserService) { }
 
     ngOnInit(): void {
+<<<<<<< HEAD
         this.usersSubscription = this.userService.getAll().subscribe(result => {
+=======
+        this.pagination.limit = this.rows
+        this.pagination.offset = this.first
+        this.usersSubscription = this.userService.getAll(this.pagination).subscribe(result=>{
+>>>>>>> 8ead08d6c7597711791d306a9f48144b2f037c34
             this.usersRes = result
             for (let i = 0; i < this.usersRes.data.length; i++) {
                 this.users.push({
@@ -39,26 +58,6 @@ export class UserListComponent implements OnInit, OnDestroy {
                 })
             }
         })
-    }
-
-    next() {
-        this.first = this.first + this.rows;
-    }
-
-    prev() {
-        this.first = this.first - this.rows;
-    }
-
-    reset() {
-        this.first = 0;
-    }
-
-    isLastPage(): boolean {
-        return this.users ? this.first === (this.users.length - this.rows) : true;
-    }
-
-    isFirstPage(): boolean {
-        return this.users ? this.first === 0 : true;
     }
 
     ngOnDestroy(): void {

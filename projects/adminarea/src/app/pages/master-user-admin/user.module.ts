@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FileUploadModule } from 'primeng/fileupload'
 import { InputTextModule } from 'primeng/inputtext'
 import { DropdownModule } from 'primeng/dropdown';
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 
@@ -26,7 +27,8 @@ import { DropdownModule } from 'primeng/dropdown';
         TooltipModule,
         FileUploadModule,
         InputTextModule,
-        DropdownModule
+        DropdownModule,
+        ReactiveFormsModule
     ],
     exports: [
         UserListComponent, UserInsertComponent, UserUpdateComponent

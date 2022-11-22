@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ConfirmationService, PrimeNGConfig } from "primeng/api";
-import { UsersRes } from "projects/interface/user/users-res";
-import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
-import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core"
+import { ConfirmationService, PrimeNGConfig } from "primeng/api"
+import { UsersRes } from "projects/interface/user/users-res"
+import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
+import { UserService } from "projects/mainarea/src/app/service/user.service"
+import { Subscription } from "rxjs"
 
 @Component({
     selector: "user-list",
@@ -17,8 +17,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     usersRes!: UsersRes
 
-    first = 0;
-    rows = 10;
+    first = 0
+    rows = 10
 
     private usersSubscription?: Subscription
 

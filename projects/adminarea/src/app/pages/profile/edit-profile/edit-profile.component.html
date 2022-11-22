@@ -1,0 +1,45 @@
+
+<div class="container">
+    <div class="card flex align-items-center border-none border-round-2xl p-5 mt-4">
+        <div class="text-center mt-2">
+            <h3 class="text-3xl">Edit Profile</h3>
+        </div>
+        <div class="mt-4">
+           <img src="../../../../assets/images/profile_admin.png" class="w-7rem border-circle mb-3" alt="profile pic super-admin">
+        </div>
+        <p-fileUpload #fubauto mode="basic" url="./upload.php" accept="image/*" [auto]="true" chooseLabel="Upload New Picture"></p-fileUpload>
+
+        <div class="flex mt-2">
+            <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="userUpdateForm" (ngSubmit)="clickUpdate()">
+                <div class="field col-12 md:col-6">
+                    <label for="fullName">Full Name<span class="text-red-500">*</span></label>
+                    <input pInputText class="w-full" type="text" id="fullName" name="fullName" formControlName="fullname" required>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="email">Email</label>
+                    <input pInputText class="w-full" type="email" id="email" name="email" value={{userUpdateForm.value.email}} disabled>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="company">Company<span class="text-red-500">*</span></label>
+                    <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" required>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="industryName">Industry<span class="text-red-500">*</span></label>
+                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
+                        id="industryName" placeholder="Select an Industry" formControlName="industryId">
+                    </p-dropdown>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="positionName">Position<span class="text-red-500">*</span></label>
+                    <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="name" optionValue="id" name="positionName"
+                        id="positionName" placeholder="Select Position" formControlName="positionId">
+                    </p-dropdown>
+                </div>
+                <div class="field col-12 flex flex-row gap-2 mt-2">
+                    <button pButton class="p-button-outlined" type="button" id="btnBackToProfile" name="btnBackToProfile" routerLink="/super-admin/profiles/view">Back</button>
+                    <button pButton type="submit" id="btnSaveChange" name="btnSaveChange">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

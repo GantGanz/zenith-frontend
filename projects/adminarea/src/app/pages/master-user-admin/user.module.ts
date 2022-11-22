@@ -13,6 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from "@angular/common";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -33,7 +34,8 @@ import { CommonModule } from "@angular/common";
         ReactiveFormsModule,
         CheckboxModule,
         FormsModule,
-        CommonModule
+        CommonModule,
+        ConfirmDialogModule
     ],
     exports: [
         UserListComponent, UserInsertComponent, UserUpdateComponent

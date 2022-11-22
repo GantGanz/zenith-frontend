@@ -11,8 +11,11 @@ export class HomeComponent {
     bookmark = true
     likeFill = false
     bookmarkFill = false
-    viewcomment = false
+    allComment = false
     commentPost = false
+    viewComment = true
+    hideComment = false
+
 
     clickLike() {
         this.like = false
@@ -30,8 +33,17 @@ export class HomeComponent {
         this.like = true
         this.likeFill = false
     }
+
     clickMoreComment() {
-        this.viewcomment = true
+        this.allComment = true
+        this.viewComment = false
+        this.hideComment = true
+    }
+
+    clickCloseComment() {
+        this.allComment = false
+        this.viewComment = true
+        this.hideComment = false
     }
 
     clickCommentPost() {

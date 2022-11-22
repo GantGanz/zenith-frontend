@@ -8,40 +8,44 @@
     <p-table [value]="usersRes.data" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 5%">No</th>
+                <th style="width: 5%; text-align: center">No</th>
                 <th style="width: 15%">Full Name</th>
                 <th style="width: 15%">Email</th>
                 <th style="width: 10%">Company</th>
                 <th style="width: 10%">Industry</th>
                 <th style="width: 10%">Position</th>
                 <th style="width: 10%">Role</th>
-                <th style="width: 10%">Profile Picture</th>
-                <th style="width: 10%">status</th>
-                <th style="width: 10%">Action</th>
+                <th style="width: 10%; text-align: center;">Profile Picture</th>
+                <th style="width: 10%; text-align: center;">Status</th>
+                <th style="width: 10%; text-align: center;">Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user let-i="rowIndex">
             <tr>
-                <td>{{i+1}}</td>
+                <td style="text-align: center ;">{{i+1}}</td>
                 <td>{{usersRes.data[i].fullname}}</td>
                 <td>{{usersRes.data[i].email}}</td>
                 <td>{{usersRes.data[i].company}}</td>
                 <td>{{usersRes.data[i].industryName}}</td>
                 <td>{{usersRes.data[i].positionName}}</td>
                 <td>{{usersRes.data[i].roleName}}</td>
-                <td><img class="photoProfile profile-pic" src="{{fileLink}}{{usersRes.data[i].fileId}}" alt="user pic"></td>
-                <div *ngIf="usersRes.data[i].isActive; else elseBlock">
-                    <td class="flex justify-content-center align-content-center"><i class="pi pi-check-circle text-primary"></i></td>
-                </div>
-                <ng-template #elseBlock>
-                    <td class="flex justify-content-center align-content-center"><i class="pi pi-times text-danger"></i></td>
-                </ng-template>
+                <td style="text-align: center ;"><img class="photoProfile profile-pic" src="{{fileLink}}{{usersRes.data[i].fileId}}" alt="user pic"></td>
+                <td style="text-align: center ;">
+                    <div *ngIf="usersRes.data[i].isActive; else elseBlock">
+                        <i class="pi pi-check-circle text-green-500"></i>
+                    </div>
+                    <ng-template #elseBlock>
+                        <i class="pi pi-times text-danger"></i>
+                    </ng-template>
+                </td>
+                
                 <td>
                     <div class="flex flex-row">
+                        <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"></p-confirmDialog>
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/users/edit/{{usersRes.data[i].id}}"><i class="pi pi-file-edit"></i></button>
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i class="pi pi-trash"></i></button>
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" (click)="clickConfirmDelete('top')"><i class="pi pi-trash"></i></button>
                     </div>
-                </td>
+                </td> 
             </tr>
         </ng-template>
     </p-table> 

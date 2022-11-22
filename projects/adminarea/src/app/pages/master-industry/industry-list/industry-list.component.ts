@@ -13,10 +13,10 @@ export class IndustryListComponent implements OnInit {
     position!: string;
     msgs: Message[] = [];
 
-    constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig) { }
+    // constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig) { }
 
     ngOnInit(): void {
-        this.primeNgConfig.ripple = true;
+        // this.primeNgConfig.ripple = true;
     }
 
     industries: any = [
@@ -27,21 +27,21 @@ export class IndustryListComponent implements OnInit {
         }
     ]
 
-    confirmPosition(position: string) {
-        this.position = position
-        this.confirmationService.confirm({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
-            icon: 'pi pi-info-circle',
-            accept: () => {
-                this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
-            },
-            reject: () => {
-                this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
-            },
-            key: "positionDialog"
-        });
-    }
+    // confirmPosition(position: string) {
+    //     this.position = position
+    //     this.confirmationService.confirm({
+    //         message: 'Do you want to delete this record?',
+    //         header: 'Delete Confirmation',
+    //         icon: 'pi pi-info-circle',
+    //         accept: () => {
+    //             this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
+    //         },
+    //         reject: () => {
+    //             this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
+    //         },
+    //         key: "positionDialog"
+    //     });
+    // }
 
 
     next() {

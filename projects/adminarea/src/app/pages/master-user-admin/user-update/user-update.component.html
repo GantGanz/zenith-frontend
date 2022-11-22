@@ -28,9 +28,9 @@
                     id="positionName" placeholder="Select Position" formControlName="positionId">
                 </p-dropdown>
             </div>
-            <div class="field col-12 md:col-6">
-                <label for="binary">Active<span class="text-red-500">*</span></label>
+            <div class="field-checkbox col-12 md:col-6">
                 <p-checkbox formControlName="isActive" [binary]="true" inputId="binary"></p-checkbox>
+                <label for="binary">Active</label>
             </div>
             <div class="field col-12 flex flex-row gap-2 mt-2">
                 <button pButton class="p-button-outlined" type="button" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>

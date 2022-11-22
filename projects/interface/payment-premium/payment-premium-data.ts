@@ -5,5 +5,7 @@ export interface PaymentPremiumData {
 	 fileId: string 
 	 userId: string 
 	 createdAt: string 
+	 updatedAt: string
+	 version: number
 } 
 

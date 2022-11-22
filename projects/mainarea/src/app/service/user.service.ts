@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { InsertRes } from "projects/interface/insert-res";
+import { UpdateRes } from "projects/interface/update-res";
 import { UserRes } from "projects/interface/user/user-res";
 import { UsersRes } from "projects/interface/user/users-res";
 import { Observable } from "rxjs";
@@ -26,5 +27,9 @@ export class UserService {
 
     getById(id: string): Observable<UserRes>{
         return this.http.get<UserRes>(`${BASE_URL.LOCALHOST}/users/${id}`)
+    }
+
+    update(data: any):Observable<UpdateRes>{
+        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users`,data)
     }
 }

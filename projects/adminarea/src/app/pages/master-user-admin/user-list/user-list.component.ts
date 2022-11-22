@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
 
     usersRes!: UsersRes
-
+    
     first = 0;
     rows = 10;
 

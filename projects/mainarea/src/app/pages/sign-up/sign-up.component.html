@@ -30,8 +30,8 @@
                 
                 <div class="field mt-4">
                     <label for="password">Password<span class="text-red-500">*</span></label>
-                    <input pInputText id="password" name="password" type="password" class="w-full p-inputtext-sm"
-                        formControlName="password" required>
+                    <p-password id="password" name="password" type="password" styleClass="w-full" [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true"
+                        formControlName="password" required></p-password>
                     <small
                         *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
                         class="p-error">Please enter your password</small>

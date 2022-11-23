@@ -15,5 +15,9 @@ export const memberAreaRoutes: Routes = [
         path: "events",
         component: ContentComponent,
         loadChildren: () => import("./pages/member-event/event.module").then(ev => ev.EventModule)
+    },
+    {
+        path: "premium",
+        loadChildren: () => import("./pages/premium/premium.module").then(p => p.PremiumModule)
     }
 ]

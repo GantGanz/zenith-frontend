@@ -42,7 +42,6 @@ import { ConfirmationService } from 'primeng/api';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     PasswordModule
-    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: FilterTokenInterceptor, multi: true },

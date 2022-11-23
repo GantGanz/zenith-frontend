@@ -33,24 +33,24 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     submit() {
-        this.loginSubscription = this.loginService.login(this.loginForm.value).subscribe(result=>{
-            if(this.memberLogin){
+        this.loginSubscription = this.loginService.login(this.loginForm.value).subscribe(result => {
+            if (this.memberLogin) {
                 console.log('test');
-                
-                if(result.roleCode==ROLECODE.MEMBER){
+
+                if (result.roleCode == ROLECODE.MEMBER) {
                     this.apiService.saveData(result)
                     this.router.navigateByUrl("/feed")
-                }else{
+                } else {
                     this.toast.error("Wrong username or password", "Information")
                 }
-            }else{
-                if(result.roleCode==ROLECODE.SUPERADMIN){
+            } else {
+                if (result.roleCode == ROLECODE.SUPERADMIN) {
                     this.apiService.saveData(result)
                     this.router.navigateByUrl("/dashboard/super-admin")
-                }else if(result.roleCode==ROLECODE.ADMIN){
+                } else if (result.roleCode == ROLECODE.ADMIN) {
                     this.apiService.saveData(result)
                     this.router.navigateByUrl("/dashboard/admin")
-                }else{
+                } else {
                     this.toast.error("Wrong username or password", "Information")
                 }
             }

@@ -22,7 +22,7 @@ const routes: Routes = [
                 component: ChangePasswordComponent,
             },
             {
-                path: "edit",
+                path: "edit/:id",
                 component: EditProfileComponent
             }
         ]
@@ -41,7 +41,7 @@ const routes: Routes = [
                 component: ChangePasswordComponent,
             },
             {
-                path: "edit",
+                path: "edit/:id",
                 component: EditProfileComponent
             }
         ]

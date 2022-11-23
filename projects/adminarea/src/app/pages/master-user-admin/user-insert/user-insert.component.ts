@@ -17,8 +17,6 @@ export class UserInsertComponent implements OnInit, OnDestroy {
         fullname: ['' || null, [Validators.required, Validators.maxLength(50)]],
         email: ['' || null, [Validators.email, Validators.required, Validators.maxLength(50)]],
         company: ['' || null, [Validators.required]],
-        positionId: ['' || null, [Validators.required]],
-        industryId: ['' || null, [Validators.required]],
     })
 
     industries: any = []

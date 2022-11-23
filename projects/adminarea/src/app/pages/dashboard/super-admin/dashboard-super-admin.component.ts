@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { Subscription } from "rxjs";
 
@@ -14,8 +15,10 @@ export class DashboardSuperAdminComponent implements OnInit, OnDestroy {
     private memberSubscription?: Subscription
     private adminSubscription?: Subscription
     private premiumSubscription?: Subscription
+    
+    myName!: string
 
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService, private apiService :ApiService) { }
 
     ngOnInit(): void {
         this.memberSubscription = this.userService.countMember().subscribe(result=>{
@@ -27,6 +30,7 @@ export class DashboardSuperAdminComponent implements OnInit, OnDestroy {
         this.premiumSubscription = this.userService.countPremium().subscribe(result=>{
             this.totalPremium = result
         })
+        this.myName = this.apiService.getFullName()!
     }
     
     ngOnDestroy(): void {

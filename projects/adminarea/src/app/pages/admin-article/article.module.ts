@@ -10,7 +10,9 @@ import { ArticleInsertComponent } from "./article-insert/article-insert.componen
 import { ArticleUpdateComponent } from "./article-update/article-update.component";
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload'
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from "@angular/common";
 
 
 @NgModule({
@@ -18,14 +20,15 @@ import { FileUploadModule } from 'primeng/fileupload'
         ArticleListComponent, ArticleInsertComponent, ArticleUpdateComponent
     ],
     imports: [
-        RouterModule,
-        ArticleRouting,
+        RouterModule, CommonModule, ArticleRouting,
         TooltipModule,
         InputTextModule,
         TableModule,
         ButtonModule,
         InputTextareaModule,
-        FileUploadModule
+        FileUploadModule,
+        ConfirmDialogModule,
+        HttpClientModule
     ],
     exports: [
         ArticleListComponent, ArticleInsertComponent, ArticleUpdateComponent

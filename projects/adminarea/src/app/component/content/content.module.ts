@@ -15,4 +15,5 @@ import { SuperAdminContentComponent } from "./super admin/super-admin.content.co
         AdminContentComponent, SuperAdminContentComponent
     ]
 })
+
 export class ContentAdminModule { }

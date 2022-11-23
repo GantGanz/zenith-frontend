@@ -3,7 +3,7 @@ import { ArticleModule } from "./pages/admin-article/article.module"
 import { IndustryModule } from "./pages/master-industry/industry.module"
 import { PositionModule } from "./pages/master-position/position.module"
 import { UserModule } from "./pages/master-user-admin/user.module"
-import { ReportMemberModule } from "./pages/member-report-info/report-member.module"
+import { ReportModule } from "./pages/report/report.module"
 import { ProfileModule } from "./pages/profile/profile.module"
 
 
@@ -12,7 +12,7 @@ import { ProfileModule } from "./pages/profile/profile.module"
         UserModule,
         PositionModule,
         IndustryModule,
-        ReportMemberModule,
+        ReportModule,
         ArticleModule,
         ProfileModule
     ],
@@ -20,7 +20,7 @@ import { ProfileModule } from "./pages/profile/profile.module"
         UserModule,
         PositionModule,
         IndustryModule,
-        ReportMemberModule,
+        ReportModule,
         ArticleModule,
         ProfileModule
     ]

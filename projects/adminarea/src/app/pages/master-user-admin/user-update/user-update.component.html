@@ -2,7 +2,6 @@
 <div class="container">
     <div class="card bg-white col-12 lg:col-8 lg:col-offset-2 md:col-10 md:col-offset-1 mt-5">
         <h3 class="text-center text-3xl mt-4">Update User Admin</h3>
-
         <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="userUpdateForm" (ngSubmit)="clickUpdate()">
             <div class="field col-12 md:col-6">
                 <label for="fullName">Full Name<span class="text-red-500">*</span></label>
@@ -19,13 +18,13 @@
             <div class="field col-12 md:col-6">
                 <label for="industryName">Industry<span class="text-red-500">*</span></label>
                 <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
-                    id="industryName" placeholder="Select an Industry" formControlName="industryId">
+                    id="industryName" placeholder="Select an Industry" formControlName="industryId" [disabled]="disable">
                 </p-dropdown>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="positionName">Position<span class="text-red-500">*</span></label>
                 <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="name" optionValue="id" name="positionName"
-                    id="positionName" placeholder="Select Position" formControlName="positionId">
+                    id="positionName" placeholder="Select Position" formControlName="positionId" [disabled]="disable">
                 </p-dropdown>
             </div>
             <div class="field-checkbox col-12 md:col-6">

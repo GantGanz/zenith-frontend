@@ -1,6 +1,9 @@
 import { Component } from "@angular/core"
 import { Validators, FormBuilder } from "@angular/forms"
 import { ActivatedRoute } from "@angular/router"
+import { UserRes } from "projects/interface/user/user-res"
+import { UsersRes } from "projects/interface/user/users-res"
+import { ROLECODE, ROLENAME } from "projects/mainarea/src/app/constant/role"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
@@ -26,6 +29,10 @@ export class UserUpdateComponent {
     positions: any[] = []
     industries: any[] = []
 
+    memberRole = ROLENAME.MEMBER
+
+    disable = false
+
     private industrySubscription?: Subscription
     private userSubscription?: Subscription
     private positionSubscription?: Subscription
@@ -48,7 +55,12 @@ export class UserUpdateComponent {
                 this.userUpdateForm.controls['industryId'].setValue(result.data.industryId)
                 this.userUpdateForm.controls['isActive'].setValue(result.data.isActive)
                 this.userUpdateForm.controls['version'].setValue(result.data.version)
-
+                
+                if(this.memberRole == result.data.roleName){
+                    this.disable = false
+                }else{
+                    this.disable = true
+                }
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
                 for (let i = 0; i < result.data.length; i++) {

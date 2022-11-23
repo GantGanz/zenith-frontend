@@ -6,19 +6,19 @@ import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.url";
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
-export class IndustryService{
-    constructor(private http:HttpClient){}
+export class IndustryService {
+    constructor(private http: HttpClient) { }
 
-    getAll():Observable<IndustriesRes>{
+    getAll(): Observable<IndustriesRes> {
         return this.http.get<IndustriesRes>(`${BASE_URL.LOCALHOST}/industries/active`)
     }
-    getAllLimit(offset: number, limit:number):Observable<IndustriesRes>{
+    getAllLimit(offset: number, limit: number): Observable<IndustriesRes> {
         return this.http.get<IndustriesRes>(`${BASE_URL.LOCALHOST}/industries?offset=${offset}&limit=${limit}`)
     }
 
-    insert(data :any): Observable<InsertRes>{
-        return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/industries`,data)
+    insert(data: any): Observable<InsertRes> {
+        return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/industries`, data)
     }
 }

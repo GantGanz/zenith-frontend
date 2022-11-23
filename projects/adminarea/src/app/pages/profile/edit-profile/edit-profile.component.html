@@ -36,7 +36,9 @@
                     </p-dropdown>
                 </div>
                 <div class="field col-12 flex flex-row gap-2 mt-2">
-                    <button pButton class="p-button-outlined" type="button" id="btnBackToProfile" name="btnBackToProfile" routerLink="/super-admin/profiles/view">Back</button>
+                    <button pButton class="p-button-outlined" type="button" id="btnBackToProfileSuperAdmin" name="btnBackToProfileSuperAdmin" *ngIf="backToSuperAdminProfile" routerLink="/super-admin/profiles/view">Back</button>
+                    <button pButton class="p-button-outlined" type="button" id="btnBackToProfileAdmin" name="btnBackToProfileAdmin" *ngIf="backToAdminProfile" routerLink="/admin/profiles/view">Back</button>
+
                     <button pButton type="submit" id="btnSaveChange" name="btnSaveChange">Submit</button>
                 </div>
             </form>

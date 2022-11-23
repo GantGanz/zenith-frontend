@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { UserRes } from "projects/interface/user/user-res";
-import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
-import { PositionService } from "projects/mainarea/src/app/service/position.service";
-import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core"
+import { FormBuilder, Validators } from "@angular/forms"
+import { Router } from "@angular/router"
+import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
+import { PositionService } from "projects/mainarea/src/app/service/position.service"
+import { UserService } from "projects/mainarea/src/app/service/user.service"
+import { Subscription } from "rxjs"
 
 @Component({
     selector: "user-insert",
@@ -30,7 +29,7 @@ export class UserInsertComponent implements OnInit, OnDestroy {
     private positionSubscription?: Subscription
 
     constructor(private industryService: IndustryService, private positionService: PositionService,
-        private userService: UserService, private fb: FormBuilder, private router:Router) { }
+        private userService: UserService, private fb: FormBuilder, private router: Router) { }
 
     ngOnInit(): void {
         this.industrySubscription = this.industryService.getAll().subscribe(industry => {
@@ -42,8 +41,8 @@ export class UserInsertComponent implements OnInit, OnDestroy {
                 })
             }
         })
-        this.positionSubscription = this.positionService.getAll().subscribe(result=>{
-            for(let i=0;i<result.data.length;i++){
+        this.positionSubscription = this.positionService.getAll().subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
                 this.positions.push({
                     name: result.data[i].positionName,
                     code: result.data[i].positionCode,
@@ -53,10 +52,10 @@ export class UserInsertComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickInsert(){
+    clickInsert() {
         console.log(this.userInsertForm.value);
-        
-        this.userInsertSubscription = this.userService.insert(this.userInsertForm.value).subscribe(()=>{
+
+        this.userInsertSubscription = this.userService.insert(this.userInsertForm.value).subscribe(() => {
             this.router.navigateByUrl('/users/list')
         })
     }

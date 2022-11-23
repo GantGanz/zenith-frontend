@@ -16,8 +16,6 @@ import { CommonModule } from "@angular/common";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
-
-
 @NgModule({
     declarations: [
         UserListComponent, UserInsertComponent, UserUpdateComponent

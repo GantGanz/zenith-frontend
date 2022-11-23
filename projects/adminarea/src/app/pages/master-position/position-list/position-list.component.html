@@ -16,11 +16,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-position>
             <tr>
-                <td style="text-align: center ;">{{position.no}}</td>
+                <td style="text-align: center ">{{position.no}}</td>
                 <td>{{position.code}}</td>
                 <td>{{position.name}}</td>
 
-                <td style="text-align: center ;">
+                <td style="text-align: center ">
                     <div>
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/positions/edit/:id"><i class="pi pi-file-edit"></i></button>
                         <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i class="pi pi-trash"></i></button>

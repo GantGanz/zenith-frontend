@@ -1,5 +1,5 @@
 import { Component } from "@angular/core"
-import { Validators, FormBuilder } from "@angular/forms"
+import { FormBuilder, Validators } from "@angular/forms"
 import { ActivatedRoute } from "@angular/router"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
@@ -7,11 +7,10 @@ import { UserService } from "projects/mainarea/src/app/service/user.service"
 import { Subscription } from "rxjs"
 
 @Component({
-    selector: "user-update",
-    templateUrl: "./user-update.component.html"
+    selector: "edit-profile",
+    templateUrl: "edit-profile.component.html"
 })
-export class UserUpdateComponent {
-
+export class EditProfileComponent {
     userUpdateForm = this.fb.group({
         id: ['', [Validators.required]],
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
@@ -46,8 +45,8 @@ export class UserUpdateComponent {
                 this.userUpdateForm.controls['company'].setValue(result.data.company)
                 this.userUpdateForm.controls['positionId'].setValue(result.data.positionId)
                 this.userUpdateForm.controls['industryId'].setValue(result.data.industryId)
-                this.userUpdateForm.controls['isActive'].setValue(result.data.isActive)
                 this.userUpdateForm.controls['version'].setValue(result.data.version)
+                console.log(this.userUpdateForm.value)
 
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {

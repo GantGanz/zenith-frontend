@@ -40,7 +40,6 @@
                 </td>
                 <td>
                     <div class="flex flex-row">
-                        <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"></p-confirmDialog>
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/users/edit/{{usersRes.data[i].id}}"><i class="pi pi-file-edit"></i></button>
                         <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" (click)="clickConfirmDelete('top',user.id)"><i class="pi pi-trash"></i></button>
                     </div>
@@ -49,3 +48,4 @@
         </ng-template>
     </p-table> 
 </div>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"></p-confirmDialog>

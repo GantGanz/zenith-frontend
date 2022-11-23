@@ -31,7 +31,12 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
-        this.init()
+        this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
+            this.usersRes = result
+        })
+        this.countSubscription = this.userService.countUser().subscribe(result => {
+            this.totalUsers = result
+        })
     }
     
     clickConfirmDelete(position: string, id: string) {
@@ -44,21 +49,14 @@ export class UserListComponent implements OnInit, OnDestroy {
         });
     }
 
-    init(){
-        this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
+    getData(offset: number, limit:number){
+        this.pageChangeSubscription = this.userService.getAll(offset, limit).subscribe(result => {
             this.usersRes = result
         })
-        this.countSubscription = this.userService.countUser().subscribe(result => {
-            this.totalUsers = result
-            console.log(this.totalUsers);
-            
-        })
-        
     }
     
-    paginate(event: any) {
-        this.first = event.first
-        this.init()
+    loadData(event: LazyLoadEvent) {
+        this.getData(event.first!, event.rows!)
     }
     
     ngOnDestroy(): void {

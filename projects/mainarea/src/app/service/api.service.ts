@@ -52,7 +52,7 @@ export class ApiService{
         const data = localStorage.getItem('data')
         let result: null| string = ''
         if (data){
-            result = JSON.parse(data).fullName
+            result = JSON.parse(data).fullname
         }
         return result
     }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ConfirmationService, Message } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { IndustriesRes } from "projects/interface/industry/industries-res";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
@@ -19,6 +19,7 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     msgs: Message[] = [];
 
     private industriesSubscription?: Subscription
+    private pageChangeSubscription?: Subscription
 
     constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig,
         private industryService: IndustryService) { }
@@ -28,6 +29,16 @@ export class IndustryListComponent implements OnInit, OnDestroy {
         this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
             this.industriesRes = result
         })
+    }
+
+    getData(offset: number, limit:number){
+        this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
+            this.industriesRes = result
+        })
+    }
+
+    loadData(event: LazyLoadEvent) {
+        this.getData(event.first!, event.rows!)
     }
 
     confirmPosition(position: string) {
@@ -48,5 +59,6 @@ export class IndustryListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.industriesSubscription?.unsubscribe()
+        this.pageChangeSubscription?.unsubscribe()
     }
 }

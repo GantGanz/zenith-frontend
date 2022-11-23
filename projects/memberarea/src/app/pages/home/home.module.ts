@@ -5,6 +5,8 @@ import { HomeComponent } from "./home.component";
 import { HomeRouting } from "./home.routing";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { GalleriaModule } from 'primeng/galleria';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { InputTextModule } from 'primeng/inputtext';
         HomeRouting,
         CommonModule,
         ButtonModule,
-        InputTextModule
+        InputTextModule,
+        InputTextareaModule,
+        GalleriaModule
     ],
     exports: [
         HomeComponent

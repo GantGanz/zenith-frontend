@@ -1,5 +1,5 @@
-import { Routes } from "@angular/router";
-import { SuperAdminContentComponent } from "./component/content/super admin/super-admin.content.component";
+import { Routes } from "@angular/router"
+import { SuperAdminContentComponent } from "./component/content/super admin/super-admin.content.component"
 
 export const adminAreaRoutes: Routes = [
     {
@@ -9,6 +9,10 @@ export const adminAreaRoutes: Routes = [
     {
         path: "users",
         loadChildren: () => import("./pages/master-user-admin/user.module").then(u => u.UserModule)
+    },
+    {
+        path: "",
+        loadChildren: () => import("./pages/profile/profile.module").then(p => p.ProfileModule)
     },
     {
         path: "positions",

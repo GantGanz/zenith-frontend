@@ -11,6 +11,6 @@ export class PositionService{
     constructor(private http: HttpClient){}
 
     getAll():Observable<PositionsRes>{
-        return this.http.get<PositionsRes>(`${BASE_URL.LOCALHOST}/positions`)
+        return this.http.get<PositionsRes>(`${BASE_URL.LOCALHOST}/positions/active`)
     }
 }

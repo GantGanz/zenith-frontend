@@ -17,8 +17,8 @@ export class UserService {
         return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/users/register`, data)
     }
 
-    getAll(): Observable<UsersRes> {
-        return this.http.get<UsersRes>(`${BASE_URL.LOCALHOST}/users`)
+    getAll(offset:number, limit:number): Observable<UsersRes> {
+        return this.http.get<UsersRes>(`${BASE_URL.LOCALHOST}/users?offset=${offset}&limit=${limit}`)
     }
 
     insert(data: any): Observable<InsertRes>{
@@ -43,5 +43,9 @@ export class UserService {
 
     countPremium():Observable<number>{
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-premium`)
+    }
+
+    countUser(): Observable<number>{
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count`)
     }
 }

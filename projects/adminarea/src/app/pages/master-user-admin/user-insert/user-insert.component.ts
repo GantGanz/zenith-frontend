@@ -13,12 +13,12 @@ import { Subscription } from "rxjs"
 export class UserInsertComponent implements OnInit, OnDestroy {
 
     userInsertForm = this.fb.group({
-        id: ['', [Validators.required]],
-        fullname: ['', [Validators.required, Validators.maxLength(50)]],
-        email: ['', [Validators.email, Validators.required, Validators.maxLength(50)]],
-        company: ['', [Validators.required]],
-        positionId: ['', [Validators.required]],
-        industryId: ['', [Validators.required]],
+        id: ['' || null, [Validators.required]],
+        fullname: ['' || null, [Validators.required, Validators.maxLength(50)]],
+        email: ['' || null, [Validators.email, Validators.required, Validators.maxLength(50)]],
+        company: ['' || null, [Validators.required]],
+        positionId: ['' || null, [Validators.required]],
+        industryId: ['' || null, [Validators.required]],
     })
 
     industries: any = []

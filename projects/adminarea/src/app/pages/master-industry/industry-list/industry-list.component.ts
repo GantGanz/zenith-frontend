@@ -25,7 +25,7 @@ export class IndustryListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.primeNgConfig.ripple = true;
-        this.industriesSubscription = this.industryService.getAll().subscribe(result=>{
+        this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
             this.industriesRes = result
         })
     }
@@ -43,7 +43,7 @@ export class IndustryListComponent implements OnInit, OnDestroy {
                 this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
             },
             key: "positionDialog"
-        });
+        })
     }
 
     ngOnDestroy(): void {

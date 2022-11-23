@@ -8,6 +8,8 @@ import { InputTextModule } from 'primeng/inputtext'
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         InputTextModule,
         TableModule,
         ButtonModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        CommonModule,
+        ReactiveFormsModule
     ],
     exports: [
         IndustryListComponent, IndustryInsertComponent, IndustryUpdateComponent

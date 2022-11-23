@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
 import {PasswordModule} from 'primeng/password';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {PasswordModule} from 'primeng/password';
     
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: FilterTokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: FilterTokenInterceptor, multi: true },
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,6 +5,7 @@ export interface ActivityData {
 	 activityTitle: string 
 	 version: number 
 	 activityLocation: string 
+	 provider: string
 	 startAt: string 
 	 endAt: string 
 	 fee: number 

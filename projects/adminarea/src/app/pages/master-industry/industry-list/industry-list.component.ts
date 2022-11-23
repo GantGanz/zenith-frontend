@@ -1,43 +1,52 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ConfirmationService, Message } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
+import { IndustriesRes } from "projects/interface/industry/industries-res";
+import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "industry-list",
     templateUrl: "./industry-list.component.html"
 })
-export class IndustryListComponent implements OnInit {
+export class IndustryListComponent implements OnInit, OnDestroy {
 
-    first = 0
-    rows = 10
-    position!: string
+    industriesRes!: IndustriesRes
+
+    first = 0;
+    rows = 10;
+    position!: string;
+    msgs: Message[] = [];
+
+    private industriesSubscription?: Subscription
+
+    constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig,
+        private industryService: IndustryService) { }
 
     ngOnInit(): void {
+        this.primeNgConfig.ripple = true;
+        this.industriesSubscription = this.industryService.getAll().subscribe(result=>{
+            this.industriesRes = result
+        })
     }
 
-    industries: any = [
-        {
-            no: "1",
-            code: "IN001",
-            name: "Healthcare and Social Assistance",
-        }
-    ]
-
-    next() {
-        this.first = this.first + this.rows
+    confirmPosition(position: string) {
+        this.position = position
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
+            },
+            reject: () => {
+                this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
+            },
+            key: "positionDialog"
+        });
     }
 
-    prev() {
-        this.first = this.first - this.rows
-    }
-
-    reset() {
-        this.first = 0
-    }
-
-    isLastPage(): boolean {
-        return this.industries ? this.first === (this.industries.length - this.rows) : true
-    }
-
-    isFirstPage(): boolean {
-        return this.industries ? this.first === 0 : true
+    ngOnDestroy(): void {
+        this.industriesSubscription?.unsubscribe()
     }
 }

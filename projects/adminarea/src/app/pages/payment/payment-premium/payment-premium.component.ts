@@ -13,11 +13,9 @@ export class PaymentPremium {
         {
             no: "1",
             memberName: "Nathan Alexander",
-            title: "Write and publish the best research papers in Q1 journals",
-            type: "Course",
-            provider: "Lawencon",
-            location: "Online",
-            schedule: "2022/11/20",
+            email: "nathanalexander@gmail.com",
+            companyName: "Lawencon",
+            position: "Manager",
             fee: "50.000",
             proof: "../../../../assets/images/profile_admin.png"
         }

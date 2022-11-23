@@ -1,17 +1,16 @@
 
+
 <div class="container">
-    <h3 class="my-4">List Of Payment Events and Courses</h3>
+    <h3 class="my-4">List Of Payment Member Premium</h3>
 
     <p-table [value]="events" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both">
         <ng-template pTemplate="header">
             <tr>
                 <th style="text-align: center">No</th>
                 <th>Member Name</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Provider</th>
-                <th>Location</th>
-                <th>Schedule</th>
+                <th>Email</th>
+                <th>Campany Name</th>
+                <th>Position</th>
                 <th>Fee</th>
                 <th style="text-align: center">Proof of Payment</th>
                 <th style="text-align: center">Action</th>
@@ -21,11 +20,9 @@
             <tr>
                 <td style="text-align: center ">{{event.no}}</td>
                 <td>{{event.memberName}}</td>
-                <td>{{event.title}}</td>
-                <td>{{event.type}}</td>
-                <td>{{event.provider}}</td>
-                <td>{{event.location}}</td>
-                <td>{{event.schedule}}</td>
+                <td>{{event.emial}}</td>
+                <td>{{event.companyName}}</td>
+                <td>{{event.position}}</td>
                 <td>{{event.fee}}</td>
                 <td style="text-align: center"><img src={{event.proof}} alt="" class="profile-pic"></td>
 

@@ -19,7 +19,7 @@ import { StepsModule } from 'primeng/steps';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
-import {PasswordModule} from 'primeng/password';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,6 @@ import {PasswordModule} from 'primeng/password';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     PasswordModule
-    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: FilterTokenInterceptor, multi: true }

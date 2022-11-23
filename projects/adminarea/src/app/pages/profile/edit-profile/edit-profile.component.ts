@@ -1,6 +1,6 @@
 import { Component } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms"
-import { ActivatedRoute } from "@angular/router"
+import { ActivatedRoute, Router } from "@angular/router"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
@@ -11,6 +11,11 @@ import { Subscription } from "rxjs"
     templateUrl: "edit-profile.component.html"
 })
 export class EditProfileComponent {
+
+    backToSuperAdminProfile = false
+    backToAdminProfile = false
+
+
     userUpdateForm = this.fb.group({
         id: ['', [Validators.required]],
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
@@ -33,7 +38,7 @@ export class EditProfileComponent {
 
     constructor(private industryService: IndustryService, private positionService: PositionService,
         private userService: UserService, private active: ActivatedRoute,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder, private router: Router) { }
 
     ngOnInit(): void {
         this.paramSubscription = this.active.params.subscribe(u => {
@@ -68,6 +73,13 @@ export class EditProfileComponent {
                 }
             })
         })
+
+        if (this.router.url == "/super-admin/profiles/edit/:id") {
+            this.backToSuperAdminProfile = true
+        }
+        else if (this.router.url == "/admin/profiles/edit/:id") {
+            this.backToAdminProfile = true
+        }
     }
 
     clickUpdate() {

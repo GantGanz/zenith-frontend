@@ -12,6 +12,7 @@ import { DropdownModule } from "primeng/dropdown"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { FileUploadModule } from 'primeng/fileupload'
 import { HttpClientModule } from '@angular/common/http'
+import { CommonModule } from "@angular/common"
 
 
 
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http'
         FormsModule,
         ReactiveFormsModule,
         FileUploadModule,
-        HttpClientModule
+        HttpClientModule,
+        CommonModule
     ],
     exports: [
         ProfileViewComponent, ChangePasswordComponent, EditProfileComponent

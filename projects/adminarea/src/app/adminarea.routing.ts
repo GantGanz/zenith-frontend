@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router"
-import { SuperAdminContentComponent } from "./component/content/super admin/super-admin.content.component"
 
 export const adminAreaRoutes: Routes = [
     {
@@ -23,9 +22,8 @@ export const adminAreaRoutes: Routes = [
         loadChildren: () => import("./pages/master-industry/industry.module").then(i => i.IndustryModule)
     },
     {
-        path: "member-informations",
-        component: SuperAdminContentComponent,
-        loadChildren: () => import("./pages/member-report-info/report-member.module").then(ri => ri.ReportMemberModule)
+        path: "report",
+        loadChildren: () => import("./pages/report/report.module").then(i => i.ReportModule)
     },
     {
         path: "articles",

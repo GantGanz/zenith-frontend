@@ -29,4 +29,8 @@ export const adminAreaRoutes: Routes = [
         path: "articles",
         loadChildren: () => import("./pages/admin-article/article.module").then(a => a.ArticleModule)
     },
+    {
+        path: "payment",
+        loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
+    }
 ]

@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { disableDebugTools } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
+import { MenuItem } from "primeng/api";
 
 
 @Component({
@@ -8,6 +11,10 @@ import { Component } from "@angular/core";
 })
 
 export class HomeComponent {
+
+    items!: MenuItem[]
+    type!: string
+
     like = true
     bookmark = true
     likeFill = false
@@ -16,6 +23,30 @@ export class HomeComponent {
     commentPost = false
     viewComment = true
     hideComment = false
+
+    showForm = false
+    showUploadImg = false
+    showCreatePolling = false
+
+    constructor(private activatedRoute: ActivatedRoute) { }
+
+    ngOnInit(): void {
+
+        this.items = [
+            { label: 'Post', routerLink: '/feed/post' },
+            { label: 'Likes', routerLink: '/feed/likes' },
+            { label: 'Bookmark', routerLink: '/feed/bookmarks' }
+        ]
+
+        this.activatedRoute.params.subscribe(result => {
+            this.type = result['type']
+            this.init()
+        })
+    }
+
+    showCreatePostDialog() {
+        this.showForm = true
+    }
 
 
     clickLike() {
@@ -50,4 +81,16 @@ export class HomeComponent {
     clickCommentPost() {
         this.commentPost = true
     }
+
+    clickAddPhotos() {
+        this.showUploadImg = true
+        this.showCreatePolling = false
+
+    }
+    clickCreatePoll() {
+        this.showCreatePolling = true
+        this.showUploadImg = false
+    }
+
+    init() { }
 }

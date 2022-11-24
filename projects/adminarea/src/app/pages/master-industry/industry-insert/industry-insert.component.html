@@ -12,9 +12,13 @@
                 <label for="industryName">Industry Name<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="text" id="industryName" name="industryName" formControlName="industryName" required>
             </div>
-            <div class="field col-12 flex flex-row gap-2 mt-2">
-                <button pButton class="p-button-outlined" type="button" id="btnCancelIndustry" name="btnCancelIndustry" routerLink="/industries/list">Back</button>
-                <button pButton type="submit" id="btnSubmitIndustry" name="btnSubmitIndustry">Submit</button>
+            <div class="col-12 grid mt-3">
+                <div class="col-6">
+                    <button pButton class="p-button-outlined" type="button" id="btnCancelIndustry" name="btnCancelIndustry" routerLink="/industries/list">Back</button>
+                </div>
+                <div class="col-6 text-end">
+                    <button pButton type="submit" id="btnSubmitIndustry" name="btnSubmitIndustry">Submit</button>
+                </div>
             </div>
         </form>
     </div>

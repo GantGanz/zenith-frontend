@@ -16,9 +16,13 @@
                 <label for="company">Company<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" required>
             </div>
-            <div class="field col-12 flex flex-row gap-2 mt-2">
-                <button pButton class="p-button-outlined" type="submit" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
-                <button pButton type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
+            <div class="col-12 grid mt-2">
+                <div class="col-6">
+                    <button pButton class="p-button-outlined" type="submit" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
+                </div>
+                <div class="col-6 text-end">
+                    <button pButton type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
+                </div>
             </div>
         </form>
     </div>

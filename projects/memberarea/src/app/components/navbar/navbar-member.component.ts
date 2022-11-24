@@ -5,6 +5,4 @@ import { Component } from "@angular/core";
     templateUrl: "navbar-member.component.html"
 })
 
-export class NavbarMemberComponent {
-
-}
+export class NavbarMemberComponent { }

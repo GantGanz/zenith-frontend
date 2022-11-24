@@ -19,5 +19,9 @@ export const memberAreaRoutes: Routes = [
     {
         path: "premium",
         loadChildren: () => import("./pages/premium/premium.module").then(p => p.PremiumModule)
+    },
+    {
+        path: "articles",
+        loadChildren: () => import("./pages/article/article.module").then(a => a.ArticleModule)
     }
 ]

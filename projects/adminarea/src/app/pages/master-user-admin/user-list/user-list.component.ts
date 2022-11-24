@@ -14,7 +14,7 @@ import { Subscription } from "rxjs"
 export class UserListComponent implements OnInit, OnDestroy {
 
     fileLink = BASE_URL.FILE
-    position!: string
+    position: string = 'top'
 
     usersRes!: UsersRes
 
@@ -29,9 +29,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     private countSubscription?: Subscription
     private deleteSubscription?: Subscription
 
-    userDelete= this.fb.group({
-        id:['',[Validators.required]],
-        version:[0,[Validators.required]]
+    userDelete = this.fb.group({
+        id: ['', [Validators.required]],
+        version: [0, [Validators.required]]
     })
 
     constructor(private userService: UserService, private confirmationService: ConfirmationService,
@@ -41,8 +41,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.init()
     }
-    
-    init(){
+
+    init() {
         this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
             this.usersRes = result
         })
@@ -51,33 +51,32 @@ export class UserListComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickConfirmDelete(position: string, id: string, version: number) {
-        this.position = position
+    clickConfirmDelete(id: string, version: number) {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: "positionDialog",
-            accept:()=>{
+            accept: () => {
                 this.userDelete.controls['id'].setValue(id)
                 this.userDelete.controls['version'].setValue(version)
-                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).subscribe(u=>{
+                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).subscribe(u => {
                     this.init()
                 })
             }
         });
     }
 
-    getData(offset: number, limit:number){
+    getData(offset: number, limit: number) {
         this.pageChangeSubscription = this.userService.getAll(offset, limit).subscribe(result => {
             this.usersRes = result
         })
     }
-    
+
     loadData(event: LazyLoadEvent) {
         this.getData(event.first!, event.rows!)
     }
-    
+
     ngOnDestroy(): void {
         this.pageChangeSubscription?.unsubscribe()
         this.usersSubscription?.unsubscribe()

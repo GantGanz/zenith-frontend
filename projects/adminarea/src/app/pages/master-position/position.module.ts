@@ -8,6 +8,10 @@ import { TooltipModule } from 'primeng/tooltip'
 import { InputTextModule } from 'primeng/inputtext'
 import { TableModule } from 'primeng/table'
 import { ButtonModule } from 'primeng/button'
+import { CommonModule } from "@angular/common"
+import { ReactiveFormsModule } from "@angular/forms"
+import { CheckboxModule } from "primeng/checkbox"
+import { ConfirmDialogModule } from "primeng/confirmdialog"
 
 
 @NgModule({
@@ -20,7 +24,11 @@ import { ButtonModule } from 'primeng/button'
         TooltipModule,
         InputTextModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        CommonModule,
+        ReactiveFormsModule,
+        CheckboxModule,
+        ConfirmDialogModule
     ],
     exports: [
         PositionListComponent, PositionInsertComponent, PositionUpdateComponent

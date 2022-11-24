@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
 import { Subscription } from "rxjs";
 
@@ -16,10 +17,13 @@ export class IndustryInsertComponent implements OnDestroy{
         industryName:[null,[Validators.required,Validators.maxLength(50)]]
     })
 
-    constructor(private industryService:IndustryService, private fb: FormBuilder){}
+    constructor(private industryService:IndustryService, private fb: FormBuilder,
+        private router:Router){}
 
     clickSubmit(){
-        this.industrySubscription = this.industryService.insert(this.industryForm.value).subscribe(()=>{})
+        this.industrySubscription = this.industryService.insert(this.industryForm.value).subscribe(()=>{
+            this.router.navigateByUrl('/industries/list')
+        })
     }
 
     ngOnDestroy(): void {

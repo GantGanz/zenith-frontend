@@ -12,7 +12,7 @@ import { Subscription } from "rxjs";
 })
 export class IndustryListComponent implements OnInit, OnDestroy {
 
-    industriesRes!: IndustriesRes
+    industries: any[]=[]
 
     totalIndustries = 0
     first = 0;
@@ -43,9 +43,12 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     }
 
     init(){
+        this.industries=[]
         this.primeNgConfig.ripple = true;
         this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
-            this.industriesRes = result
+            for(let i=0;i<result.data.length;i++){
+                this.industries.push(result.data[i])
+            }
         })
         this.countSubscription = this.industryService.count().subscribe(u=>{
             this.totalIndustries=u
@@ -53,8 +56,11 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     }
 
     getData(offset: number, limit:number){
+        this.industries=[]
         this.industriesSubscription = this.industryService.getAllLimit(offset,limit).subscribe(result=>{
-            this.industriesRes = result
+            for(let i=0;i<result.data.length;i++){
+                this.industries.push(result.data[i])
+            }
         })
     }
 
@@ -71,10 +77,10 @@ export class IndustryListComponent implements OnInit, OnDestroy {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.industryDelete.controls['id'].setValue(this.industriesRes.data[i].id)
-                this.industryDelete.controls['industryName'].setValue(this.industriesRes.data[i].industryName)
+                this.industryDelete.controls['id'].setValue(this.industries[i].id)
+                this.industryDelete.controls['industryName'].setValue(this.industries[i].industryName)
                 this.industryDelete.controls['isActive'].setValue(false)
-                this.industryDelete.controls['version'].setValue(this.industriesRes.data[i].version)
+                this.industryDelete.controls['version'].setValue(this.industries[i].version)
                 this.industriesSubscription = this.industryService.update(this.industryDelete.value).subscribe(()=>{
                     this.init()
                 })

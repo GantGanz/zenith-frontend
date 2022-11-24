@@ -12,9 +12,13 @@
                 <label for="positionName">Position Name<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="text" id="positionName" name="positionName" formControlName="positionName" required>
             </div>
-            <div class="field col-12 flex flex-row gap-2 mt-2">
-                <button pButton class="p-button-outlined" type="button" id="btnCancelPosition" name="btnCancelPosition" routerLink="/positions/list">Back</button>
-                <button pButton type="submit" id="btnSubmitPosition" name="btnSubmitPosition">Submit</button>
+            <div class="col-12 grid mt-3">
+                <div class="col-6">
+                    <button pButton class="p-button-outlined" type="button" id="btnCancelPosition" name="btnCancelPosition" routerLink="/positions/list">Back</button>
+                </div>
+                <div class="col-6 text-end">
+                    <button pButton type="submit" id="btnSubmitPosition" name="btnSubmitPosition">Submit</button>
+                </div>
             </div>
         </form>
     </div>

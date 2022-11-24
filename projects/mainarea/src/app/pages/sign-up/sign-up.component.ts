@@ -38,7 +38,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     items: MenuItem[] = []
 
     registerForm = this.fb.group({
-        fullname: ['', [Validators.required, Validators.maxLength(50)]],
+        fullname: ['' || null, [Validators.required, Validators.maxLength(50)]],
         email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
         password: ['', [Validators.required]],
         company: ['', [Validators.required]],

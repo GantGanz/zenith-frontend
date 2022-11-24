@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
                 if (result.roleCode == ROLECODE.MEMBER) {
                     this.apiService.saveData(result)
-                    this.router.navigateByUrl("/feed")
+                    this.router.navigateByUrl("/feed/post")
                 } else {
                     this.toast.error("Wrong username or password", "Information")
                 }

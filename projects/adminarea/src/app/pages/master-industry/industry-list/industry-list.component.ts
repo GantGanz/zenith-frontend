@@ -13,13 +13,17 @@ export class IndustryListComponent implements OnInit, OnDestroy {
 
     industriesRes!: IndustriesRes
 
+    totalIndustries = 0
     first = 0;
     rows = 10;
     position!: string;
     msgs: Message[] = [];
 
+    id!: string
+
     private industriesSubscription?: Subscription
     private pageChangeSubscription?: Subscription
+    private countSubscription?: Subscription
 
     constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig,
         private industryService: IndustryService) { }
@@ -29,10 +33,13 @@ export class IndustryListComponent implements OnInit, OnDestroy {
         this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
             this.industriesRes = result
         })
+        this.countSubscription = this.industryService.count().subscribe(u=>{
+            this.totalIndustries=u
+        })
     }
 
     getData(offset: number, limit:number){
-        this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
+        this.industriesSubscription = this.industryService.getAllLimit(offset,limit).subscribe(result=>{
             this.industriesRes = result
         })
     }
@@ -60,5 +67,6 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.industriesSubscription?.unsubscribe()
         this.pageChangeSubscription?.unsubscribe()
+        this.countSubscription?.unsubscribe()
     }
 }

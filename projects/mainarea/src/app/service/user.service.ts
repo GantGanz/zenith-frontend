@@ -48,4 +48,8 @@ export class UserService {
     countUser(): Observable<number>{
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count`)
     }
+
+    softDelete(data : any): Observable<UpdateRes>{
+        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users/soft-delete`,data)
+    }
 }

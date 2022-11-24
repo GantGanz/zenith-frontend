@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
+import { FormBuilder, Validators } from "@angular/forms"
 import { ConfirmationService, LazyLoadEvent, PrimeNGConfig } from "primeng/api"
 import { UsersRes } from "projects/interface/user/users-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
-import { shareReplay, Subscription } from "rxjs"
+import { Subscription } from "rxjs"
 
 @Component({
     selector: "user-list",
@@ -26,11 +27,22 @@ export class UserListComponent implements OnInit, OnDestroy {
     private usersSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
+    private deleteSubscription?: Subscription
 
-    constructor(private userService: UserService, private confirmationService: ConfirmationService) { }
+    userDelete= this.fb.group({
+        id:['',[Validators.required]],
+        version:[0,[Validators.required]]
+    })
+
+    constructor(private userService: UserService, private confirmationService: ConfirmationService,
+        private fb: FormBuilder) { }
 
 
     ngOnInit(): void {
+        this.init()
+    }
+    
+    init(){
         this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
             this.usersRes = result
         })
@@ -38,14 +50,21 @@ export class UserListComponent implements OnInit, OnDestroy {
             this.totalUsers = result
         })
     }
-    
-    clickConfirmDelete(position: string, id: string) {
+
+    clickConfirmDelete(position: string, id: string, version: number) {
         this.position = position
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
-            key: "positionDialog"
+            key: "positionDialog",
+            accept:()=>{
+                this.userDelete.controls['id'].setValue(id)
+                this.userDelete.controls['version'].setValue(version)
+                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).subscribe(u=>{
+                    this.init()
+                })
+            }
         });
     }
 
@@ -63,5 +82,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.pageChangeSubscription?.unsubscribe()
         this.usersSubscription?.unsubscribe()
         this.countSubscription?.unsubscribe()
+        this.deleteSubscription?.unsubscribe()
     }
 }

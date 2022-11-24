@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
+import { CheckboxModule } from "primeng/checkbox";
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { ReactiveFormsModule } from "@angular/forms";
         ButtonModule,
         ConfirmDialogModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CheckboxModule,
+        ConfirmDialogModule
     ],
     exports: [
         IndustryListComponent, IndustryInsertComponent, IndustryUpdateComponent

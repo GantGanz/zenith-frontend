@@ -1,30 +1,53 @@
-
 <div class="container">
     <h2 class="my-4">List Of Articles</h2>
     <div class="my-3">
-        <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition" routerLink="/articles/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition"
+            routerLink="/articles/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
     </div>
 
-    <p-table [value]="articles" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both">
+    <p-table [value]="articlesRes.data" [paginator]="true" [rows]="rows" [(first)]="first"
+        [totalRecords]="totalArticles" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
+        (onLazyLoad)="loadData($event)" [lazy]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th class="custom-align">No</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th class="custom-align">Action</th>
+                <th class="custom-align text-center">No</th>
+                <th class="text-center">Title</th>
+                <th class="text-center">Content</th>
+                <th class="text-center">Banner</th>
+                <th class="text-center">Status</th>
+                <th class="custom-align text-center">Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-article>
+        <ng-template pTemplate="body" let-article let-i="rowIndex">
             <tr>
-                <td class="custom-align">{{article.no}}</td>
-                <td>{{article.title}}</td>
-                <td>{{article.content}}</td>
+                <td class="custom-align">{{i+1}}</td>
+                <td>{{article.articleTitle}}</td>
+                <td>{{article.articleContent}}</td>
+                <td style="text-align: center ;"><img style="width: 40px;"
+                        src="{{fileLink}}{{article.attachmentArticleDatas[0].fileId}}" alt="user pic"></td>
+                <td style="text-align: center ;">
+                    <div *ngIf="article.isActive; else elseBlock">
+                        <i class="pi pi-check-circle text-green-500"></i>
+                    </div>
+                    <ng-template #elseBlock>
+                        <i class="pi pi-times text-danger"></i>
+                    </ng-template>
+                </td>
                 <td class="custom-align">
-                    <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/articles/edit/:id"><i class="pi pi-file-edit"></i></button>
-                    <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" (click)="clickConfirmDelete('top')"><i class="pi pi-trash"></i></button>
+                    <button pButton type="button" class="p-button-text" pTooltip="Update"
+                        routerLink="/articles/edit/{{article.id}}"><i class="pi pi-file-edit"></i></button>
+                    <span *ngIf="article.isActive; else deleteBlock">
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"
+                            (click)="clickConfirmDelete(i)"><i class="pi pi-trash"></i></button>
+                    </span>
+                    <ng-template #deleteBlock>
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"
+                            (click)="clickConfirmDelete(i)" disabled><i class="pi pi-trash"></i></button>
+                    </ng-template>
                 </td>
             </tr>
         </ng-template>
-    </p-table> 
+    </p-table>
 </div>
 <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"></p-confirmDialog>

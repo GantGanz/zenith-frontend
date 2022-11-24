@@ -19,12 +19,12 @@ export class ArticleService {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/articles/count`)
     }
 
-    getAll(): Observable<ArticlesRes> {
-        return this.http.get<ArticlesRes>(`${BASE_URL.LOCALHOST}/articles`)
+    getAll(offset: number, limit: number): Observable<ArticlesRes> {
+        return this.http.get<ArticlesRes>(`${BASE_URL.LOCALHOST}/articles?offset=${offset}&limit=${limit}`)
     }
 
-    getAllById(): Observable<ArticlesRes> {
-        return this.http.get<ArticlesRes>(`${BASE_URL.LOCALHOST}/articles/user`)
+    getAllById(offset: number, limit: number): Observable<ArticlesRes> {
+        return this.http.get<ArticlesRes>(`${BASE_URL.LOCALHOST}/articles/user?offset=${offset}&limit=${limit}`)
     }
 
     insert(data: any): Observable<InsertRes> {

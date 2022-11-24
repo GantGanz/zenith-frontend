@@ -6,7 +6,6 @@ import { UserModule } from "./pages/master-user-admin/user.module"
 import { ReportModule } from "./pages/report/report.module"
 import { ProfileModule } from "./pages/profile/profile.module"
 
-
 @NgModule({
     imports: [
         UserModule,

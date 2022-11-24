@@ -14,7 +14,7 @@ import { Subscription } from "rxjs"
 export class UserListComponent implements OnInit, OnDestroy {
 
     fileLink = BASE_URL.FILE
-    position!: string
+    position: string = 'top'
 
     first = 0
     rows = 10
@@ -54,8 +54,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickConfirmDelete(position: string, id: string, version: number) {
-        this.position = position
+    clickConfirmDelete(id: string, version: number) {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',

@@ -1,7 +1,7 @@
-import { Component, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminContentComponent } from "../../component/content/admin/admin.content.component";
-import { PaymentEvent } from "./payment-event/payment-event.component";
+import { PaymentActivity } from "./payment-activity/payment-activity.component";
 import { PaymentPremium } from "./payment-premium/payment-premium.component";
 
 
@@ -16,7 +16,7 @@ const routes: Routes = [
             },
             {
                 path: "event",
-                component: PaymentEvent
+                component: PaymentActivity
             }
         ]
     }

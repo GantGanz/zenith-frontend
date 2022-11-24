@@ -1,8 +1,8 @@
-import { AttachmentArticleInsertReq } from './attachment-article-insert-req' 
+import { AttachmentArticleInsertReq } from "../attachment-article/attachment-article-insert-req"
 
-export interface ArticleInsertReq { 
-	 articleTitle: string 
-	 articleContent: string 
-	 attachmentArticleInsertReqs: AttachmentArticleInsertReq[] 
-} 
+export interface ArticleInsertReq {
+	articleTitle: string
+	articleContent: string
+	attachmentArticleInsertReqs: AttachmentArticleInsertReq[]
+}
 

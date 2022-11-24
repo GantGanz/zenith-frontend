@@ -17,10 +17,14 @@
                 <p-fileUpload url="./upload.php" accept="image/*"></p-fileUpload>
             </div>
 
-            <div class="field col-12 flex flex-row gap-2 mt-5">
-                <button pButton class="p-button-outlined" type="button" id="btnCancelArticle" name="btnCancelArticle"
-                    routerLink="/articles/list">Back</button>
-                <button pButton type="submit" id="btnSubmitArticle" name="btnSubmitArticle">Publish</button>
+            <div class="grid col-12 mt-4">
+                <div class="col-6">
+                    <button pButton class="p-button-outlined" type="button" id="btnCancelArticle" name="btnCancelArticle"
+                    routerLink="/articles/list">Back</button>                
+                </div>
+                <div class="col-6 text-end">
+                    <button pButton type="submit" id="btnSubmitArticle" name="btnSubmitArticle">Publish</button>
+                </div>
             </div>
         </form>
     </div>

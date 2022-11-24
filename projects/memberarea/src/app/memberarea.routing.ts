@@ -4,6 +4,7 @@ import { ContentComponent } from "./components/content/content.component";
 export const memberAreaRoutes: Routes = [
     {
         path: "feed",
+        component: ContentComponent,
         loadChildren: () => import("./pages/home/home.module").then(u => u.HomeModule)
     },
     {

@@ -7,6 +7,14 @@ import { ButtonModule } from "primeng/button";
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { GalleriaModule } from 'primeng/galleria';
+import { MenuModule } from 'primeng/menu'
+import { TabMenuModule } from 'primeng/tabmenu'
+import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClientModule } from '@angular/common/http';
+import { TooltipModule } from 'primeng/tooltip';
+import { DividerModule } from 'primeng/divider';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -20,7 +28,15 @@ import { GalleriaModule } from 'primeng/galleria';
         ButtonModule,
         InputTextModule,
         InputTextareaModule,
-        GalleriaModule
+        GalleriaModule,
+        MenuModule,
+        TabMenuModule,
+        DialogModule,
+        FileUploadModule,
+        HttpClientModule,
+        TooltipModule,
+        DividerModule,
+        CalendarModule
     ],
     exports: [
         HomeComponent

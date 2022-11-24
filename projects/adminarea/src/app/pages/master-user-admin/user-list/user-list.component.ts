@@ -16,14 +16,14 @@ export class UserListComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
     position: string = 'top'
 
-    usersRes!: UsersRes
-
     first = 0
     rows = 10
 
     limit = this.rows
     totalUsers!: number
 
+    users: any[] = []
+    
     private usersSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
@@ -44,7 +44,10 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     init() {
         this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
-            this.usersRes = result
+            this.users =[]
+            for (let i = 0; i < result.data.length; i++) {
+                this.users.push(result.data[i])
+            }
         })
         this.countSubscription = this.userService.countUser().subscribe(result => {
             this.totalUsers = result
@@ -69,7 +72,10 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     getData(offset: number, limit: number) {
         this.pageChangeSubscription = this.userService.getAll(offset, limit).subscribe(result => {
-            this.usersRes = result
+            this.users = []
+            for (let i = 0; i < result.data.length; i++) {
+                this.users.push(result.data[i])
+            }
         })
     }
 

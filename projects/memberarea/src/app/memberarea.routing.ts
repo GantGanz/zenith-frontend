@@ -22,7 +22,6 @@ export const memberAreaRoutes: Routes = [
     },
     {
         path: "articles",
-        component: ContentComponent,
         loadChildren: () => import("./pages/article/article.module").then(a => a.ArticleModule)
     }
 ]

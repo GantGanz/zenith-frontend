@@ -1,7 +1,39 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ArticleService } from "projects/mainarea/src/app/service/article.service";
+import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
+import { PaymentPremiumService } from "projects/mainarea/src/app/service/payment-premium.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "dashboard-admin",
     templateUrl: "dashboard-admin.component.html"
 })
-export class DashboardAdminComponent { }
+export class DashboardAdminComponent implements OnInit, OnDestroy {
+    totalArticle: number = 0
+    totalPremium: number = 0
+    totalActivity: number = 0
+
+    private articleSubscription?: Subscription
+    private premiumSubscription?: Subscription
+    private activitySubscription?: Subscription
+
+    constructor(private articleService: ArticleService, private paymentPremiumService: PaymentPremiumService, private paymentActivityService: PaymentActivityService) { }
+
+    ngOnInit(): void {
+        this.articleSubscription = this.articleService.countAll().subscribe(result => {
+            this.totalArticle = result
+        })
+        this.activitySubscription = this.paymentActivityService.countAllUnapproved().subscribe(result => {
+            this.totalActivity = result
+        })
+        this.premiumSubscription = this.paymentPremiumService.countAllUnapproved().subscribe(result => {
+            this.totalPremium = result
+        })
+    }
+
+    ngOnDestroy(): void {
+        this.articleSubscription?.unsubscribe()
+        this.activitySubscription?.unsubscribe()
+        this.premiumSubscription?.unsubscribe()
+    }
+}

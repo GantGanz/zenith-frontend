@@ -13,4 +13,7 @@ export class PositionService {
     getAll(): Observable<PositionsRes> {
         return this.http.get<PositionsRes>(`${BASE_URL.LOCALHOST}/positions/active`)
     }
+    getAllLimit(offset: number, limit: number): Observable<PositionsRes> {
+        return this.http.get<PositionsRes>(`${BASE_URL.LOCALHOST}/positions?offset=${offset}&limit=${limit}`)
+    }
 }

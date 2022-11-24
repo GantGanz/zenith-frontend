@@ -18,7 +18,7 @@
                         *ngIf="registerForm.controls['fullname'].invalid && (registerForm.controls['fullname'].dirty || registerForm.controls['fullname'].touched)"
                         class="p-error">Please enter your name</small>
                 </div>
-                
+
                 <div class="field mt-4">
                     <label for="email">Email<span class="text-red-500">*</span></label>
                     <input pInputText id="email" name="email" type="email" class="w-full p-inputtext-sm"
@@ -27,19 +27,21 @@
                         *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)"
                         class="p-error">Please enter your email</small>
                 </div>
-                
+
                 <div class="field mt-4">
                     <label for="password">Password<span class="text-red-500">*</span></label>
-                    <p-password id="password" name="password" type="password" styleClass="w-full" [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true"
-                        formControlName="password" required></p-password>
+                    <p-password id="password" name="password" type="password" styleClass="w-full"
+                        [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" formControlName="password"
+                        required></p-password>
                     <small
                         *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
                         class="p-error">Please enter your password</small>
                 </div>
                 <div class="field mt-4">
                     <label for="password">Confirm Password<span class="text-red-500">*</span></label>
-                    <p-password id="password" name="password" type="password" styleClass="w-full" [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true"
-                        formControlName="password" required></p-password>
+                    <p-password id="password" name="password" type="password" styleClass="w-full"
+                        [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" formControlName="password"
+                        required></p-password>
                     <small
                         *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
                         class="p-error">Please enter your password</small>
@@ -55,7 +57,7 @@
                         class="font-semibold custom-text" routerLink="/member/login">Login</span></button>
             </div>
         </div>
-    
+
         <div class="col-7" *ngIf="accountDtl" id="stepAccountDtl">
             <h2 class="text-center">Account Detail</h2>
             <form class="mt-4 mb-5" [formGroup]="registerForm"
@@ -70,8 +72,9 @@
                 </div>
                 <div class="field">
                     <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
-                        id="industryName" formControlName="industryId" placeholder="Select an Industry">
+                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id"
+                        name="industryName" id="industryName" formControlName="industryId"
+                        placeholder="Select an Industry">
                     </p-dropdown>
                     <small
                         *ngIf="registerForm.controls['industryId'].invalid && (registerForm.controls['industryId'].dirty || registerForm.controls['industryId'].touched)"
@@ -79,8 +82,9 @@
                 </div>
                 <div class="field">
                     <label for="positionName">Position<span class="text-red-500">*</span></label>
-                    <p-dropdown [options]="positions" styleClass="w-full" optionLabel="name" optionValue="id" name="positionName"
-                        id="positionName" formControlName="positionId" placeholder="Select a Position"></p-dropdown>
+                    <p-dropdown [options]="positions" styleClass="w-full" optionLabel="name" optionValue="id"
+                        name="positionName" id="positionName" formControlName="positionId"
+                        placeholder="Select a Position"></p-dropdown>
                     <small
                         *ngIf="registerForm.controls['positionId'].invalid && (registerForm.controls['positionId'].dirty || registerForm.controls['positionId'].touched)"
                         class="p-error">Please choose your position</small>
@@ -96,14 +100,15 @@
                         routerLink="/member/login">Login</span></button>
             </div>
         </div>
-        
+
         <div class="col-7" *ngIf="verification">
             <div class="text-center">
                 <h2>Verification</h2>
                 <small>We have send a verification code to your email Please check your e-mail and type code
                     here</small>
             </div>
-            <form class="mt-4 mb-5 mx-6" [formGroup]="verificationCode" (ngSubmit)="verificationCode.valid && clickVerify()">
+            <form class="mt-4 mb-5 mx-6" [formGroup]="verificationCode"
+                (ngSubmit)="verificationCode.valid && clickVerify()">
                 <div class="field mt-4">
                     <input pInputText id="verificationCode" name="verificationCode" type="text"
                         class="w-full p-inputtext-sm" required formControlName="verificationCode">
@@ -119,7 +124,7 @@
                         routerLink="/member/login">Login</span></button>
             </div>
         </div>
-    
+
         <div class="col-7">
             <p-steps styleclass="border-none" [model]="items" [activeIndex]="stepsIndex"></p-steps>
         </div>
@@ -132,7 +137,8 @@
             <img src="../../../assets/images/icon_check.png" alt="success status">
             <h2>Success !</h2>
             <p class="mt-3 text-gray-600">Your account has been verified</p>
-        <button pButton class="p-button-sm custom-btn mt-4" type="button" name="btnBackToLogin" routerLink="/member/login">Back to Login</button>
+            <button pButton class="p-button-sm custom-btn mt-4" type="button" name="btnBackToLogin"
+                routerLink="/member/login">Back to Login</button>
         </div>
     </div>
 </div>

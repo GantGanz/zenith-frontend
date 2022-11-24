@@ -15,7 +15,7 @@ export class PositionListComponent implements OnInit, OnDestroy{
     rows = 10
 
     totalPositions!:number
-    positionsRes!: PositionsRes
+    positions: any[]=[]
     
 
     positionDelete = this.fb.group({
@@ -38,17 +38,23 @@ export class PositionListComponent implements OnInit, OnDestroy{
     }
 
     init(){
+        this.positions=[]
         this.countSubscription = this.positionService.count().subscribe(u=>{
             this.totalPositions = u
         })
         this.positionsSubscription = this.positionService.getAllLimit(this.first,this.rows).subscribe(result=>{
-            this.positionsRes = result
+            for(let i=0;i<result.data.length;i++){
+                this.positions.push(result.data[i])
+            }
         })     
     }
 
     getData(offset: number, limit: number){
+        this.positions=[]
         this.changePageSubscription = this.positionService.getAllLimit(offset, limit).subscribe(result=>{
-            this.positionsRes = result
+            for(let i=0;i<result.data.length;i++){
+                this.positions.push(result.data[i])
+            }
         })
     }
 
@@ -64,10 +70,10 @@ export class PositionListComponent implements OnInit, OnDestroy{
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.positionDelete.controls['id'].setValue(this.positionsRes.data[i].id)
-                this.positionDelete.controls['positionName'].setValue(this.positionsRes.data[i].positionName)
+                this.positionDelete.controls['id'].setValue(this.positions[i].id)
+                this.positionDelete.controls['positionName'].setValue(this.positions[i].positionName)
                 this.positionDelete.controls['isActive'].setValue(false)
-                this.positionDelete.controls['version'].setValue(this.positionsRes.data[i].version)
+                this.positionDelete.controls['version'].setValue(this.positions[i].version)
                 this.deleteSubscription = this.positionService.update(this.positionDelete.value).subscribe(()=>{
                     this.init()
                 })

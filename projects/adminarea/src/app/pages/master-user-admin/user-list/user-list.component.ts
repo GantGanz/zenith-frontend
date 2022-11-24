@@ -16,22 +16,22 @@ export class UserListComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
     position!: string
 
-    usersRes!: UsersRes
-
     first = 0
     rows = 10
 
     limit = this.rows
     totalUsers!: number
 
+    users: any[] = []
+    
     private usersSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
     private deleteSubscription?: Subscription
 
-    userDelete= this.fb.group({
-        id:['',[Validators.required]],
-        version:[0,[Validators.required]]
+    userDelete = this.fb.group({
+        id: ['', [Validators.required]],
+        version: [0, [Validators.required]]
     })
 
     constructor(private userService: UserService, private confirmationService: ConfirmationService,
@@ -41,10 +41,13 @@ export class UserListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.init()
     }
-    
-    init(){
+
+    init() {
         this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
-            this.usersRes = result
+            this.users =[]
+            for (let i = 0; i < result.data.length; i++) {
+                this.users.push(result.data[i])
+            }
         })
         this.countSubscription = this.userService.countUser().subscribe(result => {
             this.totalUsers = result
@@ -58,26 +61,29 @@ export class UserListComponent implements OnInit, OnDestroy {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: "positionDialog",
-            accept:()=>{
+            accept: () => {
                 this.userDelete.controls['id'].setValue(id)
                 this.userDelete.controls['version'].setValue(version)
-                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).subscribe(u=>{
+                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).subscribe(u => {
                     this.init()
                 })
             }
         });
     }
 
-    getData(offset: number, limit:number){
+    getData(offset: number, limit: number) {
         this.pageChangeSubscription = this.userService.getAll(offset, limit).subscribe(result => {
-            this.usersRes = result
+            this.users = []
+            for (let i = 0; i < result.data.length; i++) {
+                this.users.push(result.data[i])
+            }
         })
     }
-    
+
     loadData(event: LazyLoadEvent) {
         this.getData(event.first!, event.rows!)
     }
-    
+
     ngOnDestroy(): void {
         this.pageChangeSubscription?.unsubscribe()
         this.usersSubscription?.unsubscribe()

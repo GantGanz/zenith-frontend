@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { ConfirmationService, LazyLoadEvent, Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { IndustriesRes } from "projects/interface/industry/industries-res";
@@ -24,11 +25,24 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     private industriesSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
+    private deleteSubscription?: Subscription
+
+    industryDelete = this.fb.group({
+        id:['',[Validators.required]],
+        industryName:['',[Validators.required,Validators.maxLength(50)]],
+        isActive:[true,[Validators.required]],
+        version:[0,[Validators.required]]
+    })
 
     constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig,
-        private industryService: IndustryService) { }
+        private industryService: IndustryService, private fb: FormBuilder) { }
 
     ngOnInit(): void {
+
+        this.init()
+    }
+
+    init(){
         this.primeNgConfig.ripple = true;
         this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
             this.industriesRes = result
@@ -45,20 +59,25 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     }
 
     loadData(event: LazyLoadEvent) {
+        this.first = event.first!
         this.getData(event.first!, event.rows!)
     }
 
-    confirmPosition(position: string) {
+    confirmPosition(position: string, index: number) {
+        const i = index-this.first
         this.position = position
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
-            },
-            reject: () => {
-                this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
+                this.industryDelete.controls['id'].setValue(this.industriesRes.data[i].id)
+                this.industryDelete.controls['industryName'].setValue(this.industriesRes.data[i].industryName)
+                this.industryDelete.controls['isActive'].setValue(false)
+                this.industryDelete.controls['version'].setValue(this.industriesRes.data[i].version)
+                this.industriesSubscription = this.industryService.update(this.industryDelete.value).subscribe(()=>{
+                    this.init()
+                })
             },
             key: "positionDialog"
         })
@@ -68,5 +87,6 @@ export class IndustryListComponent implements OnInit, OnDestroy {
         this.industriesSubscription?.unsubscribe()
         this.pageChangeSubscription?.unsubscribe()
         this.countSubscription?.unsubscribe()
+        this.deleteSubscription?.unsubscribe()
     }
 }

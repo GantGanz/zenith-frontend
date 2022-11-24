@@ -13,6 +13,7 @@ import { FileUploadModule } from 'primeng/fileupload'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CommonModule } from "@angular/common";
         InputTextareaModule,
         FileUploadModule,
         ConfirmDialogModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     exports: [
         ArticleListComponent, ArticleInsertComponent, ArticleUpdateComponent

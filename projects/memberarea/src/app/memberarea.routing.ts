@@ -28,6 +28,16 @@ export const memberAreaRoutes: Routes = [
     {
         path: "profile",
         component: ContentComponent,
-        loadChildren: () => import("./pages/settings-profile/profile.module").then(s => s.ProfileModule)
+        loadChildren: () => import("./pages/settings-profile/profile.module").then(s => s.ProfileModule),
+    },
+    {
+        path: "activities",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/activity/activity.module").then(a => a.ActivityModule),
+    },
+    {
+        path: "payment",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
     }
 ]

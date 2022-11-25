@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { EventComponent } from "./event.component";
+import { PaymentActivityComponent } from "./payment-activity/payment-activity.component";
 
 const routes: Routes = [
     {
         path: "",
-        component: EventComponent
+        component: PaymentActivityComponent
     }
 ]
 
@@ -17,5 +17,4 @@ const routes: Routes = [
         RouterModule
     ]
 })
-
-export class EventRouting { }
+export class PaymentRouting { }

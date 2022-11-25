@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { InsertRes } from "projects/interface/insert-res";
-import { PaymentPremiumRes } from "projects/interface/payment-premium/payment-premium-res";
-import { PaymentPremiumsRes } from "projects/interface/payment-premium/payment-premiums-res";
+import { PaymentActivitiesRes } from "projects/interface/payment-activity/payment-activities-res";
+import { PaymentActivityRes } from "projects/interface/payment-activity/payment-activity-res";
 import { UpdateRes } from "projects/interface/update-res";
 import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.url";
@@ -17,6 +17,10 @@ export class PaymentActivityService {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/count`)
     }
 
+    countAllApproved(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/count-approved`)
+    }
+
     getCreatorIncome(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/creator-income`)
     }
@@ -25,16 +29,20 @@ export class PaymentActivityService {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/system-income`)
     }
 
-    getAllApproved(): Observable<PaymentPremiumsRes> {
-        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-activities/approved`)
+    getAllApproved(offset: number, limit: number): Observable<PaymentActivitiesRes> {
+        return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/approved?offset=${offset}&limit=${limit}`)
     }
 
-    getAllUnapproved(): Observable<PaymentPremiumsRes> {
-        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-activities/unapproved`)
+    getAllUnapproved(offset: number, limit: number): Observable<PaymentActivitiesRes> {
+        return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/unapproved?offset=${offset}&limit=${limit}`)
     }
 
-    getAllByCreatorId(): Observable<PaymentPremiumsRes> {
-        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-activities/user`)
+    getAllByCreatorId(): Observable<PaymentActivitiesRes> {
+        return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/user`)
+    }
+
+    getAllByMemberId(offset: number, limit: number): Observable<PaymentActivitiesRes> {
+        return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/member?offset=${offset}&limit=${limit}`)
     }
 
     insert(data: any): Observable<InsertRes> {
@@ -45,7 +53,7 @@ export class PaymentActivityService {
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/payment-activities`, data)
     }
 
-    getById(id: string): Observable<PaymentPremiumRes> {
-        return this.http.get<PaymentPremiumRes>(`${BASE_URL.LOCALHOST}/payment-activities/${id}`)
+    getById(id: string): Observable<PaymentActivityRes> {
+        return this.http.get<PaymentActivityRes>(`${BASE_URL.LOCALHOST}/payment-activities/${id}`)
     }
 }

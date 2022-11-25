@@ -5,6 +5,10 @@ export interface ArticleData extends AttachmentArticleData {
 	version: number
 	articleTitle: string
 	articleContent: string
+	fullname: string
+	positionName: string
+	company: string
+	fileId: string
 	createdBy: string
 	createdAt: string
 	isActive: boolean

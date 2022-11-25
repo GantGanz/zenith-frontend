@@ -37,8 +37,6 @@ export class PaymentActivity implements OnInit, OnDestroy {
     paymentApprove = this.fb.group({
         id: ['', [Validators.required]],
         version: [0, [Validators.required]],
-        articleTitle: [''],
-        articleContent: [''],
         isActive: [false]
     })
 
@@ -64,14 +62,15 @@ export class PaymentActivity implements OnInit, OnDestroy {
     }
 
     clickConfirmApprove(index: number) {
+        const i = index - this.first
         this.confirmationService.confirm({
             message: 'Do you want to approve this payment? (you can not undo this action)',
             header: 'Approve Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',
             accept: () => {
-                this.paymentApprove.controls['id'].setValue(this.unapprovedPaymentActivtiesRes.data[index].id)
-                this.paymentApprove.controls['version'].setValue(this.unapprovedPaymentActivtiesRes.data[index].version)
+                this.paymentApprove.controls['id'].setValue(this.unapprovedPaymentActivtiesRes.data[i].id)
+                this.paymentApprove.controls['version'].setValue(this.unapprovedPaymentActivtiesRes.data[i].version)
                 this.approveSubscription = this.paymentActivityService.approve(this.paymentApprove.value).subscribe(a => {
                     this.init()
                 })
@@ -86,6 +85,7 @@ export class PaymentActivity implements OnInit, OnDestroy {
     }
 
     loadUnapprovedData(event: LazyLoadEvent) {
+        this.first = event.first!
         this.getUnapprovedData(event.first!, event.rows!)
     }
 
@@ -96,6 +96,7 @@ export class PaymentActivity implements OnInit, OnDestroy {
     }
 
     loadApprovedData(event: LazyLoadEvent) {
+        this.first = event.first!
         this.getApprovedData(event.first!, event.rows!)
     }
 

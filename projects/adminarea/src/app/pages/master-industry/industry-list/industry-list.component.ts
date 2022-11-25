@@ -12,7 +12,7 @@ import { Subscription } from "rxjs";
 })
 export class IndustryListComponent implements OnInit, OnDestroy {
 
-    industries: any[]=[]
+    industries: any[] = []
 
     totalIndustries = 0
     first = 0;
@@ -28,37 +28,36 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     private deleteSubscription?: Subscription
 
     industryDelete = this.fb.group({
-        id:['',[Validators.required]],
-        industryName:['',[Validators.required,Validators.maxLength(50)]],
-        isActive:[true,[Validators.required]],
-        version:[0,[Validators.required]]
+        id: ['', [Validators.required]],
+        industryName: ['', [Validators.required, Validators.maxLength(50)]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]]
     })
 
     constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig,
         private industryService: IndustryService, private fb: FormBuilder) { }
 
     ngOnInit(): void {
-
         this.init()
     }
 
-    init(){
-        this.industries=[]
+    init() {
+        this.industries = []
         this.primeNgConfig.ripple = true;
-        this.industriesSubscription = this.industryService.getAllLimit(this.first,this.rows).subscribe(result=>{
-            for(let i=0;i<result.data.length;i++){
+        this.industriesSubscription = this.industryService.getAllLimit(this.first, this.rows).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
                 this.industries.push(result.data[i])
             }
         })
-        this.countSubscription = this.industryService.count().subscribe(u=>{
-            this.totalIndustries=u
+        this.countSubscription = this.industryService.count().subscribe(u => {
+            this.totalIndustries = u
         })
     }
 
-    getData(offset: number, limit:number){
-        this.industries=[]
-        this.industriesSubscription = this.industryService.getAllLimit(offset,limit).subscribe(result=>{
-            for(let i=0;i<result.data.length;i++){
+    getData(offset: number, limit: number) {
+        this.industries = []
+        this.industriesSubscription = this.industryService.getAllLimit(offset, limit).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
                 this.industries.push(result.data[i])
             }
         })
@@ -70,7 +69,7 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     }
 
     confirmPosition(position: string, index: number) {
-        const i = index-this.first
+        const i = index - this.first
         this.position = position
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
@@ -81,7 +80,7 @@ export class IndustryListComponent implements OnInit, OnDestroy {
                 this.industryDelete.controls['industryName'].setValue(this.industries[i].industryName)
                 this.industryDelete.controls['isActive'].setValue(false)
                 this.industryDelete.controls['version'].setValue(this.industries[i].version)
-                this.industriesSubscription = this.industryService.update(this.industryDelete.value).subscribe(()=>{
+                this.industriesSubscription = this.industryService.update(this.industryDelete.value).subscribe(() => {
                     this.init()
                 })
             },

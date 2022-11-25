@@ -17,11 +17,12 @@ import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { ReactiveFormsModule } from "@angular/forms";
+import { rightContentComponent } from "./right-content/right-content.component";
 
 
 @NgModule({
     declarations: [
-        HomeComponent
+        HomeComponent, rightContentComponent
     ],
     imports: [
         RouterModule,
@@ -43,7 +44,7 @@ import { ReactiveFormsModule } from "@angular/forms";
         ReactiveFormsModule
     ],
     exports: [
-        HomeComponent
+        HomeComponent, rightContentComponent
     ]
 })
 

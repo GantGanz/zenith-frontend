@@ -3,33 +3,37 @@
 
     <p-tabView>
         <p-tabPanel header="Unapproved">
-            <p-table [value]="events" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true"
+            <p-table [value]="unapprovedPaymentPremiumsRes.data" [paginator]="true" [rows]="rows" [(first)]="first"
+                [totalRecords]="totalUnapprovedPaymentPremiums" [showCurrentPageReport]="true"
+                (onLazyLoad)="loadUnapprovedData($event)" [lazy]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 paginatorPosition="both">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="text-align: center">No</th>
-                        <th>Member Name</th>
-                        <th>Email</th>
-                        <th>Campany Name</th>
-                        <th>Position</th>
-                        <th>Fee</th>
-                        <th style="text-align: center">Proof of Payment</th>
-                        <th style="text-align: center">Action</th>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Member Name</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Fee</th>
+                        <th class="text-center">Payment Time</th>
+                        <th class="text-center">Invoice</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-event>
+                <ng-template pTemplate="body" let-premium let-i="rowIndex">
                     <tr>
-                        <td style="text-align: center ">{{event.no}}</td>
-                        <td>{{event.memberName}}</td>
-                        <td>{{event.emial}}</td>
-                        <td>{{event.companyName}}</td>
-                        <td>{{event.position}}</td>
-                        <td>{{event.fee}}</td>
-                        <td style="text-align: center"><img src={{event.proof}} alt="" class="profile-pic"></td>
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{premium.fullname}}</td>
+                        <td class="text-center">{{premium.email}}</td>
+                        <td class="text-center">{{premium.nominal}}</td>
+                        <td class="text-center">{{premium.createdAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
+                        <td class="text-center">
+                            <p-image alt="payment-pic" src="{{fileLink}}{{premium.fileId}}" [preview]="true"
+                                width="40px">
+                            </p-image>
+                        </td>
                         <td style="text-align: center ">
                             <button pButton type="button" class="p-button-sm" label="Approve" id="approvePayment"
-                                name="approvePayment"></button>
+                                name="approvePayment" (click)="clickConfirmApprove(i)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -37,34 +41,34 @@
         </p-tabPanel>
 
         <p-tabPanel header="Approved">
-            <p-table [value]="events" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true"
+            <p-table [value]="approvedPaymentPremiumsRes.data" [paginator]="true" [rows]="rows" [(first)]="first"
+                [totalRecords]="totalApprovedPaymentPremiums" [showCurrentPageReport]="true"
+                (onLazyLoad)="loadApprovedData($event)" [lazy]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 paginatorPosition="both">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="text-align: center">No</th>
-                        <th>Member Name</th>
-                        <th>Email</th>
-                        <th>Campany Name</th>
-                        <th>Position</th>
-                        <th>Fee</th>
-                        <th style="text-align: center">Proof of Payment</th>
-                        <th style="text-align: center">Action</th>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Member Name</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Fee</th>
+                        <th class="text-center">Payment Time</th>
+                        <th class="text-center">Approved Time</th>
+                        <th class="text-center">Invoice</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-event>
+                <ng-template pTemplate="body" let-premium let-i="rowIndex">
                     <tr>
-                        <td style="text-align: center ">{{event.no}}</td>
-                        <td>{{event.memberName}}</td>
-                        <td>{{event.emial}}</td>
-                        <td>{{event.companyName}}</td>
-                        <td>{{event.position}}</td>
-                        <td>{{event.fee}}</td>
-                        <td style="text-align: center"><img src={{event.proof}} alt="" class="profile-pic"></td>
-
-                        <td style="text-align: center ">
-                            <button pButton type="button" class="p-button-sm" label="Approve" id="approvePayment"
-                                name="approvePayment"></button>
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{premium.fullname}}</td>
+                        <td class="text-center">{{premium.email}}</td>
+                        <td class="text-center">{{premium.nominal}}</td>
+                        <td class="text-center">{{premium.createdAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
+                        <td class="text-center">{{premium.updatedAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
+                        <td class="text-center">
+                            <p-image alt="payment-pic" src="{{fileLink}}{{premium.fileId}}" [preview]="true"
+                                width="40px">
+                            </p-image>
                         </td>
                     </tr>
                 </ng-template>
@@ -72,3 +76,4 @@
         </p-tabPanel>
     </p-tabView>
 </div>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"></p-confirmDialog>

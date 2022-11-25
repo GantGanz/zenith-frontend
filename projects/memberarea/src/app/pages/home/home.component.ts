@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy{
     items!: MenuItem[]
     type!: string
 
+    posts: any[]=[]
+
     like = true
     bookmark = true
     likeFill = false
@@ -48,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy{
     })
 
     private postInsertSubscription?: Subscription
+    private postsSubscribtion?: Subscription
 
     constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
         private fileService: FileService, private postService: PostService) { }
@@ -65,7 +68,13 @@ export class HomeComponent implements OnInit, OnDestroy{
         })
     }
 
-    init() { }
+    init() {
+        this.postInsertSubscription = this.postService.getAllRegular().subscribe(result=>{
+            for(let i=0;i<result.data.length;i++){
+                this.posts.push(result.data[i])
+            }
+        })
+    }
 
     showCreatePostDialog() {
         this.showForm = true

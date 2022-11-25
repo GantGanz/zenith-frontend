@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { CalendarModule } from 'primeng/calendar';
         HttpClientModule,
         TooltipModule,
         DividerModule,
-        CalendarModule
+        CalendarModule,
+        TabViewModule
     ],
     exports: [
         HomeComponent

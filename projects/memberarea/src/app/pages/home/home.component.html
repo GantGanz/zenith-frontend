@@ -1,8 +1,7 @@
 
 
 <div class="container mt-5">
-    <div class="grid">
-        
+    <div class="grid">  
         <!-- Main Content -->
         <div class="col-8">
             <div class="card box mb-3">
@@ -15,11 +14,11 @@
                     </div>
                 </div>
             </div>
-    
-            <ng-container *ngIf="type == 'post'">
-                <!-- Post -->
+
+            <p-tabView>
+                <p-tabPanel header="Post" headerStyleClass="w-full">
+                  <!-- Post -->
                 <div class="card box mb-3">
-                    <p-tabMenu [model]="items" [activeItem]="items[0]"></p-tabMenu>
                     <div class="card-container md:p-4">
                         <div class="flex mt-2 mx-2">
                             <div class="max-w-max"><img class="profile-pic" src="../../../assets/images/photo_member.png" alt=""></div>
@@ -105,11 +104,10 @@
                         </div>
                     </div>
                 </div>
-            </ng-container>
+                </p-tabPanel>
 
-            <ng-container *ngIf="type == 'likes'">
-                <p-tabMenu [model]="items" [activeItem]="items[1]"></p-tabMenu>
-                 <!-- Polling -->
+                <p-tabPanel header="Likes" headerStyleClass="w-full">
+                     <!-- Polling -->
                 <div class="card box mb-3">
                     <div class="card-container md:p-4">
                         <div class="mt-2">
@@ -195,97 +193,11 @@
                         </div>
                     </div>
                 </div>
-            </ng-container>
-
-            <ng-container *ngIf="type == 'bookmarks'">
-                <p-tabMenu [model]="items" [activeItem]="items[2]"></p-tabMenu>
-                 <!-- Polling -->
-                <div class="card box mb-3">
-                    <div class="card-container md:p-4">
-                        <div class="mt-2">
-                            <div class="inline-flex mr-3"><img class="profile-pic" src="../../../assets/images/photo_member.png" alt=""></div>
-                            <div class="inline-block">
-                                <h6>Nathan Alexander</h6>
-                                <small>20/22/12</small>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <h4>9 Projects You Can Do to Become a Front-End Master in 2023</h4>
-                            <p>Whether you're new to programming or already an experienced developer in this industry, learning new concepts and languages/frameworks ismandatory to keep up with the rapid changes.
-                                Take, for example, React — open-sourced by Facebook just a shy four years ago, it's already become the number one choice for JavaScript devs around the globe.
-                                Vue and Angular, of course, also have their legitimate follower base. 
-                            </p>
-                        </div>
-                        <div class="mt-3">
-                            <div class="card p-4 border-none bg-gray-50 box">
-                                <h6 class="mb-4">9 Projects You Can Do to Become </h6>
-                                <button pButton class="p-button-outlined p-button-sm mb-2" type="button" label="Option 1"></button>
-                                <button pButton class="p-button-outlined p-button-sm mb-2" type="button" label="Option 2"></button>
-                                <button pButton class="p-button-outlined p-button-sm mb-2" type="button" label="Option 3"></button>
-                            </div>
-                        </div>
-
-                        <div class="grid mt-4 border-top-1 border-gray-300 pt-2">
-                            <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec" *ngIf="like" (click)="clickLike()"></button>
-                            <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text" *ngIf="likeFill" (click)="clickUnLike()"></button>
-
-                            <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec" *ngIf="bookmark" (click)="clickSave()"></button>
-                            <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text" *ngIf="bookmarkFill" (click)="clickUnSave()"></button>
-
-                            <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec" (click)="clickCommentPost()"></button>
-                        </div>
-
-                        <div *ngIf="commentPost">
-                            <div class="grid mt-2">
-                                <div class="col-1">
-                                    <img class="img-comment" src="../../../assets/images/photo_member.png" alt="">
-                                </div>
-                                <div class="col-10">
-                                    <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm" placeholder="Add a comment..."></textarea>
-                                </div>
-                            </div>
-                            <div>
-                                <button pButton class="p-button-text p-button-sm" *ngIf="viewComment" (click)="clickMoreComment()">View Comments</button>
-                                <button pButton class="p-button-text p-button-sm" *ngIf="hideComment" (click)="clickCloseComment()">Close Comments</button>
-                            </div>
-        
-                            <div *ngIf="allComment">
-                                <div class="grid mt-3">
-                                    <div class="col-1">
-                                        <img class="img-comment" src="../../../assets/images/photo_member.png" alt="">
-                                    </div>
-                                    <div class="card col-11">
-                                        <div class="px-2">
-                                            <h6>Name</h6>
-                                            <small>2020/10/10</small>
-                                        </div>
-                                        <div class="px-2 mt-2">
-                                            <p>I sure hope people are not going to Dribbble to find solutions for UX challenges. You just won't find anything there.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-offset-1"><button pButton class="p-button-text p-button-sm">Reply</button></div>
-                                </div>
-            
-                                <div class="grid col-offset-1 mt-3">
-                                    <div class="col-1">
-                                        <img class="img-comment" src="../../../assets/images/photo_member.png" alt="">
-                                    </div>
-                                    <div class="card col-11">
-                                        <div class="px-2">
-                                            <h6>Name</h6>
-                                            <small>2020/10/10</small>
-                                        </div>
-                                        <div class="px-2 mt-2">
-                                            <p>I sure hope people are not going to Dribbble to find solutions for UX challenges. You just won't find anything there.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-offset-1"><button pButton class="p-button-text p-button-sm">Reply</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
+                </p-tabPanel>
+                <p-tabPanel header="Bookmark" headerStyleClass="w-full">
+                    Content 3
+                </p-tabPanel>
+            </p-tabView>
         </div>
 
 
@@ -385,4 +297,22 @@
             </div>
         </form>
     </p-dialog>
+</div>
+
+
+
+<span class="back click"><i class="pi pi-angle-left"></i>Back to community</span>
+
+<p class="text-sm font-semibold ml-3 text-teal-800"><i class="pi pi-cog"></i> Settings</p>
+<div class="card mt-3">
+    <div class="container">
+        <div class="grid">
+            <div class="col-12">
+                <span class="font-semibold text-sm click">Edit Profile</span>
+            </div>
+            <div class="col-12">
+                <span class="font-medium text-sm text-500 click">Edit Password</span>
+            </div>
+        </div>
+    </div>
 </div>

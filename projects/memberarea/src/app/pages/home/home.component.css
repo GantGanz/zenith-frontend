@@ -2,3 +2,8 @@
     height: 180px;
     object-fit: cover;
 }
+
+:host ::ng-deep .p-tabview .p-tabview-panels {
+    background-color: #f2f2f2;
+    padding: 0;
+}

@@ -4,10 +4,10 @@ import { PremiumModule } from "./pages/premium/premium.module";
 
 @NgModule({
     imports: [
-        HomeModule, PremiumModule
+        HomeModule, PremiumModule, HomeModule
     ],
     exports: [
-        HomeModule, PremiumModule
+        HomeModule, PremiumModule, HomeModule
     ]
 })
 

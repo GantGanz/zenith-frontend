@@ -6,7 +6,6 @@ import { LoginResDto } from "projects/interface/login/login-res-dto";
     providedIn:'root'
 })
 export class ApiService{
-    constructor(private http:HttpClient){}
    
     saveData(data: LoginResDto) {
         localStorage.setItem('data', JSON.stringify(data))

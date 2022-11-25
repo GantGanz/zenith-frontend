@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router"
+import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard"
 
 export const adminAreaRoutes: Routes = [
     {
@@ -7,7 +8,10 @@ export const adminAreaRoutes: Routes = [
     },
     {
         path: "users",
-        loadChildren: () => import("./pages/master-user-admin/user.module").then(u => u.UserModule)
+        loadChildren: () => import("./pages/master-user-admin/user.module").then(u => u.UserModule),
+        canLoad:[
+            SuperAdminGuard
+        ]
     },
     {
         path: "",

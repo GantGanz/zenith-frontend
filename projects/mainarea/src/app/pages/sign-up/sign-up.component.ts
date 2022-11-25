@@ -39,11 +39,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     registerForm = this.fb.group({
         fullname: ['' || null, [Validators.required, Validators.maxLength(50)]],
-        email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
-        password: ['', [Validators.required]],
-        company: ['', [Validators.required]],
-        industryId: ['', [Validators.required]],
-        positionId: ['', [Validators.required]]
+        email: ['' || null, [Validators.required, Validators.email, Validators.maxLength(50)]],
+        password: ['' || null, [Validators.required]],
+        company: ['' || null, [Validators.required]],
+        industryId: ['' || null, [Validators.required]],
+        positionId: ['' || null, [Validators.required]]
     })
 
     verificationCode: any = this.fb.group({

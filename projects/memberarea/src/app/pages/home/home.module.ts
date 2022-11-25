@@ -16,11 +16,12 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { rightContentComponent } from "./right-content/right-content.component";
 
 
 @NgModule({
     declarations: [
-        HomeComponent
+        HomeComponent, rightContentComponent
     ],
     imports: [
         RouterModule,
@@ -41,7 +42,7 @@ import { TabViewModule } from 'primeng/tabview';
         TabViewModule
     ],
     exports: [
-        HomeComponent
+        HomeComponent, rightContentComponent
     ]
 })
 

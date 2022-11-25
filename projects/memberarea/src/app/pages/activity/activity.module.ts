@@ -5,19 +5,37 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { ActivityRouting } from "./activity.routing";
 import { ButtonModule } from "primeng/button";
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FileUploadModule } from 'primeng/fileupload'
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from "@angular/forms";
+import { ActivityInsertComponent } from "./activity-insert/activity-insert.component";
+import { InputTextModule } from "primeng/inputtext";
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 @NgModule({
     declarations: [
-        ActivityListComponent
+        ActivityListComponent, ActivityInsertComponent
     ],
     imports: [
         RouterModule, CommonModule, ActivityRouting,
         TabViewModule,
-        ButtonModule
+        ButtonModule,
+        InputTextareaModule,
+        FileUploadModule,
+        ConfirmDialogModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        InputNumberModule,
+        CalendarModule
     ],
     exports: [
-        ActivityListComponent
+        ActivityListComponent, ActivityInsertComponent
     ]
 })
 export class ActivityModule { }

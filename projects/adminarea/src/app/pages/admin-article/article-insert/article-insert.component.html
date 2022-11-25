@@ -16,7 +16,7 @@
             <div class="field col-12">
                 <label for="image">Upload Image</label>
                 <p-fileUpload url="./upload.php" accept="image/*" [customUpload]="true"
-                    (uploadHandler)="fileUpload($event)"></p-fileUpload>
+                    (uploadHandler)="fileUpload($event)" [auto]="true"></p-fileUpload>
             </div>
 
             <div class="grid col-12 mt-4">

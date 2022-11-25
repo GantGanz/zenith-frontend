@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
+import { ApiService } from "projects/mainarea/src/app/service/api.service";
 
 @Component({
     selector: "profile-view",
@@ -12,7 +14,11 @@ export class ProfileViewComponent implements OnInit {
     changePasswordSuperAdmin = false
     changePasswordAdmin = false
 
-    constructor(private router: Router) { }
+    fileLink= BASE_URL.FILE
+    fileId!: string
+    myId!: string
+
+    constructor(private router: Router, private apiService:ApiService) { }
 
     ngOnInit(): void {
         if (this.router.url == "/super-admin/profiles/view") {
@@ -22,5 +28,7 @@ export class ProfileViewComponent implements OnInit {
             this.editProfileAdmin = true
             this.changePasswordAdmin = true
         }
+        this.fileId = this.apiService.getPhoto()!
+        this.myId = this.apiService.getId()
     }
 }

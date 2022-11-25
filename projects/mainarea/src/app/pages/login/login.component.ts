@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
                 if (result.roleCode == ROLECODE.MEMBER) {
                     this.apiService.saveData(result)
-                    this.router.navigateByUrl("/feed/post")
+                    this.router.navigateByUrl("/feed")
                 } else {
-                    this.toast.error("Wrong username or password", "Information")
+                    this.toast.error("Unauthorized Login", "Information")
                 }
             } else {
                 if (result.roleCode == ROLECODE.SUPERADMIN) {
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.apiService.saveData(result)
                     this.router.navigateByUrl("/dashboard/admin")
                 } else {
-                    this.toast.error("Wrong username or password", "Information")
+                    this.toast.error("Unauthorized Login", "Information")
                 }
             }
         })

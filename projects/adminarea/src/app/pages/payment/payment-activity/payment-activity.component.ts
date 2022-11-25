@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { PaymentActivitiesRes } from "projects/interface/payment-activity/payment-activities-res";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
@@ -18,15 +18,20 @@ export class PaymentActivity implements OnInit, OnDestroy {
     first = 0
     rows = 10
     position: string = 'top'
-    paymentActivtiyRes!: PaymentActivitiesRes
+    unapprovedPaymentActivtiesRes!: PaymentActivitiesRes
+    approvedPaymentActivtiesRes!: PaymentActivitiesRes
 
 
     limit = this.rows
-    totalArticles!: number
+    totalApprovedPaymentActivities!: number
+    totalUnapprovedPaymentActivities!: number
 
-    private paymentSubscription?: Subscription
-    private pageChangeSubscription?: Subscription
-    private countSubscription?: Subscription
+    private paymentUnapprovedSubscription?: Subscription
+    private paymentApprovedSubscription?: Subscription
+    private pageChangeUnapprovedSubscription?: Subscription
+    private pageChangeApprovedSubscription?: Subscription
+    private countApprovedSubscription?: Subscription
+    private countUnapprovedSubscription?: Subscription
     private approveSubscription?: Subscription
 
     paymentApprove = this.fb.group({
@@ -40,50 +45,67 @@ export class PaymentActivity implements OnInit, OnDestroy {
     constructor(private confirmationService: ConfirmationService, private paymentActivityService: PaymentActivityService, private fb: FormBuilder) { }
 
     ngOnInit(): void {
-        // this.init()
+        this.init()
     }
 
-    // init() {
-    //     this.paymentSubscription = this.paymentActivityService.getAllUnapproved(this.first, this.limit).subscribe(result => {
-    //         this.paymentActivtiyRes = result
-    //     })
-    //     this.countSubscription = this.paymentActivityService.countAll().subscribe(result => {
-    //         this.totalArticles = result
-    //     })
-    // }
+    init() {
+        this.paymentUnapprovedSubscription = this.paymentActivityService.getAllUnapproved(this.first, this.limit).subscribe(result => {
+            this.unapprovedPaymentActivtiesRes = result
+        })
+        this.paymentApprovedSubscription = this.paymentActivityService.getAllApproved(this.first, this.limit).subscribe(result => {
+            this.approvedPaymentActivtiesRes = result
+        })
+        this.countUnapprovedSubscription = this.paymentActivityService.countAllUnapproved().subscribe(result => {
+            this.totalUnapprovedPaymentActivities = result
+        })
+        this.countApprovedSubscription = this.paymentActivityService.countAllApproved().subscribe(result => {
+            this.totalApprovedPaymentActivities = result
+        })
+    }
 
-    // clickConfirmDelete(index: number) {
-    //     this.confirmationService.confirm({
-    //         message: 'Do you want to delete this article?',
-    //         header: 'Delete Confirmation',
-    //         icon: 'pi pi-info-circle',
-    //         key: 'positionDialog',
-    //         accept: () => {
-    //             this.paymentApprove.controls['id'].setValue(this.paymentActivtiyRes.data[index].id)
-    //             this.paymentApprove.controls['version'].setValue(this.paymentActivtiyRes.data[index].version)
-    //             this.paymentApprove.controls['articleTitle'].setValue(this.paymentActivtiyRes.data[index].articleTitle)
-    //             this.paymentApprove.controls['articleContent'].setValue(this.paymentActivtiyRes.data[index].articleContent)
-    //             this.approveSubscription = this.paymentActivityService.update(this.paymentApprove.value).subscribe(a => {
-    //                 this.init()
-    //             })
-    //         }
-    //     })
-    // }
+    clickConfirmApprove(index: number) {
+        this.confirmationService.confirm({
+            message: 'Do you want to approve this payment? (you can not undo this action)',
+            header: 'Approve Confirmation',
+            icon: 'pi pi-info-circle',
+            key: 'positionDialog',
+            accept: () => {
+                this.paymentApprove.controls['id'].setValue(this.unapprovedPaymentActivtiesRes.data[index].id)
+                this.paymentApprove.controls['version'].setValue(this.unapprovedPaymentActivtiesRes.data[index].version)
+                this.approveSubscription = this.paymentActivityService.approve(this.paymentApprove.value).subscribe(a => {
+                    this.init()
+                })
+            }
+        })
+    }
 
-    // getData(offset: number, limit: number) {
-    //     this.pageChangeSubscription = this.paymentActivityService.getAllById(offset, limit).subscribe(result => {
-    //         this.paymentActivtiyRes = result
-    //     })
-    // }
+    getUnapprovedData(offset: number, limit: number) {
+        this.pageChangeUnapprovedSubscription = this.paymentActivityService.getAllUnapproved(offset, limit).subscribe(result => {
+            this.unapprovedPaymentActivtiesRes = result
+        })
+    }
 
-    // loadData(event: LazyLoadEvent) {
-    //     this.getData(event.first!, event.rows!)
-    // }
+    loadUnapprovedData(event: LazyLoadEvent) {
+        this.getUnapprovedData(event.first!, event.rows!)
+    }
+
+    getApprovedData(offset: number, limit: number) {
+        this.pageChangeApprovedSubscription = this.paymentActivityService.getAllApproved(offset, limit).subscribe(result => {
+            this.approvedPaymentActivtiesRes = result
+        })
+    }
+
+    loadApprovedData(event: LazyLoadEvent) {
+        this.getApprovedData(event.first!, event.rows!)
+    }
 
     ngOnDestroy(): void {
-        this.pageChangeSubscription?.unsubscribe()
-        this.paymentSubscription?.unsubscribe()
-        this.countSubscription?.unsubscribe()
+        this.pageChangeUnapprovedSubscription?.unsubscribe()
+        this.pageChangeApprovedSubscription?.unsubscribe()
+        this.paymentUnapprovedSubscription?.unsubscribe()
+        this.paymentApprovedSubscription?.unsubscribe()
+        this.countUnapprovedSubscription?.unsubscribe()
+        this.countApprovedSubscription?.unsubscribe()
         this.approveSubscription?.unsubscribe()
     }
 }

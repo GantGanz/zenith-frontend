@@ -36,9 +36,15 @@ export const memberAreaRoutes: Routes = [
     },
     {
         path: "activities",
+        component: ContentComponent,
         loadChildren: () => import("./pages/activity/activity.module").then(a => a.ActivityModule),
         canLoad: [
             MemberGuard
         ]
+    },
+    {
+        path: "payment",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
     }
 ]

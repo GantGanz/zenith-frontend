@@ -4,6 +4,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { ActivityRouting } from "./activity.routing";
+import { ButtonModule } from "primeng/button";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ActivityRouting } from "./activity.routing";
     ],
     imports: [
         RouterModule, CommonModule, ActivityRouting,
-        TabViewModule
+        TabViewModule,
+        ButtonModule
     ],
     exports: [
         ActivityListComponent

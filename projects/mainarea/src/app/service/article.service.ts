@@ -4,8 +4,6 @@ import { ArticleRes } from "projects/interface/article/article-res";
 import { ArticlesRes } from "projects/interface/article/articles-res";
 import { InsertRes } from "projects/interface/insert-res";
 import { UpdateRes } from "projects/interface/update-res";
-import { UserRes } from "projects/interface/user/user-res";
-import { UsersRes } from "projects/interface/user/users-res";
 import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.url";
 
@@ -17,6 +15,10 @@ export class ArticleService {
 
     countAll(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/articles/count`)
+    }
+
+    countAllById(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/articles/count-user`)
     }
 
     getAll(offset: number, limit: number): Observable<ArticlesRes> {

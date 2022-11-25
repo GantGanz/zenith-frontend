@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button'
 import { ImageModule } from "primeng/image";
 import { PaymentActivity } from "./payment-activity/payment-activity.component";
 import { TabViewModule } from 'primeng/tabview';
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { TabViewModule } from 'primeng/tabview';
         TableModule,
         ButtonModule,
         ImageModule,
-        TabViewModule
+        TabViewModule,
+        ConfirmDialogModule
     ],
     exports: [
         PaymentActivity, PaymentPremium

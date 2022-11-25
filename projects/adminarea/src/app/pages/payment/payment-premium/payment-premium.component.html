@@ -27,7 +27,6 @@
                         <td>{{event.position}}</td>
                         <td>{{event.fee}}</td>
                         <td style="text-align: center"><img src={{event.proof}} alt="" class="profile-pic"></td>
-
                         <td style="text-align: center ">
                             <button pButton type="button" class="p-button-sm" label="Approve" id="approvePayment"
                                 name="approvePayment"></button>
@@ -36,6 +35,7 @@
                 </ng-template>
             </p-table>
         </p-tabPanel>
+
         <p-tabPanel header="Approved">
             <p-table [value]="events" [paginator]="true" [rows]="10" [(first)]="first" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"

@@ -17,12 +17,16 @@ export class PaymentPremiumService {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-premiums/count`)
     }
 
-    getAllApproved(): Observable<PaymentPremiumsRes> {
-        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-premiums/approved`)
+    countAllApproved(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-premiums/count-approved`)
     }
 
-    getAllUnapproved(): Observable<PaymentPremiumsRes> {
-        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-premiums/unapproved`)
+    getAllApproved(offset: number, limit: number): Observable<PaymentPremiumsRes> {
+        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-premiums/approved?offset=${offset}&limit=${limit}`)
+    }
+
+    getAllUnapproved(offset: number, limit: number): Observable<PaymentPremiumsRes> {
+        return this.http.get<PaymentPremiumsRes>(`${BASE_URL.LOCALHOST}/payment-premiums/unapproved?offset=${offset}&limit=${limit}`)
     }
 
     insert(data: any): Observable<InsertRes> {

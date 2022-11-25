@@ -3,30 +3,29 @@
         <h3 class="text-center text-3xl mt-4">New Activity</h3>
         <form class="formgrid grid mx-4 md:mx-6 my-5">
             <div class="field col-12 md:col-6">
+                <label for="activityType">Activity Type<span class="text-red-500">*</span></label>
+                <p-dropdown [options]="activityType" styleClass="w-full" optionLabel="name" optionValue="id"
+                    name="activityType" id="activityType" placeholder="Select an Industry">
+                </p-dropdown>
+            </div>
+            <div class="field col-12 md:col-6">
                 <label for="activityTitle">Title<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="activityTitle" name="activityTitle"
-                    formControlName="activityTitle" required>
+                <input pInputText class="w-full" type="text" id="activityTitle" name="activityTitle" required>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="provider">Provider<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="provider" name="provider"
-                    formControlName="provider" required>
+                <input pInputText class="w-full" type="text" id="provider" name="provider" required>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="location">Location<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="location" name="location"
-                    formControlName="location" required>
-            </div>
-            <div class="field col-12 md:col-6">
-                <label for="location">Location<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="location" name="location"
-                    formControlName="location" required>
+                <input pInputText class="w-full" type="text" id="location" name="location" required>
             </div>
 
             <div class="field col-12 md:col-6">
                 <label for="range">Select Date<span class="text-red-500">*</span></label>
                 <p-calendar selectionMode="range" [readonlyInput]="true" inputId="range" styleClass="w-full"></p-calendar>
             </div>
+            
             <div class="field col-12 md:col-6">
                 <label for="currency-indonesia">Fee<span class="text-red-500">*</span></label>
                 <p-inputNumber mode="currency" currency="IDR" inputId="currency-indonesia" name="currency-indonesia" styleClass="w-full"></p-inputNumber>

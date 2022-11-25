@@ -2,6 +2,11 @@
     cursor: pointer;
 }
 
+.card-img>img {
+    height: 180px;
+    object-fit: cover;
+}
+
 .img-box {
     height: 150px;
     width: 150px;

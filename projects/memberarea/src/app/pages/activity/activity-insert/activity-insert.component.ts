@@ -4,4 +4,10 @@ import { Component } from "@angular/core";
     selector: "activity-insert",
     templateUrl: "./activity-insert.component.html"
 })
-export class ActivityInsertComponent { }
+export class ActivityInsertComponent {
+
+    activityType: any = [
+        { name: "event" },
+        { name: "course" }
+    ]
+}

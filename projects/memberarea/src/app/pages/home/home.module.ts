@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { TabViewModule } from 'primeng/tabview';
         TooltipModule,
         DividerModule,
         CalendarModule,
-        TabViewModule
+        TabViewModule,
+        ReactiveFormsModule
     ],
     exports: [
         HomeComponent

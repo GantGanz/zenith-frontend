@@ -17,8 +17,9 @@
 
             <p-tabView>
                 <p-tabPanel header="Post" headerStyleClass="w-full">
-                  <!-- Post -->
-                <div class="card box mb-3">
+                
+                <!-- Post -->
+                <div class="card border-none radius-none mb-3">
                     <div class="card-container md:p-4">
                         <div class="mt-2">
                             <div class="inline-flex mr-3"><img class="profile-pic" src="../../../assets/images/photo_member.png" alt=""></div>
@@ -64,8 +65,8 @@
                                 </div>
                             </div>
                             <div>
-                                <button pButton class="p-button-text p-button-sm" *ngIf="viewComment" (click)="clickMoreComment()">View Comments</button>
-                                <button pButton class="p-button-text p-button-sm" *ngIf="hideComment" (click)="clickCloseComment()">Close Comments</button>
+                                <span class="text-sm click" *ngIf="viewComment" (click)="clickMoreComment()">View Comments</span>
+                                <span class="text-sm click" *ngIf="hideComment" (click)="clickCloseComment()">Close Comments</span>
                             </div>
         
                             <div *ngIf="allComment">

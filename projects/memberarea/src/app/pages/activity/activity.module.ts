@@ -14,6 +14,8 @@ import { ActivityInsertComponent } from "./activity-insert/activity-insert.compo
 import { InputTextModule } from "primeng/inputtext";
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+
 
 
 
@@ -32,7 +34,8 @@ import { CalendarModule } from 'primeng/calendar';
         ReactiveFormsModule,
         InputTextModule,
         InputNumberModule,
-        CalendarModule
+        CalendarModule,
+        DropdownModule
     ],
     exports: [
         ActivityListComponent, ActivityInsertComponent

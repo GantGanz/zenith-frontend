@@ -1,11 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { EventComponent } from "./event.component";
+import { ActivityListComponent } from "./activity-list/activity-list.component";
+
 
 const routes: Routes = [
     {
         path: "",
-        component: EventComponent
+        component: ActivityListComponent
     }
 ]
 
@@ -17,5 +18,4 @@ const routes: Routes = [
         RouterModule
     ]
 })
-
-export class EventRouting { }
+export class ActivityRouting { }

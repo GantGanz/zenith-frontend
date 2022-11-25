@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ActivityInsertComponent } from "./activity-insert/activity-insert.component";
 import { ActivityListComponent } from "./activity-list/activity-list.component";
 
 
@@ -7,6 +8,10 @@ const routes: Routes = [
     {
         path: "",
         component: ActivityListComponent
+    },
+    {
+        path: "new",
+        component: ActivityInsertComponent
     }
 ]
 

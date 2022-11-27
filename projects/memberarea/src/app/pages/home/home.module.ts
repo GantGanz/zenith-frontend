@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { ReactiveFormsModule } from "@angular/forms";
 import { rightContentComponent } from "./right-content/right-content.component";
 
 
@@ -39,7 +40,8 @@ import { rightContentComponent } from "./right-content/right-content.component";
         TooltipModule,
         DividerModule,
         CalendarModule,
-        TabViewModule
+        TabViewModule,
+        ReactiveFormsModule
     ],
     exports: [
         HomeComponent, rightContentComponent

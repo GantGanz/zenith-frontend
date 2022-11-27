@@ -9,17 +9,17 @@ import { POST_TYPE_ID } from "../../constant/post.type";
 
 
 @Component({
-    selector: "home",
+    selector: "app-home",
     templateUrl: "./home.component.html",
     styleUrls: ["home.component.css"]
 })
 
-export class HomeComponent implements OnInit, OnDestroy{
+export class HomeComponent implements OnInit, OnDestroy {
 
     items!: MenuItem[]
     type!: string
 
-    posts: any[]=[]
+    posts: any[] = []
 
     like = true
     bookmark = true
@@ -69,8 +69,8 @@ export class HomeComponent implements OnInit, OnDestroy{
     }
 
     init() {
-        this.postInsertSubscription = this.postService.getAllRegular().subscribe(result=>{
-            for(let i=0;i<result.data.length;i++){
+        this.postInsertSubscription = this.postService.getAllRegular().subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
                 this.posts.push(result.data[i])
             }
         })
@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit, OnDestroy{
     fileUpload(event: any) {
         console.log('masuk');
         this.fileService.fileUploadMulti(event).then(result => {
-            for(let i=0;i<result.length;i++){
+            for (let i = 0; i < result.length; i++) {
                 this.detailFoto.push(this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
             }
         })

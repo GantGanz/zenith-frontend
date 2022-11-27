@@ -9,19 +9,19 @@
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onLazyLoad)="loadData($event)" [lazy]="true" paginatorPosition="both">
         <ng-template pTemplate="header">
             <tr>
-                <th style="text-align: center">No</th>
+                <th class="text-center">No</th>
                 <th>Position Code</th>
                 <th>Position Name</th>
-                <th>Status</th>
-                <th style="text-align: center">Action</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-position let-i="rowIndex">
             <tr>
-                <td style="text-align: center ">{{1+i}}</td>
+                <td class="text-center">{{1+i}}</td>
                 <td>{{position.positionCode}}</td>
                 <td>{{position.positionName}}</td>
-                <td style="text-align: center ;">
+                <td class="text-center">
                     <div *ngIf="position.isActive; else elseBlock">
                         <i class="pi pi-check-circle text-green-500"></i>
                     </div>
@@ -29,8 +29,8 @@
                         <i class="pi pi-times text-danger"></i>
                     </ng-template>
                 </td>
-                <td style="text-align: center ">
-                    <div class="flex flex-row">
+                <td class="text-center">
+                    <div>
                         <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/positions/edit/{{position.id}}"><i class="pi pi-file-edit"></i></button>
                         <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" (click)="confirmPosition(i)"><i class="pi pi-trash"></i></button>
                     </div>

@@ -15,6 +15,9 @@ import { FileUploadModule } from 'primeng/fileupload'
 import { HttpClientModule } from '@angular/common/http'
 import { ProfileDetailComponent } from "./detail-profile/profile-detail.component";
 
+
+import { CardModule } from "primeng/card";
+
 @NgModule({
     declarations: [
         MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileDetailComponent
@@ -29,7 +32,10 @@ import { ProfileDetailComponent } from "./detail-profile/profile-detail.componen
         ReactiveFormsModule,
         FormsModule,
         FileUploadModule,
-        HttpClientModule
+        HttpClientModule,
+
+
+        CardModule
 
     ],
     exports: [

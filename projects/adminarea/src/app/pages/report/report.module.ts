@@ -6,7 +6,10 @@ import { ReportIncomeComponent } from "./report-income/report-income.component";
 import { TableModule } from "primeng/table";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ReportMemberComponent } from "./report-member/report-member.component";
-
+import { CalendarModule } from 'primeng/calendar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextModule } from "primeng/inputtext";
 
 @NgModule({
     declarations: [
@@ -18,6 +21,11 @@ import { ReportMemberComponent } from "./report-member/report-member.component";
         ReportRouting,
         TableModule,
         ConfirmDialogModule,
+        CalendarModule,
+        BreadcrumbModule,
+        ToolbarModule,
+        InputTextModule
+
     ],
     exports: [
         ReportIncomeComponent, ReportMemberComponent

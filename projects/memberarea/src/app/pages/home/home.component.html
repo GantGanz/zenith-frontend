@@ -21,7 +21,8 @@
                         <div class="card-container md:p-4">
                             <div class="mt-2">
                                 <div class="inline-flex mr-3"><img class="profile-pic"
-                                        src="../../../assets/images/photo_member.png" alt=""></div>
+                                        src="../../../assets/images/photo_member.png" alt="">
+                                </div>
                                 <div class="inline-block">
                                     <h6>Nathan Alexander</h6>
                                     <small>20/22/12</small>
@@ -57,65 +58,66 @@
                                     *ngIf="bookmark" (click)="clickSave()"></button>
                                 <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
                                     *ngIf="bookmarkFill" (click)="clickUnSave()"></button>
-                            <div>
-                                <span class="text-sm click" *ngIf="viewComment" (click)="clickMoreComment()">View Comments</span>
-                                <span class="text-sm click" *ngIf="hideComment" (click)="clickCloseComment()">Close Comments</span>
-                            </div>
-
-                            <div *ngIf="commentPost">
-                                <div class="grid mt-2">
-                                    <div class="col-1">
-                                        <img class="img-comment" src="../../../assets/images/photo_member.png" alt="">
-                                    </div>
-                                    <div class="col-10">
-                                        <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm"
-                                            placeholder="Add a comment..."></textarea>
-                                    </div>
-                                </div>
                                 <div>
-                                    <button pButton class="p-button-text p-button-sm" *ngIf="viewComment"
-                                        (click)="clickMoreComment()">View Comments</button>
-                                    <button pButton class="p-button-text p-button-sm" *ngIf="hideComment"
-                                        (click)="clickCloseComment()">Close Comments</button>
+                                    <span class="text-sm click" *ngIf="viewComment" (click)="clickMoreComment()">View Comments</span>
+                                    <span class="text-sm click" *ngIf="hideComment" (click)="clickCloseComment()">Close Comments</span>
                                 </div>
 
-                                <div *ngIf="allComment">
-                                    <div class="grid mt-3">
+                                <div *ngIf="commentPost">
+                                    <div class="grid mt-2">
                                         <div class="col-1">
-                                            <img class="img-comment" src="../../../assets/images/photo_member.png"
-                                                alt="">
+                                            <img class="img-comment" src="../../../assets/images/photo_member.png" alt="">
                                         </div>
-                                        <div class="card col-11">
-                                            <div class="px-2">
-                                                <h6>Name</h6>
-                                                <small>2020/10/10</small>
-                                            </div>
-                                            <div class="px-2 mt-2">
-                                                <p>I sure hope people are not going to Dribbble to find solutions for UX
-                                                    challenges. You just won't find anything there.</p>
-                                            </div>
+                                        <div class="col-10">
+                                            <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm"
+                                                placeholder="Add a comment..."></textarea>
                                         </div>
-                                        <div class="col-offset-1"><button pButton
-                                                class="p-button-text p-button-sm">Reply</button></div>
+                                    </div>
+                                    <div>
+                                        <button pButton class="p-button-text p-button-sm" *ngIf="viewComment"
+                                            (click)="clickMoreComment()">View Comments</button>
+                                        <button pButton class="p-button-text p-button-sm" *ngIf="hideComment"
+                                            (click)="clickCloseComment()">Close Comments</button>
                                     </div>
 
-                                    <div class="grid col-offset-1 mt-3">
-                                        <div class="col-1">
-                                            <img class="img-comment" src="../../../assets/images/photo_member.png"
-                                                alt="">
-                                        </div>
-                                        <div class="card col-11">
-                                            <div class="px-2">
-                                                <h6>Name</h6>
-                                                <small>2020/10/10</small>
+                                    <div *ngIf="allComment">
+                                        <div class="grid mt-3">
+                                            <div class="col-1">
+                                                <img class="img-comment" src="../../../assets/images/photo_member.png"
+                                                    alt="">
                                             </div>
-                                            <div class="px-2 mt-2">
-                                                <p>I sure hope people are not going to Dribbble to find solutions for UX
-                                                    challenges. You just won't find anything there.</p>
+                                            <div class="card col-11">
+                                                <div class="px-2">
+                                                    <h6>Name</h6>
+                                                    <small>2020/10/10</small>
+                                                </div>
+                                                <div class="px-2 mt-2">
+                                                    <p>I sure hope people are not going to Dribbble to find solutions for UX
+                                                        challenges. You just won't find anything there.</p>
+                                                </div>
                                             </div>
+                                            <div class="col-offset-1"><button pButton
+                                                    class="p-button-text p-button-sm">Reply</button></div>
                                         </div>
-                                        <div class="col-offset-1"><button pButton
-                                                class="p-button-text p-button-sm">Reply</button></div>
+
+                                        <div class="grid col-offset-1 mt-3">
+                                            <div class="col-1">
+                                                <img class="img-comment" src="../../../assets/images/photo_member.png"
+                                                    alt="">
+                                            </div>
+                                            <div class="card col-11">
+                                                <div class="px-2">
+                                                    <h6>Name</h6>
+                                                    <small>2020/10/10</small>
+                                                </div>
+                                                <div class="px-2 mt-2">
+                                                    <p>I sure hope people are not going to Dribbble to find solutions for UX
+                                                        challenges. You just won't find anything there.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-offset-1"><button pButton
+                                                    class="p-button-text p-button-sm">Reply</button></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

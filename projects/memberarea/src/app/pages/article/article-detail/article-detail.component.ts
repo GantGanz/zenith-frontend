@@ -8,7 +8,8 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: "article-detail",
-    templateUrl: "./article-detail.component.html"
+    templateUrl: "./article-detail.component.html",
+    styleUrls: ["../../../../styles.css"]
 })
 export class ArticleDetailComponent implements OnInit, OnDestroy{
 

@@ -29,5 +29,10 @@ export const memberAreaRoutes: Routes = [
         path: "payment",
         component: ContentComponent,
         loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
+    },
+    {
+        path: "my-activity",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/my-activity/my-activity.module").then(m => m.MyActivityModule)
     }
 ]

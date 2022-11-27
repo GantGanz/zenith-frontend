@@ -14,13 +14,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { FileUploadModule } from 'primeng/fileupload'
 import { HttpClientModule } from '@angular/common/http'
 import { ProfileDetailComponent } from "./detail-profile/profile-detail.component";
+import { ProfileViewComponent } from "./profile-view/profile-view.component";
+import { TabViewModule } from 'primeng/tabview';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
-import { CardModule } from "primeng/card";
+
 
 @NgModule({
     declarations: [
-        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileDetailComponent
+        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileDetailComponent, ProfileViewComponent
     ],
     imports: [
         RouterModule, CommonModule, ProfileRouting,
@@ -33,13 +36,13 @@ import { CardModule } from "primeng/card";
         FormsModule,
         FileUploadModule,
         HttpClientModule,
-
-
-        CardModule
+        TabViewModule,
+        InputTextareaModule
 
     ],
     exports: [
-        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileDetailComponent
+        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileDetailComponent,
+        ProfileViewComponent
     ]
 })
 export class ProfileModule { }

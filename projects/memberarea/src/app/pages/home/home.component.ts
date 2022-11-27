@@ -1,6 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { MenuItem } from "primeng/api";
+import { FileService } from "projects/mainarea/src/app/service/file.service";
+import { PostService } from "projects/mainarea/src/app/service/post.service";
+import { Subscription } from "rxjs";
+import { POST_TYPE_ID } from "../../constant/post.type";
 
 
 @Component({
@@ -9,10 +14,12 @@ import { MenuItem } from "primeng/api";
     styleUrls: ["home.component.css"]
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy{
 
     items!: MenuItem[]
     type!: string
+
+    posts: any[]=[]
 
     like = true
     bookmark = true
@@ -24,13 +31,31 @@ export class HomeComponent {
     hideComment = false
 
     showForm = false
-    showUploadImg = false
+    showUploadImg = true
     showCreatePolling = false
 
-    constructor(private activatedRoute: ActivatedRoute) { }
+    postTypeId!: string
+
+    postForm = this.fb.group({
+        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
+        postContent: ['', [Validators.required]],
+        postTypeId: ['', [Validators.required]],
+        attachmentPostInsertReqs: this.fb.array([]),
+        pollInsertReq: this.fb.group({
+            pollTitle: ['', [Validators.required]],
+            endAt: ['', [Validators.required]],
+            postId: ['', [Validators.required]],
+            pollOptionInsertReqs: this.fb.array([])
+        })
+    })
+
+    private postInsertSubscription?: Subscription
+    private postsSubscribtion?: Subscription
+
+    constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+        private fileService: FileService, private postService: PostService) { }
 
     ngOnInit(): void {
-
         this.items = [
             { label: 'Post', routerLink: '/feed/post' },
             { label: 'Likes', routerLink: '/feed/likes' },
@@ -43,8 +68,17 @@ export class HomeComponent {
         })
     }
 
+    init() {
+        this.postInsertSubscription = this.postService.getAllRegular().subscribe(result=>{
+            for(let i=0;i<result.data.length;i++){
+                this.posts.push(result.data[i])
+            }
+        })
+    }
+
     showCreatePostDialog() {
         this.showForm = true
+        this.postTypeId = POST_TYPE_ID.REGULAR
     }
 
 
@@ -84,12 +118,38 @@ export class HomeComponent {
     clickAddPhotos() {
         this.showUploadImg = true
         this.showCreatePolling = false
-
+        this.postTypeId = POST_TYPE_ID.REGULAR
+        this.postForm.reset()
     }
     clickCreatePoll() {
         this.showCreatePolling = true
         this.showUploadImg = false
+        this.postTypeId = POST_TYPE_ID.POLLING
+        this.postForm.reset()
     }
 
-    init() { }
+    get detailFoto(): FormArray {
+        return this.postForm.get('attachmentPostInsertReqs') as FormArray
+    }
+
+    fileUpload(event: any) {
+        console.log('masuk');
+        this.fileService.fileUploadMulti(event).then(result => {
+            for(let i=0;i<result.length;i++){
+                this.detailFoto.push(this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
+            }
+        })
+    }
+
+    submitPost() {
+        this.postForm.controls['postTypeId'].setValue(this.postTypeId)
+        this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
+            this.showForm = false
+        })
+    }
+
+
+    ngOnDestroy(): void {
+        this.postInsertSubscription?.unsubscribe()
+    }
 }

@@ -57,9 +57,9 @@
                                     *ngIf="bookmark" (click)="clickSave()"></button>
                                 <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
                                     *ngIf="bookmarkFill" (click)="clickUnSave()"></button>
-
-                                <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                    (click)="clickCommentPost()"></button>
+                            <div>
+                                <span class="text-sm click" *ngIf="viewComment" (click)="clickMoreComment()">View Comments</span>
+                                <span class="text-sm click" *ngIf="hideComment" (click)="clickCloseComment()">Close Comments</span>
                             </div>
 
                             <div *ngIf="commentPost">

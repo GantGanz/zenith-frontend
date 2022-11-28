@@ -16,8 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
-
-
+import { ImageModule } from "primeng/image";
 
 @NgModule({
     declarations: [
@@ -37,6 +36,7 @@ import { MenuModule } from 'primeng/menu';
         CalendarModule,
         DropdownModule,
         MenuModule,
+        ImageModule
     ],
     exports: [
         ActivityListComponent, ActivityInsertComponent

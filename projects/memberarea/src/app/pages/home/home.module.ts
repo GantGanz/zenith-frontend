@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { rightContentComponent } from "./right-content/right-content.component";
 import { CheckboxModule } from 'primeng/checkbox';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { BlockUIModule } from 'primeng/blockui';
+
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
         TabViewModule,
         ReactiveFormsModule,
         CheckboxModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        BlockUIModule
     ],
     exports: [
         HomeComponent, rightContentComponent

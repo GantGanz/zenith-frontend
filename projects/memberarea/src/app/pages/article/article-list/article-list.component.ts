@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ArticleData } from "projects/interface/article/article-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
-import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -27,22 +26,21 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.init()
     }
-    
+
     onScroll() {
         this.first += this.limit
         this.addData()
-        
     }
-    
+
     init() {
         this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
-                this.data = result.data
+            this.data = result.data
         })
     }
-    
-    addData(){
+
+    addData() {
         this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
-            for(let i=0;i<result.data.length;i++){
+            for (let i = 0; i < result.data.length; i++) {
                 this.data.push(result.data[i])
             }
             console.log(this.data);

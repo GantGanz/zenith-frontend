@@ -8,6 +8,7 @@
         <h3 class="mb-4 -mb-2">Latest Article</h3>
         <p-divider></p-divider>
     </div>
+<<<<<<< HEAD
     <div class="grid mt-5"  infinite-scroll
     (scrolled)="onScroll()">
     <div class="container mt-4 p-0">
@@ -36,20 +37,37 @@
 
 
             <!-- <div class="field col-12 md:col-6 lg:col-4 p-0">
+=======
+    <div class="grid mt-5" infinite-scroll (scrolled)="onScroll()">
+        <ng-container *ngFor="let data of data; index as i">
+            <div class="field col-12 md:col-6 lg:col-4 p-0">
+>>>>>>> cff92b02e0073a67415765e17e19dd14dd37222e
                 <div class="card">
                     <div class="card-img">
                         <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}} class="card-img-top" alt="...">
                     </div>
                     <div class="card-body">
+<<<<<<< HEAD
                         <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> | <span>{{data.createdAt | date:'dd/MM/yyyy'}}</span></p>
                         <h5 class="card-title custom-text-overlay">{{data.articleTitle}}</h5>
                         <p class="card-text custom-text-overlay">{{data.articleContent}}</p>
                     <div class="text-end">
                         <button pButton type="button" class="p-button-text" routerLink="/articles/details/{{data.id}}"> <span>Read more <i class="pi pi-arrow-right" style="font-size: 0.8rem"></i></span> </button>
                     </div>
+=======
+                        <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> | <span>{{data.createdAt
+                                | date:'dd/MM/yyyy'}}</span></p>
+                        <h5 class="card-title">{{data.articleTitle}}</h5>
+                        <p class="card-text surface-overlay border-round border-1 p-3 mt-3 white-space-nowrap overflow-hidden text-overflow-ellipsis"
+                            style="width:100px">{{data.articleContent}}</p>
+                        <div class="text-end">
+                            <button pButton type="button" class="p-button-text"
+                                routerLink="/articles/details/{{data.id}}"> <span>Read more <i class="pi pi-arrow-right"
+                                        style="font-size: 0.8rem"></i></span> </button>
+                        </div>
+>>>>>>> cff92b02e0073a67415765e17e19dd14dd37222e
                     </div>
                 </div>
             </div> -->
     </div>
 </div>
-

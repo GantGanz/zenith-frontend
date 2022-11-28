@@ -54,17 +54,18 @@
                                             *ngIf="bookmark" (click)="clickSave()"></button>
                                         <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
                                             *ngIf="bookmarkFill" (click)="clickUnSave()"></button>
-                                            <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                            (click)="clickCommentPost()"></button>
+                                        <button pButton label="Comment" icon="pi pi-comment"
+                                            class="p-button-text btn-sec" (click)="clickCommentPost()"></button>
                                     </div>
                                     <div *ngIf="commentPost">
                                         <div class="grid mt-2">
                                             <div class="col-1">
-                                                <img class="border-circle w-10" src="../../../assets/images/photo_member.png"
-                                                    alt="">
+                                                <img class="border-circle w-10"
+                                                    src="../../../assets/images/photo_member.png" alt="">
                                             </div>
                                             <div class="col-11">
-                                                <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm"
+                                                <textarea pInputTextarea [autoResize]="true"
+                                                    class="w-full p-inputtextarea-sm"
                                                     placeholder="Add a comment..."></textarea>
                                             </div>
                                         </div>
@@ -78,7 +79,7 @@
                                                 Close Comments
                                             </span>
                                         </div>
-        
+
                                         <div *ngIf="allComment">
                                             <div class="grid mt-3">
                                                 <div class="col-1">
@@ -91,7 +92,8 @@
                                                         <span class="text-xs">2020/10/10</span>
                                                     </div>
                                                     <div class="px-2 mt-2">
-                                                        <p class="text-sm mb-1">I sure hope people are not going to Dribbble to
+                                                        <p class="text-sm mb-1">I sure hope people are not going to
+                                                            Dribbble to
                                                             find solutions for UX
                                                             challenges. You just won't find anything there.</p>
                                                     </div>
@@ -101,7 +103,7 @@
                                                         *ngIf="replyComment" (click)="clickReplyComment()">Reply</span>
                                                 </div>
                                             </div>
-        
+
                                             <!-- Reply Message -->
                                             <div class="grid col-offset-1 mt-2" *ngIf="showReplyComment">
                                                 <div class="col-1">
@@ -114,7 +116,7 @@
                                                         placeholder="Add a comment..."></textarea>
                                                 </div>
                                             </div>
-        
+
                                             <div class="grid col-offset-1 mt-2">
                                                 <div class="col-1">
                                                     <img class="border-circle w-10"
@@ -126,13 +128,15 @@
                                                         <span class="text-xs">2020/10/10</span>
                                                     </div>
                                                     <div class="px-2 mt-2">
-                                                        <p class="text-sm mb-1">I sure hope people are not going to Dribbble to
+                                                        <p class="text-sm mb-1">I sure hope people are not going to
+                                                            Dribbble to
                                                             find solutions for UX
                                                             challenges. You just won't find anything there.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-offset-1">
-                                                    <span class="text-sm cursor-pointer hover:text-blue-500">Reply</span>
+                                                    <span
+                                                        class="text-sm cursor-pointer hover:text-blue-500">Reply</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -299,8 +303,10 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <h5 class="text-gray-800">9 Projects You Can Do to Become a Front-End Master in 2023</h5>
-                                <p class="text-sm custom-text-overlay">Whether you're new to programming or already an experienced developer in this
+                                <h5 class="text-gray-800">9 Projects You Can Do to Become a Front-End Master in 2023
+                                </h5>
+                                <p class="text-sm custom-text-overlay">Whether you're new to programming or already an
+                                    experienced developer in this
                                     industry, learning new concepts and languages/frameworks ismandatory to keep up with
                                     the rapid changes.
                                     Take, for example, React — open-sourced by Facebook just a shy four years ago, it's
@@ -336,7 +342,8 @@
                             <div *ngIf="commentPost">
                                 <div class="grid mt-2">
                                     <div class="col-1">
-                                        <img class="border-circle w-10" src="../../../assets/images/photo_member.png" alt="">
+                                        <img class="border-circle w-10" src="../../../assets/images/photo_member.png"
+                                            alt="">
                                     </div>
                                     <div class="col-11">
                                         <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm"
@@ -344,10 +351,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"(click)="clickMoreComment()">
+                                    <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
+                                        (click)="clickMoreComment()">
                                         View Comments
                                     </span>
-                                    <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment" (click)="clickCloseComment()">
+                                    <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
+                                        (click)="clickCloseComment()">
                                         Close Comments
                                     </span>
                                 </div>
@@ -355,8 +364,8 @@
                                 <div *ngIf="allComment">
                                     <div class="grid mt-3">
                                         <div class="col-1">
-                                            <img class="border-circle w-10" src="../../../assets/images/photo_member.png"
-                                                alt="">
+                                            <img class="border-circle w-10"
+                                                src="../../../assets/images/photo_member.png" alt="">
                                         </div>
                                         <div class="card col-11">
                                             <div class="px-2">
@@ -364,30 +373,34 @@
                                                 <span class="text-xs">2020/10/10</span>
                                             </div>
                                             <div class="px-2 mt-2">
-                                                <p class="text-sm mb-1">I sure hope people are not going to Dribbble to find solutions for UX
+                                                <p class="text-sm mb-1">I sure hope people are not going to Dribbble to
+                                                    find solutions for UX
                                                     challenges. You just won't find anything there.</p>
                                             </div>
                                         </div>
                                         <div class="col-offset-1">
-                                            <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="replyComment" (click)="clickReplyComment()">Reply</span>
+                                            <span class="text-sm cursor-pointer hover:text-blue-500"
+                                                *ngIf="replyComment" (click)="clickReplyComment()">Reply</span>
                                         </div>
                                     </div>
-                                
+
                                     <!-- Reply Message -->
                                     <div class="grid col-offset-1 mt-2" *ngIf="showReplyComment">
                                         <div class="col-1">
-                                            <img class="border-circle w-10" src="../../../assets/images/photo_member.png" alt="">
+                                            <img class="border-circle w-10"
+                                                src="../../../assets/images/photo_member.png" alt="">
                                         </div>
                                         <div class="col-11">
-                                            <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm"
+                                            <textarea pInputTextarea [autoResize]="true"
+                                                class="w-full p-inputtextarea-sm"
                                                 placeholder="Add a comment..."></textarea>
                                         </div>
                                     </div>
 
                                     <div class="grid col-offset-1 mt-2">
                                         <div class="col-1">
-                                            <img class="border-circle w-10" src="../../../assets/images/photo_member.png"
-                                                alt="">
+                                            <img class="border-circle w-10"
+                                                src="../../../assets/images/photo_member.png" alt="">
                                         </div>
                                         <div class="card col-11">
                                             <div class="px-2">
@@ -395,7 +408,8 @@
                                                 <span class="text-xs">2020/10/10</span>
                                             </div>
                                             <div class="px-2 mt-2">
-                                                <p class="text-sm mb-1">I sure hope people are not going to Dribbble to find solutions for UX
+                                                <p class="text-sm mb-1">I sure hope people are not going to Dribbble to
+                                                    find solutions for UX
                                                     challenges. You just won't find anything there.</p>
                                             </div>
                                         </div>
@@ -845,12 +859,12 @@
         [modal]="true" [draggable]="false" [resizable]="false">
         <form class="formgrid grid" [formGroup]="postForm" (ngSubmit)="submitPost()">
             <div class="field col-12">
-                <span class="cursor-pointer hover:text-blue-500 mr-4" (click)="clickAddPhotos()" pTooltip="add a photo" tooltipPosition="top"><i class="pi pi-images"
-                    style="font-size: 20px"></i> Create a Post</span>
+                <span class="cursor-pointer hover:text-blue-500 mr-4" (click)="clickAddPhotos()" pTooltip="add a photo"
+                    tooltipPosition="top"><i class="pi pi-images" style="font-size: 20px"></i> Create a Post</span>
 
-                <span class="cursor-pointer hover:text-blue-500" (click)="clickCreatePoll()" pTooltip="add a photo" tooltipPosition="top"><i class="pi pi-chart-bar"
-                    style="font-size: 20px"></i> Create a Poll</span>
-                
+                <span class="cursor-pointer hover:text-blue-500" (click)="clickCreatePoll()" pTooltip="add a photo"
+                    tooltipPosition="top"><i class="pi pi-chart-bar" style="font-size: 20px"></i> Create a Poll</span>
+
             </div>
             <!-- Post Title -->
             <div class="field col-12">
@@ -917,5 +931,5 @@
             </div>
         </form>
     </p-dialog>
-    
+
 </div>

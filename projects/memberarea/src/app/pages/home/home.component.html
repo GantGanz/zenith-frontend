@@ -18,7 +18,7 @@
                 <p-tabPanel header="Post" headerStyleClass="w-full">
                     <!-- Post -->
                     <div infinite-scroll (scrolled)="onScroll()">
-                        <ng-container *ngFor="let data of posts; index as i">
+                        <ng-container *ngFor="let data of result; index as i">
                             <div class="card box mb-3">
                                 <div class="card-container md:p-4">
                                     <div class="mt-2">
@@ -41,10 +41,11 @@
                                     </div>
 
                                     <div class="grid mt-2">
-                                        <div class="col-6">8 Likes</div>
+                                        <div class="col-6">{{data.countLike}} Likes</div>
                                         <div class="col-6 text-end">6 Comments</div>
                                     </div>
                                     <div class="grid border-top-1 border-gray-300 pt-2">
+                                        
                                         <button pButton label="Like" icon="pi pi-thumbs-up"
                                             class="p-button-text btn-sec" *ngIf="like" (click)="clickLike(i)"></button>
                                         <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
@@ -311,7 +312,7 @@
                             </div>
                             <div class="grid border-top-1 border-gray-300 pt-2">
                                 <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec"
-                                    *ngIf="like" (click)="clickLike()"></button>
+                                    *ngIf="like" (click)="clickLike(0)"></button>
                                 <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
                                     *ngIf="likeFill" (click)="clickUnLike()"></button>
 
@@ -894,8 +895,8 @@
                     (uploadHandler)="fileUpload($event)"></p-fileUpload>
             </div>
 
-            <div class="field-checkbox col-12 md:col-6">
-                <p-checkbox formControlName="isActive" [binary]="true" inputId="binary"></p-checkbox>
+            <div class="field-checkbox col-12 md:col-6" *ngIf="showUploadImg">
+                <p-checkbox formControlName="isPremium" [binary]="true" inputId="binary"></p-checkbox>
                 <label for="binary">Post as Premium</label>
             </div>
 

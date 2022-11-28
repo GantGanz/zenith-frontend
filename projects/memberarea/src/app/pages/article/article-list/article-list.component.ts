@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ArticlesRes } from "projects/interface/article/articles-res";
+import { ArticleData } from "projects/interface/article/article-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -12,33 +12,43 @@ import { Subscription } from "rxjs";
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
 
-    articlesRes!: ArticlesRes
-    
+    data!: ArticleData[]
+
     first = 0
-    limit = 6
+    limit = 3
 
     fileLink = BASE_URL.FILE
 
     private articlesSubscription?: Subscription
     private userSubscription?: Subscription
 
-    constructor(private articleService: ArticleService, private userService: UserService) { }
+    constructor(private articleService: ArticleService) { }
 
     ngOnInit(): void {
         this.init()
     }
     
-    onScroll(){
-        this.limit += 3
-        this.init()
-    }
-
-    init() {
-        this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
-            this.articlesRes = result
-        })
+    onScroll() {
+        this.first += this.limit
+        this.addData()
         
     }
+    
+    init() {
+        this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
+                this.data = result.data
+        })
+    }
+    
+    addData(){
+        this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
+            for(let i=0;i<result.data.length;i++){
+                this.data.push(result.data[i])
+            }
+            console.log(this.data);
+        })
+    }
+
     ngOnDestroy(): void {
         this.articlesSubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()

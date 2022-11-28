@@ -1,11 +1,23 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ContentComponent } from "../../components/content/content.component";
 import { PaymentActivityComponent } from "./payment-activity/payment-activity.component";
+import { PaymentPremiumComponent } from "./payment-premium/payment-premium.component";
 
 const routes: Routes = [
     {
         path: "",
-        component: PaymentActivityComponent
+        component: ContentComponent,
+        children: [
+            {
+                path: "activity",
+                component: PaymentActivityComponent
+            },
+            {
+                path: "premium",
+                component: PaymentPremiumComponent
+            }
+        ]
     }
 ]
 

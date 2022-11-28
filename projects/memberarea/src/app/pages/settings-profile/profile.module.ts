@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ChangePasswordComponent } from "./change-password/change-password.component";
 import { EditProfileComponent } from "./edit-profile/edit-profile.component";
-import { MenuProfileComponent } from "./menu/menu-profile.component";
+import { MenuProfileComponent } from "./edit-profile-menu/menu-profile.component";
 import { ProfileRouting } from "./profile.routing";
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from "primeng/button";

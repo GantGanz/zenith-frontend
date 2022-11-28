@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container mt-4">
   <p-tabView>
-    <p-tabPanel header="All Course">
-      <div class="container mt-4 p-0">
+    <p-tabPanel header=" All Course">
+      <div class="container mt-3 p-0">
         <div class="grid" infinite-scroll (scrolled)="onScrollCourse()">
           <ng-container *ngFor="let data of dataCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <img src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} class="card-img-top"
-                  alt="article-banner">
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                  [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
@@ -33,12 +33,13 @@
     </p-tabPanel>
 
     <p-tabPanel header="All Event">
-      <div class="container mt-4 p-0">
+      <div class="container mt-3 p-0">
         <div class="grid" infinite-scroll (scrolled)="onScrollEvent()">
           <ng-container *ngFor="let data of dataEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
-              <div class="card h-100 click">
-                <img src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} class="card-img-top" alt="...">
+              <div class="card h-100">
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                  [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
@@ -63,13 +64,13 @@
     </p-tabPanel>
 
     <p-tabPanel header="Joined Course">
-      <div class="container mt-4 p-0">
+      <div class="container mt-3 p-0">
         <div class="grid" infinite-scroll (scrolled)="onScrollJoinedCourse()">
           <ng-container *ngFor="let data of dataJoinedCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <img src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} class="card-img-top"
-                  alt="article-banner">
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                  [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
@@ -95,12 +96,13 @@
     </p-tabPanel>
 
     <p-tabPanel header="All Event">
-      <div class="container mt-4 p-0">
+      <div class="container mt-3 p-0">
         <div class="grid" infinite-scroll (scrolled)="onScrollJoinedEvent()">
           <ng-container *ngFor="let data of dataJoinedEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
-              <div class="card h-100 click">
-                <img src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} class="card-img-top" alt="...">
+              <div class="card h-100">
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                  [preview]=" true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>

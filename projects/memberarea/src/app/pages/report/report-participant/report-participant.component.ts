@@ -10,7 +10,7 @@ export class ReportMemberComponent {
     first = 0
     rows = 10
 
-    reportMember: any = [
+    reportParticipant: any = [
         {
             type: "Event",
             title: "Event 1",

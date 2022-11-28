@@ -6,10 +6,11 @@ import { PaymentRouting } from "./payment.routing";
 import { DividerModule } from 'primeng/divider'
 import { FileUploadModule } from 'primeng/fileupload'
 import { HttpClientModule } from '@angular/common/http'
+import { PaymentPremiumComponent } from "./payment-premium/payment-premium.component";
 
 @NgModule({
     declarations: [
-        PaymentActivityComponent,
+        PaymentActivityComponent, PaymentPremiumComponent
     ],
     imports: [
         RouterModule, CommonModule, PaymentRouting,
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http'
         HttpClientModule
     ],
     exports: [
-        PaymentActivityComponent
+        PaymentActivityComponent, PaymentPremiumComponent
     ]
 })
 export class PaymentModule { }

@@ -3,10 +3,9 @@ import { Component } from "@angular/core";
 
 @Component({
     selector: "upgrade-premium",
-    templateUrl: "./premium.component.html",
-    styleUrls: ["premium.component.css"]
+    templateUrl: "./payment-premium.component.html",
 })
-export class PremiumComponent {
+export class PaymentPremiumComponent {
     upgradePremiumStep1 = true
     upgradePremiumStep2 = false
     upgradePremiumStep3 = false

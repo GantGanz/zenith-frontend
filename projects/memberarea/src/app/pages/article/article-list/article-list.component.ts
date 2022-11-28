@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ArticleData } from "projects/interface/article/article-data";
-import { ArticlesRes } from "projects/interface/article/articles-res";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -16,30 +15,40 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     data!: ArticleData[]
 
     first = 0
-    limit = 6
+    limit = 3
 
     fileLink = BASE_URL.FILE
 
     private articlesSubscription?: Subscription
     private userSubscription?: Subscription
 
-    constructor(private articleService: ArticleService, private userService: UserService) { }
+    constructor(private articleService: ArticleService) { }
 
     ngOnInit(): void {
         this.init()
     }
-
+    
     onScroll() {
-        this.limit += 3
-        this.init()
+        this.first += this.limit
+        this.addData()
+        
     }
-
+    
     init() {
         this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
-            this.data = result.data
+                this.data = result.data
         })
-
     }
+    
+    addData(){
+        this.articlesSubscription = this.articleService.getAll(this.first, this.limit).subscribe(result => {
+            for(let i=0;i<result.data.length;i++){
+                this.data.push(result.data[i])
+            }
+            console.log(this.data);
+        })
+    }
+
     ngOnDestroy(): void {
         this.articlesSubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()

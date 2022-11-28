@@ -1,8 +1,6 @@
-
 <div class="container bg-color-green-800">
     <div class="card mt-4 border-none flex align-items-center p-5">
 
-        <!-- Payment Detail -->
         <div class="md:col-6 col-12" *ngIf="paymentStep1">
             <div class="grid">
                 <div class="col-12">
@@ -41,18 +39,18 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-12 mt-3">
                     <div class="grid justify-content-end">
                         <div class="col-4">
-                            <button pButton type="submit" class="p-button-sm w-full" styleClass="p-button-sm text-center" label="Pay now" (click)="clickPayNow()"></button>
+                            <button pButton type="submit" class="p-button-sm w-full"
+                                styleClass="p-button-sm text-center" label="Pay now" (click)="clickPayNow()"></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Waiting Payment -->
         <div class="grid justify-content-center" *ngIf="paymentStep2">
             <div class="md:col-6 col-12">
                 <div class="grid">
@@ -60,9 +58,10 @@
                         <h5 class="font-semibold">Waiting for payment</h5>
                     </div>
                     <div class="col-12 pt-2">
-                        <p class="text-sm">Make a payment to the virtual account number according to the total bill in the summary as below:</p>
+                        <p class="text-sm">Make a payment to the virtual account number according to the total bill in
+                            the summary as below:</p>
                     </div>
-    
+
                     <div class="card col-12">
                         <div class="container">
                             <div class="grid mt-2">
@@ -81,12 +80,14 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 mt-3 pb-0">
                         <div class="grid justify-content-end">
                             <div class="col-6">
                                 <p>Completed the payment?</p>
-                                <button pButton type="submit" class="p-button-sm w-full" styleClass="p-button-sm text-center" label="Confirmation" (click)="clickConfirmPayment()"></button>
+                                <button pButton type="submit" class="p-button-sm w-full"
+                                    styleClass="p-button-sm text-center" label="Confirmation"
+                                    (click)="clickConfirmPayment()"></button>
                             </div>
                         </div>
                     </div>
@@ -94,7 +95,6 @@
             </div>
         </div>
 
-        <!-- Confirmation Payment -->
         <div class="grid justify-content-center" *ngIf="paymentStep3">
             <div class="col-12">
                 <div class="grid">
@@ -106,14 +106,17 @@
                     <div class="col-12">
                         <form>
                             <div class="col-12">
-                                <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+                                <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true"
+                                    chooseLabel="Browse"></p-fileUpload>
                             </div>
-    
+
                             <!-- Action -->
                             <div class="col-12 mt-5">
                                 <div class="grid justify-content-end">
                                     <div class="col-6">
-                                        <button pButton type="submit" class="p-button-sm w-full" styleClass="p-button-sm text-center" label="Confirmation" (click)="uploadProofPayment()"></button>
+                                        <button pButton type="submit" class="p-button-sm w-full"
+                                            styleClass="p-button-sm text-center" label="Confirmation"
+                                            (click)="uploadProofPayment()"></button>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +130,8 @@
         <div class="text-center" *ngIf="paymentStep4">
             <h3>Thank You</h3>
             <div class="mt-2 text-center">
-                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration" class="mt-4 custom-img">
+                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
+                    class="mt-4 custom-img">
             </div>
 
             <div class="mt-3">
@@ -135,7 +139,8 @@
             </div>
 
             <div class="mt-3">
-                <button pButton type="button" class="p-button-sm w-full" label="Back To Home" routerLink="/feed"></button>
+                <button pButton type="button" class="p-button-sm w-full" label="Back To Home"
+                    routerLink="/feed"></button>
             </div>
         </div>
     </div>

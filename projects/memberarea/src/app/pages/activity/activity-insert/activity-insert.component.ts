@@ -50,7 +50,7 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
         this.activityForm.value.startAt = this.activityForm.value.rangeDates![0]
         this.activityForm.value.endAt = this.activityForm.value.rangeDates![1]
         this.activitySubscription = this.activityService.insert(this.activityForm.value).subscribe(() => {
-            this.router.navigateByUrl('/activitys/list')
+            this.router.navigateByUrl('/activities')
         })
     }
     get detailFoto(): FormArray {

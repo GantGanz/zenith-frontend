@@ -8,29 +8,32 @@
     <p-tabView>
       <p-tabPanel header="All Course">
         <div class="container mt-4 p-0">
-          <div class="grid">
-            <div class="col-12 md:col-6 lg:col-4">
-              <div class="card h-100">
-                <img src="../../../assets/images/banner1.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">UI/UX Design: Beginner</h5>
-                  <p class="card-text mt-3"><i class="pi pi-users"></i> Provider</p>
-                  <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> Location</p>
-                  <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                    <span> 12/10/2022 |</span>
-                    <span> 12/10/2022</span>
-                  </p>
-                  <p class="card-text text-medium -mt-2">
-                    <li class="pi pi-money-bill"></li>
-                    <span> Rp 50.000</span>
-                  </p>
-                  <div>
-                    <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
-                      routerLink="/payment"></button>
+          <div class="grid" infinite-scroll (scrolled)="onScroll()">
+            <ng-container *ngFor="let data of activitieCoursesRes.data; index as i">
+              <div class="col-12 md:col-6 lg:col-4">
+                <div class="card h-100">
+                  <img src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} class="card-img-top"
+                    alt="article-banner">
+                  <div class="card-body">
+                    <h5 class="card-title">{{data.activityTitle}</h5>
+                    <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
+                    <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
+                    <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
+                      <span> {{data.startAt}} |</span>
+                      <span> {{data.endAt}}</span>
+                    </p>
+                    <p class="card-text text-medium -mt-2">
+                      <li class="pi pi-money-bill"></li>
+                      <span> Rp {{data.fee}}</span>
+                    </p>
+                    <div>
+                      <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
+                        routerLink="/payment"></button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
           </div>
         </div>
       </p-tabPanel>

@@ -1,13 +1,12 @@
 
 <div class="container">
-    <h3 class="my-4">Member Information Report</h3>
     <p-toolbar styleClass="mb-2 gap-2">
         <ng-template pTemplate="right">
             <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help p-button-sm custom-btn border-none"></button>
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="reportMember" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <p-table #dt [value]="reportIncome" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <div>
@@ -23,31 +22,25 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>
+                <th style="width: 4rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th class="text-center">No</th>
-                <th>Member Name</th>
-                <th>Provider Name</th>
+                <th class="text-center" style="width: 6rem">No</th>
                 <th>Type</th>
                 <th>Title</th>
-                <th>Start Date</th>
-                <th class="text-center">Total Participant</th>
+                <th class="text-center">Total Income</th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-reportMember let-i="rowIndex">
+        <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
             <tr>
-                <td>
-                    <p-tableCheckbox [value]="reportMember"></p-tableCheckbox>
+                <td style="width: 4rem">
+                    <p-tableCheckbox [value]="reportIncome"></p-tableCheckbox>
                 </td>
-                <td class="text-center">{{i+1}}</td>
-                <td>{{reportMember.memberName}}</td>
-                <td>{{reportMember.providerName}}</td>
-                <td>{{reportMember.type}}</td>
-                <td>{{reportMember.title}}</td>
-                <td>{{reportMember.startDate}}</td>
-                <td class="text-center">{{reportMember.totalParticipants}}</td>
+                <td class="text-center" style="width: 6rem">{{i+1}}</td>
+                <td>{{reportIncome.type}}</td>
+                <td>{{reportIncome.title}}</td>
+                <td class="text-center">{{reportIncome.totalIncome}}</td>
             </tr>
         </ng-template>
     </p-table> 

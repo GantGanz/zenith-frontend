@@ -1,6 +1,5 @@
 
 <div class="container">
-    <h3 class="my-4">Member Information Report</h3>
     <p-toolbar styleClass="mb-2 gap-2">
         <ng-template pTemplate="right">
             <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help p-button-sm custom-btn border-none"></button>
@@ -27,8 +26,6 @@
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th class="text-center">No</th>
-                <th>Member Name</th>
-                <th>Provider Name</th>
                 <th>Type</th>
                 <th>Title</th>
                 <th>Start Date</th>
@@ -42,8 +39,6 @@
                     <p-tableCheckbox [value]="reportMember"></p-tableCheckbox>
                 </td>
                 <td class="text-center">{{i+1}}</td>
-                <td>{{reportMember.memberName}}</td>
-                <td>{{reportMember.providerName}}</td>
                 <td>{{reportMember.type}}</td>
                 <td>{{reportMember.title}}</td>
                 <td>{{reportMember.startDate}}</td>

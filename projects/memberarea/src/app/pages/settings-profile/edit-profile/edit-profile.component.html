@@ -1,15 +1,18 @@
 
 <div class="container">
     <div class="grid mt-3">
+        <div class="col-12">
+            <span class="cursor-pointer" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back to Profile</span>
+        </div>
         <div class="md:col-3 col-12">
             <menu-profile></menu-profile>
         </div>
-        <div class="md:col-9 col-12">
-            <p class="text-sm font-semibold ml-3 text-teal-800"><i class="pi pi-pencil"></i> Edit Profile</p>
-            
-            <!-- Profile Detail -->
+        <div class="md:col-9 col-12"> 
+            <!-- Edit Profile -->
             <div class="card mt-3">
                 <div class="container">
+                    <h5 class="mx-4 my-3">Edit Profile</h5>
+
                     <div class="mt-4 text-center">
                         <img src="../../../../assets/images/photo_member.png" class="w-7rem border-circle mb-3" alt="profile pic super-admin">
                      </div>

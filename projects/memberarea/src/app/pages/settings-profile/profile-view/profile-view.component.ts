@@ -1,20 +1,17 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { MenuItem } from "primeng/api";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { Subscription } from "rxjs";
-import { POST_TYPE_ID } from "../../constant/post.type";
-
+import { POST_TYPE_ID } from "../../../constant/post.type";
 
 @Component({
-    selector: "app-home",
-    templateUrl: "./home.component.html",
-    styleUrls: ["home.component.css"]
+    selector: "profile-view",
+    templateUrl: "./profile-view.component.html",
+    styleUrls: ["../../../../styles.css"]
 })
-
-export class HomeComponent implements OnInit, OnDestroy {
+export class ProfileViewComponent implements OnInit, OnDestroy {
 
     type!: string
 
@@ -54,7 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private postsSubscribtion?: Subscription
 
     constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
-        private fileService: FileService, private postService: PostService) { }
+        private fileService: FileService, private postService: PostService, private router: Router) { }
 
     ngOnInit(): void {
 
@@ -119,6 +116,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postTypeId = POST_TYPE_ID.POLLING
         this.postForm.reset()
     }
+    clickEditProfile() {
+        this.router.navigateByUrl("/profile/edit/:id")
+    }
 
     clickReplyComment() {
         this.showReplyComment = true
@@ -148,4 +148,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.postInsertSubscription?.unsubscribe()
     }
+
 }

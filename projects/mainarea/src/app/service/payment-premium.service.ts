@@ -13,6 +13,10 @@ import { BASE_URL } from "../constant/base.url";
 export class PaymentPremiumService {
     constructor(private http: HttpClient) { }
 
+    checkPremium(): Observable<boolean> {
+        return this.http.get<boolean>(`${BASE_URL.LOCALHOST}/payment-premiums/status`)
+    }
+
     countAllUnapproved(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-premiums/count`)
     }
@@ -40,4 +44,6 @@ export class PaymentPremiumService {
     getById(id: string): Observable<PaymentPremiumRes> {
         return this.http.get<PaymentPremiumRes>(`${BASE_URL.LOCALHOST}/payment-premiums/${id}`)
     }
+
+
 }

@@ -9,7 +9,7 @@
         <p-divider></p-divider>
     </div>
     <div class="grid mt-5" infinite-scroll (scrolled)="onScroll()">
-        <ng-container *ngFor="let data of articlesRes.data; index as i">
+        <ng-container *ngFor="let data of data; index as i">
             <div class="field col-12 md:col-6 lg:col-4 p-0">
                 <div class="card">
                     <div class="card-img">

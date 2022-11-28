@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivitiesRes } from "projects/interface/activity/activities-res";
+import { ActivityData } from "projects/interface/activity/activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -13,35 +14,92 @@ import { Subscription } from "rxjs";
 
 export class ActivityListComponent implements OnInit, OnDestroy {
 
-    activitieCoursesRes!: ActivitiesRes
+    dataCourses!: ActivityData[]
+    dataEvents!: ActivityData[]
+    dataJoinedCourses!: ActivityData[]
+    dataJoinedEvents!: ActivityData[]
 
     first = 0
-    limit = 6
+    limit = 3
 
     fileLink = BASE_URL.FILE
 
-    private activitieCoursesSubscription?: Subscription
-    private userSubscription?: Subscription
+    private activityCoursesSubscription?: Subscription
+    private activityEventsSubscription?: Subscription
+    private activityJoinedCoursesSubscription?: Subscription
+    private activityJoinedEventsSubscription?: Subscription
 
-    constructor(private activityService: ActivityService, private userService: UserService) { }
+    constructor(private activityService: ActivityService) { }
 
     ngOnInit(): void {
         this.init()
     }
 
-    onScroll() {
-        this.limit += 3
-        this.init()
+    onScrollCourse() {
+        this.first += this.limit
+        this.addDataCourses()
+    }
+    onScrollEvent() {
+        this.first += this.limit
+        this.addDataEvents()
+    }
+    onScrollJoinedCourse() {
+        this.first += this.limit
+        this.addDataJoinedCourses()
+    }
+    onScrollJoinedEvent() {
+        this.first += this.limit
+        this.addDataJoinedEvents()
     }
 
     init() {
-        this.activitieCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
-            this.activitieCoursesRes = result
+        this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
+            this.dataCourses = result.data
         })
-
+        this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
+            this.dataEvents = result.data
+        })
+        this.activityJoinedCoursesSubscription = this.activityService.getAllJoinedCourseById(this.first, this.limit).subscribe(result => {
+            this.dataJoinedCourses = result.data
+        })
+        this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
+            this.dataJoinedEvents = result.data
+        })
     }
+
+    addDataCourses() {
+        this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
+                this.dataCourses.push(result.data[i])
+            }
+        })
+    }
+    addDataEvents() {
+        this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
+                this.dataEvents.push(result.data[i])
+            }
+        })
+    }
+    addDataJoinedCourses() {
+        this.activityJoinedCoursesSubscription = this.activityService.getAllJoinedCourseById(this.first, this.limit).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
+                this.dataJoinedCourses.push(result.data[i])
+            }
+        })
+    }
+    addDataJoinedEvents() {
+        this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
+                this.dataJoinedEvents.push(result.data[i])
+            }
+        })
+    }
+
     ngOnDestroy(): void {
-        this.activitieCoursesSubscription?.unsubscribe()
-        this.userSubscription?.unsubscribe()
+        this.activityCoursesSubscription?.unsubscribe()
+        this.activityEventsSubscription?.unsubscribe()
+        this.activityJoinedCoursesSubscription?.unsubscribe()
+        this.activityJoinedEventsSubscription?.unsubscribe()
     }
 }

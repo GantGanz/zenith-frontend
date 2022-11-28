@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivitiesRes } from "projects/interface/activity/activities-res";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
-import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -35,20 +33,11 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.init()
     }
 
-    onScrollCourse() {
+    onScroll() {
         this.first += this.limit
         this.addDataCourses()
-    }
-    onScrollEvent() {
-        this.first += this.limit
         this.addDataEvents()
-    }
-    onScrollJoinedCourse() {
-        this.first += this.limit
         this.addDataJoinedCourses()
-    }
-    onScrollJoinedEvent() {
-        this.first += this.limit
         this.addDataJoinedEvents()
     }
 
@@ -65,6 +54,11 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
             this.dataJoinedEvents = result.data
         })
+    }
+
+    tabClick() {
+        this.first = 0
+        this.init()
     }
 
     addDataCourses() {

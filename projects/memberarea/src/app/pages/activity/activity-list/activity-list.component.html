@@ -1,8 +1,8 @@
-<div class="container mt-4">
-  <p-tabView>
-    <p-tabPanel header=" All Course">
+<div class="container mt-4" infinite-scroll (scrolled)="onScroll()">
+  <p-tabView (onChange)="tabClick()">
+    <p-tabPanel header="All Course">
       <div class="container mt-3 p-0">
-        <div class="grid" infinite-scroll (scrolled)="onScrollCourse()">
+        <div class="grid">
           <ng-container *ngFor="let data of dataCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
@@ -38,7 +38,7 @@
 
     <p-tabPanel header="All Event">
       <div class="container mt-3 p-0">
-        <div class="grid" infinite-scroll (scrolled)="onScrollEvent()">
+        <div class="grid">
           <ng-container *ngFor="let data of dataEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
@@ -69,7 +69,7 @@
 
     <p-tabPanel header="Joined Course">
       <div class="container mt-3 p-0">
-        <div class="grid" infinite-scroll (scrolled)="onScrollJoinedCourse()">
+        <div class="grid">
           <ng-container *ngFor="let data of dataJoinedCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
@@ -99,9 +99,9 @@
       </div>
     </p-tabPanel>
 
-    <p-tabPanel header="All Event">
+    <p-tabPanel header="Joined Event">
       <div class="container mt-3 p-0">
-        <div class="grid" infinite-scroll (scrolled)="onScrollJoinedEvent()">
+        <div class="grid">
           <ng-container *ngFor="let data of dataJoinedEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">

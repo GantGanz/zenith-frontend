@@ -7,6 +7,11 @@
     object-fit: cover;
 }
 
+.img-content {
+    height: 400px;
+    object-fit: cover;
+}
+
 .detail>img {
     height: 380px;
     object-fit: cover;

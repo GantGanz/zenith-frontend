@@ -1,0 +1,111 @@
+
+<div class="container">
+    <div class="card mt-4 border-none flex align-items-center p-5">
+
+        <div class="" *ngIf="upgradePremiumStep1">
+            <div class="mt-4 text-center">
+                <h3>Upgrade Premium</h3>
+                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration" class="mt-4 custom-img">
+            </div>
+            <div class="col-12 mt-4">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde, modi!</p>
+                <div class="card p-5 bg-yellow-500">
+                    <h4 class="color-green">Pay Once. User Forever !</h4>
+                    <h4 class="">RP. 500.000</h4>
+                </div>
+                <div class="mt-3">
+                    <button pButton type="button" class="p-button-sm w-full" label="Upgrade Now" (click)="clickUpgrade()"></button>
+                    <button pButton type="button" class="p-button-sm p-button-outlined w-full mt-2" label="Cancel"></button>
+                </div>
+            </div>
+        </div>
+
+         <!-- Waiting Payment -->
+         <div class="grid justify-content-center" *ngIf="upgradePremiumStep2">
+            <div class="md:col-6 col-12">
+                <div class="grid">
+                    <div class="col-12">
+                        <h5 class="font-semibold">Waiting for payment</h5>
+                    </div>
+                    <div class="col-12 pt-2">
+                        <p class="text-sm">Make a payment to the virtual account number according to the total bill in the summary as below:</p>
+                    </div>
+    
+                    <div class="card col-12">
+                        <div class="container">
+                            <div class="grid mt-2">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <p class="text-sm">Virtual Account Number:</p>
+                                            <p class="font-bold">10511091003273</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="text-sm">Total:</p>
+                                            <p class="font-bold text-green-700">Rp.50.000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 mt-3 pb-0">
+                        <div class="grid justify-content-end">
+                            <div class="col-6">
+                                <p>Completed the payment?</p>
+                                <button pButton type="submit" class="p-button-sm w-full" styleClass="p-button-sm text-center" label="Confirmation" (click)="clickCheckout()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Confirmation Payment -->
+         <div class="grid justify-content-center" *ngIf="upgradePremiumStep3">
+            <div class="col-12">
+                <div class="grid">
+                    <div class="col-12">
+                        <h5 class="font-semibold">Payment Confirmation</h5>
+                        <p class="text-sm mt-2">Upload your proof of payment for confirmation. </p>
+                    </div>
+
+                    <div class="col-12">
+                        <form>
+                            <div class="col-12">
+                                <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+                            </div>
+    
+                            <!-- Action -->
+                            <div class="col-12 mt-5">
+                                <div class="grid justify-content-end">
+                                    <div class="col-6">
+                                        <button pButton type="submit" class="p-button-sm w-full" styleClass="p-button-sm text-center" label="Confirmation" (click)="clickConfirmPayment()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Confirm -->
+        <div class="text-center" *ngIf="upgradePremiumStep4">
+            <h3>Thank You</h3>
+            <div class="mt-2 text-center">
+                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration" class="mt-4 custom-img">
+            </div>
+
+            <div class="mt-3">
+                <p class="text-sm text-center">Upload your proof of payment for confirmation. </p>
+            </div>
+
+            <div class="mt-3">
+                <button pButton type="button" class="p-button-sm w-full" label="Back To Home" routerLink="/feed"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,10 +8,6 @@ export const memberAreaRoutes: Routes = [
         loadChildren: () => import("./pages/home/home.module").then(u => u.HomeModule)
     },
     {
-        path: "premium",
-        loadChildren: () => import("./pages/premium/premium.module").then(p => p.PremiumModule)
-    },
-    {
         path: "articles",
         loadChildren: () => import("./pages/article/article.module").then(a => a.ArticleModule)
     },
@@ -27,7 +23,6 @@ export const memberAreaRoutes: Routes = [
     },
     {
         path: "payment",
-        component: ContentComponent,
         loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
     },
     {

@@ -7,6 +7,7 @@ import { DividerModule } from 'primeng/divider'
 import { FileUploadModule } from 'primeng/fileupload'
 import { HttpClientModule } from '@angular/common/http'
 import { PaymentPremiumComponent } from "./payment-premium/payment-premium.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { PaymentPremiumComponent } from "./payment-premium/payment-premium.compo
         RouterModule, CommonModule, PaymentRouting,
         DividerModule,
         FileUploadModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     exports: [
         PaymentActivityComponent, PaymentPremiumComponent

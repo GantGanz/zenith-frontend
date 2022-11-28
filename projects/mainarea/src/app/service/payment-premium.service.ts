@@ -17,6 +17,10 @@ export class PaymentPremiumService {
         return this.http.get<boolean>(`${BASE_URL.LOCALHOST}/payment-premiums/status`)
     }
 
+    checkPaid(): Observable<boolean> {
+        return this.http.get<boolean>(`${BASE_URL.LOCALHOST}/payment-premiums/paid`)
+    }
+
     countAllUnapproved(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-premiums/count`)
     }

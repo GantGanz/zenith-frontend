@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 @Component({
     selector: "article-list",
     templateUrl: "./article-list.component.html",
+    styleUrls: ["../../../../styles.css"],
     providers: [ConfirmationService]
 })
 export class ArticleListComponent implements OnInit, OnDestroy {

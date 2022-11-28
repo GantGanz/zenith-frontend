@@ -1,7 +1,7 @@
 import { AttachmentPostData } from '../attachment-post/attachment-post-data' 
 import { PollData } from '../poll/poll-data' 
 
-export interface PostData { 
+export interface PostData extends AttachmentPostData{ 
 	 id: string 
 	 version: number 
 	 postTitle: string 

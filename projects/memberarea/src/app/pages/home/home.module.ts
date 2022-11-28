@@ -18,6 +18,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { ReactiveFormsModule } from "@angular/forms";
 import { rightContentComponent } from "./right-content/right-content.component";
+import { CheckboxModule } from 'primeng/checkbox';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { rightContentComponent } from "./right-content/right-content.component";
         DividerModule,
         CalendarModule,
         TabViewModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CheckboxModule,
+        InfiniteScrollModule
     ],
     exports: [
         HomeComponent, rightContentComponent

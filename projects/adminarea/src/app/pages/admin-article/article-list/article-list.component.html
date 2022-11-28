@@ -23,7 +23,11 @@
             <tr>
                 <td class="custom-align">{{i+1}}</td>
                 <td>{{article.articleTitle}}</td>
-                <td class="surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">{{article.articleContent}}</td>
+                <td>
+                     <div class="custom-text-overlay">
+                        {{article.articleContent}}
+                    </div>
+                </td>
                 <td style="text-align: center ;"><img style="width: 40px;"
                         src="{{fileLink}}{{article.attachmentArticleDatas[0].fileId}}" alt="user pic"></td>
                 <td style="text-align: center ;">
@@ -35,16 +39,22 @@
                     </ng-template>
                 </td>
                 <td class="custom-align">
-                    <button pButton type="button" class="p-button-text" pTooltip="Update"
-                        routerLink="/articles/edit/{{article.id}}"><i class="pi pi-file-edit"></i></button>
+                    <div class="flex flex-row">
+                        <button pButton type="button" class="p-button-text" pTooltip="Update" tooltipPosition="top"
+                        routerLink="/articles/edit/{{article.id}}"><i class="pi pi-file-edit"></i>
+                    </button>
+
                     <span *ngIf="article.isActive; else deleteBlock">
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"
-                            (click)="clickConfirmDelete(i)"><i class="pi pi-trash"></i></button>
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" tooltipPosition="top"
+                            (click)="clickConfirmDelete(i)"><i class="pi pi-trash"></i>
+                        </button>
                     </span>
+                    
                     <ng-template #deleteBlock>
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" disabled><i
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"  disabled><i
                                 class="pi pi-trash"></i></button>
                     </ng-template>
+                    </div>
                 </td>
             </tr>
         </ng-template>

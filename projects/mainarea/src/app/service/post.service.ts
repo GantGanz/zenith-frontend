@@ -19,4 +19,8 @@ export class PostService{
     getAllRegular(): Observable<PostsRes>{
         return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts/regular`)
     }
+
+    getAll(offset:number,limit:number){
+        return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts?offset=${offset}&limit=${limit}`)
+    }
 }

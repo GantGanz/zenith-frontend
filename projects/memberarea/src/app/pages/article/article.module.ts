@@ -6,7 +6,7 @@ import { ArticleRouting } from "./article.routing";
 import { ButtonModule } from "primeng/button";
 import { DividerModule } from 'primeng/divider'
 import { CommonModule } from "@angular/common";
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -17,7 +17,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         ButtonModule,
         DividerModule,
         CommonModule,
-        InfiniteScrollModule
+        // InfiniteScrollModule
     ],
     exports: [
         ArticleListComponent, ArticleDetailComponent

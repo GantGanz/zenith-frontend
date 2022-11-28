@@ -13,7 +13,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="/feed">Home</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" routerLink="/activities">My Activity</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/activities">Activity</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/articles">Article</a></li>
             </ul>
 
@@ -23,7 +23,8 @@
                 </a>
                 <ul
                     class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">
-                    <li><button class="dropdown-item" type="button">View Profile</button></li>
+                    <li><button class="dropdown-item" type="button" routerLink="/profile">View Profile</button></li>
+                    <li><button class="dropdown-item" type="button" routerLink="/my-activity">My Activity</button></li>
                     <li><button class="dropdown-item" type="button" routerLink="/profile">Settings</button></li>
                     <li><button class="dropdown-item" type="button" routerLink="/premium">Upgrade Premium</button></li>
                     <li><button class="dropdown-item text-danger btnLogout" type="button" routerLink="/member/login">Logout</button></li>

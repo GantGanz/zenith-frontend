@@ -9,7 +9,6 @@ import { Subscription } from "rxjs";
 @Component({
     selector: "article-list",
     templateUrl: "./article-list.component.html",
-    styleUrls: ["article-list.component.css"],
     providers: [ConfirmationService]
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
@@ -47,7 +46,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         this.articlesSubscription = this.articleService.getAllById(this.first, this.limit).subscribe(result => {
             this.articlesRes = result
         })
-        this.countSubscription = this.articleService.countAll().subscribe(result => {
+        this.countSubscription = this.articleService.countAllById().subscribe(result => {
             this.totalArticles = result
         })
     }

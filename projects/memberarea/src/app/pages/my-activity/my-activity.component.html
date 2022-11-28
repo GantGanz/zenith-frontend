@@ -1,0 +1,80 @@
+
+<div class="container">
+    <div class="grid mt-4">
+      <div class="col-4 pt-2">
+        <span class="cursor-pointer" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back to Profile</span>
+      </div>
+      <div class="col-8 flex justify-content-end gap-2">
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertActivity" name="insertActivity" routerLink="/activities/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> Add Activity</span></button>
+        <button pButton class="p-button-sm bg-green-500" type="button" id="btnReport" name="btnReport" routerLink="/report"><span><i class="pi pi-plus" style="font-size: 12px"></i> Report</span></button>
+      </div>
+    </div>
+    
+  
+    <div class="">
+        <p-tabView>
+            <!-- Course yang dibuat -->
+            <p-tabPanel header="Courses">
+                <div class="container mt-4 p-0">
+                    <div class="grid">
+                      <div class="col-12 md:col-6 lg:col-4">
+                        <div class="card h-100 click">
+                          <img src="../../../assets/images/banner1.png" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">UI/UX Design: Beginner</h5>
+                            <p class="card-text mt-3"><i class="pi pi-users"></i> Provider</p>
+                            <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> Location</p>
+                            <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
+                              <span> 12/10/2022 |</span>
+                              <span> 12/10/2022</span>
+                            </p>
+                            <p class="card-text text-medium -mt-2">
+                              <li class="pi pi-money-bill"></li>
+                              <span> Rp 50.000</span>
+                            </p>
+                            <div>
+                              <button pButton type="button" class="p-button-sm w-full py-2" label="Register" routerLink="/payment"></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+  
+            <!-- Event yang dibuat -->
+            <p-tabPanel header="Events">
+              <div class="container mt-4 p-0">
+                <div class="grid">
+                  <div class="col-12 md:col-6 lg:col-4">
+                    <div class="card h-100 click">
+                      <img src="../../../assets/images/banner1.png" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">UI/UX Design: Beginner</h5>
+                        <p class="card-text mt-3"><i class="pi pi-users"></i> Provider</p>
+                        <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> Location</p>
+                        <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
+                          <span> 12/10/2022 |</span>
+                          <span> 12/10/2022</span>
+                        </p>
+                        <p class="card-text text-medium -mt-2">
+                          <li class="pi pi-money-bill"></li>
+                          <span> Rp 50.000</span>
+                        </p>
+                        <div>
+                          <button pButton type="button" class="p-button-sm w-full py-2" label="Register"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-tabPanel>
+  
+              <!--Schedule  -->
+            <p-tabPanel header="My Schedule">
+  
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+  </div>

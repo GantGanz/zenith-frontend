@@ -3,6 +3,14 @@
     object-fit: cover;
 }
 
+.click {
+    cursor: pointer;
+}
+
+.click:hover {
+    color: #1089FF !important;
+}
+
 :host ::ng-deep .p-tabview .p-tabview-panels {
     background-color: #f2f2f2;
     padding: 0;

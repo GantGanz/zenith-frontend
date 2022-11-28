@@ -7,6 +7,11 @@
     object-fit: cover;
 }
 
+.detail>img {
+    height: 380px;
+    object-fit: cover;
+}
+
 .img-box {
     height: 150px;
     width: 150px;
@@ -20,4 +25,12 @@
 
 .custom-btn {
     background-color: #1089FF !important;
+}
+
+.custom-text-overlay {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

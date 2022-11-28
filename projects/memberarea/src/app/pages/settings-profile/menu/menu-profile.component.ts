@@ -11,7 +11,7 @@ export class MenuProfileComponent {
     constructor(private router: Router) { }
 
     profileDetail() {
-        this.router.navigateByUrl('/profile')
+        this.router.navigateByUrl('/profile/edit/:id')
     }
     changePassword() {
         this.router.navigateByUrl('/profile/change-password')

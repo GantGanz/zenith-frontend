@@ -11,14 +11,14 @@ export class ReportIncomeComponent {
 
     reportIncome: any = [
         {
-            memberName: "Sarah",
             type: "Event",
-            totalIncome: 90
+            title: "Event1",
+            totalIncome: "Rp 90.000"
         },
         {
-            memberName: "Sarah",
-            type: "Event",
-            totalIncome: 90
+            type: "Course",
+            title: "Course1",
+            totalIncome: "Rp. 90.000"
         }
     ]
 }

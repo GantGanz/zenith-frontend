@@ -17,6 +17,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 import { ImageModule } from "primeng/image";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
     declarations: [
@@ -35,8 +36,9 @@ import { ImageModule } from "primeng/image";
         InputNumberModule,
         CalendarModule,
         DropdownModule,
-        MenuModule,
-        ImageModule
+        ImageModule,
+        InfiniteScrollModule,
+        MenuModule
     ],
     exports: [
         ActivityListComponent, ActivityInsertComponent

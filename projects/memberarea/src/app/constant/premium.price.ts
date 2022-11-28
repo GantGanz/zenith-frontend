@@ -1,0 +1,1 @@
+export const PREMIUM_PRICE: string = "50.000"

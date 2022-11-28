@@ -15,7 +15,7 @@ export class FileService {
             }
             reader.onerror = error => reject(error)
         })
-        const result = await toBase64(event.target.files[0])
+        const result = await toBase64(event.files[0])
 
         const resultStr = result.substring(result.indexOf(",") + 1, result.length)
         const resultExt = result.substring(result.indexOf("/") + 1, result.indexOf(";"))

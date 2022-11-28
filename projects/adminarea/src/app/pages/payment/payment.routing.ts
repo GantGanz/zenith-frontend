@@ -11,7 +11,7 @@ const routes: Routes = [
         component: AdminContentComponent,
         children: [
             {
-                path: "premium",
+                path: "member-premium",
                 component: PaymentPremium
             },
             {

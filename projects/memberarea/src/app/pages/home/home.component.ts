@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { MenuItem } from "primeng/api";
 import { PostData } from "projects/interface/post/post-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
@@ -19,7 +18,7 @@ import { POST_TYPE_ID } from "../../constant/post.type";
 export class HomeComponent implements OnInit, OnDestroy {
 
 
-    fileLink= BASE_URL.FILE
+    fileLink = BASE_URL.FILE
 
     type!: string
 
@@ -42,8 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     postTypeId!: string
 
-    first=0
-    limit=3
+    first = 0
+    limit = 3
 
 
     postForm = this.fb.group({
@@ -70,19 +69,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.postsSubscribtion = this.postService.getAll(this.first,this.limit).subscribe(result => {
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(result => {
             this.posts = result.data
         })
     }
 
-    onScroll(){
+    onScroll() {
         this.first += this.limit
         this.addData()
     }
 
-    addData(){
-        this.postsSubscribtion = this.postService.getAll(this.first,this.limit).subscribe(result => {
-            for(let i=0;i<result.data.length;i++){
+    addData() {
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
                 this.posts.push(result.data[i])
             }
         })

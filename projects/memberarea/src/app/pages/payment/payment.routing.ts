@@ -10,11 +10,11 @@ const routes: Routes = [
         component: ContentComponent,
         children: [
             {
-                path: "activity",
+                path: "activity/:id",
                 component: PaymentActivityComponent
             },
             {
-                path: "premium",
+                path: "premium/:id",
                 component: PaymentPremiumComponent
             }
         ]

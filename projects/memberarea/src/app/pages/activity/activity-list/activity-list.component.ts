@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
 @Component({
     selector: "activity-list",
     templateUrl: "./activity-list.component.html",
-    styleUrls: ["activity-list.component.css"]
+    styleUrls: ["../../../../styles.css"]
 })
 
 export class ActivityListComponent implements OnInit, OnDestroy {

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { MenuItem } from "primeng/api";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { Subscription } from "rxjs";

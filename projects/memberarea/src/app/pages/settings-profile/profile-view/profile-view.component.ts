@@ -25,6 +25,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     commentPost = false
     viewComment = true
     hideComment = false
+    replyComment = true
+    showReplyComment = false
 
     showForm = false
     showUploadImg = true
@@ -116,6 +118,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
     clickEditProfile() {
         this.router.navigateByUrl("/profile/edit/:id")
+    }
+
+    clickReplyComment() {
+        this.showReplyComment = true
     }
 
     get detailFoto(): FormArray {

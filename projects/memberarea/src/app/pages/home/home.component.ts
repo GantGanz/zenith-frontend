@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     commentPost = false
     viewComment = true
     hideComment = false
+    replyComment = true
+    showReplyComment = false
 
     showForm = false
     showUploadImg = true
@@ -116,6 +118,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.showUploadImg = false
         this.postTypeId = POST_TYPE_ID.POLLING
         this.postForm.reset()
+    }
+
+    clickReplyComment() {
+        this.showReplyComment = true
     }
 
     get detailFoto(): FormArray {

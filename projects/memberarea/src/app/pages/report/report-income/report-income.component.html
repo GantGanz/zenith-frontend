@@ -1,0 +1,47 @@
+
+<div class="container">
+    <p-toolbar styleClass="mb-2 gap-2">
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help p-button-sm custom-btn border-none"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="reportIncome" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <div>
+                    <label class="mr-2">Date Range</label>
+                    <p-calendar class="p-inputtext-sm" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
+                </div>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText #search type="text" (input)="dt.filterGlobal(search.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th class="text-center" style="width: 6rem">No</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th class="text-center">Total Income</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
+            <tr>
+                <td style="width: 4rem">
+                    <p-tableCheckbox [value]="reportIncome"></p-tableCheckbox>
+                </td>
+                <td class="text-center" style="width: 6rem">{{i+1}}</td>
+                <td>{{reportIncome.type}}</td>
+                <td>{{reportIncome.title}}</td>
+                <td class="text-center">{{reportIncome.totalIncome}}</td>
+            </tr>
+        </ng-template>
+    </p-table> 
+</div>

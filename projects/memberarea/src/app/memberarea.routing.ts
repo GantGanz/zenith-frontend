@@ -34,5 +34,10 @@ export const memberAreaRoutes: Routes = [
         path: "my-activity",
         component: ContentComponent,
         loadChildren: () => import("./pages/my-activity/my-activity.module").then(m => m.MyActivityModule)
+    },
+    {
+        path: "report",
+        component: ContentComponent,
+        loadChildren: () => import("./pages/report/report.module").then(r => r.ReportModule)
     }
 ]

@@ -76,6 +76,10 @@ export class EditProfileComponent {
         this.updateSubscription = this.userService.update(this.userUpdateForm.value).subscribe()
     }
 
+    clickBack() {
+        this.router.navigateByUrl("/profile")
+    }
+
     ngOnDestroy(): void {
         this.paramSubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()

@@ -1,9 +1,15 @@
 
 <div class="container">
-    <div class="col-12 mt-4 flex justify-content-end gap-2">
-      <button pButton class="p-button-sm btn-custom" type="button" id="insertActivity" name="insertActivity" routerLink="/activities/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> Add Activity</span></button>
-      <button pButton class="p-button-sm bg-green-500" type="button" id="btnReport" name="btnReport"><span><i class="pi pi-plus" style="font-size: 12px"></i> Report</span></button>
+    <div class="grid mt-4">
+      <div class="col-4 pt-2">
+        <span class="cursor-pointer" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back to Profile</span>
+      </div>
+      <div class="col-8 flex justify-content-end gap-2">
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertActivity" name="insertActivity" routerLink="/activities/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> Add Activity</span></button>
+        <button pButton class="p-button-sm bg-green-500" type="button" id="btnReport" name="btnReport" routerLink="/report"><span><i class="pi pi-plus" style="font-size: 12px"></i> Report</span></button>
+      </div>
     </div>
+    
   
     <div class="">
         <p-tabView>

@@ -7,6 +7,18 @@
     object-fit: cover;
 }
 
+/* .card-img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+} */
+
+/* :host ::ng-deep .ui-panel-images {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+} */
+
 .img-content {
     height: 400px;
     object-fit: cover;
@@ -38,4 +50,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.card-activity-img {
+    background-color: aquamarine;
+    height: 300px;
+    object-fit: cover;
 }

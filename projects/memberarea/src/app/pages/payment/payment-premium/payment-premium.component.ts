@@ -13,6 +13,7 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
     upgradePremiumStep3 = false
     upgradePremiumStep4 = false
     premiumStatus = false
+    upgradePremiumStatus = false
 
     private premiumSubscription?: Subscription
 

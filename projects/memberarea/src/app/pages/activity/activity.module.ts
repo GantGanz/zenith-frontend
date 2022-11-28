@@ -15,6 +15,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenuModule } from 'primeng/menu';
 
 
 
@@ -34,7 +35,8 @@ import { DropdownModule } from 'primeng/dropdown';
         InputTextModule,
         InputNumberModule,
         CalendarModule,
-        DropdownModule
+        DropdownModule,
+        MenuModule,
     ],
     exports: [
         ActivityListComponent, ActivityInsertComponent

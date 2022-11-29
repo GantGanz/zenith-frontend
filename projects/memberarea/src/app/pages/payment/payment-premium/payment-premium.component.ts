@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { PaymentPremiumService } from "projects/mainarea/src/app/service/payment-premium.service";
 import { Subscription } from "rxjs";
+import { PREMIUM_PRICE } from "../../../constant/premium.price";
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Subscription } from "rxjs";
 })
 export class PaymentPremiumComponent implements OnInit, OnDestroy {
     premiumStatus = 1
+    price = `${PREMIUM_PRICE}`
 
     private paymentPremiumSubscription?: Subscription
     private premiumSubscription?: Subscription

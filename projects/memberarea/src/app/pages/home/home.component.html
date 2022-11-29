@@ -35,14 +35,25 @@
                                         <p>{{data.postContent}}</p>
                                     </div>
                                     <div class="mt-3">
-                                        <ng-container *ngFor="let attach of data.attachmentPostDatas">
-                                            <img src={{fileLink}}{{attach.fileId}} alt="" class="img-post mr-3">
+                                        <ng-container *ngIf="pollPostCode!=data.postTypeCode; else elsePoll">
+                                            <ng-container *ngFor="let attach of data.attachmentPostDatas">
+                                                <img src={{fileLink}}{{attach.fileId}} alt="" class="img-post mr-3">
+                                            </ng-container>
                                         </ng-container>
+                                        <ng-template #elsePoll>
+                                            <div class="mt-4">
+                                                <h4>{{data.pollTitle}}</h4>
+                                                <p>{{data.pollContent}}</p>
+                                            </div>
+                                            <ng-container *ngFor="let poll of data.pollOptionDatas">
+
+                                            </ng-container>
+                                        </ng-template>
                                     </div>
 
                                     <div class="grid mt-2">
                                         <div class="col-6">{{data.countLike}} Likes</div>
-                                        
+
                                         <div class="col-6 text-end">6 Comments</div>
                                     </div>
                                     <div class="grid border-top-1 border-gray-300 pt-2">
@@ -157,7 +168,7 @@
                     <!-- Likes -->
                     <div #pnlBlock class="card mb-3 border-noround">
                         <div class="card-container px-4 pt-4 pb-3">
-                             <!-- Block If Premium -->
+                            <!-- Block If Premium -->
                             <!-- <p-blockUI [target]="pnlBlock" styleClass="opacity-90 bg-black z-5" [blocked]="true">
                                 <i class="pi pi-lock" style="font-size: 3rem"></i>
                             </p-blockUI> -->
@@ -895,22 +906,32 @@
                 <div class="field">
                     <label for="pollQuestion">Question<span class="text-red-500">*</span></label>
                     <textarea rows="2" [autoResize]="true" pInputTextarea class="w-full" id="pollQuestion"
-                        name="pollQuestion"></textarea>
+                        name="pollQuestion" formControlName="pollTitle"></textarea>
                 </div>
-                <div class="field">
-                    <label for="pollOption">Option 1<span class="text-red-500">*</span></label>
-                    <input pInputText class="w-full p-inputtext-sm" type="text" id="pollOption" name="pollOption"
-                        required>
-                </div>
-                <div class="field">
-                    <label for="pollOption">Option 2<span class="text-red-500">*</span></label>
-                    <input pInputText class="w-full p-inputtext-sm" type="text" id="pollOption" name="pollOption"
-                        required>
+                <div formGroupName="pollInsertReq">
+                    <div formArrayName="pollOptionInsertReqs">
+                        <ng-container *ngFor="let option of pollingOption.controls; index as i" [formGroupName]="i">
+                            <div class="field">
+                                <label for="pollOption">Option {{i+1}}<span class="text-red-500">*</span></label>
+                                <div class="grid">
+                                    <div class="col-10">
+                                        <input pInputText class="w-full p-inputtext-sm" type="text" id="pollOption"
+                                            name="pollOption" formControlName="pollContent" required>
+                                    </div>
+                                    <div class="col-2">
+                                        <button pButton class="p-button-sm p-button-danger"
+                                            (click)="removePoll(i)">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <pre>{{postForm.value | json}}</pre>
+                    </div>
                 </div>
 
                 <!-- Add Option -->
                 <button pButton class="p-button-outlined p-button-sm" type="button" id="btnAddOption"
-                    name="btnAddOption">Add Option</button>
+                    name="btnAddOption" (click)="addPoll()">Add Option</button>
 
                 <div class="field mt-4">
                     <label for="pollDuration">Expired<span class="text-red-500">*</span></label>

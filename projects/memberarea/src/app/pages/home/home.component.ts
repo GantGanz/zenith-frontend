@@ -4,9 +4,10 @@ import { ActivatedRoute } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
+import { PostTypeService } from "projects/mainarea/src/app/service/post-type.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { Subscription } from "rxjs";
-import { POST_TYPE_ID } from "../../constant/post.type";
+import { POST_TYPE_CODE, POST_TYPE_ID } from "../../constant/post.type";
 
 
 @Component({
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     type!: string
 
     result: any[] = []
-    likedPost: any[]=[]
+    likedPost: any[] = []
 
     like = true
     bookmark = true
@@ -41,6 +42,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     showCreatePolling = false
 
     postTypeId!: string
+    regularPostCode = POST_TYPE_CODE.REGULAR
+    pollPostCode = POST_TYPE_CODE.POLLING
+    premiumPostCode = POST_TYPE_CODE.PREMIUM
 
     first = 0
     limit = 3
@@ -54,8 +58,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         pollInsertReq: this.fb.group({
             pollTitle: ['', [Validators.required]],
             endAt: ['', [Validators.required]],
-            postId: ['', [Validators.required]],
-            pollOptionInsertReqs: this.fb.array([])
+            pollOptionInsertReqs: this.fb.array([
+                this.fb.group({ pollContent: ['', Validators.required] })
+            ])
         }),
         isPremium: [false, [Validators.required]]
     })
@@ -67,20 +72,24 @@ export class HomeComponent implements OnInit, OnDestroy {
         version: [0, [Validators.required]]
     })
 
+
+
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
     private countLikeSubscription?: Subscription
 
     private likedPostSubscription?: Subscription
 
+    private postTypeSubscription?: Subscription
+
     private isLikedSubscription?: Subscription
     private insertLikeSubscription?: Subscription
     private deleteLikeSubscription?: Subscription
     private likedIdSubscription?: Subscription
 
-    constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+    constructor(private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
-        private likeService: LikeService) { }
+        private likeService: LikeService, private postTypeService: PostTypeService) { }
 
     ngOnInit(): void {
         this.postInit()
@@ -127,14 +136,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     showCreatePostDialog() {
         this.showForm = true
-        this.postTypeId = POST_TYPE_ID.REGULAR
+        this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.REGULAR).subscribe(result => {
+            this.postTypeId = result.id         
+        })
     }
 
     clickLike(i: number) {
         console.log("insert");
         this.likeForm.controls['userId'].setValue(this.result[i].userId)
         this.likeForm.controls['postId'].setValue(this.result[i].id)
-        this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(()=>{
+        this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(() => {
             this.result[i].isLiked = true
             this.result[i].countLike += 1
         })
@@ -150,14 +161,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     clickUnLike(i: number) {
         console.log("Unlike");
-        this.likedIdSubscription = this.likeService.getId(this.result[i].id).subscribe(data=>{
+        this.likedIdSubscription = this.likeService.getId(this.result[i].id).subscribe(data => {
             console.log(data.id);
-            this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(()=>{
+            this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(() => {
                 this.result[i].isLiked = false
                 this.result[i].countLike -= 1
             })
         })
-    }   
+    }
 
     clickMoreComment() {
         this.allComment = true
@@ -178,13 +189,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     clickAddPhotos() {
         this.showUploadImg = true
         this.showCreatePolling = false
-        this.postTypeId = POST_TYPE_ID.REGULAR
+        this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.REGULAR).subscribe(result => {
+            this.postTypeId = result.id
+        })
         this.postForm.reset()
     }
     clickCreatePoll() {
         this.showCreatePolling = true
         this.showUploadImg = false
-        this.postTypeId = POST_TYPE_ID.POLLING
+        this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.POLLING).subscribe(result => {
+            this.postTypeId = result.id
+        })
         this.postForm.reset()
     }
 
@@ -194,6 +209,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     get detailFoto(): FormArray {
         return this.postForm.get('attachmentPostInsertReqs') as FormArray
+    }
+
+    get pollingOption(): FormArray {
+        return this.postForm.get('pollInsertReq')?.get('pollOptionInsertReqs') as FormArray
     }
 
     fileUpload(event: any) {
@@ -207,13 +226,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     submitPost() {
         this.postForm.controls['postTypeId'].setValue(this.postTypeId)
         if (this.postForm.value.isPremium) {
-            this.postForm.controls['postTypeId'].setValue(POST_TYPE_ID.PREMIUM)
+            this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
+                this.postForm.controls['postTypeId'].setValue(result.id)
+            })
         }
         this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
             this.showForm = false
         })
     }
 
+    addPoll() {
+        this.pollingOption.push(this.fb.group({ pollContent: ['', [Validators.required]] }))
+    }
+
+    removePoll(i: number) {
+        this.pollingOption.removeAt(i)
+    }
 
     ngOnDestroy(): void {
         this.postInsertSubscription?.unsubscribe()

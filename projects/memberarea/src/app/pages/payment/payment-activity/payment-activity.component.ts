@@ -47,20 +47,25 @@ export class PaymentActivityComponent implements OnInit, OnDestroy {
                 this.activityTitle = result.data.activityTitle
                 this.provider = result.data.provider
                 this.fee = result.data.fee
+
+                this.paidSubscription = this.paymentActivityService.checkPaid(result.data.id).subscribe(result => {
+                    isPaid = result
+                    console.log(result)
+
+                    if (isPaid) {
+                        this.paymentStatus = 4
+                    }
+                })
+                this.activitySubscription = this.paymentActivityService.checkApproved(result.data.id).subscribe(result => {
+                    isActivity = result
+                    console.log(result)
+                    if (isActivity) {
+                        this.paymentStatus = 5
+                    }
+                })
             })
         })
-        this.paidSubscription = this.paymentActivityService.checkPaid().subscribe(result => {
-            isPaid = result
-            if (isPaid) {
-                this.paymentStatus = 4
-            }
-        })
-        this.activitySubscription = this.paymentActivityService.checkApproved().subscribe(result => {
-            isActivity = result
-            if (isActivity) {
-                this.paymentStatus = 5
-            }
-        })
+
     }
 
     clickUpgrade() {

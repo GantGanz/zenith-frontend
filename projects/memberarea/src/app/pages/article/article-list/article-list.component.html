@@ -8,24 +8,29 @@
         <h3 class="mb-4 -mb-2">Latest Article</h3>
         <p-divider></p-divider>
     </div>
-    <div class="grid mt-5"  infinite-scroll
-    (scrolled)="onScroll()">
-    <div class="container mt-4 p-0">
-        <div class="grid">
-            <ng-container *ngFor="let data of data; index as i">
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="card">
-                        <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}} class="card-img-top max-h-13rem w-full" alt="...">
-                      <div class="card-body">
-                        <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> | <span>{{data.createdAt | date:'dd/MM/yyyy'}}</span></p>
-                        <h5 class="card-title custom-text-overlay">{{data.articleTitle}}</h5>
-                        <p class="card-text custom-text-overlay">{{data.articleContent}}</p>
-                        <div class="text-end">
-                            <button pButton type="button" class="p-button-text" routerLink="/articles/details/{{data.id}}"> <span>Read more <i class="pi pi-arrow-right" style="font-size: 0.8rem"></i></span> </button>
+    <div class="grid mt-5" infinite-scroll (scrolled)="onScroll()">
+        <div class="container mt-4 p-0">
+            <div class="grid">
+                <ng-container *ngFor="let data of data; index as i">
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <div class="card">
+                            <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}}
+                                class="card-img-top max-h-13rem w-full" alt="article-banner">
+                            <div class="card-body">
+                                <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> |
+                                    <span>{{data.createdAt | date:'dd/MM/yyyy'}}</span>
+                                </p>
+                                <h5 class="card-title custom-text-overlay">{{data.articleTitle}}</h5>
+                                <p class="card-text custom-text-overlay">{{data.articleContent}}</p>
+                                <div class="text-end">
+                                    <button pButton type="button" class="p-button-text"
+                                        routerLink="/articles/details/{{data.id}}"> <span>Read more <i
+                                                class="pi pi-arrow-right" style="font-size: 0.8rem"></i></span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
-            </ng-container>
+                </ng-container>
+            </div>
         </div>
-    </div>

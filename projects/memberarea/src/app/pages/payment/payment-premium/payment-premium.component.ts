@@ -32,16 +32,16 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
     init() {
         let isPremium = false
         let isPaid = false
+        this.paidSubscription = this.paymentPremiumService.checkPaid().subscribe(result => {
+            isPaid = result
+            if (isPaid) {
+                this.premiumStatus = 4
+            }
+        })
         this.premiumSubscription = this.paymentPremiumService.checkPremium().subscribe(result => {
             isPremium = result
             if (isPremium) {
                 this.premiumStatus = 5
-            }
-        })
-        this.paidSubscription = this.paymentPremiumService.checkPaid().subscribe(result => {
-            isPaid = result
-            if (isPaid && (isPremium == false)) {
-                this.premiumStatus = 4
             }
         })
     }

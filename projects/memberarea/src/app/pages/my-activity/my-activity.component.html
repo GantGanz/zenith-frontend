@@ -38,9 +38,15 @@
                       <li class="pi pi-money-bill"></li>
                       <span> Rp {{data.fee}}</span>
                     </p>
-                    <div>
-                      <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
-                        routerLink="/payment"></button>
+                    <!-- Action -->
+                    <div class="grid">
+                      <div class="col-8">
+                        <button pButton type="button" class="p-button-sm w-full py-2" label="Edit"
+                          routerLink="/my-activity/edit/:id"></button>
+                      </div>
+                      <div class="col-4">
+                        <button pButton type="button" class="p-button-sm p-button-danger w-full py-2" label="Delete"></button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -81,7 +87,6 @@
           </div>
         </div>
       </p-tabPanel>
-
     </p-tabView>
   </div>
 </div>

@@ -10,7 +10,7 @@ const routes: Routes = [
         component: ContentComponent,
         children: [
             {
-                path: "activity",
+                path: "activity/:id",
                 component: PaymentActivityComponent
             },
             {

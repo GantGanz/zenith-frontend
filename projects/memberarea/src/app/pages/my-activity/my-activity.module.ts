@@ -6,21 +6,32 @@ import { MyActivityRouting } from "./my-activity.routing";
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from "primeng/button";
 import { ImageModule } from "primeng/image";
-
+import { DropdownModule } from "primeng/dropdown";
+import { CalendarModule } from "primeng/calendar";
+import { FileUploadModule } from "primeng/fileupload";
+import { InputNumberModule } from "primeng/inputnumber";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update.component";
 
 
 @NgModule({
     declarations: [
-        MyActivityComponent
+        MyActivityComponent, MyActivityUpdateComponent
     ],
     imports: [
         RouterModule, CommonModule, MyActivityRouting,
         TabViewModule,
         ButtonModule,
-        ImageModule
+        DropdownModule,
+        CalendarModule,
+        FileUploadModule,
+        InputNumberModule,
+        ImageModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
-        MyActivityComponent
+        MyActivityComponent, MyActivityUpdateComponent
     ]
 })
 export class MyActivityModule { }

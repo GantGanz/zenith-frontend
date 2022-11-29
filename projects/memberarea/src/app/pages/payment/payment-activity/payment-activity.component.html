@@ -1,7 +1,7 @@
 <div class="container bg-color-green-800">
     <div class="card mt-4 border-none flex align-items-center p-5">
 
-        <div class="md:col-6 col-12" *ngIf="paymentStep1">
+        <div class="md:col-6 col-12" *ngIf="paymentStatus == 1">
             <div class="grid">
                 <div class="col-12">
                     <h5 class="font-semibold mb-3">Payment Detail</h5>
@@ -13,15 +13,15 @@
                                 <span>Title</span>
                             </div>
                             <div class="col-9">
-                                <p>UI/UX Design: Beginner</p>
+                                <p>{{ activityTitle }}</p>
                             </div>
                         </div>
                         <div class="grid -mt-3 -mb-4">
                             <div class="col-3">
-                                <span>Type</span>
+                                <span>Provider</span>
                             </div>
                             <div class="col-9">
-                                <p> Event </p>
+                                <p>{{ provider }}</p>
                             </div>
                         </div>
                         <p-divider></p-divider>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-6">
                                 <p class="text-right font-bold text-green-700">
-                                    Rp. 50.000
+                                    Rp. {{ fee }}
                                 </p>
                             </div>
                         </div>
@@ -44,14 +44,14 @@
                     <div class="grid justify-content-end">
                         <div class="col-4">
                             <button pButton type="submit" class="p-button-sm w-full"
-                                styleClass="p-button-sm text-center" label="Pay now" (click)="clickPayNow()"></button>
+                                styleClass="p-button-sm text-center" label="Pay now" (click)="clickUpgrade()"></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid justify-content-center" *ngIf="paymentStep2">
+        <div class="grid justify-content-center" *ngIf="paymentStatus == 2">
             <div class="md:col-6 col-12">
                 <div class="grid">
                     <div class="col-12">
@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="text-sm">Total:</p>
-                                            <p class="font-bold text-green-700">Rp.50.000</p>
+                                            <p class="font-bold text-green-700">Rp.{{ fee }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 <p>Completed the payment?</p>
                                 <button pButton type="submit" class="p-button-sm w-full"
                                     styleClass="p-button-sm text-center" label="Confirmation"
-                                    (click)="clickConfirmPayment()"></button>
+                                    (click)="clickCheckout()"></button>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <div class="grid justify-content-center" *ngIf="paymentStep3">
+        <div class="grid justify-content-center" *ngIf="paymentStatus == 3">
             <div class="col-12">
                 <div class="grid">
                     <div class="col-12">
@@ -104,19 +104,16 @@
                     </div>
 
                     <div class="col-12">
-                        <form>
+                        <form [formGroup]="paymentActivityForm" (ngSubmit)="clickSubmit() ">
                             <div class="col-12">
                                 <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true"
-                                    chooseLabel="Browse"></p-fileUpload>
+                                    (uploadHandler)="fileUpload($event)" chooseLabel="Upload Invoice"></p-fileUpload>
                             </div>
-
-                            <!-- Action -->
                             <div class="col-12 mt-5">
                                 <div class="grid justify-content-end">
                                     <div class="col-6">
                                         <button pButton type="submit" class="p-button-sm w-full"
-                                            styleClass="p-button-sm text-center" label="Confirmation"
-                                            (click)="uploadProofPayment()"></button>
+                                            styleClass="p-button-sm text-center" label="Confirmation"></button>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +124,7 @@
         </div>
 
         <!-- Confirm -->
-        <div class="text-center" *ngIf="paymentStep4">
+        <div class="text-center" *ngIf="paymentStatus == 4">
             <h3>Thank You</h3>
             <div class="mt-2 text-center">
                 <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
@@ -141,6 +138,26 @@
             <div class="mt-3">
                 <button pButton type="button" class="p-button-sm w-full" label="Back To Home"
                     routerLink="/feed"></button>
+            </div>
+        </div>
+
+        <div class="text-center" *ngIf="paymentStatus == 5">
+            <h4>Congratulation !</h4>
+            <div class="mt-3 text-center grid">
+                <div class="col-12">
+                    <span><i class="pi pi-star-fill text-yellow-500" style="font-size: 3rem;"></i> </span>
+                </div>
+                <div class="col-12">
+                    <img src="../../../../assets/images/subscribe_status.png" alt="" class="w-20rem">
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <p class="text-sm text-center">You are already registered to this activity!</p>
+            </div>
+
+            <div class="mt-3">
+                <button pButton type="button" class="p-button-sm" label="Get Started" routerLink="/feed"></button>
             </div>
         </div>
     </div>

@@ -13,6 +13,14 @@ import { BASE_URL } from "../constant/base.url";
 export class PaymentActivityService {
     constructor(private http: HttpClient) { }
 
+    checkApproved(): Observable<boolean> {
+        return this.http.get<boolean>(`${BASE_URL.LOCALHOST}/payment-activities/status`)
+    }
+
+    checkPaid(): Observable<boolean> {
+        return this.http.get<boolean>(`${BASE_URL.LOCALHOST}/payment-activities/paid`)
+    }
+
     countAllUnapproved(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/count`)
     }

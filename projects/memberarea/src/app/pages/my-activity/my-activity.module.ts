@@ -5,6 +5,11 @@ import { MyActivityComponent } from "./my-activity.component";
 import { MyActivityRouting } from "./my-activity.routing";
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from "primeng/button";
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload'
+import { InputNumberModule } from 'primeng/inputnumber';
+
 
 
 
@@ -15,7 +20,11 @@ import { ButtonModule } from "primeng/button";
     imports: [
         RouterModule, CommonModule, MyActivityRouting,
         TabViewModule,
-        ButtonModule
+        ButtonModule,
+        DropdownModule,
+        CalendarModule,
+        FileUploadModule,
+        InputNumberModule
     ],
     exports: [
         MyActivityComponent

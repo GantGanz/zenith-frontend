@@ -7,17 +7,11 @@
     object-fit: cover;
 }
 
-/* .card-img {
-    height: 80px;
-    width: 80px;
-    object-fit: cover;
-} */
-
-/* :host ::ng-deep .ui-panel-images {
-    width: 50%;
-    height: 50%;
-    object-fit: contain;
-} */
+.custom-img {
+    width: 100% !important;
+    height: 180px !important;
+    object-fit: cover !important;
+}
 
 .img-content {
     height: 400px;

@@ -8,7 +8,7 @@
               <div class="card h-100">
                 <div class="">
                   <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="540" width="100%"
-                    alt="article-banner" [preview]="true">
+                    alt="activity-banner" [preview]="true">
                   </p-image>
                 </div>
 
@@ -42,7 +42,7 @@
           <ng-container *ngFor="let data of dataEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} width="180px" alt="article-banner"
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} width="180px" alt="activity-banner"
                   [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
@@ -73,7 +73,7 @@
           <ng-container *ngFor="let data of dataJoinedCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="activity-banner"
                   [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
@@ -105,7 +105,7 @@
           <ng-container *ngFor="let data of dataJoinedEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="activity-banner"
                   [preview]=" true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>

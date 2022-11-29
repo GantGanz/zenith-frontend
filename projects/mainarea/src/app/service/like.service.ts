@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { InsertRes } from "projects/interface/insert-res";
+import { LikeRes } from "projects/interface/like/like-res";
 import { UpdateRes } from "projects/interface/update-res";
 import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.url";
@@ -20,7 +21,7 @@ export class LikeService{
         return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/likes`,data)
     }
 
-    delete(data: any): Observable<UpdateRes>{
+    softDelete(data: any): Observable<UpdateRes>{
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/likes/soft-delete`,data)
     }
 
@@ -30,5 +31,13 @@ export class LikeService{
 
     liked(id: string): Observable<boolean>{
         return this.http.get<boolean>(`${BASE_URL.LOCALHOST}/likes/liked/${id}`)
+    }
+
+    getId(id: string): Observable<any>{
+        return this.http.get<any>(`${BASE_URL.LOCALHOST}/likes/liked-id/${id}`)
+    }
+
+    delete(id: string): Observable<string>{
+        return this.http.delete<string>(`${BASE_URL.LOCALHOST}/likes/${id}`)
     }
 }

@@ -42,14 +42,18 @@
 
                                     <div class="grid mt-2">
                                         <div class="col-6">{{data.countLike}} Likes</div>
+                                        
                                         <div class="col-6 text-end">6 Comments</div>
                                     </div>
                                     <div class="grid border-top-1 border-gray-300 pt-2">
-                                        
-                                        <button pButton label="Like" icon="pi pi-thumbs-up"
-                                            class="p-button-text btn-sec" *ngIf="like" (click)="clickLike(i)"></button>
-                                        <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                            *ngIf="likeFill" (click)="clickUnLike()"></button>
+                                        <ng-container *ngIf="data.isLiked ;else elseBlock">
+                                            <button pButton label="Like" icon="pi pi-thumbs-up-fill"
+                                                class="p-button-text" (click)="clickUnLike(i)"></button>
+                                        </ng-container>
+                                        <ng-template #elseBlock>
+                                            <button pButton label="Like" icon="pi pi-thumbs-up"
+                                                class="p-button-text btn-sec" (click)="clickLike(i)"></button>
+                                        </ng-template>
 
                                         <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
                                             *ngIf="bookmark" (click)="clickSave()"></button>
@@ -149,14 +153,14 @@
                 </p-tabPanel>
 
                 <p-tabPanel header="Likes" headerStyleClass="w-full">
-                    
+
                     <!-- Likes -->
-                    <div  #pnlBlock class="card mb-3 border-noround">
+                    <div #pnlBlock class="card mb-3 border-noround">
                         <div class="card-container px-4 pt-4 pb-3">
-                             <!-- Block If Premium -->
-                            <p-blockUI [target]="pnlBlock" styleClass="opacity-90 bg-black z-5" [blocked]="true">
+                            <!-- Block If Premium -->
+                            <!-- <p-blockUI [target]="pnlBlock" styleClass="opacity-90 bg-black z-5" [blocked]="true">
                                 <i class="pi pi-lock" style="font-size: 3rem"></i>
-                            </p-blockUI>
+                            </p-blockUI> -->
                             <div class="mt-2">
                                 <div class="inline-flex mr-3"><img class="profile-pic"
                                         src="../../../assets/images/photo_member.png" alt=""></div>
@@ -184,35 +188,36 @@
                                     <img src="../../../assets/images/post_1.png" alt="" class="img-post mr-3">
                                     <img src="../../../assets/images/post_1.png" alt="" class="img-post mr-3">
                                 </div>
-    
+
                                 <div class="grid mt-2">
                                     <div class="col-6 text-sm">8 Likes</div>
                                     <div class="col-6 text-end text-sm">6 Comments</div>
                                 </div>
-    
+
                                 <div class="grid border-top-1 border-gray-300 pt-2">
                                     <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec"
                                         *ngIf="like" (click)="clickLike(0)"></button>
                                     <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                        *ngIf="likeFill" (click)="clickUnLike()"></button>
-    
+                                        *ngIf="likeFill" (click)="clickUnLike(0)"></button>
+
                                     <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
                                         *ngIf="bookmark" (click)="clickSave()"></button>
                                     <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
                                         *ngIf="bookmarkFill" (click)="clickUnSave()"></button>
-    
+
                                     <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
                                         (click)="clickCommentPost()"></button>
                                 </div>
-    
+
                                 <div *ngIf="commentPost">
                                     <div class="grid mt-2">
                                         <div class="col-1">
-                                            <img class="border-circle w-10" src="../../../assets/images/photo_member.png"
-                                                alt="">
+                                            <img class="border-circle w-10"
+                                                src="../../../assets/images/photo_member.png" alt="">
                                         </div>
                                         <div class="col-11">
-                                            <textarea pInputTextarea [autoResize]="true" class="w-full p-inputtextarea-sm"
+                                            <textarea pInputTextarea [autoResize]="true"
+                                                class="w-full p-inputtextarea-sm"
                                                 placeholder="Add a comment..."></textarea>
                                         </div>
                                     </div>
@@ -226,7 +231,7 @@
                                             Close Comments
                                         </span>
                                     </div>
-    
+
                                     <div *ngIf="allComment">
                                         <div class="grid mt-3">
                                             <div class="col-1">
@@ -239,7 +244,8 @@
                                                     <span class="text-xs">2020/10/10</span>
                                                 </div>
                                                 <div class="px-2 mt-2">
-                                                    <p class="text-sm mb-1">I sure hope people are not going to Dribbble to
+                                                    <p class="text-sm mb-1">I sure hope people are not going to Dribbble
+                                                        to
                                                         find solutions for UX
                                                         challenges. You just won't find anything there.</p>
                                                 </div>
@@ -249,7 +255,7 @@
                                                     *ngIf="replyComment" (click)="clickReplyComment()">Reply</span>
                                             </div>
                                         </div>
-    
+
                                         <!-- Reply Message -->
                                         <div class="grid col-offset-1 mt-2" *ngIf="showReplyComment">
                                             <div class="col-1">
@@ -262,7 +268,7 @@
                                                     placeholder="Add a comment..."></textarea>
                                             </div>
                                         </div>
-    
+
                                         <div class="grid col-offset-1 mt-2">
                                             <div class="col-1">
                                                 <img class="border-circle w-10"
@@ -274,7 +280,8 @@
                                                     <span class="text-xs">2020/10/10</span>
                                                 </div>
                                                 <div class="px-2 mt-2">
-                                                    <p class="text-sm mb-1">I sure hope people are not going to Dribbble to
+                                                    <p class="text-sm mb-1">I sure hope people are not going to Dribbble
+                                                        to
                                                         find solutions for UX
                                                         challenges. You just won't find anything there.</p>
                                                 </div>
@@ -329,7 +336,7 @@
                                 <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec"
                                     *ngIf="like" (click)="clickLike(0)"></button>
                                 <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                    *ngIf="likeFill" (click)="clickUnLike()"></button>
+                                    *ngIf="likeFill" (click)="clickUnLike(0)"></button>
 
                                 <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
                                     *ngIf="bookmark" (click)="clickSave()"></button>
@@ -473,7 +480,7 @@
                                 <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec"
                                     *ngIf="like" (click)="clickLike(0)"></button>
                                 <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                    *ngIf="likeFill" (click)="clickUnLike()"></button>
+                                    *ngIf="likeFill" (click)="clickUnLike(0)"></button>
 
                                 <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
                                     *ngIf="bookmark" (click)="clickSave()"></button>
@@ -606,7 +613,7 @@
                                 <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec"
                                     *ngIf="like" (click)="clickLike(0)"></button>
                                 <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                    *ngIf="likeFill" (click)="clickUnLike()"></button>
+                                    *ngIf="likeFill" (click)="clickUnLike(0)"></button>
 
                                 <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
                                     *ngIf="bookmark" (click)="clickSave()"></button>
@@ -750,7 +757,7 @@
                                 <button pButton label="Like" icon="pi pi-thumbs-up" class="p-button-text btn-sec"
                                     *ngIf="like" (click)="clickLike(0)"></button>
                                 <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                    *ngIf="likeFill" (click)="clickUnLike()"></button>
+                                    *ngIf="likeFill" (click)="clickUnLike(0)"></button>
 
                                 <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
                                     *ngIf="bookmark" (click)="clickSave()"></button>

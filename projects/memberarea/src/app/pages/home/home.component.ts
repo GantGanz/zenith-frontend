@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { PostData } from "projects/interface/post/post-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
@@ -24,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     type!: string
 
     result: any[] = []
+    likedPost: any[]=[]
 
     like = true
     bookmark = true
@@ -61,43 +61,48 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     likeForm = this.fb.group({
-        id:['',[Validators.required]],
-        userId:['',[Validators.required]],
-        postId:['',[Validators.required]],
-        version:[0,[Validators.required]]
+        id: ['', [Validators.required]],
+        userId: ['', [Validators.required]],
+        postId: ['', [Validators.required]],
+        version: [0, [Validators.required]]
     })
 
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
     private countLikeSubscription?: Subscription
+
+    private likedPostSubscription?: Subscription
+
     private isLikedSubscription?: Subscription
-    private likeSubscription?: Subscription
     private insertLikeSubscription?: Subscription
-    private updateLikeSubscription?: Subscription
+    private deleteLikeSubscription?: Subscription
+    private likedIdSubscription?: Subscription
 
     constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService) { }
 
     ngOnInit(): void {
-        this.init()
+        this.postInit()
     }
 
-    init() {
+    postInit() {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result[i] = posts.data[i]
                 this.countLikeSubscription = this.likeService.count(posts.data[i].id).subscribe(like => {
                     this.result[i].countLike = like
-                    
                 })
                 this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
-                    console.log(isLiked);
-                    this.result[i].likeId = isLiked
+                    this.result[i].isLiked = isLiked
                 })
             }
         })
     }
+
+    // likedInit(){
+    //     this.likedPostSubscription = this.postService.
+    // }
 
     onScroll() {
         this.first += this.limit
@@ -109,14 +114,14 @@ export class HomeComponent implements OnInit, OnDestroy {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
                 this.countLikeSubscription = this.likeService.count(posts.data[i].id).subscribe(like => {
-                    this.result[i+this.first].countLike = like
+                    this.result[i + this.first].countLike = like
                 })
                 this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
-                    this.result[i+this.first].likeId = isLiked
+                    this.result[i + this.first].isLiked = isLiked
                 })
             }
             console.log(this.result);
-            
+
         })
     }
 
@@ -126,28 +131,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickLike(i: number) {
-        if(this.result[i].isLiked){
-            this.like = false
-        } else{
-            this.isLikedSubscription = this.likeService.liked(this.result[i].id).subscribe(liked=>{
-                if(liked){
-                    this.likeForm.controls['id'].setValue(this.result[i].id)
-                    this.likeForm.controls['version'].setValue(this.result[i].version)
-                    this.updateLikeSubscription = this.likeService.update(this.likeForm.value).subscribe(()=>{
-                        this.addData()
-                    })
-                }else{
-                    this.likeForm.controls['userId'].setValue(this.result[i].userId)
-                    this.likeForm.controls['postId'].setValue(this.result[i].id)
-                    this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(()=>{
-                        this.addData()
-                    })
-                }
-            })
-            this.likeFill = true
-        }
-
+        console.log("insert");
+        this.likeForm.controls['userId'].setValue(this.result[i].userId)
+        this.likeForm.controls['postId'].setValue(this.result[i].id)
+        this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(()=>{
+            this.result[i].isLiked = true
+            this.result[i].countLike += 1
+        })
     }
+
     clickUnSave() {
         this.bookmark = true
         this.bookmarkFill = false
@@ -156,10 +148,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.bookmark = false
         this.bookmarkFill = true
     }
-    clickUnLike() {
-        this.like = true
-        this.likeFill = false
-    }
+    clickUnLike(i: number) {
+        console.log("Unlike");
+        this.likedIdSubscription = this.likeService.getId(this.result[i].id).subscribe(data=>{
+            console.log(data.id);
+            this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(()=>{
+                this.result[i].isLiked = false
+                this.result[i].countLike -= 1
+            })
+        })
+    }   
 
     clickMoreComment() {
         this.allComment = true
@@ -199,7 +197,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     fileUpload(event: any) {
-        console.log('masuk');
         this.fileService.fileUploadMulti(event).then(result => {
             for (let i = 0; i < result.length; i++) {
                 this.detailFoto.push(this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
@@ -223,5 +220,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postsSubscribtion?.unsubscribe()
         this.countLikeSubscription?.unsubscribe()
         this.isLikedSubscription?.unsubscribe()
+        this.insertLikeSubscription?.unsubscribe()
+        this.deleteLikeSubscription?.unsubscribe()
+        this.likedIdSubscription?.unsubscribe()
     }
 }

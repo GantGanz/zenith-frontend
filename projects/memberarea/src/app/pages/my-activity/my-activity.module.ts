@@ -12,7 +12,9 @@ import { FileUploadModule } from "primeng/fileupload";
 import { InputNumberModule } from "primeng/inputnumber";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update.component";
-
+import { InputTextModule } from "primeng/inputtext";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { CheckboxModule } from "primeng/checkbox";
 
 @NgModule({
     declarations: [
@@ -28,7 +30,10 @@ import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update
         InputNumberModule,
         ImageModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InputTextModule,
+        ConfirmDialogModule,
+        CheckboxModule
     ],
     exports: [
         MyActivityComponent, MyActivityUpdateComponent

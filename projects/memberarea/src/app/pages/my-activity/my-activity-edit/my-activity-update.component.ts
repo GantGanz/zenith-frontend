@@ -13,18 +13,19 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
 
     activityUpdateForm = this.fb.group({
         id: ['', [Validators.required]],
-        activityTitle: ['', [Validators.required, Validators.maxLength(50)]],
-        activityLocation: ['', [Validators.email, Validators.required, Validators.maxLength(50)]],
+        activityTitle: ['', [Validators.required]],
+        activityLocation: ['', [Validators.required]],
         provider: ['', [Validators.required]],
         startAt: ['', [Validators.required]],
         endAt: ['', [Validators.required]],
-        fee: ['', [Validators.required]],
+        fee: [0, [Validators.required]],
         activityTypeId: ['', [Validators.required]],
         isActive: [true, [Validators.required]],
         version: [0, [Validators.required]]
     })
 
     activityTypes: any[] = []
+    disable = false
 
 
     private activityTypeSubscription?: Subscription
@@ -39,21 +40,15 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.myActivitySubscription = this.activityService.getById(id).subscribe(result => {
-                this.activityUpdateForm.controls['id'].setValue(result.data.id)
-                this.activityUpdateForm.controls['activityTitle'].setValue(result.data.activityTitle)
-                this.activityUpdateForm.controls['activityLocation'].setValue(result.data.activityLocation)
-                this.activityUpdateForm.controls['provider'].setValue(result.data.provider)
-                this.activityUpdateForm.controls['startAt'].setValue(result.data.startAt)
-                this.activityUpdateForm.controls['endAt'].setValue(result.data.endAt)
-                this.activityUpdateForm.controls['isActive'].setValue(result.data.isActive)
-                this.activityUpdateForm.controls['version'].setValue(result.data.version)
-
+                this.activityUpdateForm.patchValue(
+                    result.data
+                )
             })
             this.activityTypeSubscription = this.activityTypeService.getAll().subscribe(result => {
                 for (let i = 0; i < result.data.length; i++) {
                     this.activityTypes.push({
-                        name: result.data[i].activityTypeCode,
-                        code: result.data[i].activityTypeName,
+                        name: result.data[i].activityTypeName,
+                        code: result.data[i].activityTypeCode,
                         id: result.data[i].id
                     })
                 }

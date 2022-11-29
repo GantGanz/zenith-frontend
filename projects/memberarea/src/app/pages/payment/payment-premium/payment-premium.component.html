@@ -1,28 +1,33 @@
 <div class="container">
     <div class="card mt-4 border-none flex align-items-center p-5">
 
-        <div class="" *ngIf="upgradePremiumStep1 && (premiumStatus == false)">
+        <div *ngIf="premiumStatus == 1">
             <div class="mt-4 text-center">
                 <h3>Upgrade Premium</h3>
                 <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
-                    class="mt-4 custom-img">
+                    class="mt-4 custom-img max-w-18rem">
             </div>
             <div class="col-12 mt-4">
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde, modi!</p>
                 <div class="card p-5 bg-yellow-500">
                     <h4 class="color-green">Pay Once. Use Forever !</h4>
-                    <h4 class="">RP. 500.000</h4>
+                    <h4 class="">RP. {{price}}</h4>
                 </div>
-                <div class="mt-3">
-                    <button pButton type="button" class="p-button-sm w-full" label="Upgrade Now"
-                        (click)="clickUpgrade()"></button>
-                    <button pButton type="button" class="p-button-sm p-button-outlined w-full mt-2"
-                        label="Cancel"></button>
+
+                <div class=" col-12 mt-3 text-center">
+                    <div class="grid justify-content-center">
+                        <div class="col-5">
+                            <button pButton type="button" class="p-button-sm w-full" label="Upgrade Now"
+                                (click)="clickUpgrade()"></button>
+                            <button pButton type="button" class="p-button-sm p-button-text mt-2"
+                                label="Cancel"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid justify-content-center" *ngIf="upgradePremiumStep2 && (premiumStatus == false)">
+        <div class="grid justify-content-center" *ngIf="premiumStatus == 2">
             <div class="md:col-6 col-12">
                 <div class="grid">
                     <div class="col-12">
@@ -32,7 +37,6 @@
                         <p class="text-sm">Make a payment to the virtual account number according to the total bill in
                             the summary as below:</p>
                     </div>
-
                     <div class="card col-12">
                         <div class="container">
                             <div class="grid mt-2">
@@ -51,7 +55,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12 mt-3 pb-0">
                         <div class="grid justify-content-end">
                             <div class="col-6">
@@ -66,28 +69,24 @@
             </div>
         </div>
 
-        <div class="grid justify-content-center" *ngIf="upgradePremiumStep3 && (premiumStatus == false)">
+        <div class="grid justify-content-center" *ngIf="premiumStatus == 3">
             <div class="col-12">
                 <div class="grid">
                     <div class="col-12">
                         <h5 class="font-semibold">Payment Confirmation</h5>
                         <p class="text-sm mt-2">Upload your proof of payment for confirmation. </p>
                     </div>
-
                     <div class="col-12">
-                        <form>
+                        <form [formGroup]="paymentPremiumForm" (ngSubmit)="clickSubmit() ">
                             <div class="col-12">
                                 <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true"
-                                    chooseLabel="Browse"></p-fileUpload>
+                                    (uploadHandler)="fileUpload($event)" chooseLabel="Upload Invoice"></p-fileUpload>
                             </div>
-
-                            <!-- Action -->
                             <div class="col-12 mt-5">
                                 <div class="grid justify-content-end">
                                     <div class="col-6">
                                         <button pButton type="submit" class="p-button-sm w-full"
-                                            styleClass="p-button-sm text-center" label="Confirmation"
-                                            (click)="clickConfirmPayment()"></button>
+                                            styleClass="p-button-sm text-center" label="Confirmation"></button>
                                     </div>
                                 </div>
                             </div>
@@ -97,21 +96,38 @@
             </div>
         </div>
 
-
-        <div class="text-center" *ngIf="upgradePremiumStep4 || premiumStatus">
+        <div class="text-center" *ngIf="premiumStatus == 4">
             <h3>Thank You</h3>
             <div class="mt-2 text-center">
                 <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
-                    class="mt-4 custom-img">
+                    class="mt-4 custom-img w-16rem">
             </div>
-
             <div class="mt-3">
                 <p class="text-sm text-center">Please wait for the confirmation. </p>
             </div>
-
             <div class="mt-3">
                 <button pButton type="button" class="p-button-sm w-full" label="Back To Home"
                     routerLink="/feed"></button>
+            </div>
+        </div>
+
+        <div class="text-center" *ngIf="premiumStatus == 5">
+            <h4>Congratulation !</h4>
+            <div class="mt-3 text-center grid">
+                <div class="col-12">
+                    <span><i class="pi pi-star-fill text-yellow-500" style="font-size: 3rem;"></i> </span>
+                </div>
+                <div class="col-12">
+                    <img src="../../../../assets/images/subscribe_status.png" alt="" class="w-20rem">
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <p class="text-sm text-center">Youre premium membership has been activated !</p>
+            </div>
+
+            <div class="mt-3">
+                <button pButton type="button" class="p-button-sm" label="Get Started" routerLink="/feed"></button>
             </div>
         </div>
     </div>

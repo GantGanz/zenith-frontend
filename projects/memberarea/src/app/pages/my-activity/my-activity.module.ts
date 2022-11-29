@@ -23,7 +23,7 @@ import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update
         TabViewModule,
         ButtonModule,
         ImageModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
         DropdownModule,
         CalendarModule,
         FileUploadModule,

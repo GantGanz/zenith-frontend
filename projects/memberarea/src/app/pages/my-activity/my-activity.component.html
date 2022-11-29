@@ -12,76 +12,74 @@
     </div>
   </div>
 
-  <div class="">
-    <p-tabView (onChange)="tabClick()">
-      <!-- Course yang dibuat -->
-      <p-tabPanel header="Courses">
-        <div class="container mt-4 p-0">
-          <div class="grid">
-            <ng-container *ngFor="let data of dataCourses; index as i">
-              <div class="col-12 md:col-6 lg:col-4">
-                <div class="card h-100 click">
-                  <div class="card-img">
-                    <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="540" width="100%"
-                      alt="activity-banner" [preview]="true">
-                    </p-image>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">{{data.activityTitle}}</h5>
-                    <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
-                    <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
-                    <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                      <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} |</span>
-                      <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
-                    </p>
-                    <p class="card-text text-medium -mt-2">
-                      <li class="pi pi-money-bill"></li>
-                      <span> Rp {{data.fee}}</span>
-                    </p>
-                    <div>
-                      <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
-                        routerLink="/payment"></button>
-                    </div>
+  <p-tabView (onChange)="tabClick()">
+    <!-- Course yang dibuat -->
+    <p-tabPanel header="Courses">
+      <div class="container mt-4 p-0">
+        <div class="grid">
+          <ng-container *ngFor="let data of dataCourses; index as i">
+            <div class="col-12 md:col-6 lg:col-4">
+              <div class="card h-100 click">
+                <div class="card-img">
+                  <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="540" width="100%"
+                    alt="activity-banner" [preview]="true">
+                  </p-image>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{data.activityTitle}}</h5>
+                  <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
+                  <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
+                  <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
+                    <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} |</span>
+                    <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
+                  </p>
+                  <p class="card-text text-medium -mt-2">
+                    <li class="pi pi-money-bill"></li>
+                    <span> Rp {{data.fee}}</span>
+                  </p>
+                  <div>
+                    <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
+                      routerLink="/payment"></button>
                   </div>
                 </div>
               </div>
-            </ng-container>
-          </div>
+            </div>
+          </ng-container>
         </div>
-      </p-tabPanel>
+      </div>
+    </p-tabPanel>
 
-      <!-- Event yang dibuat -->
-      <p-tabPanel header="Events">
-        <div class="container mt-4 p-0">
-          <div class="grid">
-            <ng-container *ngFor="let data of dataEvents; index as i">
-              <div class="col-12 md:col-6 lg:col-4">
-                <div class="card h-100 click">
-                  <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} width="180px"
-                    alt="activity-banner" [preview]="true"></p-image>
-                  <div class="card-body">
-                    <h5 class="card-title">{{data.activityTitle}}</h5>
-                    <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
-                    <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
-                    <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                      <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} ~</span>
-                      <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
-                    </p>
-                    <p class="card-text text-medium -mt-2">
-                      <li class="pi pi-money-bill"></li>
-                      <span> Rp {{data.fee}}</span>
-                    </p>
-                    <div>
-                      <button pButton type="button" class="p-button-sm w-full py-2" label="Register"></button>
-                    </div>
+    <!-- Event yang dibuat -->
+    <p-tabPanel header="Events">
+      <div class="container mt-4 p-0">
+        <div class="grid">
+          <ng-container *ngFor="let data of dataEvents; index as i">
+            <div class="col-12 md:col-6 lg:col-4">
+              <div class="card h-100 click">
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} width="180px" alt="activity-banner"
+                  [preview]="true"></p-image>
+                <div class="card-body">
+                  <h5 class="card-title">{{data.activityTitle}}</h5>
+                  <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
+                  <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
+                  <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
+                    <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} ~</span>
+                    <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
+                  </p>
+                  <p class="card-text text-medium -mt-2">
+                    <li class="pi pi-money-bill"></li>
+                    <span> Rp {{data.fee}}</span>
+                  </p>
+                  <div>
+                    <button pButton type="button" class="p-button-sm w-full py-2" label="Register"></button>
                   </div>
                 </div>
               </div>
-            </ng-container>
-          </div>
+            </div>
+          </ng-container>
         </div>
-      </p-tabPanel>
+      </div>
+    </p-tabPanel>
 
-    </p-tabView>
-  </div>
+  </p-tabView>
 </div>

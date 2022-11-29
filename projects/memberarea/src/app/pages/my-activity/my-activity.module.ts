@@ -6,6 +6,7 @@ import { MyActivityRouting } from "./my-activity.routing";
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from "primeng/button";
 import { ImageModule } from "primeng/image";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 
 
@@ -17,7 +18,8 @@ import { ImageModule } from "primeng/image";
         RouterModule, CommonModule, MyActivityRouting,
         TabViewModule,
         ButtonModule,
-        ImageModule
+        ImageModule,
+        InfiniteScrollModule
     ],
     exports: [
         MyActivityComponent

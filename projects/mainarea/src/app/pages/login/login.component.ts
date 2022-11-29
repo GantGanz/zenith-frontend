@@ -35,8 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     submit() {
         this.loginSubscription = this.loginService.login(this.loginForm.value).subscribe(result => {
             if (this.memberLogin) {
-                console.log('test');
-
                 if (result.roleCode == ROLECODE.MEMBER) {
                     this.apiService.saveData(result)
                     this.router.navigateByUrl("/feed")

@@ -41,13 +41,24 @@
                                             </ng-container>
                                         </ng-container>
                                         <ng-template #elsePoll>
-                                            <div class="mt-4">
-                                                <h4>{{data.pollTitle}}</h4>
-                                                <p>{{data.pollContent}}</p>
+                                            <div class="mt-3">
+                                                <div class="card p-4 border-none bg-gray-50">
+                                                    <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
+                                                    <ng-container
+                                                        *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
+                                                        <ng-container *ngIf="poll.isVoted">
+                                                            
+                                                        </ng-container>
+                                                        <button pButton class="p-button-outlined p-button-sm mb-2"
+                                                            type="button" label={{poll.pollContent}}
+                                                            (click)="clickVote(i,pollIndex)"></button>
+                                                    </ng-container>
+                                                    <div class="mt-2">
+                                                        <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
+                                                        <span class="text-end text-sm">Until 5 Day</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <ng-container *ngFor="let poll of data.pollOptionDatas">
-
-                                            </ng-container>
                                         </ng-template>
                                     </div>
 
@@ -903,12 +914,12 @@
                 <h5 class="-mb-2">Polling</h5>
                 <p-divider></p-divider>
 
-                <div class="field">
-                    <label for="pollQuestion">Question<span class="text-red-500">*</span></label>
-                    <textarea rows="2" [autoResize]="true" pInputTextarea class="w-full" id="pollQuestion"
-                        name="pollQuestion" formControlName="pollTitle"></textarea>
-                </div>
                 <div formGroupName="pollInsertReq">
+                    <div class="field">
+                        <label for="pollQuestion">Question<span class="text-red-500">*</span></label>
+                        <textarea rows="2" [autoResize]="true" pInputTextarea class="w-full" id="pollQuestion"
+                            name="pollQuestion" formControlName="pollTitle"></textarea>
+                    </div>
                     <div formArrayName="pollOptionInsertReqs">
                         <ng-container *ngFor="let option of pollingOption.controls; index as i" [formGroupName]="i">
                             <div class="field">
@@ -927,16 +938,17 @@
                         </ng-container>
                         <pre>{{postForm.value | json}}</pre>
                     </div>
+                    <!-- Add Option -->
+                    <button pButton class="p-button-outlined p-button-sm" type="button" id="btnAddOption"
+                        name="btnAddOption" (click)="addPoll()">Add Option</button>
+
+                    <div class="field mt-4">
+                        <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
+                        <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"
+                            formControlName="endAt" [showTime]="true"></p-calendar>
+                    </div>
                 </div>
 
-                <!-- Add Option -->
-                <button pButton class="p-button-outlined p-button-sm" type="button" id="btnAddOption"
-                    name="btnAddOption" (click)="addPoll()">Add Option</button>
-
-                <div class="field mt-4">
-                    <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
-                    <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"></p-calendar>
-                </div>
             </div>
 
             <!-- Upload Image -->

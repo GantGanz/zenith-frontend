@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -22,9 +23,8 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
         activityTitle: [null, [Validators.required]],
         activityLocation: [null, [Validators.required]],
         provider: [null, [Validators.required]],
-        rangeDates: [null, [Validators.required]],
-        startAt: [null, [Validators.required]],
-        endAt: [null, [Validators.required]],
+        startAt: ['', [Validators.required]],
+        endAt: ['', [Validators.required]],
         fee: [null, [Validators.required]],
         activityTypeId: [null, [Validators.required]],
         attachmentActivityInsertReqs: this.fb.array([])
@@ -47,8 +47,10 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     }
 
     clickSubmit() {
-        this.activityForm.value.startAt = this.activityForm.value.rangeDates![0]
-        this.activityForm.value.endAt = this.activityForm.value.rangeDates![1]
+        let formattedStart = formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+        this.activityForm.value.startAt = formattedStart
+        let formattedEnd = formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+        this.activityForm.value.endAt = formattedEnd
         this.activitySubscription = this.activityService.insert(this.activityForm.value).subscribe(() => {
             this.router.navigateByUrl('/activities')
         })
@@ -67,4 +69,9 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
         this.activitySubscription?.unsubscribe()
         this.activityTypesSubscription?.unsubscribe()
     }
+}
+
+function getTimeZone() {
+    var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+    return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
 }

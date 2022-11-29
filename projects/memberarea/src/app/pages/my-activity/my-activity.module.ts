@@ -5,6 +5,7 @@ import { MyActivityComponent } from "./my-activity.component";
 import { MyActivityRouting } from "./my-activity.routing";
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from "primeng/button";
+import { ImageModule } from "primeng/image";
 
 
 
@@ -15,7 +16,8 @@ import { ButtonModule } from "primeng/button";
     imports: [
         RouterModule, CommonModule, MyActivityRouting,
         TabViewModule,
-        ButtonModule
+        ButtonModule,
+        ImageModule
     ],
     exports: [
         MyActivityComponent

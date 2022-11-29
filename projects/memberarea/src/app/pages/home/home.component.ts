@@ -1,13 +1,14 @@
+import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
+import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.service";
 import { PostTypeService } from "projects/mainarea/src/app/service/post-type.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { Subscription } from "rxjs";
-import { POST_TYPE_CODE, POST_TYPE_ID } from "../../constant/post.type";
+import { POST_TYPE_CODE } from "../../constant/post.type";
 
 
 @Component({
@@ -49,7 +50,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     first = 0
     limit = 3
 
-
     postForm = this.fb.group({
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
         postContent: ['', [Validators.required]],
@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             pollTitle: ['', [Validators.required]],
             endAt: ['', [Validators.required]],
             pollOptionInsertReqs: this.fb.array([
+                this.fb.group({ pollContent: ['', Validators.required] }),
                 this.fb.group({ pollContent: ['', Validators.required] })
             ])
         }),
@@ -72,15 +73,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         version: [0, [Validators.required]]
     })
 
-
+    voteForm = this.fb.group({
+        pollOptionId: ['', [Validators.required]]
+    })
 
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
     private countLikeSubscription?: Subscription
 
-    private likedPostSubscription?: Subscription
+    // private likedPostSubscription?: Subscription
 
     private postTypeSubscription?: Subscription
+
+    private insertVoteSubscription?: Subscription
+    private isVotedSubscription?: Subscription
+    private countAllVoteSubscription?: Subscription
 
     private isLikedSubscription?: Subscription
     private insertLikeSubscription?: Subscription
@@ -89,7 +96,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     constructor(private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
-        private likeService: LikeService, private postTypeService: PostTypeService) { }
+        private likeService: LikeService, private postTypeService: PostTypeService,
+        private pollVoteService: PollVoteService) { }
 
     ngOnInit(): void {
         this.postInit()
@@ -105,6 +113,14 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
                     this.result[i].isLiked = isLiked
                 })
+                if (this.pollPostCode == this.result[i].postTypeCode) {
+                    this.countAllVoteSubscription = this.pollVoteService.countAllVote(posts.data[i].pollData.id).subscribe(countVote => {
+                        this.result[i].pollData.countVote = countVote
+                    })
+                    this.isVotedSubscription = this.pollVoteService.isVoted(posts.data[i].pollData.id).subscribe(isVoted => {
+                        this.result[i].pollData.isVoted = isVoted
+                    })
+                }
             }
         })
     }
@@ -128,16 +144,25 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
                     this.result[i + this.first].isLiked = isLiked
                 })
+                if (this.pollPostCode == this.result[i + this.first].postTypeCode) {
+                    console.log("true", [i]);
+                    this.countAllVoteSubscription = this.pollVoteService.countAllVote(posts.data[i].pollData.id).subscribe(countVote => {
+                        this.result[i + this.first].pollData.countVote = countVote
+                    })
+                    this.isVotedSubscription = this.pollVoteService.isVoted(posts.data[i].pollData.id).subscribe(isVoted => {
+                        this.result[i + this.first].pollData.isVoted = isVoted
+                    })
+                }
             }
             console.log(this.result);
-
         })
     }
 
     showCreatePostDialog() {
+        this.postForm.reset()
         this.showForm = true
         this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.REGULAR).subscribe(result => {
-            this.postTypeId = result.id         
+            this.postTypeId = result.id
         })
     }
 
@@ -148,6 +173,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(() => {
             this.result[i].isLiked = true
             this.result[i].countLike += 1
+        })
+    }
+
+    clickVote(i: number, pollIndex: number) {
+        console.log(this.result[i].pollData.pollOptionDatas[pollIndex].id);
+        this.voteForm.controls['pollOptionId'].setValue(this.result[i].pollData.pollOptionDatas[pollIndex].id)
+        
+        this.insertVoteSubscription = this.pollVoteService.insert(this.voteForm.value).subscribe(() => {
+            this.result[i].pollData.isVoted = true
+            this.result[i].pollData.countVote += 1
         })
     }
 
@@ -224,6 +259,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     submitPost() {
+        let formattedStart = formatDate(this.postForm.value.pollInsertReq!.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+        this.postForm.value.pollInsertReq!.endAt = formattedStart
         this.postForm.controls['postTypeId'].setValue(this.postTypeId)
         if (this.postForm.value.isPremium) {
             this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
@@ -251,5 +288,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.insertLikeSubscription?.unsubscribe()
         this.deleteLikeSubscription?.unsubscribe()
         this.likedIdSubscription?.unsubscribe()
+        this.postTypeSubscription?.unsubscribe()
+        this.insertVoteSubscription?.unsubscribe()
     }
+}
+
+function getTimeZone() {
+    var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+    return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
 }

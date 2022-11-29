@@ -18,7 +18,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     dataJoinedEvents!: ActivityData[]
 
     first = 0
-    limit = 3
+    limit = 6
 
     fileLink = BASE_URL.FILE
 

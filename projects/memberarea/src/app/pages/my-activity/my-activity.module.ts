@@ -5,17 +5,18 @@ import { MyActivityComponent } from "./my-activity.component";
 import { MyActivityRouting } from "./my-activity.routing";
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from "primeng/button";
-import { DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
-import { FileUploadModule } from 'primeng/fileupload'
-import { InputNumberModule } from 'primeng/inputnumber';
-
-
+import { ImageModule } from "primeng/image";
+import { DropdownModule } from "primeng/dropdown";
+import { CalendarModule } from "primeng/calendar";
+import { FileUploadModule } from "primeng/fileupload";
+import { InputNumberModule } from "primeng/inputnumber";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update.component";
 
 
 @NgModule({
     declarations: [
-        MyActivityComponent
+        MyActivityComponent, MyActivityUpdateComponent
     ],
     imports: [
         RouterModule, CommonModule, MyActivityRouting,
@@ -24,10 +25,13 @@ import { InputNumberModule } from 'primeng/inputnumber';
         DropdownModule,
         CalendarModule,
         FileUploadModule,
-        InputNumberModule
+        InputNumberModule,
+        ImageModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
-        MyActivityComponent
+        MyActivityComponent, MyActivityUpdateComponent
     ]
 })
 export class MyActivityModule { }

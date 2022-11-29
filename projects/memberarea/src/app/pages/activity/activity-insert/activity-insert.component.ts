@@ -23,7 +23,6 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
         activityTitle: [null, [Validators.required]],
         activityLocation: [null, [Validators.required]],
         provider: [null, [Validators.required]],
-        rangeDates: [null, [Validators.required]],
         startAt: ['', [Validators.required]],
         endAt: ['', [Validators.required]],
         fee: [null, [Validators.required]],
@@ -48,9 +47,9 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     }
 
     clickSubmit() {
-        let formattedStart = formatDate(this.activityForm.value.rangeDates![0], `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+        let formattedStart = formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
         this.activityForm.value.startAt = formattedStart
-        let formattedEnd = formatDate(this.activityForm.value.rangeDates![1], `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+        let formattedEnd = formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
         this.activityForm.value.endAt = formattedEnd
         this.activitySubscription = this.activityService.insert(this.activityForm.value).subscribe(() => {
             this.router.navigateByUrl('/activities')

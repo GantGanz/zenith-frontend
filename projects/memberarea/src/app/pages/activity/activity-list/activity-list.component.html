@@ -7,9 +7,9 @@
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
                 <div class="">
-                  <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} id="custom-img" imageClass="custom-img w-full h-full" imageStyle="w-full" alt="article-banner"
-                      [preview]="true">
-                  </p-image>                
+                  <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="540" width="100%"
+                    alt="activity-banner" [preview]="true">
+                  </p-image>
                 </div>
 
                 <div class="card-body">
@@ -17,8 +17,8 @@
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                    <span> {{data.startAt | date:'dd-MM-yyyy'}} ~</span>
-                    <span> {{data.endAt | date:'dd-MM-yyyy'}}</span>
+                    <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} ~</span>
+                    <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
                   </p>
                   <p class="card-text text-medium -mt-2">
                     <li class="pi pi-money-bill"></li>
@@ -26,7 +26,7 @@
                   </p>
                   <div>
                     <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
-                      routerLink="/payment/activity"></button>
+                      routerLink="/payment/activity/:id"></button>
                   </div>
                 </div>
               </div>
@@ -42,15 +42,15 @@
           <ng-container *ngFor="let data of dataEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} width="100%" height="60%" alt="article-banner"
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} width="180px" alt="activity-banner"
                   [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                    <span> {{data.startAt | date:'dd-MM-yyyy'}} ~</span>
-                    <span> {{data.endAt | date:'dd-MM-yyyy'}}</span>
+                    <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} ~</span>
+                    <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
                   </p>
                   <p class="card-text text-medium -mt-2">
                     <li class="pi pi-money-bill"></li>
@@ -73,15 +73,15 @@
           <ng-container *ngFor="let data of dataJoinedCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="activity-banner"
                   [preview]="true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                    <span> {{data.startAt | date:'dd-MM-yyyy'}} ~</span>
-                    <span> {{data.endAt | date:'dd-MM-yyyy'}}</span>
+                    <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} ~</span>
+                    <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
                   </p>
                   <p class="card-text text-medium -mt-2">
                     <li class="pi pi-money-bill"></li>
@@ -105,15 +105,15 @@
           <ng-container *ngFor="let data of dataJoinedEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
               <div class="card h-100">
-                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="article-banner"
+                <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="180px" alt="activity-banner"
                   [preview]=" true"></p-image>
                 <div class="card-body">
                   <h5 class="card-title">{{data.activityTitle}}</h5>
                   <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-map-marker"></i> {{data.activityLocation}}</p>
                   <p class="card-text -mt-2"><i class="pi pi-calendar"></i>
-                    <span> {{data.startAt | date:'dd-MM-yyyy'}} ~</span>
-                    <span> {{data.endAt | date:'dd-MM-yyyy'}}</span>
+                    <span> {{data.startAt | date:'HH:mm dd-MM-yyyy'}} ~</span>
+                    <span> {{data.endAt | date:'HH:mm dd-MM-yyyy'}}</span>
                   </p>
                   <p class="card-text text-medium -mt-2">
                     <li class="pi pi-money-bill"></li>
@@ -131,45 +131,3 @@
     </p-tabPanel>
   </p-tabView>
 </div>
-
-<!-- <div class="container">
-  <div class="grid">
-    <div class="col-4">
-      <div class="card">
-        <p-image src="../../../../assets/images/photo_member.png" imageClass="w-full h-auto" alt="article-banner"
-                            [preview]="true">
-                        </p-image>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit doloribus id aliquam aut libero laboriosam reprehenderit, accusamus vel enim numquam!</p>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="grid">
-          <div class="col-12 h-20rem">
-            <p-image src="../../../../assets/images/photo_member.png" imageClass="w-full max-h-20rem" width="100%" alt="article-banner"
-            [preview]="true">
-            </p-image>
-          </div>
-          <div class="col-12">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit doloribus id aliquam aut libero laboriosam reprehenderit, accusamus vel enim numquam!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="grid">
-          <div class="col-12 h-20rem">
-            <p-image src="../../../../assets/images/post_1.png" imageClass="w-full h-20rem" alt="article-banner"
-            [preview]="true">
-            </p-image>
-          </div>
-          <div class="col-12">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit doloribus id aliquam aut libero laboriosam reprehenderit, accusamus vel enim numquam!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-

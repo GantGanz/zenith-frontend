@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { PostData } from "projects/interface/post/post-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
+import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { Subscription } from "rxjs";
 import { POST_TYPE_ID } from "../../constant/post.type";
@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     type!: string
 
-    posts: PostData[] = []
+    result: any[] = []
+    likedPost: any[]=[]
 
     like = true
     bookmark = true
@@ -55,24 +56,53 @@ export class HomeComponent implements OnInit, OnDestroy {
             endAt: ['', [Validators.required]],
             postId: ['', [Validators.required]],
             pollOptionInsertReqs: this.fb.array([])
-        })
+        }),
+        isPremium: [false, [Validators.required]]
+    })
+
+    likeForm = this.fb.group({
+        id: ['', [Validators.required]],
+        userId: ['', [Validators.required]],
+        postId: ['', [Validators.required]],
+        version: [0, [Validators.required]]
     })
 
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
+    private countLikeSubscription?: Subscription
+
+    private likedPostSubscription?: Subscription
+
+    private isLikedSubscription?: Subscription
+    private insertLikeSubscription?: Subscription
+    private deleteLikeSubscription?: Subscription
+    private likedIdSubscription?: Subscription
 
     constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
-        private fileService: FileService, private postService: PostService) { }
+        private fileService: FileService, private postService: PostService,
+        private likeService: LikeService) { }
 
     ngOnInit(): void {
-        this.init()
+        this.postInit()
     }
 
-    init() {
-        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(result => {
-            this.posts = result.data
+    postInit() {
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
+            for (let i = 0; i < posts.data.length; i++) {
+                this.result[i] = posts.data[i]
+                this.countLikeSubscription = this.likeService.count(posts.data[i].id).subscribe(like => {
+                    this.result[i].countLike = like
+                })
+                this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
+                    this.result[i].isLiked = isLiked
+                })
+            }
         })
     }
+
+    // likedInit(){
+    //     this.likedPostSubscription = this.postService.
+    // }
 
     onScroll() {
         this.first += this.limit
@@ -80,10 +110,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     addData() {
-        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(result => {
-            for (let i = 0; i < result.data.length; i++) {
-                this.posts.push(result.data[i])
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
+            for (let i = 0; i < posts.data.length; i++) {
+                this.result.push(posts.data[i])
+                this.countLikeSubscription = this.likeService.count(posts.data[i].id).subscribe(like => {
+                    this.result[i + this.first].countLike = like
+                })
+                this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
+                    this.result[i + this.first].isLiked = isLiked
+                })
             }
+            console.log(this.result);
+
         })
     }
 
@@ -92,11 +130,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postTypeId = POST_TYPE_ID.REGULAR
     }
 
-
     clickLike(i: number) {
-        this.like = false
-        this.likeFill = true
+        console.log("insert");
+        this.likeForm.controls['userId'].setValue(this.result[i].userId)
+        this.likeForm.controls['postId'].setValue(this.result[i].id)
+        this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(()=>{
+            this.result[i].isLiked = true
+            this.result[i].countLike += 1
+        })
     }
+
     clickUnSave() {
         this.bookmark = true
         this.bookmarkFill = false
@@ -105,10 +148,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.bookmark = false
         this.bookmarkFill = true
     }
-    clickUnLike() {
-        this.like = true
-        this.likeFill = false
-    }
+    clickUnLike(i: number) {
+        console.log("Unlike");
+        this.likedIdSubscription = this.likeService.getId(this.result[i].id).subscribe(data=>{
+            console.log(data.id);
+            this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(()=>{
+                this.result[i].isLiked = false
+                this.result[i].countLike -= 1
+            })
+        })
+    }   
 
     clickMoreComment() {
         this.allComment = true
@@ -148,7 +197,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     fileUpload(event: any) {
-        console.log('masuk');
         this.fileService.fileUploadMulti(event).then(result => {
             for (let i = 0; i < result.length; i++) {
                 this.detailFoto.push(this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
@@ -158,6 +206,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     submitPost() {
         this.postForm.controls['postTypeId'].setValue(this.postTypeId)
+        if (this.postForm.value.isPremium) {
+            this.postForm.controls['postTypeId'].setValue(POST_TYPE_ID.PREMIUM)
+        }
         this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
             this.showForm = false
         })
@@ -167,5 +218,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.postInsertSubscription?.unsubscribe()
         this.postsSubscribtion?.unsubscribe()
+        this.countLikeSubscription?.unsubscribe()
+        this.isLikedSubscription?.unsubscribe()
+        this.insertLikeSubscription?.unsubscribe()
+        this.deleteLikeSubscription?.unsubscribe()
+        this.likedIdSubscription?.unsubscribe()
     }
 }

@@ -17,7 +17,6 @@ import { InputTextModule } from "primeng/inputtext";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { CheckboxModule } from "primeng/checkbox";
 
-
 @NgModule({
     declarations: [
         MyActivityComponent, MyActivityUpdateComponent

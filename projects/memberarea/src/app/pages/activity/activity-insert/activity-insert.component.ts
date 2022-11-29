@@ -52,7 +52,7 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
         let formattedEnd = formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
         this.activityForm.value.endAt = formattedEnd
         this.activitySubscription = this.activityService.insert(this.activityForm.value).subscribe(() => {
-            this.router.navigateByUrl('/activities')
+            this.router.navigateByUrl('/my-activity')
         })
     }
     get detailFoto(): FormArray {

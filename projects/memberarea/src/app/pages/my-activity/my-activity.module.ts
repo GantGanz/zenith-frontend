@@ -13,12 +13,9 @@ import { FileUploadModule } from "primeng/fileupload";
 import { InputNumberModule } from "primeng/inputnumber";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update.component";
-<<<<<<< HEAD
 import { InputTextModule } from "primeng/inputtext";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { CheckboxModule } from "primeng/checkbox";
-=======
->>>>>>> df6835b1959bfbd11f69c2e29f3897f83c79c888
 
 @NgModule({
     declarations: [

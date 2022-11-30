@@ -29,6 +29,10 @@ export class UserService {
         return this.http.get<UserRes>(`${BASE_URL.LOCALHOST}/users/${id}`)
     }
 
+    getByPrincipal(): Observable<UserRes> {
+        return this.http.get<UserRes>(`${BASE_URL.LOCALHOST}/users/principal`)
+    }
+
     update(data: any): Observable<UpdateRes> {
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users`, data)
     }

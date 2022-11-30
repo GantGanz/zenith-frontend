@@ -13,6 +13,14 @@ import { BASE_URL } from "../constant/base.url";
 export class ActivityService {
     constructor(private http: HttpClient) { }
 
+    countCourse(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-my-course`)
+    }
+
+    countEvent(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-my-event`)
+    }
+
     getAllEvent(offset: number, limit: number): Observable<ActivitiesRes> {
         return this.http.get<ActivitiesRes>(`${BASE_URL.LOCALHOST}/activities/event?offset=${offset}&limit=${limit}`)
     }

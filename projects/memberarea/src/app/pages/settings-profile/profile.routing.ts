@@ -16,7 +16,7 @@ const routes: Routes = [
         component: EditProfileComponent
     },
     {
-        path: "change-password",
+        path: "change-password/:id",
         component: ChangePasswordComponent
     }
 ]

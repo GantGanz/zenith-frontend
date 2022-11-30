@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FileService } from "projects/mainarea/src/app/service/file.service";
+import { Router } from "@angular/router";
+import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
+import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
+import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { Subscription } from "rxjs";
 import { POST_TYPE_ID } from "../../../constant/post.type";
 
@@ -32,36 +33,50 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     showUploadImg = true
     showCreatePolling = false
 
+    totalCourse!: number
+    totalEvent!: number
+    totalIncome!: number
+    id!: string
+    fullname!: string
+    email!: string
+    position!: string
+    company!: string
+
     postTypeId!: string
 
-    postForm = this.fb.group({
-        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
-        postContent: ['', [Validators.required]],
-        postTypeId: ['', [Validators.required]],
-        attachmentPostInsertReqs: this.fb.array([]),
-        pollInsertReq: this.fb.group({
-            pollTitle: ['', [Validators.required]],
-            endAt: ['', [Validators.required]],
-            postId: ['', [Validators.required]],
-            pollOptionInsertReqs: this.fb.array([])
-        })
-    })
-
-    private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
+    private userSubscribtion?: Subscription
+    private totalCourseSubscribtion?: Subscription
+    private totalEventSubscribtion?: Subscription
+    private totalIncomeSubscribtion?: Subscription
 
-    constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
-        private fileService: FileService, private postService: PostService, private router: Router) { }
+    constructor(private postService: PostService, private userService: UserService, private paymentActivityService: PaymentActivityService, private activityService: ActivityService, private router: Router) { }
 
     ngOnInit(): void {
-
+        this.init()
     }
 
     init() {
-        this.postInsertSubscription = this.postService.getAllRegular().subscribe(result => {
+        this.postsSubscribtion = this.postService.getAllRegular().subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {
                 this.posts.push(result.data[i])
             }
+        })
+        this.userSubscribtion = this.userService.getByPrincipal().subscribe(result => {
+            this.id = result.data.id
+            this.fullname = result.data.fullname
+            this.email = result.data.email
+            this.position = result.data.positionName
+            this.company = result.data.company
+        })
+        this.totalCourseSubscribtion = this.activityService.countCourse().subscribe(result => {
+            this.totalCourse = result
+        })
+        this.totalEventSubscribtion = this.activityService.countEvent().subscribe(result => {
+            this.totalEvent = result
+        })
+        this.totalCourseSubscribtion = this.paymentActivityService.getCreatorIncome().subscribe(result => {
+            this.totalIncome = result
         })
     }
 
@@ -69,7 +84,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.showForm = true
         this.postTypeId = POST_TYPE_ID.REGULAR
     }
-
 
     clickLike() {
         this.like = false
@@ -87,66 +101,32 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.like = true
         this.likeFill = false
     }
-
+    clickCommentPost() {
+        this.commentPost = true
+    }
     clickMoreComment() {
         this.allComment = true
         this.viewComment = false
         this.hideComment = true
     }
-
     clickCloseComment() {
         this.allComment = false
         this.viewComment = true
         this.hideComment = false
     }
-
-    clickCommentPost() {
-        this.commentPost = true
-    }
-
-    clickAddPhotos() {
-        this.showUploadImg = true
-        this.showCreatePolling = false
-        this.postTypeId = POST_TYPE_ID.REGULAR
-        this.postForm.reset()
-    }
-    clickCreatePoll() {
-        this.showCreatePolling = true
-        this.showUploadImg = false
-        this.postTypeId = POST_TYPE_ID.POLLING
-        this.postForm.reset()
-    }
-    clickEditProfile() {
-        this.router.navigateByUrl("/profile/edit/:id")
-    }
-
     clickReplyComment() {
         this.showReplyComment = true
     }
 
-    get detailFoto(): FormArray {
-        return this.postForm.get('attachmentPostInsertReqs') as FormArray
+    clickEditProfile() {
+        this.router.navigateByUrl(`/profile/edit/${this.id}`)
     }
-
-    fileUpload(event: any) {
-        console.log('masuk');
-        this.fileService.fileUploadMulti(event).then(result => {
-            for (let i = 0; i < result.length; i++) {
-                this.detailFoto.push(this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
-            }
-        })
-    }
-
-    submitPost() {
-        this.postForm.controls['postTypeId'].setValue(this.postTypeId)
-        this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
-            this.showForm = false
-        })
-    }
-
 
     ngOnDestroy(): void {
-        this.postInsertSubscription?.unsubscribe()
+        this.postsSubscribtion?.unsubscribe()
+        this.userSubscribtion?.unsubscribe()
+        this.totalEventSubscribtion?.unsubscribe()
+        this.totalCourseSubscribtion?.unsubscribe()
+        this.totalIncomeSubscribtion?.unsubscribe()
     }
-
 }

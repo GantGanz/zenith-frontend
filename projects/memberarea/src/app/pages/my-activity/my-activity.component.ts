@@ -21,7 +21,6 @@ export class MyActivityComponent implements OnInit, OnDestroy {
 
     activityRes!: ActivitiesRes
 
-
     activityDelete = this.fb.group({
         id: ['', [Validators.required]],
         version: [0, [Validators.required]],
@@ -59,7 +58,6 @@ export class MyActivityComponent implements OnInit, OnDestroy {
     }
 
     init() {
-
         this.activityCoursesSubscription = this.activityService.getAllCourseById(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
             this.activityRes = result
@@ -124,6 +122,7 @@ export class MyActivityComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.activityCoursesSubscription?.unsubscribe()
         this.activityEventsSubscription?.unsubscribe()
+        this.activitySubscription?.unsubscribe()
         this.deleteSubscription?.unsubscribe()
     }
 }

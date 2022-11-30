@@ -46,7 +46,7 @@
                       </div>
                       <div class="col-4">
                         <button pButton type="button" class="p-button-sm p-button-danger w-full py-2" label="Delete"
-                         (click)="clickConfirmDelete(i)"></button>
+                          (click)="clickConfirmDelete(i)"></button>
                       </div>
                     </div>
                   </div>
@@ -68,7 +68,6 @@
                     <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} imageClass="h-15rem w-full"
                     alt="activity-banner" [preview]="true"></p-image>
                   </div>
-                 
                   <div class="card-body">
                     <h5 class="card-title">{{data.activityTitle}}</h5>
                     <p class="card-text mt-3"><i class="pi pi-users"></i> {{data.provider}}</p>
@@ -89,7 +88,7 @@
                       </div>
                       <div class="col-4">
                         <button pButton type="button" class="p-button-sm p-button-danger w-full py-2" label="Delete"
-                         (click)="clickConfirmDelete(i)"></button>
+                          (click)="clickConfirmDelete(i)"></button>
                       </div>
                     </div>
                   </div>
@@ -103,5 +102,5 @@
   </div>
 </div>
 
-<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-secondary"
-acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"
+  rejectButtonStyleClass="p-button-secondary" acceptButtonStyleClass="p-button-danger"></p-confirmDialog>

@@ -14,11 +14,12 @@ export class ProfileViewComponent implements OnInit {
     changePasswordSuperAdmin = false
     changePasswordAdmin = false
 
-    fileLink= BASE_URL.FILE
+    fileLink = BASE_URL.FILE
     fileId!: string
     myId!: string
+    fullname!: string
 
-    constructor(private router: Router, private apiService:ApiService) { }
+    constructor(private router: Router, private apiService: ApiService) { }
 
     ngOnInit(): void {
         if (this.router.url == "/super-admin/profiles/view") {
@@ -30,5 +31,6 @@ export class ProfileViewComponent implements OnInit {
         }
         this.fileId = this.apiService.getPhoto()!
         this.myId = this.apiService.getId()
+        this.fullname = this.apiService.getFullName()!
     }
 }

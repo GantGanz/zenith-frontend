@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
-import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { Subscription } from "rxjs";
 
@@ -42,10 +41,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.editProfileAdmin = true
             this.changePasswordAdmin = true
         }
-
-        // this.fileId = this.apiService.getPhoto()!
-        // this.myId = this.apiService.getId()
-        // this.fullname = this.apiService.getFullName()!
 
     }
     ngOnDestroy(): void {

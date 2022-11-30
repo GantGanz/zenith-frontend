@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
+import { UserService } from "projects/mainarea/src/app/service/user.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "menu-profile",
@@ -8,12 +11,37 @@ import { Router } from "@angular/router";
 })
 export class MenuProfileComponent {
 
-    constructor(private router: Router) { }
+    fileLink = BASE_URL.FILE
+    fileId!: string
+    myId!: string
+    fullname!: string
+    email!: string
 
-    profileDetail() {
-        this.router.navigateByUrl('/profile/edit/:id')
+    private userSubscription?: Subscription
+
+    constructor(private router: Router, private userService: UserService) { }
+
+    ngOnInit(): void {
+        this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
+            this.fileId = result.data.fileId
+            this.fullname = result.data.fullname
+            this.myId = result.data.id
+            this.email = result.data.email
+        })
+
     }
-    changePassword() {
-        this.router.navigateByUrl('/profile/change-password')
+    ngOnDestroy(): void {
+        this.userSubscription?.unsubscribe()
     }
+
+
+    // constructor(private router: Router) { }
+
+    // profileDetail() {
+    //     this.router.navigateByUrl('/profile/edit/:id')
+    // }
+
+    // changePassword() {
+    //     this.router.navigateByUrl('/profile/change-password/:id')
+    // }
 }

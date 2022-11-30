@@ -126,7 +126,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     bookmarkedInit() {
         console.log("bookmark");
-
+        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).subscribe(bookmarkedPosts => {
+            this.result = bookmarkedPosts.data
+        })
     }
 
     clickTab(event: any) {
@@ -148,6 +150,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.addData()
         } else if (this.tabIndex == 1) {
             this.addDataLiked()
+        } else {
+            this.addDataBookmarked()
         }
     }
 
@@ -161,6 +165,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     addDataLiked() {
         this.postsSubscribtion = this.postService.getAllLiked(this.first, this.limit).subscribe(posts => {
+            for (let i = 0; i < posts.data.length; i++) {
+                this.result.push(posts.data[i])
+            }
+        })
+    }
+
+    addDataBookmarked() {
+        this.postsSubscribtion = this.postService.getAllBookmarked(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
             }

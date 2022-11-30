@@ -14,6 +14,7 @@ import { Subscription } from "rxjs"
     selector: "edit-profile",
     templateUrl: "edit-profile.component.html"
 })
+
 export class EditProfileComponent implements OnInit, OnDestroy {
 
     backToSuperAdminProfile = false

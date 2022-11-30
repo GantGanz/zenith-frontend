@@ -40,8 +40,8 @@
                 <div class="field mt-4">
                     <label for="password">Confirm Password<span class="text-red-500">*</span></label>
                     <p-password id="password" name="password" type="password" styleClass="w-full"
-                        [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" formControlName="password"
-                        required></p-password>
+                        [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true"
+                        formControlName="confirmPassword" required></p-password>
                     <small
                         *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
                         class="p-error">Please enter your password</small>

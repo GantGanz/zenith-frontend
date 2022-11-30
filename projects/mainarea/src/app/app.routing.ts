@@ -35,8 +35,8 @@ const mainRoutes: Routes = [
         path: "sign-up",
         component: SignUpComponent
     },
-    ...memberAreaRoutes,
     ...adminAreaRoutes,
+    ...memberAreaRoutes,
 ]
 
 @NgModule({

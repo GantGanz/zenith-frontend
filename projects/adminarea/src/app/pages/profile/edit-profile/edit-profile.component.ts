@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormArray, FormBuilder, Validators } from "@angular/forms"
 import { ActivatedRoute, Router } from "@angular/router"
 import { UserRes } from "projects/interface/user/user-res"
@@ -13,7 +13,7 @@ import { Subscription } from "rxjs"
     selector: "edit-profile",
     templateUrl: "edit-profile.component.html"
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit, OnDestroy {
 
     backToSuperAdminProfile = false
     backToAdminProfile = false
@@ -96,9 +96,9 @@ export class EditProfileComponent {
     }
 
     fileUpload(event: any) {
-        this.fileService.fileUploadMulti(event).then(result => {           
+        this.fileService.fileUploadMulti(event).then(result => {
             console.log(result);
-             
+
             this.userUpdateForm.controls['fileCodes'].setValue(result[0][1])
             this.userUpdateForm.controls['extension'].setValue(result[0][0])
         })

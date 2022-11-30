@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 import { AppComponent } from './app.component';
-
 import { LoginComponent } from './pages/login/login.component'
 import { CardModule } from 'primeng/card'
 import { InputTextModule } from 'primeng/inputtext';
@@ -19,7 +18,7 @@ import { StepsModule } from 'primeng/steps';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
-import {PasswordModule} from 'primeng/password';
+import { PasswordModule } from 'primeng/password';
 import { ConfirmationService } from 'primeng/api';
 
 @NgModule({

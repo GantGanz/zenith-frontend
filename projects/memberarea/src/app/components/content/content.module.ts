@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { NavbarMemberModule } from "../navbar/navbar-member.module";
 import { ContentComponent } from "./content.component";
-import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
     declarations: [
@@ -10,7 +9,6 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     ],
     imports: [
         RouterModule, NavbarMemberModule,
-        ScrollTopModule
     ],
     exports: [
         ContentComponent

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { ContentComponent } from "./components/content/content.component";
+import { NotFoundMemberComponent } from "./pages/not-found/not-found-member.component";
 
 export const memberAreaRoutes: Routes = [
     {
@@ -34,5 +35,9 @@ export const memberAreaRoutes: Routes = [
         path: "report",
         component: ContentComponent,
         loadChildren: () => import("./pages/report/report.module").then(r => r.ReportModule)
+    },
+    {
+        path: "**",
+        component: NotFoundMemberComponent
     }
 ]

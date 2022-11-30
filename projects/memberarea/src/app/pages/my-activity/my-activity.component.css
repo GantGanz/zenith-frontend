@@ -1,0 +1,6 @@
+/* :host ::ng-deep .p-image img {
+    height: 200px !important;
+    box-sizing: border-box;
+    width: 100% !important;
+    object-fit: contain !important;
+} */

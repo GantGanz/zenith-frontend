@@ -36,11 +36,16 @@
                         id="positionName" placeholder="Select Position" formControlName="positionId">
                     </p-dropdown>
                 </div>
-                <div class="field col-12 flex flex-row gap-2 mt-2">
-                    <button pButton class="p-button-outlined" type="button" id="btnBackToProfileSuperAdmin" name="btnBackToProfileSuperAdmin" *ngIf="backToSuperAdminProfile" routerLink="/super-admin/profiles/view">Back</button>
-                    <button pButton class="p-button-outlined" type="button" id="btnBackToProfileAdmin" name="btnBackToProfileAdmin" *ngIf="backToAdminProfile" routerLink="/admin/profiles/view">Back</button>
-
-                    <button pButton type="submit" id="btnSaveChange" name="btnSaveChange">Submit</button>
+                <div class="field col-12 mt-3">
+                    <div class="grid">
+                        <div class="col-6">
+                            <button pButton class="p-button-outlined" type="button" id="btnBackToProfileSuperAdmin" name="btnBackToProfileSuperAdmin" *ngIf="backToSuperAdminProfile" routerLink="/super-admin/profiles/view">Back</button>
+                            <button pButton class="p-button-outlined" type="button" id="btnBackToProfileAdmin" name="btnBackToProfileAdmin" *ngIf="backToAdminProfile" routerLink="/admin/profiles/view">Back</button>
+                        </div>
+                        <div class="col-6 text-end">
+                            <button pButton type="submit" id="btnSaveChange" name="btnSaveChange">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

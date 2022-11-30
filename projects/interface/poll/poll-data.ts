@@ -6,6 +6,8 @@ export interface PollData {
 	 endAt: string 
 	 postId: string 
 	 isActive: boolean 
+	 countVote: number
+	 isVoted: boolean
 	 pollOptionDatas: PollOptionData[]
 } 
 

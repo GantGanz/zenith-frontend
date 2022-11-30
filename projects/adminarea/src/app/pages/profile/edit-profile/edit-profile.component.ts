@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormArray, FormBuilder, Validators } from "@angular/forms"
 import { ActivatedRoute, Router } from "@angular/router"
+import { PositionData } from "projects/interface/position/position-data"
 import { UserRes } from "projects/interface/user/user-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
 import { FileService } from "projects/mainarea/src/app/service/file.service"
@@ -18,6 +19,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     backToSuperAdminProfile = false
     backToAdminProfile = false
     userRes !: UserRes
+    disable = true
 
     fileLink = BASE_URL.FILE
 
@@ -25,10 +27,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         id: ['', [Validators.required]],
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
         email: ['', [Validators.email, Validators.required, Validators.maxLength(50)]],
-        company: ['', [Validators.required]],
+        company: [{ value: '', disabled: true }, [Validators.required]],
         fileCodes: [''],
         extension: [''],
-        positionId: ['', [Validators.required]],
+        positionId: [{ value: '', disabled: true }, [Validators.required]],
         industryId: ['', [Validators.required]],
         isActive: [true, [Validators.required]],
         version: [0, [Validators.required]]
@@ -36,6 +38,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     positions: any[] = []
     industries: any[] = []
+
+    selectedPosition!: PositionData
 
     private industrySubscription?: Subscription
     private userSubscription?: Subscription
@@ -49,10 +53,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
+
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
 
             this.userSubscription = this.userService.getById(id).subscribe(result => {
+                // this.userUpdateForm.patchValue(
+                //     result.data
+                // )
                 this.userRes = result
                 this.userUpdateForm.controls['id'].setValue(result.data.id)
                 this.userUpdateForm.controls['email'].setValue(result.data.email)
@@ -61,7 +69,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 this.userUpdateForm.controls['positionId'].setValue(result.data.positionId)
                 this.userUpdateForm.controls['industryId'].setValue(result.data.industryId)
                 this.userUpdateForm.controls['version'].setValue(result.data.version)
-
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
                 for (let i = 0; i < result.data.length; i++) {

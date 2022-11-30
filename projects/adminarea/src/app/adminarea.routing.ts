@@ -56,12 +56,12 @@ export const adminAreaRoutes: Routes = [
             // AdminGuard
         ]
     },
-    {
-        path: "**",
-        component: NotFoundAdminComponent
-    },
-    {
-        path: "**",
-        component: NotFoundSuperAdminComponent
-    }
+    // {
+    //     path: "**",
+    //     component: NotFoundAdminComponent
+    // },
+    // {
+    //     path: "**",
+    //     component: NotFoundSuperAdminComponent
+    // }
 ]

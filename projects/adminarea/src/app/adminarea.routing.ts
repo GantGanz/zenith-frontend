@@ -43,7 +43,7 @@ export const adminAreaRoutes: Routes = [
         ]
     },
     {
-        path: "articles",
+        path: "admin/articles",
         loadChildren: () => import("./pages/admin-article/article.module").then(a => a.ArticleModule),
         canLoad: [
             AdminGuard

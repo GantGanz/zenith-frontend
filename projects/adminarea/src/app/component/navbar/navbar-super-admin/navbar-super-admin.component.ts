@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
     templateUrl: "./navbar-super-admin.component.html",
     styleUrls: ["../../../../styles.css"]
 })
-export class NavbarSuperAdminComponent implements OnInit {
+export class NavbarSuperAdminComponent implements OnInit, OnDestroy {
     constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
 
     private userSubscription?: Subscription
@@ -28,5 +28,8 @@ export class NavbarSuperAdminComponent implements OnInit {
     logout() {
         this.apiService.logout()
         this.router.navigateByUrl('/admin/login')
+    }
+    ngOnDestroy(): void {
+        this.userSubscription?.unsubscribe()
     }
 }

@@ -2,6 +2,7 @@ import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
+import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.service";
@@ -26,6 +27,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     result: any[] = []
     likedPost: any[] = []
+
+    tabIndex = 0
 
     like = true
     bookmark = true
@@ -77,27 +80,30 @@ export class HomeComponent implements OnInit, OnDestroy {
         pollOptionId: ['', [Validators.required]]
     })
 
+    bookmarkForm = this.fb.group({
+        postId: ['', [Validators.required]]
+    })
+
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
-    private countLikeSubscription?: Subscription
-
-    // private likedPostSubscription?: Subscription
-
+    private likedPostSubscription?: Subscription
     private postTypeSubscription?: Subscription
+    private bookmarkedPostSubscription?: Subscription
 
     private insertVoteSubscription?: Subscription
-    private isVotedSubscription?: Subscription
-    private countAllVoteSubscription?: Subscription
 
-    private isLikedSubscription?: Subscription
     private insertLikeSubscription?: Subscription
     private deleteLikeSubscription?: Subscription
     private likedIdSubscription?: Subscription
 
+    private insertBookmarkSubscription?: Subscription
+    private deleteBookmarkSubscription?: Subscription
+    private bookmarkedIdSubscription?: Subscription
+
     constructor(private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
-        private pollVoteService: PollVoteService) { }
+        private pollVoteService: PollVoteService, private bookmarkService: BookmarkService) { }
 
     ngOnInit(): void {
         this.postInit()
@@ -105,56 +111,59 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     postInit() {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
-            for (let i = 0; i < posts.data.length; i++) {
-                this.result[i] = posts.data[i]
-                this.countLikeSubscription = this.likeService.count(posts.data[i].id).subscribe(like => {
-                    this.result[i].countLike = like
-                })
-                this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
-                    this.result[i].isLiked = isLiked
-                })
-                if (this.pollPostCode == this.result[i].postTypeCode) {
-                    this.countAllVoteSubscription = this.pollVoteService.countAllVote(posts.data[i].pollData.id).subscribe(countVote => {
-                        this.result[i].pollData.countVote = countVote
-                    })
-                    this.isVotedSubscription = this.pollVoteService.isVoted(posts.data[i].pollData.id).subscribe(isVoted => {
-                        this.result[i].pollData.isVoted = isVoted
-                    })
-                }
-            }
+            this.result = posts.data
+            console.log("post init");
+
         })
     }
 
-    // likedInit(){
-    //     this.likedPostSubscription = this.postService.
-    // }
+    likedInit() {
+        console.log("liked");
+        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).subscribe(likedPosts => {
+            this.result = likedPosts.data
+        })
+    }
+
+    bookmarkedInit() {
+        console.log("bookmark");
+
+    }
+
+    clickTab(event: any) {
+        this.first = 0
+        this.tabIndex = event.index
+        console.log(event.index);
+        if (this.tabIndex == 0) {
+            this.postInit()
+        } else if (this.tabIndex == 1) {
+            this.likedInit()
+        } else {
+            this.bookmarkedInit()
+        }
+    }
 
     onScroll() {
         this.first += this.limit
-        this.addData()
+        if (this.tabIndex == 0) {
+            this.addData()
+        } else if (this.tabIndex == 1) {
+            this.addDataLiked()
+        }
     }
 
     addData() {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
-                this.countLikeSubscription = this.likeService.count(posts.data[i].id).subscribe(like => {
-                    this.result[i + this.first].countLike = like
-                })
-                this.isLikedSubscription = this.likeService.liked(posts.data[i].id).subscribe(isLiked => {
-                    this.result[i + this.first].isLiked = isLiked
-                })
-                if (this.pollPostCode == this.result[i + this.first].postTypeCode) {
-                    console.log("true", [i]);
-                    this.countAllVoteSubscription = this.pollVoteService.countAllVote(posts.data[i].pollData.id).subscribe(countVote => {
-                        this.result[i + this.first].pollData.countVote = countVote
-                    })
-                    this.isVotedSubscription = this.pollVoteService.isVoted(posts.data[i].pollData.id).subscribe(isVoted => {
-                        this.result[i + this.first].pollData.isVoted = isVoted
-                    })
-                }
             }
-            console.log(this.result);
+        })
+    }
+
+    addDataLiked() {
+        this.postsSubscribtion = this.postService.getAllLiked(this.first, this.limit).subscribe(posts => {
+            for (let i = 0; i < posts.data.length; i++) {
+                this.result.push(posts.data[i])
+            }
         })
     }
 
@@ -166,9 +175,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
+    clickSave(i: number) {
+        console.log("save");
+        this.bookmarkForm.controls['postId'].setValue(this.result[i].id)
+        this.insertBookmarkSubscription = this.bookmarkService.insert(this.bookmarkForm.value).subscribe(() => {
+            this.result[i].isBookmarked = true
+        })
+    }
+
     clickLike(i: number) {
         console.log("insert");
-        this.likeForm.controls['userId'].setValue(this.result[i].userId)
         this.likeForm.controls['postId'].setValue(this.result[i].id)
         this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(() => {
             this.result[i].isLiked = true
@@ -179,21 +195,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     clickVote(i: number, pollIndex: number) {
         console.log(this.result[i].pollData.pollOptionDatas[pollIndex].id);
         this.voteForm.controls['pollOptionId'].setValue(this.result[i].pollData.pollOptionDatas[pollIndex].id)
-        
+
         this.insertVoteSubscription = this.pollVoteService.insert(this.voteForm.value).subscribe(() => {
             this.result[i].pollData.isVoted = true
             this.result[i].pollData.countVote += 1
+            this.result[i].pollData.pollOptionDatas[pollIndex].isVoted = true
         })
     }
 
-    clickUnSave() {
-        this.bookmark = true
-        this.bookmarkFill = false
+    clickUnSave(i: number) {
+        console.log("Unsave");
+        this.bookmarkedIdSubscription = this.bookmarkService.getId(this.result[i].id).subscribe(data => {
+            console.log(data.id);
+
+            this.deleteBookmarkSubscription = this.bookmarkService.delete(data.id).subscribe(() => {
+                this.result[i].isBookmarked = false
+                if (this.tabIndex == 2) {
+                    this.result.splice(i, 1)
+                }
+            })
+        })
     }
-    clickSave() {
-        this.bookmark = false
-        this.bookmarkFill = true
-    }
+
     clickUnLike(i: number) {
         console.log("Unlike");
         this.likedIdSubscription = this.likeService.getId(this.result[i].id).subscribe(data => {
@@ -201,6 +224,9 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(() => {
                 this.result[i].isLiked = false
                 this.result[i].countLike -= 1
+                if (this.tabIndex == 1) {
+                    this.result.splice(i, 1)
+                }
             })
         })
     }
@@ -269,6 +295,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
         this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
             this.showForm = false
+            this.first = 0
+            this.postInit()
         })
     }
 
@@ -283,13 +311,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.postInsertSubscription?.unsubscribe()
         this.postsSubscribtion?.unsubscribe()
-        this.countLikeSubscription?.unsubscribe()
-        this.isLikedSubscription?.unsubscribe()
         this.insertLikeSubscription?.unsubscribe()
         this.deleteLikeSubscription?.unsubscribe()
         this.likedIdSubscription?.unsubscribe()
         this.postTypeSubscription?.unsubscribe()
         this.insertVoteSubscription?.unsubscribe()
+        this.likedPostSubscription?.unsubscribe()
     }
 }
 

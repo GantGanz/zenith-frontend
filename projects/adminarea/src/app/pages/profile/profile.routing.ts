@@ -18,7 +18,7 @@ const routes: Routes = [
                 component: ProfileViewComponent,
             },
             {
-                path: "change-password",
+                path: "change-password/:id",
                 component: ChangePasswordComponent,
             },
             {
@@ -37,7 +37,7 @@ const routes: Routes = [
                 component: ProfileViewComponent,
             },
             {
-                path: "change-password",
+                path: "change-password/:id",
                 component: ChangePasswordComponent,
             },
             {

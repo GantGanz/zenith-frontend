@@ -48,6 +48,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         private fb: FormBuilder, private router: Router, private fileService: FileService) { }
 
     ngOnInit(): void {
+
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
 
@@ -80,15 +81,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                         id: result.data[i].id
                     })
                 }
+                if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
+                    this.backToSuperAdminProfile = true
+                }
+                else if (this.router.url == `/admin/profiles/edit/${this.userUpdateForm.value.id}`) {
+                    this.backToAdminProfile = true
+                }
             })
         })
 
-        if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
-            this.backToSuperAdminProfile = true
-        }
-        else if (this.router.url == `/admin/profiles/edit/${this.userUpdateForm.value.id}`) {
-            this.backToAdminProfile = true
-        }
     }
 
     clickUpdate() {

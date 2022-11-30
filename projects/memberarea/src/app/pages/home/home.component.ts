@@ -124,10 +124,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    bookmarkedInit(){
-        this.bookmarkedPostSubscription = this.postService
-    }
-
     bookmarkedInit() {
         console.log("bookmark");
 

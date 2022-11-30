@@ -17,39 +17,43 @@ export class UserService {
         return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/users/register`, data)
     }
 
-    getAll(offset:number, limit:number): Observable<UsersRes> {
+    getAll(offset: number, limit: number): Observable<UsersRes> {
         return this.http.get<UsersRes>(`${BASE_URL.LOCALHOST}/users?offset=${offset}&limit=${limit}`)
     }
 
-    insert(data: any): Observable<InsertRes>{
-        return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/users`,data)
+    insert(data: any): Observable<InsertRes> {
+        return this.http.post<InsertRes>(`${BASE_URL.LOCALHOST}/users`, data)
     }
 
-    getById(id: string): Observable<UserRes>{
+    getById(id: string): Observable<UserRes> {
         return this.http.get<UserRes>(`${BASE_URL.LOCALHOST}/users/${id}`)
     }
 
-    update(data: any):Observable<UpdateRes>{
-        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users`,data)
+    update(data: any): Observable<UpdateRes> {
+        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users`, data)
     }
 
-    countMember():Observable<number>{
+    changePassword(data: any): Observable<UpdateRes> {
+        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users/change-password`, data)
+    }
+
+    countMember(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-member`)
     }
 
-    countAdmin():Observable<number>{
+    countAdmin(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-admin`)
     }
 
-    countPremium():Observable<number>{
+    countPremium(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count-premium`)
     }
 
-    countUser(): Observable<number>{
+    countUser(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/users/count`)
     }
 
-    softDelete(data : any): Observable<UpdateRes>{
-        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users/soft-delete`,data)
+    softDelete(data: any): Observable<UpdateRes> {
+        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/users/soft-delete`, data)
     }
 }

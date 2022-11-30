@@ -1,5 +1,5 @@
 import { Component } from "@angular/core"
-import { FormArray, FormBuilder, Validators } from "@angular/forms"
+import { FormBuilder, Validators } from "@angular/forms"
 import { ActivatedRoute, Router } from "@angular/router"
 import { UserRes } from "projects/interface/user/user-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
@@ -53,7 +53,6 @@ export class EditProfileComponent {
 
             this.userSubscription = this.userService.getById(id).subscribe(result => {
                 this.userRes = result
-                console.log(this.userRes.data.fileId);
                 this.userUpdateForm.controls['id'].setValue(result.data.id)
                 this.userUpdateForm.controls['email'].setValue(result.data.email)
                 this.userUpdateForm.controls['fullname'].setValue(result.data.fullname)
@@ -96,9 +95,7 @@ export class EditProfileComponent {
     }
 
     fileUpload(event: any) {
-        this.fileService.fileUploadMulti(event).then(result => {           
-            console.log(result);
-             
+        this.fileService.fileUploadMulti(event).then(result => {
             this.userUpdateForm.controls['fileCodes'].setValue(result[0][1])
             this.userUpdateForm.controls['extension'].setValue(result[0][0])
         })

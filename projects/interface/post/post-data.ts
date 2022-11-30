@@ -8,6 +8,9 @@ export interface PostData extends AttachmentPostData{
 	 postContent: string 
 	 postTypeId: string 
 	 postTypeCode: String
+	 countLike: number
+	 isLiked: boolean
+	 isBookmarked: boolean
 	 userId: string 
 	 creatorName: string 
 	 createdBy: string 

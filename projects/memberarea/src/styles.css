@@ -7,6 +7,10 @@
     object-fit: cover;
 }
 
+.card-img {
+    background-color: #ecf5ff;
+}
+
 .custom-img {
     width: 100% !important;
     height: 180px !important;

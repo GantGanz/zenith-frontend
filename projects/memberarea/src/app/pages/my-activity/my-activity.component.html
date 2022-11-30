@@ -21,9 +21,9 @@
             <ng-container *ngFor="let data of dataCourses; index as i">
               <div class="col-12 md:col-6 lg:col-4">
                 <div class="card h-100 click">
-                  <div class="card-img">
-                    <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="540"
-                      alt="activity-banner" [preview]="true">
+                  <div class="card-img flex justify-content-center">
+                    <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}}
+                      alt="activity-banner" [preview]="true" imageClass="h-15rem w-full">
                     </p-image>
                   </div>
                   <div class="card-body">
@@ -64,9 +64,9 @@
             <ng-container *ngFor="let data of dataEvents; index as i">
               <div class="col-12 md:col-6 lg:col-4">
                 <div class="card h-100 click">
-                  <div class="card-img">
-                    <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} height="540" width="360"
-                      alt="activity-banner" [preview]="true"></p-image>
+                  <div class="card-img flex justify-content-center">
+                    <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} imageClass="h-15rem w-full"
+                    alt="activity-banner" [preview]="true"></p-image>
                   </div>
                   <div class="card-body">
                     <h5 class="card-title">{{data.activityTitle}}</h5>

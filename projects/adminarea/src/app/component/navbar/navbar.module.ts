@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FooterComponent } from "../footer/footer.component";
@@ -9,7 +10,7 @@ import { NavbarSuperAdminComponent } from "./navbar-super-admin/navbar-super-adm
         NavbarAdminComponent, NavbarSuperAdminComponent, FooterComponent
     ],
     imports: [
-        RouterModule
+        RouterModule, CommonModule
     ],
     exports: [
         NavbarAdminComponent, NavbarSuperAdminComponent, FooterComponent

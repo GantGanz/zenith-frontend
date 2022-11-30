@@ -1,5 +1,5 @@
-import { Component } from "@angular/core"
-import { FormBuilder, Validators } from "@angular/forms"
+import { Component, OnDestroy, OnInit } from "@angular/core"
+import { FormArray, FormBuilder, Validators } from "@angular/forms"
 import { ActivatedRoute, Router } from "@angular/router"
 import { UserRes } from "projects/interface/user/user-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
@@ -13,7 +13,7 @@ import { Subscription } from "rxjs"
     selector: "edit-profile",
     templateUrl: "edit-profile.component.html"
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit, OnDestroy {
 
     backToSuperAdminProfile = false
     backToAdminProfile = false

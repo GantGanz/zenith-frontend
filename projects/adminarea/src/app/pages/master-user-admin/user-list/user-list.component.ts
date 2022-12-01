@@ -16,6 +16,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
     position: string = 'top'
 
+    loading = false
+
     first = 0
     rows = 10
 

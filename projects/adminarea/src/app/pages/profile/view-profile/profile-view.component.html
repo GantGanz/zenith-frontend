@@ -1,7 +1,9 @@
 <div class="container">
     <div class="card flex align-items-center border-none border-round-2xl p-8 mt-4">
         <div class="text-center">
-            <img src={{fileLink}}{{fileId}} class="w-8rem h-8rem border-circle mb-3" style="object-fit: cover" alt="profile pic super-admin">
+            <ng-container *ngIf="userLoaded">
+                <img src={{fileLink}}{{fileId}} class="w-8rem h-8rem border-circle mb-3" style="object-fit: cover" alt="profile pic super-admin">
+            </ng-container>
             <h4>{{fullname}}</h4>
             <span>{{email}}</span>
         </div>

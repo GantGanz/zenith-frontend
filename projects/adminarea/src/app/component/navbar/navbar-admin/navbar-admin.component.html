@@ -26,7 +26,9 @@
             </ul>
             <div class="btn-group">
                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover ;" alt="photo member">
+                    <ng-container *ngIf="imgLoaded">
+                        <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover ;" alt="photo member">
+                    </ng-container>
                 </a>
                 <ul
                     class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">

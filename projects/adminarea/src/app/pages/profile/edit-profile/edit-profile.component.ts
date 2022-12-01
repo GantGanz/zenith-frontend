@@ -10,7 +10,7 @@ import { FileService } from "projects/mainarea/src/app/service/file.service"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
-import { Subscription } from "rxjs"
+import { finalize, Subscription } from "rxjs"
 
 @Component({
     selector: "edit-profile",
@@ -22,7 +22,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     backToSuperAdminProfile = false
     backToAdminProfile = false
     userData !: UserData
-    disable = true
+
+    userLoaded = false
 
     company!: string
 
@@ -60,7 +61,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-            this.userSubscription = this.userService.getById(id).subscribe(result => {
+            this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoaded = true)).subscribe(result => {
                 this.userUpdateForm.patchValue(
                     result.data
                 )

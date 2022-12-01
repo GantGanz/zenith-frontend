@@ -4,7 +4,7 @@ import { Router } from "@angular/router"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
-import { Subscription } from "rxjs"
+import { finalize, Subscription } from "rxjs"
 
 @Component({
     selector: "user-insert",
@@ -18,6 +18,8 @@ export class UserInsertComponent implements OnInit, OnDestroy {
         email: [null, [Validators.email, Validators.required, Validators.maxLength(50)]],
         company: [null, [Validators.required]],
     })
+
+    submitLoading = false
 
     industries: any = []
     positions: any = []
@@ -51,9 +53,8 @@ export class UserInsertComponent implements OnInit, OnDestroy {
     }
 
     clickInsert() {
-        console.log(this.userInsertForm.value);
-
-        this.userInsertSubscription = this.userService.insert(this.userInsertForm.value).subscribe(() => {
+        this.submitLoading = true
+        this.userInsertSubscription = this.userService.insert(this.userInsertForm.value).pipe(finalize(() => this.submitLoading = false)).subscribe(() => {
             this.router.navigateByUrl('/users/list')
         })
     }

@@ -85,6 +85,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 }
             })
         })
+        if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
+            this.backToSuperAdminProfile = true
+        }
+        else if (this.router.url == `/admin/profiles/edit/${this.userUpdateForm.value.id}`) {
+            this.backToAdminProfile = true
+        }
 
     }
 

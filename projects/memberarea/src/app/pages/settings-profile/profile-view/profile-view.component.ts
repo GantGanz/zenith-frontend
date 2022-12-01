@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
@@ -41,6 +42,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     email!: string
     position!: string
     company!: string
+    fileLink = BASE_URL.FILE
+    fileId!: string
 
     postTypeId!: string
 
@@ -57,18 +60,21 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.postsSubscribtion = this.postService.getAllRegular().subscribe(result => {
-            for (let i = 0; i < result.data.length; i++) {
-                this.posts.push(result.data[i])
-            }
-        })
         this.userSubscribtion = this.userService.getByPrincipal().subscribe(result => {
             this.id = result.data.id
             this.fullname = result.data.fullname
             this.email = result.data.email
             this.position = result.data.positionName
             this.company = result.data.company
+            this.fileId = result.data.fileId
         })
+
+        this.postsSubscribtion = this.postService.getAllRegular().subscribe(result => {
+            for (let i = 0; i < result.data.length; i++) {
+                this.posts.push(result.data[i])
+            }
+        })
+
         this.totalCourseSubscribtion = this.activityService.countCourse().subscribe(result => {
             this.totalCourse = result
         })

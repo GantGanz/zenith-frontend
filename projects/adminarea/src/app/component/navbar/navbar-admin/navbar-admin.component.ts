@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
@@ -9,14 +9,14 @@ import { Subscription } from "rxjs";
     selector: "navbar-admin",
     templateUrl: "./navbar-admin.component.html"
 })
-export class NavbarAdminComponent {
-    constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
+export class NavbarAdminComponent implements OnInit, OnDestroy {
+
+    fileLink = BASE_URL.FILE
+    fileId!: string
 
     private userSubscription?: Subscription
 
-    fileLink = BASE_URL.FILE
-    fileId: string | null = ''
-
+    constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
 
     ngOnInit(): void {
         this.userSubscription = this.userService.getByPrincipal().subscribe(result => {

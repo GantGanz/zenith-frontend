@@ -8,14 +8,14 @@ export const memberAreaRoutes: Routes = [
         path: "feed",
         component: ContentComponent,
         loadChildren: () => import("./pages/home/home.module").then(u => u.HomeModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },
     {
         path: "articles",
         loadChildren: () => import("./pages/article/article.module").then(a => a.ArticleModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },
@@ -23,7 +23,7 @@ export const memberAreaRoutes: Routes = [
         path: "profile",
         component: ContentComponent,
         loadChildren: () => import("./pages/settings-profile/profile.module").then(s => s.ProfileModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },
@@ -31,14 +31,14 @@ export const memberAreaRoutes: Routes = [
         path: "activities",
         component: ContentComponent,
         loadChildren: () => import("./pages/activity/activity.module").then(a => a.ActivityModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },
     {
         path: "payment",
         loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },
@@ -46,7 +46,7 @@ export const memberAreaRoutes: Routes = [
         path: "my-activity",
         component: ContentComponent,
         loadChildren: () => import("./pages/my-activity/my-activity.module").then(m => m.MyActivityModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },
@@ -54,7 +54,7 @@ export const memberAreaRoutes: Routes = [
         path: "report",
         component: ContentComponent,
         loadChildren: () => import("./pages/report/report.module").then(r => r.ReportModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
     },

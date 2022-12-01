@@ -9,7 +9,8 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: "payment-activtiy",
-    templateUrl: "./payment-activity.component.html"
+    templateUrl: "./payment-activity.component.html",
+    styleUrls: ["../../../../styles.css"]
 })
 
 export class PaymentActivity implements OnInit, OnDestroy {

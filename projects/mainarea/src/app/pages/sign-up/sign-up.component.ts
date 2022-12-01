@@ -55,7 +55,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
         private industryService: IndustryService) { }
 
     ngOnInit(): void {
-
         this.items = [
             { label: "Sign Up" },
             { label: "Account Detail" },

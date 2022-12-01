@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     showUploadImg = true
     showCreatePolling = false
 
+    displayCustom!: boolean;
+    activeIndex: number = 0;
+
     postTypeId!: string
     regularPostCode = POST_TYPE_CODE.REGULAR
     pollPostCode = POST_TYPE_CODE.POLLING
@@ -118,6 +121,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
                 this.result[i].moreComment = false
+                this.result[i].showImg = false
             }
         })
     }
@@ -166,6 +170,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result.push(posts.data[i])
                 this.result[i + this.first].commentStatus = false
                 this.result[i + this.first].moreComment = false
+                this.result[i + this.first].showImg = false
             }
             console.log(this.result);
         })
@@ -251,14 +256,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickMoreComment(index:number) {
+    clickMoreComment(index: number) {
         this.result[index].moreComment = true
         this.allComment = true
         this.viewComment = false
         this.hideComment = true
     }
 
-    clickCloseComment(index:number) {
+    clickCloseComment(index: number) {
         this.result[index].moreComment = false
         this.allComment = false
         this.viewComment = true
@@ -329,6 +334,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     removePoll(i: number) {
         this.pollingOption.removeAt(i)
+    }
+
+
+    imageClick(index: number, indexPhoto: number) {
+        this.activeIndex = indexPhoto;
+        this.result[index].showImg = true
     }
 
     ngOnDestroy(): void {

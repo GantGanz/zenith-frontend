@@ -21,6 +21,7 @@ import { rightContentComponent } from "./right-content/right-content.component";
 import { CheckboxModule } from 'primeng/checkbox';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { BlockUIModule } from 'primeng/blockui';
+import { ImageModule } from 'primeng/image';
 
 
 
@@ -48,7 +49,8 @@ import { BlockUIModule } from 'primeng/blockui';
         ReactiveFormsModule,
         CheckboxModule,
         InfiniteScrollModule,
-        BlockUIModule
+        BlockUIModule,
+        ImageModule
     ],
     exports: [
         HomeComponent, rightContentComponent

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
     selector: "navbar-admin",
     templateUrl: "./navbar-admin.component.html"
 })
-export class NavbarAdminComponent implements OnInit {
+export class NavbarAdminComponent implements OnInit, OnDestroy {
 
     fileLink = BASE_URL.FILE
     fileId!: string

@@ -2,26 +2,36 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
+import { UserService } from "projects/mainarea/src/app/service/user.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "navbar-member",
     templateUrl: "navbar-member.component.html"
 })
 
-export class NavbarMemberComponent implements OnInit{
+export class NavbarMemberComponent implements OnInit {
 
     fileLink = BASE_URL.FILE
     fileId!: string
 
-    constructor(private apiService:ApiService, private router:Router){}
+    private userSubscription?: Subscription
+
+    constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.fileId = this.apiService.getPhoto()!
+        this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
+            this.fileId = result.data.fileId
+        })
     }
 
-    logout(){
+    logout() {
         this.apiService.logout()
         this.router.navigateByUrl('/member/login')
+    }
+
+    ngOnDestroy(): void {
+        this.userSubscription?.unsubscribe()
     }
 
 

@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         company: [{ value: '', disabled: true }, [Validators.required]],
         fileCodes: [''],
         extension: [''],
-        positionId: [{ value: '', disabled: true }, [Validators.required]],
+        positionId: ['', [Validators.required]],
         industryId: ['', [Validators.required]],
         isActive: [true, [Validators.required]],
         version: [0, [Validators.required]]

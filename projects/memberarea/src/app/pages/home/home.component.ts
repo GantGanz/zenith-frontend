@@ -1,9 +1,11 @@
 import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
+import { PostData } from "projects/interface/post/post-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
+import { CommentService } from "projects/mainarea/src/app/service/comment.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.service";
@@ -27,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     type!: string
 
-    result: any[] = []
+    result: PostData[] = []
     likedPost: any[] = []
 
     tabIndex = 0
@@ -57,6 +59,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     first = 0
     limit = 3
+
+    commentFirst = 0
+    commentLimit = 3
 
     postForm = this.fb.group({
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
@@ -89,6 +94,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         postId: ['', [Validators.required]]
     })
 
+    commentForm = this.fb.group({
+        commentContent:['',[Validators.required]],
+        postId:['',[Validators.required]]
+    })
+
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
     private likedPostSubscription?: Subscription
@@ -105,10 +115,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     private deleteBookmarkSubscription?: Subscription
     private bookmarkedIdSubscription?: Subscription
 
+    private insertCommentSubscription?: Subscription
+    private commentByPostSubscription?: Subscription
+
     constructor(private fb: FormBuilder, private apiService: ApiService,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
-        private pollVoteService: PollVoteService, private bookmarkService: BookmarkService) { }
+        private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
+        private commentService: CommentService) { }
 
     ngOnInit(): void {
         this.myFileId = this.apiService.getPhoto()!
@@ -256,18 +270,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickMoreComment(index: number) {
+    clickSeeComment(index: number) {
         this.result[index].moreComment = true
-        this.allComment = true
-        this.viewComment = false
-        this.hideComment = true
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id,this.commentFirst,this.commentLimit).subscribe(comments=>{
+            this.result[index].commentDatas = comments.data
+        })
     }
 
     clickCloseComment(index: number) {
         this.result[index].moreComment = false
-        this.allComment = false
-        this.viewComment = true
-        this.hideComment = false
     }
 
     clickCommentPost(postIndex: number) {
@@ -328,6 +339,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
+    submitcomment(postIndex: number){
+        this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
+        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(()=>{
+            this.clickSeeComment(postIndex)
+            this.commentForm.reset()
+        })
+    }
+
     addPoll() {
         this.pollingOption.push(this.fb.group({ pollContent: ['', [Validators.required]] }))
     }
@@ -355,6 +374,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.insertBookmarkSubscription?.unsubscribe()
         this.deleteBookmarkSubscription?.unsubscribe()
         this.bookmarkedIdSubscription?.unsubscribe()
+        this.insertCommentSubscription?.unsubscribe()
     }
 }
 

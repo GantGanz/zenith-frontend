@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { NavbarMemberComponent } from "./navbar-member.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ImageModule } from 'primeng/image';
+import { CommonModule } from "@angular/common";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ImageModule } from 'primeng/image';
         MenuModule,
         MenubarModule,
         DropdownModule,
-        ImageModule
+        ImageModule,
+        CommonModule
     ],
     exports: [
         NavbarMemberComponent, FooterComponent

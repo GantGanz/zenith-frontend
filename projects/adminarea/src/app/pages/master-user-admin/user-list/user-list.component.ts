@@ -4,7 +4,7 @@ import { ConfirmationService, LazyLoadEvent, PrimeNGConfig } from "primeng/api"
 import { UsersRes } from "projects/interface/user/users-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
-import { Subscription } from "rxjs"
+import { finalize, Subscription } from "rxjs"
 
 @Component({
     selector: "user-list",
@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     totalUsers!: number
 
     users: any[] = []
-    
+
     private usersSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     init() {
         this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
-            this.users =[]
+            this.users = []
             for (let i = 0; i < result.data.length; i++) {
                 this.users.push(result.data[i])
             }
@@ -63,9 +63,10 @@ export class UserListComponent implements OnInit, OnDestroy {
             icon: 'pi pi-info-circle',
             key: "positionDialog",
             accept: () => {
+                this.loading = true
                 this.userDelete.controls['id'].setValue(id)
                 this.userDelete.controls['version'].setValue(version)
-                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).subscribe(u => {
+                this.deleteSubscription = this.userService.softDelete(this.userDelete.value).pipe(finalize(() => this.loading = false)).subscribe(u => {
                     this.init()
                 })
             }

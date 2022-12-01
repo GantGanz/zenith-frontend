@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "navbar-member",
@@ -15,12 +15,15 @@ export class NavbarMemberComponent implements OnInit {
     fileLink = BASE_URL.FILE
     fileId!: string
 
+
+    fileLoading = false
+
     private userSubscription?: Subscription
 
     constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
+        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.fileLoading = true)).subscribe(result => {
             this.fileId = result.data.fileId
         })
     }

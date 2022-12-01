@@ -12,7 +12,7 @@ export class SuperAdminGuard implements CanLoad, CanActivate {
 
     canActivate(): boolean {
         const data = this.apiService.getData()
-        console.log(data);
+        console.log("masuk active super-admin");
         
         if(data){
             const roleCode=this.apiService.getRoleCode()
@@ -29,6 +29,7 @@ export class SuperAdminGuard implements CanLoad, CanActivate {
         return false
     }
     canLoad(): boolean {
+        console.log("masuk load super-admin");
         const roleCode=this.apiService.getRoleCode()
         if(roleCode==ROLECODE.SUPERADMIN){
             return true

@@ -30,7 +30,7 @@
                 </td>
                 <td style="text-align: center ;">
                     <p-image imageClass="h-10rem"
-                    src="{{fileLink}}{{article.attachmentArticleDatas[0].fileId}}" alt="Image" [preview]="true"></p-image>
+                    src="{{fileLink}}{{article.attachmentArticleDatas[0].fileId}}" alt="Image" imageClass="w-5rem h-5rem" stayle="object-fit: cover" [preview]="true"></p-image>
                 </td>
                 <td style="text-align: center ;">
                     <div *ngIf="article.isActive; else elseBlock">

@@ -22,7 +22,7 @@
                     <button pButton class="p-button-outlined" type="button" id="btnCancelPosition" name="btnCancelPosition" routerLink="/positions/list">Back</button>
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton type="submit" id="btnSubmitPosition" name="btnSubmitPosition">Submit</button>
+                    <button pButton type="submit" id="btnSubmitPosition" name="btnSubmitPosition" [loading]="loading">Submit</button>
                 </div>
             </div>
         </form>

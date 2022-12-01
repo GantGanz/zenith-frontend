@@ -17,14 +17,14 @@
             </div>
             <div class="field col-12 md:col-6">
                 <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
-                    id="industryName" placeholder="Select an Industry" formControlName="industryId" [disabled]="disable">
+                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName" optionValue="id" name="industryName"
+                    id="industryName" placeholder="Select an Industry" formControlName="industryId">
                 </p-dropdown>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="positionName">Position<span class="text-red-500">*</span></label>
-                <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="name" optionValue="id" name="positionName"
-                    id="positionName" placeholder="Select Position" formControlName="positionId" [disabled]="disable">
+                <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="positionName" optionValue="id" name="positionName"
+                    id="positionName" placeholder="Select Position" formControlName="positionId">
                 </p-dropdown>
             </div>
             <div class="field-checkbox col-12 md:col-6">
@@ -36,7 +36,7 @@
                     <button pButton class="p-button-outlined" type="button" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
+                    <button pButton type="submit" id="btnSubmitUser" name="btnSubmitUser" [loading]="loading">Submit</button>
                 </div>
             </div>
         </form>

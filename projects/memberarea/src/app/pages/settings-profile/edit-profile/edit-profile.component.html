@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="grid mt-3">
         <div class="col-12">
@@ -7,51 +6,59 @@
         <div class="md:col-3 col-12">
             <menu-profile></menu-profile>
         </div>
-        <div class="md:col-9 col-12"> 
+        <div class="md:col-9 col-12">
             <!-- Edit Profile -->
             <div class="card mt-3">
                 <div class="container">
                     <h5 class="mx-4 my-3">Edit Profile</h5>
 
-                     <div class="flex justify-content-center">
-                        <div class="col-6 text-center">
-                            <img src="{{fileLink}}{{userRes.data.fileId}}" class="w-6rem h-6rem border-circle mb-3" style="object-fit: cover" alt="profile pic super-admin">
-                         </div>
-                        <div class="col-6">
+                    <div class="grid justify-content-center">
+                        <div class="col-12 text-center" *ngIf="userLoading">
+                            <img src="{{fileLink}}{{fileId}}" class="w-6rem h-6rem border-circle mb-3"
+                                style="object-fit: cover" alt="profile pic super-admin">
+                        </div>
+                        <div class="col-5">
                             <!-- Change Photo -->
                             <p-fileUpload url="./upload.php" accept="image/*" [customUpload]="true"
-                            (uploadHandler)="fileUpload($event)" [auto]="true" chooseLabel="Upload New Picture"></p-fileUpload>
+                                (uploadHandler)="fileUpload($event)" [auto]="true" chooseLabel="Upload New Picture">
+                            </p-fileUpload>
                         </div>
-                     </div>
+                    </div>
 
-                    <div class="mx-6">
+                    <div class="mx-6" *ngIf="userLoading">
                         <form class="formgrid grid" [formGroup]="userUpdateForm" (ngSubmit)="clickUpdate()">
                             <div class="field col-12">
                                 <label for="fullName">Full Name<span class="text-red-500">*</span></label>
-                                <input pInputText class="w-full" type="text" id="fullName" name="fullName" formControlName="fullname" required>
+                                <input pInputText class="w-full" type="text" id="fullName" name="fullName"
+                                    formControlName="fullname" required>
                             </div>
                             <div class="field col-12">
                                 <label for="email">Email</label>
-                                <input pInputText class="w-full" type="email" id="email" name="email" value={{userUpdateForm.value.email}} disabled>
+                                <input pInputText class="w-full" type="email" id="email" name="email"
+                                    value={{userRes.email}} disabled>
                             </div>
                             <div class="field col-12">
                                 <label for="company">Company<span class="text-red-500">*</span></label>
-                                <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" required>
+                                <input pInputText class="w-full" type="text" id="company" name="company"
+                                    formControlName="company" required>
                             </div>
                             <div class="field col-12">
                                 <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName" optionValue="id" name="industryName"
-                                    id="industryName" placeholder="Select an Industry" formControlName="industryId">
+                                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName"
+                                    optionValue="id" name="industryName" id="industryName"
+                                    placeholder="Select an Industry" formControlName="industryId">
                                 </p-dropdown>
                             </div>
                             <div class="field col-12">
                                 <label for="positionName">Position<span class="text-red-500">*</span></label>
-                                <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="positionName" optionValue="id" name="positionName"
-                                    id="positionName" placeholder="Select Position" formControlName="positionId">
+                                <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm"
+                                    optionLabel="positionName" optionValue="id" name="positionName" id="positionName"
+                                    placeholder="Select Position" formControlName="positionId">
                                 </p-dropdown>
                             </div>
                             <div class="field col-12 mt-2 mb-4 flex justify-content-end">
-                                <button pButton type="submit" id="btnSaveChange" name="btnSaveChange" label="Save" class="px-6"></button>
+                                <button pButton type="submit" id="btnSaveChange" name="btnSaveChange" label="Save"
+                                    class="px-6"></button>
                             </div>
                         </form>
                     </div>

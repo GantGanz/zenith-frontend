@@ -2,6 +2,7 @@ import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
+import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
     fileLink = BASE_URL.FILE
+    myFileId!: string
 
     type!: string
 
@@ -100,20 +102,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     private deleteBookmarkSubscription?: Subscription
     private bookmarkedIdSubscription?: Subscription
 
-    constructor(private fb: FormBuilder,
+    constructor(private fb: FormBuilder, private apiService: ApiService,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService) { }
 
     ngOnInit(): void {
+        this.myFileId = this.apiService.getPhoto()!
         this.postInit()
     }
 
     postInit() {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
             this.result = posts.data
-            console.log("post init");
-
+            for (let i = 0; i < this.result.length; i++) {
+                this.result[i].commentStatus = false
+                this.result[i].moreComment = false
+            }
         })
     }
 
@@ -159,7 +164,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
+                this.result[i + this.first].commentStatus = false
+                this.result[i + this.first].moreComment = false
             }
+            console.log(this.result);
         })
     }
 
@@ -243,20 +251,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickMoreComment() {
+    clickMoreComment(index:number) {
+        this.result[index].moreComment = true
         this.allComment = true
         this.viewComment = false
         this.hideComment = true
     }
 
-    clickCloseComment() {
+    clickCloseComment(index:number) {
+        this.result[index].moreComment = false
         this.allComment = false
         this.viewComment = true
         this.hideComment = false
     }
 
-    clickCommentPost() {
-        this.commentPost = true
+    clickCommentPost(postIndex: number) {
+        this.result[postIndex].commentStatus = true
     }
 
     clickAddPhotos() {
@@ -292,7 +302,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.detailFoto.clear()
         this.fileService.fileUploadMulti(event).then(result => {
             for (let i = 0; i < result.length; i++) {
-                this.detailFoto.insert(i,this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
+                this.detailFoto.insert(i, this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
             }
         })
     }
@@ -330,6 +340,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postTypeSubscription?.unsubscribe()
         this.insertVoteSubscription?.unsubscribe()
         this.likedPostSubscription?.unsubscribe()
+        this.bookmarkedPostSubscription?.unsubscribe()
+        this.insertBookmarkSubscription?.unsubscribe()
+        this.deleteBookmarkSubscription?.unsubscribe()
+        this.bookmarkedIdSubscription?.unsubscribe()
     }
 }
 

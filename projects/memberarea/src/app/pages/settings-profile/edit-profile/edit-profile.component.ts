@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { IndustryData } from "projects/interface/industry/industry-data";
+import { PositionData } from "projects/interface/position/position-data";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
 import { PositionService } from "projects/mainarea/src/app/service/position.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -16,7 +18,7 @@ export class EditProfileComponent {
     userUpdateForm = this.fb.group({
         id: ['', [Validators.required]],
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
-        email: ['', [Validators.email, Validators.required, Validators.maxLength(50)]],
+        email: [{value:'',disabled:true}, [Validators.email, Validators.required, Validators.maxLength(50)]],
         company: ['', [Validators.required]],
         positionId: ['', [Validators.required]],
         industryId: ['', [Validators.required]],
@@ -24,8 +26,8 @@ export class EditProfileComponent {
         version: [0, [Validators.required]]
     })
 
-    positions: any[] = []
-    industries: any[] = []
+    positions: PositionData[] = []
+    industries: IndustryData[] = []
 
     private industrySubscription?: Subscription
     private userSubscription?: Subscription
@@ -41,33 +43,14 @@ export class EditProfileComponent {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.userSubscription = this.userService.getById(id).subscribe(result => {
-                this.userUpdateForm.controls['id'].setValue(result.data.id)
-                this.userUpdateForm.controls['email'].setValue(result.data.email)
-                this.userUpdateForm.controls['fullname'].setValue(result.data.fullname)
-                this.userUpdateForm.controls['company'].setValue(result.data.company)
-                this.userUpdateForm.controls['positionId'].setValue(result.data.positionId)
-                this.userUpdateForm.controls['industryId'].setValue(result.data.industryId)
-                this.userUpdateForm.controls['version'].setValue(result.data.version)
+                this.userUpdateForm.patchValue(result.data)
                 console.log(this.userUpdateForm.value)
-
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.industries.push({
-                        name: result.data[i].industryName,
-                        code: result.data[i].industryCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.industries = result.data
             })
             this.positionSubscription = this.positionService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.positions.push({
-                        name: result.data[i].positionName,
-                        code: result.data[i].positionCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.positions = result.data
             })
         })
     }

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormArray, FormBuilder, Validators } from "@angular/forms"
 import { ActivatedRoute, Router } from "@angular/router"
+import { IndustryData } from "projects/interface/industry/industry-data"
 import { PositionData } from "projects/interface/position/position-data"
+import { UserData } from "projects/interface/user/user-data"
 import { UserRes } from "projects/interface/user/user-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
 import { FileService } from "projects/mainarea/src/app/service/file.service"
@@ -19,26 +21,29 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     backToSuperAdminProfile = false
     backToAdminProfile = false
-    userRes !: UserRes
+    userData !: UserData
     disable = true
 
+    company!: string
+
     fileLink = BASE_URL.FILE
+    fileId!: string
 
     userUpdateForm = this.fb.group({
         id: ['', [Validators.required]],
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
         email: ['', [Validators.email, Validators.required, Validators.maxLength(50)]],
-        company: [{ value: '', disabled: true }, [Validators.required]],
+        company: ['', [Validators.required]],
         fileCodes: [''],
         extension: [''],
-        positionId: [{ value: '', disabled: true }, [Validators.required]],
+        positionId: ['', [Validators.required]],
         industryId: ['', [Validators.required]],
         isActive: [true, [Validators.required]],
         version: [0, [Validators.required]]
     })
 
-    positions: any[] = []
-    industries: any[] = []
+    positions: PositionData[] = []
+    industries: IndustryData[] = []
 
     selectedPosition!: PositionData
 
@@ -53,41 +58,25 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         private fb: FormBuilder, private router: Router, private fileService: FileService) { }
 
     ngOnInit(): void {
-
-
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-
             this.userSubscription = this.userService.getById(id).subscribe(result => {
-                // this.userUpdateForm.patchValue(
-                //     result.data
-                // )
-                this.userRes = result
-                this.userUpdateForm.controls['id'].setValue(result.data.id)
-                this.userUpdateForm.controls['email'].setValue(result.data.email)
-                this.userUpdateForm.controls['fullname'].setValue(result.data.fullname)
-                this.userUpdateForm.controls['company'].setValue(result.data.company)
-                this.userUpdateForm.controls['positionId'].setValue(result.data.positionId)
-                this.userUpdateForm.controls['industryId'].setValue(result.data.industryId)
-                this.userUpdateForm.controls['version'].setValue(result.data.version)
+                this.userUpdateForm.patchValue(
+                    result.data
+                )
+                this.userData = result.data
+                this.userUpdateForm.controls['company'].disable()
+                this.userUpdateForm.controls['positionId'].disable()
+                this.userUpdateForm.controls['industryId'].disable()
+                this.fileId = result.data.fileId
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.industries.push({
-                        name: result.data[i].industryName,
-                        code: result.data[i].industryCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.industries = result.data
             })
             this.positionSubscription = this.positionService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.positions.push({
-                        name: result.data[i].positionName,
-                        code: result.data[i].positionCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.positions = result.data
+
+                console.log(this.positions);
                 if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
                     this.backToSuperAdminProfile = true
                 }

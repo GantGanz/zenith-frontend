@@ -21,7 +21,7 @@
                     <button pButton class="p-button-outlined" type="submit" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
+                    <button pButton [loading]="submitLoading" type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
                 </div>
             </div>
         </form>

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { MemberGuard } from "projects/mainarea/src/app/guard/member.guard";
 import { ContentComponent } from "../../components/content/content.component";
 import { PaymentActivityComponent } from "./payment-activity/payment-activity.component";
 import { PaymentPremiumComponent } from "./payment-premium/payment-premium.component";
@@ -11,11 +12,17 @@ const routes: Routes = [
         children: [
             {
                 path: "activity/:id",
-                component: PaymentActivityComponent
+                component: PaymentActivityComponent,
+                canActivate:[
+                    MemberGuard
+                ]
             },
             {
                 path: "premium",
-                component: PaymentPremiumComponent
+                component: PaymentPremiumComponent,
+                canActivate:[
+                    MemberGuard
+                ]
             }
         ]
     }

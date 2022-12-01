@@ -48,9 +48,6 @@ export const adminAreaRoutes: Routes = [
     },
     {
         path: "payment",
-        loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule),
-        canLoad: [
-            AdminGuard
-        ]
+        loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
     }
 ]

@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ProfileViewComponent } from "./profile-view/profile-view.component";
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         FileUploadModule,
         HttpClientModule,
         TabViewModule,
-        InputTextareaModule
+        InputTextareaModule,
+        StyleClassModule
 
     ],
     exports: [

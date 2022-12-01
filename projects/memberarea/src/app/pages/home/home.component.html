@@ -148,10 +148,14 @@
                                             </div>
                                             <div class="col-11">
                                                 <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
-                                                    <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm"
+                                                    <div class="flex flex-row align-content-center">
+                                                        <textarea pInputTextarea [autoResize]="true"
+                                                        class="w-full p-inputtextarea-sm pb-0"
                                                         placeholder="Add a comment..." formControlName="commentContent"></textarea>
-                                                        <p-button type="submit">Kirim</p-button>
+                                                        <p-button type="submit">Send</p-button>
+                                                    </div>
+                                                    
+                                                        
                                                 </form>
                                             </div>
                                         </div>

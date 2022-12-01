@@ -6,9 +6,6 @@
     text-overflow: ellipsis;
 }
 
-/* .profile-pic {
-    border-radius: 50%;
-    height: 45px;
-    width: 45px;
-    object-fit: cover;
-} */
+.custom-btn {
+    background-color: #1089FF !important;
+}

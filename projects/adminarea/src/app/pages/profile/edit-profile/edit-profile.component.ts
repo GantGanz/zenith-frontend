@@ -88,14 +88,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                         id: result.data[i].id
                     })
                 }
-                if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
-                    this.backToSuperAdminProfile = true
-                }
-                else if (this.router.url == `/admin/profiles/edit/${this.userUpdateForm.value.id}`) {
-                    this.backToAdminProfile = true
-                }
             })
         })
+        if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
+            this.backToSuperAdminProfile = true
+        }
+        else if (this.router.url == `/admin/profiles/edit/${this.userUpdateForm.value.id}`) {
+            this.backToAdminProfile = true
+        }
 
     }
 

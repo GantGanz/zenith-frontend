@@ -9,23 +9,8 @@ import { Subscription } from "rxjs";
     selector: "navbar-admin",
     templateUrl: "./navbar-admin.component.html"
 })
-<<<<<<< HEAD
-export class NavbarAdminComponent implements OnInit{
-
-    fileLink= BASE_URL.FILE
-    fileId!:string
-
-    constructor(private apiService:ApiService, private router:Router){}
-    
-    ngOnInit(): void {
-        
-        this.fileId = this.apiService.getPhoto()!
-        console.log(this.fileId);
-    }
-=======
 export class NavbarAdminComponent {
     constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
->>>>>>> bd41a07f579c98887d89a8e9d7cbf1ab93e97968
 
     private userSubscription?: Subscription
 

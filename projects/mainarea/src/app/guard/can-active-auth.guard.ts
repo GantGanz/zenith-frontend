@@ -14,9 +14,9 @@ export class CanActiveAuth implements CanActivate {
         if(data){
             const roleCode = this.apiService.getRoleCode()
             if (roleCode == ROLECODE.SUPERADMIN) {
-                this.router.navigateByUrl('/dashboard/admin')
+                this.router.navigateByUrl('/dashboard/super-admin')
             }else if(roleCode == ROLECODE.ADMIN){
-                this.router.navigateByUrl('/dashboard/pic')
+                this.router.navigateByUrl('/dashboard/admin')
             }else{
                 this.router.navigateByUrl('/feed')
             }

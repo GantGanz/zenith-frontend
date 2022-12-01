@@ -97,13 +97,13 @@
                                                 (click)="clickSave(i)"></button>
                                         </ng-template>
                                         <button pButton label="Comment" icon="pi pi-comment"
-                                            class="p-button-text btn-sec" (click)="clickCommentPost()"></button>
+                                            class="p-button-text btn-sec" (click)="clickCommentPost(i)"></button>
                                     </div>
-                                    <div *ngIf="commentPost">
+                                    <div *ngIf="data.commentStatus">
                                         <div class="grid mt-2">
                                             <div class="col-1">
                                                 <img class="border-circle w-10"
-                                                    src="../../../assets/images/photo_member.png" alt="">
+                                                    src="{{fileLink}}{{myFileId}}" alt="">
                                             </div>
                                             <div class="col-11">
                                                 <textarea pInputTextarea [autoResize]="true"
@@ -112,17 +112,17 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                                (click)="clickMoreComment()">
+                                            <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="data.moreComment==false"
+                                                (click)="clickMoreComment(i)">
                                                 View Comments
                                             </span>
-                                            <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
-                                                (click)="clickCloseComment()">
+                                            <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="data.moreComment"
+                                                (click)="clickCloseComment(i)">
                                                 Close Comments
                                             </span>
                                         </div>
 
-                                        <div *ngIf="allComment">
+                                        <div *ngIf="data.moreComment">
                                             <div class="grid mt-3">
                                                 <div class="col-1">
                                                     <img class="border-circle w-10"
@@ -267,7 +267,7 @@
                                         <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
                                             *ngIf="bookmarkFill" (click)="clickUnSave(i)"></button>
                                         <button pButton label="Comment" icon="pi pi-comment"
-                                            class="p-button-text btn-sec" (click)="clickCommentPost()"></button>
+                                            class="p-button-text btn-sec" (click)="clickCommentPost(i)"></button>
                                     </div>
                                     <div *ngIf="commentPost">
                                         <div class="grid mt-2">
@@ -283,11 +283,11 @@
                                         </div>
                                         <div>
                                             <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                                (click)="clickMoreComment()">
+                                                (click)="clickMoreComment(i)">
                                                 View Comments
                                             </span>
                                             <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
-                                                (click)="clickCloseComment()">
+                                                (click)="clickCloseComment(i)">
                                                 Close Comments
                                             </span>
                                         </div>
@@ -682,7 +682,7 @@
                                     *ngIf="bookmarkFill" (click)="clickUnSave(1)"></button>
 
                                 <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                    (click)="clickCommentPost()"></button>
+                                    (click)="clickCommentPost(1)"></button>
                             </div>
 
                             <div *ngIf="commentPost">
@@ -698,11 +698,11 @@
                                 </div>
                                 <div>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                        (click)="clickMoreComment()">
+                                        (click)="clickMoreComment(1)">
                                         View Comments
                                     </span>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
-                                        (click)="clickCloseComment()">
+                                        (click)="clickCloseComment(1)">
                                         Close Comments
                                     </span>
                                 </div>
@@ -826,7 +826,7 @@
                                     *ngIf="bookmarkFill" (click)="clickUnSave(1)"></button>
 
                                 <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                    (click)="clickCommentPost()"></button>
+                                    (click)="clickCommentPost(1)"></button>
                             </div>
 
                             <div *ngIf="commentPost">
@@ -842,11 +842,11 @@
                                 </div>
                                 <div>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                        (click)="clickMoreComment()">
+                                        (click)="clickMoreComment(1)">
                                         View Comments
                                     </span>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
-                                        (click)="clickCloseComment()">
+                                        (click)="clickCloseComment(1)">
                                         Close Comments
                                     </span>
                                 </div>

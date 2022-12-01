@@ -24,7 +24,7 @@ export class ArticleInsertComponent implements OnDestroy {
 
     clickSubmit() {
         this.articleSubscription = this.articleService.insert(this.articleForm.value).subscribe(() => {
-            this.router.navigateByUrl('/articles/list')
+            this.router.navigateByUrl('/articles-admin/list')
         })
     }
     get detailFoto(): FormArray {

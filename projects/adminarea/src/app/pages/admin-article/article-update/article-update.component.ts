@@ -41,7 +41,7 @@ export class ArticleUpdateComponent implements OnInit, OnDestroy {
 
     clickUpdate() {
         this.articleUpdateSubscription = this.articleService.update(this.articleForm.value).subscribe(() => {
-            this.router.navigateByUrl('/articles/list')
+            this.router.navigateByUrl('/articles-admin/list')
         })
     }
 

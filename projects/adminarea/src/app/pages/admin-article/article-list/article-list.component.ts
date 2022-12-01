@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ConfirmationService, LazyLoadEvent } from "primeng/api";
-import { ArticlesRes } from "projects/interface/article/articles-res";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
 import { Subscription } from "rxjs";
@@ -19,7 +18,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     first = 0;
     rows = 10;
     position: string = 'top'
-    articlesRes!: ArticlesRes
+    articlesRes: any[]=[]
 
     limit = this.rows
     totalArticles!: number
@@ -45,7 +44,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
     init() {
         this.articlesSubscription = this.articleService.getAllById(this.first, this.limit).subscribe(result => {
-            this.articlesRes = result
+            this.articlesRes = result.data
         })
         this.countSubscription = this.articleService.countAllById().subscribe(result => {
             this.totalArticles = result
@@ -60,10 +59,10 @@ export class ArticleListComponent implements OnInit, OnDestroy {
             icon: 'pi pi-info-circle',
             key: 'positionDialog',
             accept: () => {
-                this.articleDelete.controls['id'].setValue(this.articlesRes.data[i].id)
-                this.articleDelete.controls['version'].setValue(this.articlesRes.data[i].version)
-                this.articleDelete.controls['articleTitle'].setValue(this.articlesRes.data[i].articleTitle)
-                this.articleDelete.controls['articleContent'].setValue(this.articlesRes.data[i].articleContent)
+                this.articleDelete.controls['id'].setValue(this.articlesRes[i].id)
+                this.articleDelete.controls['version'].setValue(this.articlesRes[i].version)
+                this.articleDelete.controls['articleTitle'].setValue(this.articlesRes[i].articleTitle)
+                this.articleDelete.controls['articleContent'].setValue(this.articlesRes[i].articleContent)
                 this.deleteSubscription = this.articleService.update(this.articleDelete.value).subscribe(a => {
                     this.init()
                 })
@@ -73,7 +72,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
     getData(offset: number, limit: number) {
         this.pageChangeSubscription = this.articleService.getAllById(offset, limit).subscribe(result => {
-            this.articlesRes = result
+            this.articlesRes = result.data
         })
     }
 

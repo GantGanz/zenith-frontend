@@ -993,7 +993,7 @@
             <!-- Upload Image -->
             <div class="field col-12" *ngIf="showUploadImg">
                 <label for="image">Upload Image</label>
-                <p-fileUpload url="./upload.php" [multiple]="true" accept="image/*" [customUpload]="true" [auto]="true"
+                <p-fileUpload url="./upload.php" [multiple]="true" accept="image/*" [customUpload]="true"
                     (uploadHandler)="fileUpload($event)"></p-fileUpload>
             </div>
 

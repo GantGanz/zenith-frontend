@@ -17,7 +17,7 @@
 
             <div class="btn-group">
                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../../../assets/images/photo_member.png" class="w-3rem h-3rem border-circle" style="object-fit: cover" alt="photo member">
+                    <img src="{{fileLink}}{{fileId}}" class="profile-pic" alt="photo member">
                 </a>
                 <ul
                     class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start dropdown-menu-sm-start dropdown-menu-xs-start">
@@ -27,9 +27,8 @@
                             Activity</button></li>
                     <li><button class="dropdown-item px-5 py-2" type="button" routerLink="/payment/premium"><i class="pi pi-star-fill text-yellow-500"></i> Upgrade
                             Premium</button></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><button class="dropdown-item px-5 py-2 btnLogout" type="button"
-                            routerLink="/member/login"><i class="pi pi-power-off text-red-500"></i> Logout</button></li>
+                    <li><button class="dropdown-item px-5 py-2 text-danger btnLogout" type="button"
+                            (click)="logout()">Logout</button></li>
                 </ul>
             </div>
         </div>

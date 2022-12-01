@@ -2,10 +2,14 @@
     <h2 class="my-4">List Of Article</h2>
     <div class="my-3">
         <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition"
+<<<<<<< HEAD
+            routerLink="/articles-admin/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
+=======
             routerLink="/admin/articles/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
+>>>>>>> bd41a07f579c98887d89a8e9d7cbf1ab93e97968
     </div>
 
-    <p-table [value]="articlesRes.data" [paginator]="true" [rows]="rows" [(first)]="first"
+    <p-table [value]="articlesRes" [paginator]="true" [rows]="rows" [(first)]="first"
         [totalRecords]="totalArticles" [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
         (onLazyLoad)="loadData($event)" [lazy]="true">
@@ -43,7 +47,7 @@
                 <td class="custom-align">
                     <div class="flex flex-row">
                         <button pButton type="button" class="p-button-text" pTooltip="Update" tooltipPosition="top"
-                        routerLink="/articles/edit/{{article.id}}"><i class="pi pi-file-edit"></i>
+                        routerLink="/articles-admin/edit/{{article.id}}"><i class="pi pi-file-edit"></i>
                     </button>
 
                     <span *ngIf="article.isActive; else deleteBlock">

@@ -289,9 +289,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     fileUpload(event: any) {
+        this.detailFoto.clear()
         this.fileService.fileUploadMulti(event).then(result => {
             for (let i = 0; i < result.length; i++) {
-                this.detailFoto.push(this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
+                this.detailFoto.insert(i,this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
             }
         })
     }

@@ -2,9 +2,6 @@ import { Routes } from "@angular/router"
 import { AdminGuard } from "projects/mainarea/src/app/guard/admin.guard"
 import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard"
 
-// import { AdminGuard } from "projects/mainarea/src/app/guard/admin.guard"
-// import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard"
-
 export const adminAreaRoutes: Routes = [
     {
         path: "dashboard",
@@ -43,7 +40,7 @@ export const adminAreaRoutes: Routes = [
         ]
     },
     {
-        path: "admin/articles",
+        path: "articles-admin",
         loadChildren: () => import("./pages/admin-article/article.module").then(a => a.ArticleModule),
         canLoad: [
             AdminGuard

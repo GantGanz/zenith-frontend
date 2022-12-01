@@ -121,6 +121,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     clickEditProfile() {
         this.router.navigateByUrl(`/profile/edit/${this.id}`)
     }
+    clickChangePassword() {
+        this.router.navigateByUrl(`/profile/change-password/${this.id}`)
+    }
+
 
     ngOnDestroy(): void {
         this.postsSubscribtion?.unsubscribe()

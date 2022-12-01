@@ -17,9 +17,6 @@ import { ProfileViewComponent } from "./profile-view/profile-view.component";
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
-
-
-
 @NgModule({
     declarations: [
         MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileViewComponent

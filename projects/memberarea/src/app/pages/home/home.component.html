@@ -147,14 +147,17 @@
                                                     src="{{fileLink}}{{myFileId}}" alt="">
                                             </div>
                                             <div class="col-11">
-                                                <textarea pInputTextarea [autoResize]="true"
-                                                    class="w-full p-inputtextarea-sm"
-                                                    placeholder="Add a comment..."></textarea>
+                                                <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                                    <textarea pInputTextarea [autoResize]="true"
+                                                        class="w-full p-inputtextarea-sm"
+                                                        placeholder="Add a comment..." formControlName="commentContent"></textarea>
+                                                        <p-button type="submit">Kirim</p-button>
+                                                </form>
                                             </div>
                                         </div>
                                         <div>
                                             <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="data.moreComment==false"
-                                                (click)="clickMoreComment(i)">
+                                                (click)="clickSeeComment(i)">
                                                 View Comments
                                             </span>
                                             <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="data.moreComment"
@@ -164,64 +167,23 @@
                                         </div>
 
                                         <div *ngIf="data.moreComment">
-                                            <div class="grid mt-3">
-                                                <div class="col-1">
-                                                    <img class="border-circle w-10"
-                                                        src="../../../assets/images/photo_member.png" alt="">
-                                                </div>
-                                                <div class="card col-11">
-                                                    <div class="px-2">
-                                                        <p class="font-medium mb-0">Name</p>
-                                                        <span class="text-xs">2020/10/10</span>
+                                            <ng-container *ngFor="let comment of data.commentDatas">
+                                                <div class="grid mt-3">
+                                                    <div class="col-1">
+                                                        <img class="border-circle w-10"
+                                                            src="{{fileLink}}{{comment.fileId}}" alt="">
                                                     </div>
-                                                    <div class="px-2 mt-2">
-                                                        <p class="text-sm mb-1">I sure hope people are not going to
-                                                            Dribbble to
-                                                            find solutions for UX
-                                                            challenges. You just won't find anything there.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-offset-1">
-                                                    <span class="text-sm cursor-pointer hover:text-blue-500"
-                                                        *ngIf="replyComment" (click)="clickReplyComment()">Reply</span>
-                                                </div>
-                                            </div>
-
-                                            <!-- Reply Message -->
-                                            <div class="grid col-offset-1 mt-2" *ngIf="showReplyComment">
-                                                <div class="col-1">
-                                                    <img class="border-circle w-10"
-                                                        src="../../../assets/images/photo_member.png" alt="">
-                                                </div>
-                                                <div class="col-11">
-                                                    <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm"
-                                                        placeholder="Add a comment..."></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="grid col-offset-1 mt-2">
-                                                <div class="col-1">
-                                                    <img class="border-circle w-10"
-                                                        src="../../../assets/images/photo_member.png" alt="">
-                                                </div>
-                                                <div class="card col-11">
-                                                    <div class="px-2">
-                                                        <p class="font-medium mb-0">Name</p>
-                                                        <span class="text-xs">2020/10/10</span>
-                                                    </div>
-                                                    <div class="px-2 mt-2">
-                                                        <p class="text-sm mb-1">I sure hope people are not going to
-                                                            Dribbble to
-                                                            find solutions for UX
-                                                            challenges. You just won't find anything there.</p>
+                                                    <div class="card col-11">
+                                                        <div class="px-2">
+                                                            <p class="font-medium mb-0">{{comment.userName}}</p>
+                                                            <span class="text-xs">{{comment.createdAt | date:'dd/MM/yyyy'}}</span>
+                                                        </div>
+                                                        <div class="px-2 mt-2">
+                                                            <p class="text-sm mb-1">{{comment.commentContent}}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-offset-1">
-                                                    <span
-                                                        class="text-sm cursor-pointer hover:text-blue-500">Reply</span>
-                                                </div>
-                                            </div>
+                                            </ng-container>
                                         </div>
                                     </div>
                                 </div>
@@ -324,7 +286,7 @@
                                         </div>
                                         <div>
                                             <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                                (click)="clickMoreComment(i)">
+                                                (click)="clickSeeComment(i)">
                                                 View Comments
                                             </span>
                                             <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
@@ -462,7 +424,7 @@
                                 </div>
                                 <div>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                        (click)="clickMoreComment()">
+                                        (click)="clickSeeComment()">
                                         View Comments
                                     </span>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
@@ -606,7 +568,7 @@
                                 </div>
                                 <div>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                        (click)="clickMoreComment()">
+                                        (click)="clickSeeComment()">
                                         View Comments
                                     </span>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
@@ -739,7 +701,7 @@
                                 </div>
                                 <div>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                        (click)="clickMoreComment(1)">
+                                        (click)="clickSeeComment(1)">
                                         View Comments
                                     </span>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"
@@ -883,7 +845,7 @@
                                 </div>
                                 <div>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="viewComment"
-                                        (click)="clickMoreComment(1)">
+                                        (click)="clickSeeComment(1)">
                                         View Comments
                                     </span>
                                     <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="hideComment"

@@ -1,11 +1,13 @@
 import { Component } from "@angular/core"
 import { Validators, FormBuilder } from "@angular/forms"
 import { ActivatedRoute } from "@angular/router"
+import { IndustryData } from "projects/interface/industry/industry-data"
+import { PositionData } from "projects/interface/position/position-data"
 import { ROLENAME } from "projects/mainarea/src/app/constant/role"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
 import { UserService } from "projects/mainarea/src/app/service/user.service"
-import { Subscription } from "rxjs"
+import { finalize, Subscription } from "rxjs"
 
 @Component({
     selector: "user-update",
@@ -24,12 +26,13 @@ export class UserUpdateComponent {
         version: [0, [Validators.required]]
     })
 
-    positions: any[] = []
-    industries: any[] = []
+    positions: PositionData[] = []
+    industries: IndustryData[] = []
 
     memberRole = ROLENAME.MEMBER
 
     disable = false
+    loading = false
 
     private industrySubscription?: Subscription
     private userSubscription?: Subscription
@@ -42,47 +45,35 @@ export class UserUpdateComponent {
         private fb: FormBuilder) { }
 
     ngOnInit(): void {
+        this.init()
+    }
+    
+    init(){
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.userSubscription = this.userService.getById(id).subscribe(result => {
-                this.userUpdateForm.controls['id'].setValue(result.data.id)
-                this.userUpdateForm.controls['email'].setValue(result.data.email)
-                this.userUpdateForm.controls['fullname'].setValue(result.data.fullname)
-                this.userUpdateForm.controls['company'].setValue(result.data.company)
-                this.userUpdateForm.controls['positionId'].setValue(result.data.positionId)
-                this.userUpdateForm.controls['industryId'].setValue(result.data.industryId)
-                this.userUpdateForm.controls['isActive'].setValue(result.data.isActive)
-                this.userUpdateForm.controls['version'].setValue(result.data.version)
-                
-                if(this.memberRole == result.data.roleName){
+                this.userUpdateForm.patchValue(result.data)
+    
+                if (this.memberRole == result.data.roleName) {
                     this.disable = false
-                }else{
+                } else {
                     this.disable = true
                 }
+                console.log(this.userUpdateForm.value);
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.industries.push({
-                        name: result.data[i].industryName,
-                        code: result.data[i].industryCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.industries = result.data
             })
             this.positionSubscription = this.positionService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.positions.push({
-                        name: result.data[i].positionName,
-                        code: result.data[i].positionCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.positions = result.data
             })
+            
         })
     }
 
     clickUpdate() {
-        this.updateSubscription = this.userService.update(this.userUpdateForm.value).subscribe()
+        this.loading = true
+        this.updateSubscription = this.userService.update(this.userUpdateForm.value).pipe(finalize(() => this.loading = false)).subscribe(()=>this.init())
     }
 
     ngOnDestroy(): void {

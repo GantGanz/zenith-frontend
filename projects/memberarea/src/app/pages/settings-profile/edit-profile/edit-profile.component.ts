@@ -9,7 +9,8 @@ import { PositionData } from "projects/interface/position/position-data";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
 import { PositionService } from "projects/mainarea/src/app/service/position.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
+import { UserData } from "projects/interface/user/user-data";
 
 @Component({
     selector: "edit-profile",
@@ -18,13 +19,16 @@ import { Subscription } from "rxjs";
 })
 export class EditProfileComponent {
 
-    userRes !: UserRes
+    userRes !: UserData
     fileLink = BASE_URL.FILE
+    fileId!: string
+    userLoading = false
+    updateLoading = false
 
     userUpdateForm = this.fb.group({
         id: ['', [Validators.required]],
         fullname: ['', [Validators.required, Validators.maxLength(50)]],
-        email: [{value:'',disabled:true}, [Validators.email, Validators.required, Validators.maxLength(50)]],
+        email: [{ value: '', disabled: true }, [Validators.email, Validators.required, Validators.maxLength(50)]],
         fileCodes: [''],
         extension: [''],
         company: ['', [Validators.required]],
@@ -48,11 +52,17 @@ export class EditProfileComponent {
         private fb: FormBuilder, private router: Router, private fileService: FileService) { }
 
     ngOnInit(): void {
+        this.init()
+    }
+
+    init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-            this.userSubscription = this.userService.getById(id).subscribe(result => {
+            this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoading = true)).subscribe(result => {
                 this.userUpdateForm.patchValue(result.data)
+                this.userRes = result.data
                 console.log(this.userUpdateForm.value)
+                this.fileId = result.data.fileId
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
                 this.industries = result.data
@@ -61,10 +71,12 @@ export class EditProfileComponent {
                 this.positions = result.data
             })
         })
+
     }
 
     clickUpdate() {
-        this.updateSubscription = this.userService.update(this.userUpdateForm.value).subscribe()
+        this.updateLoading = true
+        this.updateSubscription = this.userService.update(this.userUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe()
     }
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {

@@ -17,13 +17,13 @@ export class NavbarSuperAdminComponent implements OnInit, OnDestroy {
     fileLink = BASE_URL.FILE
     fileId!: string
 
-    imgLoad:boolean =false
+    imgLoad: boolean = false
 
     constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
 
     ngOnInit(): void {
         // this.fileId = this.apiService.getPhoto()!
-        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(()=>this.imgLoad =true)).subscribe(result => {
+        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.imgLoad = true)).subscribe(result => {
             this.fileId = result.data.fileId
         })
     }

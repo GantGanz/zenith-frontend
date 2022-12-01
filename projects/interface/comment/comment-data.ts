@@ -3,7 +3,11 @@ export interface CommentData {
 	 commentContent: string 
 	 userName: string 
 	 userId: string 
+	 fileId: string
 	 postId: string 
-	 commentId: string 
+	 commentId: string
+	 createdAt: string
+	 positionName: string
+	 company: string 
 } 
 

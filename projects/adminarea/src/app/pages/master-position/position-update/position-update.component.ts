@@ -3,13 +3,15 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { PositionRes } from "projects/interface/position/position-res";
 import { PositionService } from "projects/mainarea/src/app/service/position.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "position-update",
     templateUrl: "./position-update.component.html"
 })
 export class PositionUpdateComponent implements OnInit, OnDestroy {
+
+    loading = false
 
     positionForm = this.fb.group({
         id: ['', [Validators.required]],
@@ -27,20 +29,23 @@ export class PositionUpdateComponent implements OnInit, OnDestroy {
         private fb: FormBuilder) { }
 
     ngOnInit(): void {
+        this.init()
+    }
+    
+    init(){
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.positionSubscription = this.positionService.getById(id).subscribe(result => {
-                this.positionForm.controls['id'].setValue(result.data.id)
-                this.positionForm.controls['positionCode'].setValue(result.data.positionCode)
-                this.positionForm.controls['positionName'].setValue(result.data.positionName)
-                this.positionForm.controls['isActive'].setValue(result.data.isActive)
-                this.positionForm.controls['version'].setValue(result.data.version)
+                this.positionForm.patchValue(result.data)
             })
         })
     }
-    
-    clickUpdate(){
-        this.updateSubscription = this.positionService.update(this.positionForm.value).subscribe()
+
+    clickUpdate() {
+        this.loading = true
+        this.updateSubscription = this.positionService.update(this.positionForm.value).pipe(finalize(() => this.loading = false)).subscribe(()=>{
+            this.init()
+        })
     }
     ngOnDestroy(): void {
         this.positionSubscription?.unsubscribe()

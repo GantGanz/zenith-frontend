@@ -5,7 +5,7 @@
             <h3 class="text-3xl">Edit Profile</h3>
         </div>
         <div class="mt-4">
-           <img src="{{fileLink}}{{userRes.data.fileId}}" class="w-7rem border-circle mb-3" alt="profile pic super-admin">
+           <img src="{{fileLink}}{{userRes.data.fileId}}" class="w-6rem h-6rem border-circle mb-3" style="object-fit: cover" alt="profile pic super-admin">
         </div>
         <p-fileUpload url="./upload.php" accept="image/*" [customUpload]="true"
         (uploadHandler)="fileUpload($event)" [auto]="true" chooseLabel="Upload New Picture"></p-fileUpload>
@@ -22,18 +22,19 @@
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="company">Company<span class="text-red-500">*</span></label>
-                    <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" required>
+                    <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" value={{userUpdateForm.value.company}}>
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="industryName">Industry<span class="text-red-500">*</span></label>
-                    <p-dropdown [options]="industries" styleClass="w-full" optionLabel="name" optionValue="id" name="industryName"
-                        id="industryName" placeholder="Select an Industry" formControlName="industryId">
+                    <p-dropdown styleClass="w-full" optionLabel="name" placeholder="Select an Industry" name="industryName"
+                        id="industryName"  [disabled]="true">
                     </p-dropdown>
+        
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="positionName">Position<span class="text-red-500">*</span></label>
                     <p-dropdown [options]="positions" styleClass="w-full p-dropdown-sm" optionLabel="name" optionValue="id" name="positionName"
-                        id="positionName" placeholder="Select Position" formControlName="positionId">
+                        id="positionName" placeholder="Select Position">
                     </p-dropdown>
                 </div>
                 <div class="field col-12 mt-3">

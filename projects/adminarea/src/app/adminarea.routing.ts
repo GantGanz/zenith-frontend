@@ -1,8 +1,6 @@
 import { Routes } from "@angular/router"
 import { AdminGuard } from "projects/mainarea/src/app/guard/admin.guard"
 import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard"
-import { NotFoundAdminComponent } from "./pages/not-found/not-found-admin/not-found-admin.component"
-import { NotFoundSuperAdminComponent } from "./pages/not-found/note-found-super-admin/not-found-super-admin.component"
 
 // import { AdminGuard } from "projects/mainarea/src/app/guard/admin.guard"
 // import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard"
@@ -40,12 +38,12 @@ export const adminAreaRoutes: Routes = [
     {
         path: "report",
         loadChildren: () => import("./pages/report/report.module").then(i => i.ReportModule),
-        canLoad:[
+        canLoad: [
             SuperAdminGuard
         ]
     },
     {
-        path: "articles",
+        path: "admin/articles",
         loadChildren: () => import("./pages/admin-article/article.module").then(a => a.ArticleModule),
         canLoad: [
             AdminGuard

@@ -33,9 +33,9 @@ export const adminAreaRoutes: Routes = [
         ]
     },
     {
-        path: "report",
+        path: "report-member",
         loadChildren: () => import("./pages/report/report.module").then(i => i.ReportModule),
-        canLoad: [
+        canLoad:[
             SuperAdminGuard
         ]
     },

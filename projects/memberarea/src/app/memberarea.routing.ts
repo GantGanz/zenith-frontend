@@ -51,8 +51,8 @@ export const memberAreaRoutes: Routes = [
         path: "report",
         component: ContentComponent,
         loadChildren: () => import("./pages/report/report.module").then(r => r.ReportModule),
-        canLoad:[
+        canLoad: [
             MemberGuard
         ]
-    },
+    }
 ]

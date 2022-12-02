@@ -18,8 +18,8 @@
                 <p-tabPanel header="Post" headerStyleClass="w-full">
                     <!-- Post -->
                         <ng-container *ngFor="let data of result; index as i">
-                            <div class="card border-none border-noround box mb-3">
-                                <div class="card-container md:p-4">
+                            <div class="card border-noround mb-3">
+                                <div class="card-container p-3 md:p-4">
                                     <div class="mt-2">
                                         <div class="inline-flex mr-3"><img class="border-circle w-3rem h-3rem" style="object-fit: cover"
                                                 src="{{fileLink}}{{data.fileId}}" alt="">
@@ -148,10 +148,14 @@
                                             </div>
                                             <div class="col-11">
                                                 <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
-                                                    <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm"
+                                                    <div class="flex flex-row align-content-center">
+                                                        <textarea pInputTextarea [autoResize]="true"
+                                                        class="w-full p-inputtextarea-sm pb-0"
                                                         placeholder="Add a comment..." formControlName="commentContent"></textarea>
-                                                        <p-button type="submit">Kirim</p-button>
+                                                        <p-button type="submit">Send</p-button>
+                                                    </div>
+                                                    
+                                                        
                                                 </form>
                                             </div>
                                         </div>
@@ -194,8 +198,8 @@
                 <p-tabPanel header="Likes" headerStyleClass="w-full">
                     <!-- Likes -->
                         <ng-container *ngFor="let data of result; index as i">
-                            <div class="card box mb-3">
-                                <div class="card-container md:p-4">
+                            <div class="card border-noround mb-3">
+                                <div class="card-container p-3 md:p-4">
                                     <div class="mt-2">
                                         <div class="inline-flex mr-3"><img class="profile-pic"
                                                 src="{{fileLink}}{{data.fileId}}" alt="">

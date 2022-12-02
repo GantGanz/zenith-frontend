@@ -59,6 +59,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         private fb: FormBuilder, private router: Router, private fileService: FileService) { }
 
     ngOnInit(): void {
+        this.init()
+    }
+
+    init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoaded = true)).subscribe(result => {
@@ -92,11 +96,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         else if (this.router.url == `/admin/profiles/edit/${this.userUpdateForm.value.id}`) {
             this.backToAdminProfile = true
         }
-
     }
 
     clickUpdate() {
-        this.updateSubscription = this.userService.update(this.userUpdateForm.value).subscribe()
+        this.userUpdateForm.controls['company'].enable()
+        this.userUpdateForm.controls['positionId'].enable()
+        this.userUpdateForm.controls['industryId'].enable()
+        this.updateSubscription = this.userService.update(this.userUpdateForm.value).subscribe(() => this.init())
     }
 
     fileUpload(event: any) {

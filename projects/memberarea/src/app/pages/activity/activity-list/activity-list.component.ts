@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
+import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -20,14 +22,25 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     first = 0
     limit = 6
 
+    isRegister = false
+    isPaid = false
+
+    activityId = ''
+    activityTitle = ''
+    provider = ''
+    fee = 0
+
     fileLink = BASE_URL.FILE
 
     private activityCoursesSubscription?: Subscription
     private activityEventsSubscription?: Subscription
     private activityJoinedCoursesSubscription?: Subscription
     private activityJoinedEventsSubscription?: Subscription
+    private paramSubscription?: Subscription
+    private activitySubscription?: Subscription
+    private paidSubscription?: Subscription
 
-    constructor(private activityService: ActivityService) { }
+    constructor(private activityService: ActivityService, private paymentActivityService: PaymentActivityService, private active: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.init()
@@ -42,6 +55,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     }
 
     init() {
+        let isPaid2 = false
+
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
         })
@@ -54,6 +69,14 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
             this.dataJoinedEvents = result.data
         })
+
+        // this.paidSubscription = this.paymentActivityService.checkPaid().subscribe(result => {
+        //     isPaid2 = result
+        //     if (isPaid2) {
+        //         this.isRegister = false
+        //         this.isPaid = true
+        //     }
+        // })
     }
 
     tabClick() {
@@ -95,5 +118,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityEventsSubscription?.unsubscribe()
         this.activityJoinedCoursesSubscription?.unsubscribe()
         this.activityJoinedEventsSubscription?.unsubscribe()
+        this.paramSubscription?.unsubscribe()
+        this.activitySubscription?.unsubscribe()
     }
 }

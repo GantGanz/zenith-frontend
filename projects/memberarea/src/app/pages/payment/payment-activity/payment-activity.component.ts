@@ -50,22 +50,19 @@ export class PaymentActivityComponent implements OnInit, OnDestroy {
 
                 this.paidSubscription = this.paymentActivityService.checkPaid(result.data.id).subscribe(result => {
                     isPaid = result
-                    console.log(result)
-
                     if (isPaid) {
                         this.paymentStatus = 4
                     }
                 })
+
                 this.activitySubscription = this.paymentActivityService.checkApproved(result.data.id).subscribe(result => {
                     isActivity = result
-                    console.log(result)
                     if (isActivity) {
                         this.paymentStatus = 5
                     }
                 })
             })
         })
-
     }
 
     clickUpgrade() {

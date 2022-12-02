@@ -11,7 +11,8 @@ import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.service";
 import { PostTypeService } from "projects/mainarea/src/app/service/post-type.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
-import { Subscription } from "rxjs";
+import { UserService } from "projects/mainarea/src/app/service/user.service";
+import { finalize, Subscription } from "rxjs";
 import { POST_TYPE_CODE } from "../../constant/post.type";
 
 
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     first = 0
     limit = 3
+    fileLoading = false
 
     commentFirst = 0
     commentLimit = 3
@@ -95,8 +97,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     commentForm = this.fb.group({
-        commentContent:['',[Validators.required]],
-        postId:['',[Validators.required]]
+        commentContent: ['', [Validators.required]],
+        postId: ['', [Validators.required]]
     })
 
     private postInsertSubscription?: Subscription
@@ -104,6 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private likedPostSubscription?: Subscription
     private postTypeSubscription?: Subscription
     private bookmarkedPostSubscription?: Subscription
+    private userSubscription?: Subscription
 
     private insertVoteSubscription?: Subscription
 
@@ -122,10 +125,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
-        private commentService: CommentService) { }
+        private commentService: CommentService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.myFileId = this.apiService.getPhoto()!
+        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.fileLoading = true)).subscribe(result => {
+            this.myFileId = result.data.fileId
+        })
+        // this.myFileId = this.apiService.getPhoto()!
         this.postInit()
     }
 
@@ -272,7 +278,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickSeeComment(index: number) {
         this.result[index].moreComment = true
-        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id,this.commentFirst,this.commentLimit).subscribe(comments=>{
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.commentFirst, this.commentLimit).subscribe(comments => {
             this.result[index].commentDatas = comments.data
         })
     }
@@ -339,9 +345,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    submitcomment(postIndex: number){
+    submitcomment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
-        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(()=>{
+        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
             this.commentForm.reset()
         })

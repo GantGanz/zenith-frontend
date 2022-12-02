@@ -13,7 +13,7 @@ import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.ser
 import { PostTypeService } from "projects/mainarea/src/app/service/post-type.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 import { POST_TYPE_CODE } from "../../constant/post.type";
 
 
@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     first = 0
     limit = 3
+    fileLoading = false
 
     commentFirst = 0
     commentLimit = 3
@@ -98,8 +99,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     commentForm = this.fb.group({
-        commentContent:['',[Validators.required]],
-        postId:['',[Validators.required]]
+        commentContent: ['', [Validators.required]],
+        postId: ['', [Validators.required]]
     })
 
     private postInsertSubscription?: Subscription
@@ -132,10 +133,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user=>{
             this.myUser = user.data
-            console.log(this.myUser);
-            
+            this.myFileId = user.data.fileId  
         })
-        this.myFileId = this.apiService.getPhoto()!
         this.postInit()
     }
 
@@ -286,7 +285,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickSeeComment(index: number) {
         this.result[index].moreComment = true
-        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id,this.commentFirst,this.commentLimit).subscribe(comments=>{
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.commentFirst, this.commentLimit).subscribe(comments => {
             this.result[index].commentDatas = comments.data
             if(this.result[index].countComment<=this.result[index].commentDatas.length){
                 this.result[index].showMoreComment = false
@@ -373,9 +372,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    submitcomment(postIndex: number){
+    submitcomment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
-        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(()=>{
+        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
             this.result[postIndex].countComment +=1
             this.commentForm.reset()

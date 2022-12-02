@@ -5,7 +5,8 @@
             <div class="card box mb-3">
                 <div class="flex mx-5 my-5">
                     <div class="max-w-max">
-                        <img class="profile-pic" src="../../../assets/images/photo_member.png" alt="">
+                        <img class="border-circle w-10 h-3rem w-3rem" style="object-fit: cover"
+                            src="{{fileLink}}{{myFileId}}" alt="profile picture">
                     </div>
                     <div class="w-full ml-4">
                         <button pButton class="p-button-rounded p-button-outlined p-button-sm w-full"
@@ -27,7 +28,8 @@
                             <div class="card-container p-3 md:p-4">
                                 <div class="flex mt-2">
                                     <div class="max-w-max mr-3"><img class="border-circle w-3rem h-3rem"
-                                            style="object-fit: cover" src="{{fileLink}}{{data.fileId}}" alt="">
+                                            style="object-fit: cover" src="{{fileLink}}{{data.fileId}}"
+                                            alt="profile-picture">
                                     </div>
                                     <div class="w-full">
                                         <h6>{{data.creatorName}}</h6>
@@ -252,7 +254,8 @@
                                 <div *ngIf="data.commentStatus">
                                     <div class="grid mt-2">
                                         <div class="col-1">
-                                            <img class="border-circle w-10" src="{{fileLink}}{{myFileId}}" alt="">
+                                            <img src="{{fileLink}}{{myFileId}}" class="border-circle w-3rem h-3rem"
+                                                style="object-fit: cover" alt="profile picture">
                                         </div>
                                         <div class="col-11">
                                             <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
@@ -1036,7 +1039,10 @@
 
         <!-- Side Content -->
         <div class="lg:col-4 lg:block hidden">
-            <right-content></right-content>
+            <div class="sticky top-0">
+                <right-content></right-content>
+            </div>
+
         </div>
     </div>
 

@@ -1,5 +1,6 @@
+import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { LazyLoadEvent } from "primeng/api";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ReportService } from "projects/mainarea/src/app/service/report.service";
@@ -17,6 +18,7 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
     rows = 10;
     position: string = 'top'
     reportsRes: any[] = []
+    dateRange: any[] = []
 
     limit = this.rows
     totalReports!: number
@@ -24,10 +26,11 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
     private reportsSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
+    private exportsSubscription?: Subscription
 
-    reportDownload = this.fb.group({
-        startAt: ['1000-01-01', [Validators.required]],
-        endAt: ['3000-12-12', [Validators.required]],
+    date = this.fb.group({
+        startDate: ['1000-01-01'],
+        endDate: ['3000-12-12'],
     })
 
     constructor(private reportService: ReportService, private fb: FormBuilder) { }
@@ -37,17 +40,30 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.reportsSubscription = this.reportService.getAllMemberIncome(this.reportDownload.value.startAt!, this.reportDownload.value.endAt!, this.first, this.limit).subscribe(result => {
+        this.reportsSubscription = this.reportService.getAllMemberIncome(this.date.value.startDate!, this.date.value.endDate!, this.first, this.limit).subscribe(result => {
             this.reportsRes = result.data
         })
-        this.countSubscription = this.reportService.countMemberIncome(this.reportDownload.value.startAt!, this.reportDownload.value.endAt!).subscribe(result => {
+        this.countSubscription = this.reportService.countMemberIncome(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => {
             this.totalReports = result
         })
     }
 
+    getDates() {
+        if (this.dateRange[0] !== null && this.dateRange[1] !== null) {
+            this.date.patchValue({
+                startDate: formatDate(this.dateRange[0]!, `yyyy-MM-dd`, 'en'),
+                endDate: formatDate(this.dateRange[1]!, `yyyy-MM-dd`, 'en')
+            })
+            this.getData(this.first, this.limit)
+        }
+    }
+
     getData(offset: number, limit: number) {
-        this.pageChangeSubscription = this.reportService.getAllMemberIncome(this.reportDownload.value.startAt!, this.reportDownload.value.endAt!, offset, limit).subscribe(result => {
+        this.pageChangeSubscription = this.reportService.getAllMemberIncome(this.date.value.startDate!, this.date.value.endDate!, offset, limit).subscribe(result => {
             this.reportsRes = result.data
+        })
+        this.countSubscription = this.reportService.countMemberIncome(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => {
+            this.totalReports = result
         })
     }
 
@@ -56,9 +72,14 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
         this.getData(event.first!, event.rows!)
     }
 
+    export() {
+        this.exportsSubscription = this.reportService.reportMemberIncome(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => { })
+    }
+
     ngOnDestroy(): void {
         this.pageChangeSubscription?.unsubscribe()
         this.reportsSubscription?.unsubscribe()
+        this.exportsSubscription?.unsubscribe()
         this.countSubscription?.unsubscribe()
     }
 }

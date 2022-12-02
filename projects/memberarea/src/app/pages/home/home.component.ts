@@ -155,6 +155,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log("liked");
         this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).subscribe(likedPosts => {
             this.result = likedPosts.data
+            for (let i = 0; i < this.result.length; i++) {
+                this.result[i].commentStatus = false
+                this.result[i].moreComment = false
+                this.result[i].showImg = false
+                this.result[i].showMoreComment = false
+                this.result[i].commentOffset = 0
+            }
         })
     }
 
@@ -162,6 +169,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log("bookmark");
         this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).subscribe(bookmarkedPosts => {
             this.result = bookmarkedPosts.data
+            for (let i = 0; i < this.result.length; i++) {
+                this.result[i].commentStatus = false
+                this.result[i].moreComment = false
+                this.result[i].showImg = false
+                this.result[i].showMoreComment = false
+                this.result[i].commentOffset = 0
+            }
         })
     }
 
@@ -207,6 +221,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postsSubscribtion = this.postService.getAllLiked(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
+                this.result[i + this.first].commentStatus = false
+                this.result[i + this.first].moreComment = false
+                this.result[i + this.first].showImg = false
+                this.result[i + this.first].showMoreComment = false
+                this.result[i + this.first].commentOffset = 0
             }
         })
     }
@@ -215,6 +234,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postsSubscribtion = this.postService.getAllBookmarked(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
+                this.result[i + this.first].commentStatus = false
+                this.result[i + this.first].moreComment = false
+                this.result[i + this.first].showImg = false
+                this.result[i + this.first].showMoreComment = false
+                this.result[i + this.first].commentOffset = 0
             }
         })
     }

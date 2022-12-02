@@ -22,7 +22,7 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
     constructor(private articleService: ArticleService, private paymentPremiumService: PaymentPremiumService, private paymentActivityService: PaymentActivityService, private apiService: ApiService) { }
 
     ngOnInit(): void {
-        this.articleSubscription = this.articleService.countAll().subscribe(result => {
+        this.articleSubscription = this.articleService.countAllById().subscribe(result => {
             this.totalArticle = result
         })
         this.activitySubscription = this.paymentActivityService.countAllUnapproved().subscribe(result => {

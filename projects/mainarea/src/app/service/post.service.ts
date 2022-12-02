@@ -33,6 +33,23 @@ export class PostService {
     getAllBookmarked(offset: number, limit: number) {
         return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts/bookmarked?offset=${offset}&limit=${limit}`)
     }
+
+    countAll() {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/posts/count-all`)
+    }
+
+    countMyPosts() {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/posts/count-my-posts`)
+    }
+
+    countLiked() {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/posts/count-liked`)
+    }
+
+    countBookmarked() {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/posts/count-bookmarked`)
+    }
+    
     getById(id: string): Observable<PostRes> {
         return this.http.get<PostRes>(`${BASE_URL.LOCALHOST}/posts/${id}`)
     }

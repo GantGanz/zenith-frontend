@@ -21,8 +21,11 @@ export interface PostData{
 	 attachmentPostDatas: AttachmentPostData[] 
 	 pollData: PollData 
 	 commentDatas: CommentData[]
+	 countComment: number
 	 commentStatus: boolean
 	 moreComment: boolean
+	 showMoreComment: boolean
+	 commentOffset: number
 	 showImg: boolean
 } 
 

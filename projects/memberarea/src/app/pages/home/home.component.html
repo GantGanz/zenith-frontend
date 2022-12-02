@@ -20,9 +20,9 @@
                     <!-- Post -->
                     <ng-container *ngFor="let data of result; index as i">
                         <div class="card border-noround mb-3">
-                            <ng-container *ngIf="premiumPostCode==data.postTypeCode">
-                                <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
-                                    style="height: 80%"></div>
+                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
+                                    <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
+                                        style="height: 80%"></div>
                             </ng-container>
 
                             <div class="card-container p-3 md:p-4">
@@ -44,7 +44,7 @@
                                 <div class="mt-4">
                                     <h4>{{data.postTitle}}</h4>
                                 </div>
-                                <ng-container *ngIf="data.postTypeCode == premiumPostCode; else contentRegular">
+                                <ng-container *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
                                         <p>{{data.postContent}}</p>
                                     </div>
@@ -59,7 +59,7 @@
                                     <div class="flex w-full column-gap-1 cursor-pointer">
                                         <ng-container *ngIf="pollPostCode!=data.postTypeCode; else elsePoll">
                                             <ng-container
-                                                *ngIf="data.postTypeCode == premiumPostCode; else attacmentRegular">
+                                                *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else attacmentRegular">
                                                 <div class="flex w-full column-gap-1 cursor-pointer"
                                                     style="filter: blur(12px)">
                                                     <p-galleria [value]="data.attachmentPostDatas"
@@ -228,7 +228,8 @@
 
                                 <div class="grid mt-2">
                                     <div class="col-6">{{data.countLike}} Likes</div>
-                                    <div class="col-6 text-end">6 Comments</div>
+
+                                    <div class="col-6 text-end">{{data.countComment}} Comments</div>
                                 </div>
                                 <div class="grid border-top-1 border-gray-300 pt-2">
                                     <ng-container *ngIf="data.isLiked ;else elseBlock">
@@ -298,8 +299,8 @@
                                                 </div>
                                             </div>
                                         </ng-container>
-                                        <span class="text-sm cursor-pointer hover:text-blue-500">
-                                            More Comment
+                                        <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="data.showMoreComment" (click)="seeMoreComment(i)">
+                                            See More...
                                         </span>
 
                                     </div>

@@ -18,4 +18,8 @@ export class CommentService{
         return this.http.get<CommentsRes>(`${BASE_URL.LOCALHOST}/comments/post/${postId}?offset=${offset}&limit=${limit}`)
     }
 
+    countComment(postId:string){
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/comments/count-comment/${postId}`)
+    }
+
 }

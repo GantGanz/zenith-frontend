@@ -61,7 +61,6 @@ export class EditProfileComponent {
             this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoading = true)).subscribe(result => {
                 this.userUpdateForm.patchValue(result.data)
                 this.userRes = result.data
-                console.log(this.userUpdateForm.value)
                 this.fileId = result.data.fileId
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
@@ -71,7 +70,6 @@ export class EditProfileComponent {
                 this.positions = result.data
             })
         })
-
     }
 
     clickUpdate() {

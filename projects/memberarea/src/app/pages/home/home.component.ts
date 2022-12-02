@@ -2,6 +2,7 @@ import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { PostData } from "projects/interface/post/post-data";
+import { UserData } from "projects/interface/user/user-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
@@ -11,7 +12,8 @@ import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.service";
 import { PostTypeService } from "projects/mainarea/src/app/service/post-type.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
-import { Subscription } from "rxjs";
+import { UserService } from "projects/mainarea/src/app/service/user.service";
+import { finalize, Subscription } from "rxjs";
 import { POST_TYPE_CODE } from "../../constant/post.type";
 
 
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     type!: string
 
     result: PostData[] = []
-    likedPost: any[] = []
+    likedPost: PostData[] = []
+    myUser!: UserData
 
     tabIndex = 0
 
@@ -59,6 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     first = 0
     limit = 3
+    fileLoading = false
 
     commentFirst = 0
     commentLimit = 3
@@ -95,8 +99,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     commentForm = this.fb.group({
-        commentContent:['',[Validators.required]],
-        postId:['',[Validators.required]]
+        commentContent: ['', [Validators.required]],
+        postId: ['', [Validators.required]]
     })
 
     private postInsertSubscription?: Subscription
@@ -118,14 +122,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     private insertCommentSubscription?: Subscription
     private commentByPostSubscription?: Subscription
 
+    private myUserSubscription?: Subscription
+
     constructor(private fb: FormBuilder, private apiService: ApiService,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
-        private commentService: CommentService) { }
+        private commentService: CommentService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.myFileId = this.apiService.getPhoto()!
+        this.myUserSubscription = this.userService.getByPrincipal().subscribe(user=>{
+            this.myUser = user.data
+            this.myFileId = user.data.fileId  
+        })
         this.postInit()
     }
 
@@ -136,6 +145,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i].commentStatus = false
                 this.result[i].moreComment = false
                 this.result[i].showImg = false
+                this.result[i].showMoreComment = false
+                this.result[i].commentOffset = 0
             }
         })
     }
@@ -144,6 +155,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log("liked");
         this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).subscribe(likedPosts => {
             this.result = likedPosts.data
+            for (let i = 0; i < this.result.length; i++) {
+                this.result[i].commentStatus = false
+                this.result[i].moreComment = false
+                this.result[i].showImg = false
+                this.result[i].showMoreComment = false
+                this.result[i].commentOffset = 0
+            }
         })
     }
 
@@ -151,6 +169,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log("bookmark");
         this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).subscribe(bookmarkedPosts => {
             this.result = bookmarkedPosts.data
+            for (let i = 0; i < this.result.length; i++) {
+                this.result[i].commentStatus = false
+                this.result[i].moreComment = false
+                this.result[i].showImg = false
+                this.result[i].showMoreComment = false
+                this.result[i].commentOffset = 0
+            }
         })
     }
 
@@ -185,6 +210,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i + this.first].commentStatus = false
                 this.result[i + this.first].moreComment = false
                 this.result[i + this.first].showImg = false
+                this.result[i + this.first].showMoreComment = false
+                this.result[i + this.first].commentOffset = 0
             }
             console.log(this.result);
         })
@@ -194,6 +221,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postsSubscribtion = this.postService.getAllLiked(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
+                this.result[i + this.first].commentStatus = false
+                this.result[i + this.first].moreComment = false
+                this.result[i + this.first].showImg = false
+                this.result[i + this.first].showMoreComment = false
+                this.result[i + this.first].commentOffset = 0
             }
         })
     }
@@ -202,6 +234,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postsSubscribtion = this.postService.getAllBookmarked(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
+                this.result[i + this.first].commentStatus = false
+                this.result[i + this.first].moreComment = false
+                this.result[i + this.first].showImg = false
+                this.result[i + this.first].showMoreComment = false
+                this.result[i + this.first].commentOffset = 0
             }
         })
     }
@@ -272,13 +309,33 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickSeeComment(index: number) {
         this.result[index].moreComment = true
-        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id,this.commentFirst,this.commentLimit).subscribe(comments=>{
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.commentFirst, this.commentLimit).subscribe(comments => {
             this.result[index].commentDatas = comments.data
+            if(this.result[index].countComment<=this.result[index].commentDatas.length){
+                this.result[index].showMoreComment = false
+            }else{
+                this.result[index].showMoreComment = true
+            }
+        })
+    }
+
+    seeMoreComment(index: number){
+        this.result[index].commentOffset += this.commentLimit
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments=>{
+            for(let i=0;i<comments.data.length;i++){
+                this.result[index].commentDatas.push(comments.data[i])
+            }
+            if(this.result[index].countComment<=this.result[index].commentDatas.length){
+                this.result[index].showMoreComment = false
+            }else{
+                this.result[index].showMoreComment = true
+            }
         })
     }
 
     clickCloseComment(index: number) {
         this.result[index].moreComment = false
+        this.result[index].commentOffset = 0
     }
 
     clickCommentPost(postIndex: number) {
@@ -339,10 +396,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
-    submitcomment(postIndex: number){
+    submitcomment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
-        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(()=>{
+        this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
+            this.result[postIndex].countComment +=1
             this.commentForm.reset()
         })
     }
@@ -375,6 +433,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.deleteBookmarkSubscription?.unsubscribe()
         this.bookmarkedIdSubscription?.unsubscribe()
         this.insertCommentSubscription?.unsubscribe()
+        this.commentByPostSubscription?.unsubscribe()
+        this.myUserSubscription?.unsubscribe()
     }
 }
 

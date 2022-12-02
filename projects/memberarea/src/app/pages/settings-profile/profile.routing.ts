@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ChangePasswordComponent } from "./change-password/change-password.component";
 import { EditProfileComponent } from "./edit-profile/edit-profile.component";
+import { PostUpdateComponent } from "./post-update/post-update.component";
 import { ProfileViewComponent } from "./profile-view/profile-view.component";
 
 
@@ -18,6 +19,10 @@ const routes: Routes = [
     {
         path: "change-password/:id",
         component: ChangePasswordComponent
+    },
+    {
+        path: "edit-post/:id",
+        component: PostUpdateComponent
     }
 ]
 

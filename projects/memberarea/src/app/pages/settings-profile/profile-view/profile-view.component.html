@@ -8,7 +8,8 @@
                     <div class="grid">
                         <div class="col-12 mt-4">
                             <div class="text-center">
-                                <img src={{fileLink}}{{fileId}} class="w-8rem h-8rem border-circle mb-3" style="object-fit: cover" alt="img">
+                                <img src={{fileLink}}{{fileId}} class="w-8rem h-8rem border-circle mb-3"
+                                    style="object-fit: cover" alt="img">
                             </div>
                             <div class="mt-3 text-center">
                                 <p class="font-semibold">{{ fullname }}</p>
@@ -19,8 +20,10 @@
 
                         <!-- Action -->
                         <div class="col-12 flex gap-3 text-center justify-content-center">
-                            <button pButton type="button" class="py-2 px-4" (click)="clickEditProfile()" label="Edit Profile"></button>
-                            <button pButton type="button" class="py-2 px-4" (click)="clickChangePassword()" label="Change Password"></button>
+                            <button pButton type="button" class="py-2 px-4" (click)="clickEditProfile()"
+                                label="Edit Profile"></button>
+                            <button pButton type="button" class="py-2 px-4" (click)="clickChangePassword()"
+                                label="Change Password"></button>
                         </div>
 
                         <!-- Income -->
@@ -75,20 +78,21 @@
                             <span class="text-sm">20/22/12</span>
                         </div>
                         <div class="inline-block justify-content-end">
-                            <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100" pStyleClass="@next"
-                              enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
-                              <div
-                                class="cursor-pointer hover:bg-gray-100 transition-all transition-duration-200 px-3 py-2">
-                                <i class="pi pi-ellipsis-v"></i>
-                              </div>
+                            <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
+                                pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
+                                [hideOnOutsideClick]="true">
+                                <div
+                                    class="cursor-pointer hover:bg-gray-100 transition-all transition-duration-200 px-3 py-2">
+                                    <i class="pi pi-ellipsis-v"></i>
+                                </div>
                             </div>
                             <div class="absolute right-0 py-1 shadow-2 w-12rem bg-white hidden">
-                              <ul class="list-none p-0 m-0">
-                                <li><a
-                                    class="block px-3 pt-2 pb-3 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer">
-                                    Edit Post
-                                  </a></li>
-                              </ul>
+                                <ul class="list-none p-0 m-0">
+                                    <li><a class="block px-3 pt-2 pb-3 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
+                                            routerLink="/profile/edit-post/:id">
+                                            Edit Post
+                                        </a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -73,7 +73,12 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
     }
 
     export() {
-        this.exportsSubscription = this.reportService.reportMemberIncome(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => { })
+        this.exportsSubscription = this.reportService.reportMemberIncome(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => {
+            const anchor = document.createElement('a');
+            anchor.download = "member-income.pdf";
+            anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
+            anchor.click();
+        })
     }
 
     ngOnDestroy(): void {

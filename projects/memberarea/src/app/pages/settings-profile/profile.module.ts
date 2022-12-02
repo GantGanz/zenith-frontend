@@ -17,10 +17,13 @@ import { ProfileViewComponent } from "./profile-view/profile-view.component";
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { StyleClassModule } from 'primeng/styleclass';
+import { PostUpdateComponent } from "./post-update/post-update.component";
+import { DialogModule } from 'primeng/dialog';
+
 
 @NgModule({
     declarations: [
-        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileViewComponent
+        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileViewComponent, PostUpdateComponent
     ],
     imports: [
         RouterModule, CommonModule, ProfileRouting,
@@ -35,11 +38,12 @@ import { StyleClassModule } from 'primeng/styleclass';
         HttpClientModule,
         TabViewModule,
         InputTextareaModule,
-        StyleClassModule
+        StyleClassModule,
+        DialogModule
 
     ],
     exports: [
-        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent,
+        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, PostUpdateComponent,
         ProfileViewComponent
     ]
 })

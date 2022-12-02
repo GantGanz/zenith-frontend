@@ -15,7 +15,8 @@
                     <div class="col-12 md:col-6 lg:col-4">
                         <div class="card h-100">
                             <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}}
-                                class="card-img-top max-h-13rem w-full" style="object-fit: cover" alt="article-banner">
+                                class="card-img-top max-h-13rem w-full" style="object-fit: contain"
+                                alt="article-banner">
                             <div class="card-body">
                                 <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> |
                                     <span>{{data.createdAt | date:'dd/MM/yyyy'}}</span>

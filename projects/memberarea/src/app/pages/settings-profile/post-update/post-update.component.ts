@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { InitEditableRow } from "primeng/table";
 import { PostData } from "projects/interface/post/post-data";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
@@ -22,7 +22,7 @@ export class PostUpdateComponent implements OnInit, OnDestroy {
 
     postRes!: PostData
 
-    constructor(private fb: FormBuilder, private active: ActivatedRoute, private postService: PostService) { }
+    constructor(private fb: FormBuilder, private active: ActivatedRoute, private postService: PostService, private router: Router) { }
 
     postUpdateForm = this.fb.group({
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
@@ -53,6 +53,10 @@ export class PostUpdateComponent implements OnInit, OnDestroy {
                 this.postRes = result.data
             })
         })
+    }
+
+    clickBack() {
+        this.router.navigateByUrl("/profile")
     }
 
     clickUpdate() {

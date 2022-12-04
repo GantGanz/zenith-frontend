@@ -20,10 +20,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
 import { PasswordModule } from 'primeng/password';
 import { ConfirmationService } from 'primeng/api';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, SignUpComponent
+    AppComponent, LoginComponent, SignUpComponent, NotFoundComponent
   ],
   imports: [
     BrowserModule,

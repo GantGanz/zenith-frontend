@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { ConfirmationService } from "primeng/api";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
@@ -53,7 +54,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     private totalEventSubscribtion?: Subscription
     private totalIncomeSubscribtion?: Subscription
 
-    constructor(private postService: PostService, private userService: UserService, private paymentActivityService: PaymentActivityService, private activityService: ActivityService, private router: Router) { }
+    constructor(private postService: PostService, private userService: UserService,
+        private paymentActivityService: PaymentActivityService, private activityService: ActivityService,
+        private router: Router, private confirmationService: ConfirmationService) { }
 
     ngOnInit(): void {
         this.init()
@@ -129,6 +132,18 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
     clickChangePassword() {
         this.router.navigateByUrl(`/profile/change-password/${this.id}`)
+    }
+
+    clickConfirmDelete() {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this post?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            key: 'positionDialog',
+            accept: () => {
+
+            }
+        })
     }
 
 

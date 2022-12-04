@@ -5,7 +5,6 @@ import { PositionModule } from "./pages/master-position/position.module"
 import { UserModule } from "./pages/master-user-admin/user.module"
 import { ReportModule } from "./pages/report/report.module"
 import { ProfileModule } from "./pages/profile/profile.module"
-import { NotFoundAdminModule } from "./pages/not-found/not-found.module"
 
 @NgModule({
     imports: [
@@ -14,8 +13,7 @@ import { NotFoundAdminModule } from "./pages/not-found/not-found.module"
         IndustryModule,
         ReportModule,
         ArticleModule,
-        ProfileModule,
-        NotFoundAdminModule
+        ProfileModule
     ],
     exports: [
         UserModule,

@@ -19,6 +19,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PostUpdateComponent } from "./post-update/post-update.component";
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { DialogModule } from 'primeng/dialog';
         TabViewModule,
         InputTextareaModule,
         StyleClassModule,
-        DialogModule
+        DialogModule,
+        ConfirmDialogModule
 
     ],
     exports: [

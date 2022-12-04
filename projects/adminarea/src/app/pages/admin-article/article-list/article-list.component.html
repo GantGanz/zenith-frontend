@@ -2,13 +2,13 @@
     <h2 class="my-4">List Of Article</h2>
     <div class="my-3">
         <button pButton class="p-button-sm btn-custom" type="button" id="insertPosition" name="insertPosition"
-            routerLink="/articles-admin/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
+            routerLink="/articles-admin/new"><span><i class="pi pi-plus" style="font-size: 12px"></i>
+                New</span></button>
     </div>
 
-    <p-table [value]="articlesRes" [paginator]="true" [rows]="rows" [(first)]="first"
-        [totalRecords]="totalArticles" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
-        (onLazyLoad)="loadData($event)" [lazy]="true">
+    <p-table [value]="articlesRes" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalArticles"
+        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">No</th>
@@ -24,13 +24,13 @@
                 <td class="custom-align">{{i+1}}</td>
                 <td>{{article.articleTitle}}</td>
                 <td>
-                     <div class="custom-text-overlay">
+                    <div class="custom-text-overlay">
                         {{article.articleContent}}
                     </div>
                 </td>
                 <td style="text-align: center ;">
-                    <p-image imageClass="h-10rem"
-                    src="{{fileLink}}{{article.attachmentArticleDatas[0].fileId}}" alt="Image" imageClass="w-5rem h-5rem" stayle="object-fit: cover" [preview]="true"></p-image>
+                    <p-image imageClass="h-10rem" src="{{fileLink}}{{article.attachmentArticleDatas[0].fileId}}"
+                        alt="Image" imageClass="w-5rem h-5rem" stayle="object-fit: cover" [preview]="true"></p-image>
                 </td>
                 <td style="text-align: center ;">
                     <div *ngIf="article.isActive; else elseBlock">
@@ -43,24 +43,24 @@
                 <td class="custom-align">
                     <div class="flex flex-row">
                         <button pButton type="button" class="p-button-text" pTooltip="Update" tooltipPosition="top"
-                        routerLink="/articles-admin/edit/{{article.id}}"><i class="pi pi-file-edit"></i>
-                    </button>
-
-                    <span *ngIf="article.isActive; else deleteBlock">
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" tooltipPosition="top"
-                            (click)="clickConfirmDelete(i)"><i class="pi pi-trash"></i>
+                            routerLink="/articles-admin/edit/{{article.id}}"><i class="pi pi-file-edit"></i>
                         </button>
-                    </span>
-                    
-                    <ng-template #deleteBlock>
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"  disabled><i
-                                class="pi pi-trash"></i></button>
-                    </ng-template>
+
+                        <span *ngIf="article.isActive; else deleteBlock">
+                            <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"
+                                tooltipPosition="top" (click)="clickConfirmDelete(i)"><i class="pi pi-trash"></i>
+                            </button>
+                        </span>
+
+                        <ng-template #deleteBlock>
+                            <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"
+                                disabled><i class="pi pi-trash"></i></button>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-secondary"
-acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"
+    rejectButtonStyleClass="p-button-secondary" acceptButtonStyleClass="p-button-danger"></p-confirmDialog>

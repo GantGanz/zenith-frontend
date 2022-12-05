@@ -35,11 +35,11 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.email = result.data.email
         })
 
-        if (this.router.url == "/super-admin/profiles/view") {
+        if (this.router.url == "/profiles/super-admin/view") {
             this.editProfileSuperAdmin = true
             this.changePasswordSuperAdmin = true
 
-        } else if (this.router.url == "/admin/profiles/view") {
+        } else if (this.router.url == "/profiles/admin/view") {
             this.editProfileAdmin = true
             this.changePasswordAdmin = true
         }

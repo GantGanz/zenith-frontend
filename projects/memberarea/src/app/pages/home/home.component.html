@@ -356,8 +356,19 @@
 
                 <p-tabPanel header="Likes" headerStyleClass="w-full">
                     <!-- Likes -->
+                    <div class="card border-none" *ngIf="dataEmpty">
+                        <div class="flex justify-content-center">
+                            <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5"
+                                alt="empty state">
+                        </div>
+                        <div class="text-center mb-6">
+                            <h6>It's empty in here</h6>
+                            <p class="text-sm">Posts that you like will be displayed here</p>
+                        </div>
+                    </div>
+
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-none mb-3">
+                        <div class="card border-none mb-3" *ngIf="dataNotEmpty">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
@@ -690,8 +701,18 @@
 
                 <p-tabPanel header="Bookmark" headerStyleClass="w-full">
                     <!-- Bookmark -->
+                    <div class="card border-none" *ngIf="dataEmpty">
+                        <div class="flex justify-content-center">
+                            <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5"
+                                alt="empty state">
+                        </div>
+                        <div class="text-center mb-6">
+                            <h6>It's empty in here</h6>
+                            <p class="text-sm">Posts that you save will be displayed here</p>
+                        </div>
+                    </div>
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-none mb-3">
+                        <div class="card border-none mb-3" *ngIf="dataNotEmpty">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
@@ -1027,7 +1048,6 @@
             <div class="">
                 <right-content></right-content>
             </div>
-
         </div>
     </div>
 

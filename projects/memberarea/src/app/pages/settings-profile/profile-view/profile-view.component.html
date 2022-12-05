@@ -3,7 +3,7 @@
 
         <!-- Left Page -->
         <div class="lg:col-4 col-12">
-            <div class="card border-none mt-3">
+            <div class="card border-none mt-3 sticky top-0">
                 <div class="container">
                     <div class="grid">
                         <div class="col-12 mt-4">
@@ -68,13 +68,17 @@
             </div>
 
             <!-- My Post -->
+            <div class="card border-none" *ngIf="dataEmpty">
+                <div class="flex justify-content-center">
+                    <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+                </div>
+                <div class="text-center mb-6">
+                    <h6>It's empty in here</h6>
+                    <p class="text-sm">Share a post to get started</p>
+                </div>
+            </div>
             <ng-container *ngFor="let data of result; index as i">
-                <div class="card border-none mb-3">
-                    <!-- <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
-                        <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
-                            style="height: 80%" (click)="showPremiumDoalog()"></div>
-                    </ng-container> -->
-
+                <div class="card border-none mb-3" *ngIf="dataNotEmpty">
                     <div class="card-container p-3 md:p-4">
                         <div class="flex mt-2">
                             <div class="max-w-max mr-3"><img class="border-circle w-3rem h-3rem"
@@ -105,13 +109,13 @@
                                     <ul class="list-none p-0 m-0">
                                         <li>
                                             <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
-                                                routerLink="/profile/edit-post/:id">
+                                                routerLink="/profile/edit-post/{{data.id}}">
                                                 <span class="font-medium">Edit Post</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
-                                                (click)="clickConfirmDelete()">
+                                                (click)="clickConfirmDelete(i)">
                                                 <span class="font-medium">Delete Post</span>
                                             </a>
                                         </li>

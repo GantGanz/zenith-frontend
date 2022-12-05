@@ -30,6 +30,10 @@ export class PostService {
         return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts/liked?offset=${offset}&limit=${limit}`)
     }
 
+    getAllById(offset: number, limit: number) {
+        return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts/user?offset=${offset}&limit=${limit}`)
+    }
+
     getAllBookmarked(offset: number, limit: number) {
         return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts/bookmarked?offset=${offset}&limit=${limit}`)
     }

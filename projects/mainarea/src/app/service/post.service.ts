@@ -49,11 +49,13 @@ export class PostService {
     countBookmarked() {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/posts/count-bookmarked`)
     }
-    
+
     getById(id: string): Observable<PostRes> {
         return this.http.get<PostRes>(`${BASE_URL.LOCALHOST}/posts/${id}`)
     }
+
     update(data: any): Observable<UpdateRes> {
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/posts`, data)
     }
+
 }

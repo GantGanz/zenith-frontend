@@ -92,6 +92,32 @@
                                     class="px-1 font-medium bg-yellow-50 text-yellow-500 border-round-md text-xs pb-1">
                                     {{data.positionName}}</span>
                             </div>
+                            <div class="inline-block justify-content-end">
+                                <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
+                                    pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
+                                    [hideOnOutsideClick]="true">
+                                    <div
+                                        class="cursor-pointer hover:bg-gray-100 transition-all transition-duration-200 px-3 py-2">
+                                        <i class="pi pi-ellipsis-v"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute right-0 py-1 shadow-2 w-12rem bg-white hidden">
+                                    <ul class="list-none p-0 m-0">
+                                        <li>
+                                            <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
+                                                routerLink="/profile/edit-post/:id">
+                                                <span class="font-medium">Edit Post</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
+                                                (click)="clickConfirmDelete()">
+                                                <span class="font-medium">Delete Post</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
                                 <div class="text-end">
                                     <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>

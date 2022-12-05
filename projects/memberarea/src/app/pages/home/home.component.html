@@ -357,7 +357,7 @@
                 <p-tabPanel header="Likes" headerStyleClass="w-full">
                     <!-- Likes -->
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-noround mb-3">
+                        <div class="card border-none mb-3">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
@@ -691,7 +691,7 @@
                 <p-tabPanel header="Bookmark" headerStyleClass="w-full">
                     <!-- Bookmark -->
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-noround mb-3">
+                        <div class="card border-none mb-3">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
@@ -705,7 +705,7 @@
                                     </div>
                                     <div class="w-full">
                                         <h6>{{data.creatorName}}</h6>
-                                        <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
+                                        <small>{{data.createdAt | timeAgo}}</small>
                                     </div>
                                     <div class="w-full text-end">
                                         <span

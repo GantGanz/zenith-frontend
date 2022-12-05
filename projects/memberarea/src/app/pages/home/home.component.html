@@ -264,7 +264,8 @@
                                     <ng-template #elseBlock>
                                         <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center border-round-md cursor-pointer"
                                             (click)="clickLike(i)">
-                                            <span class="font-semibold"><i class="pi pi-thumbs-up"></i> Like</span>
+                                            <span class="font-semibold text-sm"><i class="pi pi-thumbs-up"></i>
+                                                Like</span>
                                         </div>
                                     </ng-template>
 
@@ -928,7 +929,8 @@
                                     <ng-template #elseBlock>
                                         <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center border-round-md cursor-pointer"
                                             (click)="clickLike(i)">
-                                            <span class="font-semibold"><i class="pi pi-thumbs-up"></i> Like</span>
+                                            <span class="font-semibold text-sm"><i class="pi pi-thumbs-up"></i>
+                                                Like</span>
                                         </div>
                                     </ng-template>
                                     <ng-container *ngIf="data.isBookmarked; else notBookmarked">
@@ -941,7 +943,8 @@
                                     <ng-template #notBookmarked>
                                         <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
                                             (click)="clickSave(i)">
-                                            <span class="font-semibold"><i class="pi pi-bookmark"></i> Save</span>
+                                            <span class="font-semibold"><i class="pi pi-bookmark"></i>
+                                                Save</span>
                                         </div>
                                     </ng-template>
                                     <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"

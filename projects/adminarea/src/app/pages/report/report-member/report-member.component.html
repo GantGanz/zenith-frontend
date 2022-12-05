@@ -1,17 +1,20 @@
 <div class="container">
     <h3 class="my-4">Member Information Report</h3>
 
-    <p-table #dt [value]="reportMember" [paginator]="true" [rows]="rows" [(first)]="first"
-        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <p-table #dt [value]="reportsRes" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalReports"
+        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onLazyLoad)="loadData($event)" [lazy]="true" [lazyLoadOnInit]="false" [loading]="loading">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <div>
                     <label class="mr-2">Date Range</label>
-                    <p-calendar class="p-inputtext-sm" selectionMode="range" [readonlyInput]="true" inputId="range">
+                    <p-calendar class="p-inputtext-sm" selectionMode="range" [readonlyInput]="true" inputId="range"
+                        (onSelect)="getDates()" selectionMode="range" [(ngModel)]="dateRange">
                     </p-calendar>
                 </div>
                 <button pButton pRipple label="Export" icon="pi pi-upload"
-                    class="p-button-help p-button-sm custom-btn border-none"></button>
+                    class="p-button-help p-button-sm custom-btn border-none" (click)="export()"
+                    [loading]="loadingExport"></button>
             </div>
         </ng-template>
 
@@ -31,8 +34,8 @@
             <tr>
                 <td class="text-center">{{i+1}}</td>
                 <td>{{reportMember.memberName}}</td>
-                <td>{{reportMember.providerName}}</td>
-                <td>{{reportMember.type}}</td>
+                <td>{{reportMember.provider}}</td>
+                <td>{{reportMember.activityType}}</td>
                 <td>{{reportMember.title}}</td>
                 <td>{{reportMember.startDate}}</td>
                 <td class="text-center">{{reportMember.totalParticipants}}</td>

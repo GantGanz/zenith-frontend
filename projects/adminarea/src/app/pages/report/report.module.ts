@@ -10,6 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from "primeng/inputtext";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { InputTextModule } from "primeng/inputtext";
         CalendarModule,
         BreadcrumbModule,
         ToolbarModule,
-        InputTextModule
+        InputTextModule,
+        FormsModule
 
     ],
     exports: [

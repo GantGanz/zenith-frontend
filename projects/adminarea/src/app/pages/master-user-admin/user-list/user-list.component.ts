@@ -26,6 +26,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     users: any[] = []
 
+    tableLoad=false
+
     private usersSubscription?: Subscription
     private pageChangeSubscription?: Subscription
     private countSubscription?: Subscription
@@ -45,7 +47,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.usersSubscription = this.userService.getAll(this.first, this.limit).subscribe(result => {
+        this.tableLoad=true
+        this.usersSubscription = this.userService.getAll(this.first, this.limit).pipe(finalize(()=>this.tableLoad=false)).subscribe(result => {
             this.users = []
             for (let i = 0; i < result.data.length; i++) {
                 this.users.push(result.data[i])
@@ -74,7 +77,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
 
     getData(offset: number, limit: number) {
-        this.pageChangeSubscription = this.userService.getAll(offset, limit).subscribe(result => {
+        this.tableLoad = true
+        this.pageChangeSubscription = this.userService.getAll(offset, limit).pipe(finalize(()=> this.tableLoad=false)).subscribe(result => {
             this.users = []
             for (let i = 0; i < result.data.length; i++) {
                 this.users.push(result.data[i])

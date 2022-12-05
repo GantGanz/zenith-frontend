@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="w-full">
                                         <h6>{{data.creatorName}}</h6>
-                                        <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
+                                        <small>{{data.createdAt | timeAgo}}</small>
                                     </div>
                                     <div class="w-full text-end">
                                         <span
@@ -316,12 +316,19 @@
                                                         style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
                                                         alt="">
                                                 </div>
+<<<<<<< HEAD
                                                 <div class="bg-gray-100 border-round-md py-1">
                                                     <div class="px-3">
                                                         <p class="font-medium text-sm mb-0">{{comment.userName}}
                                                         </p>
                                                         <span class="text-xs">{{comment.createdAt |
                                                             date:'dd/MM/yyyy'}}</span>
+=======
+                                                <div class="card col-11">
+                                                    <div class="px-2">
+                                                        <p class="font-medium mb-0">{{comment.userName}}</p>
+                                                        <span class="text-xs">{{comment.createdAt | timeAgo}}</span>
+>>>>>>> 62d4f66f70516a59aa6e84a4e12fd400886fe48d
                                                     </div>
                                                     <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
@@ -358,7 +365,7 @@
                                     </div>
                                     <div class="w-full">
                                         <h6>{{data.creatorName}}</h6>
-                                        <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
+                                        <small>{{data.createdAt | timeAgo}}</small>
                                     </div>
                                     <div class="w-full text-end">
                                         <span

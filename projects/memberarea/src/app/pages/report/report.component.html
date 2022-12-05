@@ -1,15 +1,14 @@
-
 <div class="container">
     <div class="col-12 mt-4">
         <span class="cursor-pointer" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back to My Activity</span>
     </div>
     <div class="mt-4">
         <p-tabView>
-            <p-tabPanel header="Report Income" headerStyleClass="w-full" routerLink="/report/income">
+            <p-tabPanel header="Report Income" headerStyleClass="w-full">
                 <report-income></report-income>
             </p-tabPanel>
-        
-            <p-tabPanel header="Report Participant" headerStyleClass="w-full" routerLink="/report/participant">
+
+            <p-tabPanel header="Report Participant" headerStyleClass="w-full">
                 <report-participant></report-participant>
             </p-tabPanel>
         </p-tabView>

@@ -31,7 +31,7 @@ export class ReportService {
     }
 
     reportSuperAdminIncome(startDate: string, endDate: string): Observable<any> {
-        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-superadmin-income?start-date=${startDate}&end-date=${endDate}`)
+        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-superadmin-income?start-date=${startDate}&end-date=${endDate}`, { responseType: 'blob' as 'json', observe: 'response' })
     }
 
     countActivityMember(startDate: string, endDate: string): Observable<number> {
@@ -43,7 +43,7 @@ export class ReportService {
     }
 
     reportActivityMember(startDate: string, endDate: string): Observable<any> {
-        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-activity-member?start-date=${startDate}&end-date=${endDate}`)
+        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-activity-member?start-date=${startDate}&end-date=${endDate}`, { responseType: 'blob' as 'json', observe: 'response' })
     }
 
     countActivitySuperAdmin(startDate: string, endDate: string): Observable<number> {
@@ -55,6 +55,6 @@ export class ReportService {
     }
 
     reportActivitySuperAdmin(startDate: string, endDate: string): Observable<any> {
-        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-activity-superadmin?start-date=${startDate}&end-date=${endDate}`)
+        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-activity-superadmin?start-date=${startDate}&end-date=${endDate}`, { responseType: 'blob' as 'json', observe: 'response' })
     }
 }

@@ -25,7 +25,7 @@
                     routerLink="/articles-admin/list">Back</button>                
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton type="submit" id="btnSubmitArticle" name="btnSubmitArticle">Publish</button>
+                    <button pButton type="submit" id="btnSubmitArticle" name="btnSubmitArticle" [loading]="loading">Publish</button>
                 </div>
             </div>
         </form>

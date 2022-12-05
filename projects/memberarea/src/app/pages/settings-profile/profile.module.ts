@@ -20,6 +20,10 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { PostUpdateComponent } from "./post-update/post-update.component";
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { GalleriaModule } from 'primeng/galleria';
+import { ImageModule } from 'primeng/image';
+import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
+
 
 
 
@@ -42,7 +46,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         InputTextareaModule,
         StyleClassModule,
         DialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        GalleriaModule,
+        ImageModule,
+        TimeModule
 
     ],
     exports: [

@@ -13,11 +13,10 @@ import { SignUpComponent } from "./pages/sign-up/sign-up.component"
 
 
 const mainRoutes: Routes = [
-    {
-        path: '',
-        redirectTo: "member/login",
-        pathMatch: "full"
-    },
+
+    ...adminAreaRoutes,
+    ...memberAreaRoutes,
+
     {
         path: "admin/login",
         component: LoginComponent,
@@ -36,8 +35,11 @@ const mainRoutes: Routes = [
         path: "sign-up",
         component: SignUpComponent
     },
-    ...adminAreaRoutes,
-    ...memberAreaRoutes,
+    {
+        path: "",
+        redirectTo: "/member/login",
+        pathMatch: "full"
+    },
     {
         path: "**",
         component: NotFoundComponent
@@ -47,8 +49,8 @@ const mainRoutes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(mainRoutes),
-        MemberAreaModule,
-        AdminAreaModule,
+        // MemberAreaModule,
+        // AdminAreaModule,
         ContentMemberModule,
         ContentAdminModule
     ],

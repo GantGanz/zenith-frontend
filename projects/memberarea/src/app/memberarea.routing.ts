@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { MemberGuard } from "projects/mainarea/src/app/guard/member.guard";
 import { ContentComponent } from "./components/content/content.component";
+import { HomeComponent } from "./pages/home/home.component";
 
 export const memberAreaRoutes: Routes = [
     {
@@ -11,6 +12,7 @@ export const memberAreaRoutes: Routes = [
             MemberGuard
         ]
     },
+
     {
         path: "articles",
         loadChildren: () => import("./pages/article/article.module").then(a => a.ArticleModule),
@@ -54,9 +56,10 @@ export const memberAreaRoutes: Routes = [
             MemberGuard
         ]
     },
-    {
-        path: "",
-        redirectTo: "member/login",
-        pathMatch: "full"
-    },
+    // {
+    //     path: "",
+    //     redirectTo: "member/login",
+    //     pathMatch: "full"
+    // },
 ]
+// export class MemberAreaRouting { }

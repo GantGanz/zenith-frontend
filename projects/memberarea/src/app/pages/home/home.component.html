@@ -20,7 +20,7 @@
                 <p-tabPanel header="Post" headerStyleClass="w-full">
                     <!-- Post -->
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-noround mb-3">
+                        <div class="card border-none mb-3">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%" (click)="showPremiumDoalog()"></div>
@@ -351,7 +351,7 @@
                 <p-tabPanel header="Likes" headerStyleClass="w-full">
                     <!-- Likes -->
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-noround mb-3">
+                        <div class="card border-none mb-3">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
@@ -684,7 +684,7 @@
                 <p-tabPanel header="Bookmark" headerStyleClass="w-full">
                     <!-- Bookmark -->
                     <ng-container *ngFor="let data of result; index as i">
-                        <div class="card border-noround mb-3">
+                        <div class="card border-none mb-3">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
@@ -1015,7 +1015,7 @@
 
         <!-- Side Content -->
         <div class="lg:col-4 lg:block hidden">
-            <div class="">
+            <div>
                 <right-content></right-content>
             </div>
 

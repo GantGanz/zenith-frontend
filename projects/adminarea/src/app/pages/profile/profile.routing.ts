@@ -12,7 +12,7 @@ import { ProfileViewComponent } from "./view-profile/profile-view.component"
 const routes: Routes = [
 
     {
-        path: "super-admin/profiles",
+        path: "super-admin",
         component: SuperAdminContentComponent,
         children: [
             {
@@ -28,13 +28,13 @@ const routes: Routes = [
                 component: EditProfileComponent
             }
         ],
-        canActivate:[
+        canActivate: [
             SuperAdminGuard
         ]
     },
 
     {
-        path: "admin/profiles",
+        path: "admin",
         component: AdminContentComponent,
         children: [
             {
@@ -50,7 +50,7 @@ const routes: Routes = [
                 component: EditProfileComponent
             }
         ],
-        canActivate:[
+        canActivate: [
             AdminGuard
         ]
     }

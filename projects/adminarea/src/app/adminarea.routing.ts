@@ -15,7 +15,7 @@ export const adminAreaRoutes: Routes = [
         ]
     },
     {
-        path: "",
+        path: "profiles",
         loadChildren: () => import("./pages/profile/profile.module").then(p => p.ProfileModule)
     },
     {
@@ -35,7 +35,7 @@ export const adminAreaRoutes: Routes = [
     {
         path: "report-member",
         loadChildren: () => import("./pages/report/report.module").then(i => i.ReportModule),
-        canLoad:[
+        canLoad: [
             SuperAdminGuard
         ]
     },
@@ -49,5 +49,10 @@ export const adminAreaRoutes: Routes = [
     {
         path: "payment",
         loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
-    }
+    },
+    // {
+    //     path: "",
+    //     redirectTo: "admin/login",
+    //     pathMatch: "full"
+    // },
 ]

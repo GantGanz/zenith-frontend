@@ -25,7 +25,6 @@ import { ImageModule } from 'primeng/image';
 import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
 
 
-
 @NgModule({
     declarations: [
         HomeComponent, rightContentComponent

@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { PostData } from "projects/interface/post/post-data";
 import { UserData } from "projects/interface/user/user-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
-import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
 import { CommentService } from "projects/mainarea/src/app/service/comment.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
@@ -124,7 +123,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private myUserSubscription?: Subscription
 
-    constructor(private fb: FormBuilder, private apiService: ApiService,
+    constructor(private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
@@ -141,7 +140,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     postInit() {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
             this.result = posts.data
-            console.log(this.result)
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
                 this.result[i].moreComment = false

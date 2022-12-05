@@ -21,6 +21,7 @@ import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
 import { PasswordModule } from 'primeng/password';
 import { ConfirmationService } from 'primeng/api';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     BrowserAnimationsModule,
     AppRouting,
     CardModule,

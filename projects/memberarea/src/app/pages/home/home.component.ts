@@ -20,11 +20,10 @@ import { POST_TYPE_CODE } from "../../constant/post.type";
 @Component({
     selector: "app-home",
     templateUrl: "./home.component.html",
-    styleUrls: ["home.component.css"]
+    styleUrls: ["../../../styles.css"]
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-
 
     fileLink = BASE_URL.FILE
     myFileId!: string
@@ -47,6 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     hideComment = false
     replyComment = true
     showReplyComment = false
+    premiumDialog = false
 
     showForm = false
     showUploadImg = true
@@ -131,9 +131,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         private commentService: CommentService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.myUserSubscription = this.userService.getByPrincipal().subscribe(user=>{
+        this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
             this.myUser = user.data
-            this.myFileId = user.data.fileId  
+            this.myFileId = user.data.fileId
         })
         this.postInit()
     }
@@ -141,6 +141,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     postInit() {
         this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
             this.result = posts.data
+            console.log(this.result)
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
                 this.result[i].moreComment = false
@@ -152,7 +153,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     likedInit() {
-        console.log("liked");
         this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).subscribe(likedPosts => {
             this.result = likedPosts.data
             for (let i = 0; i < this.result.length; i++) {
@@ -166,7 +166,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     bookmarkedInit() {
-        console.log("bookmark");
         this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).subscribe(bookmarkedPosts => {
             this.result = bookmarkedPosts.data
             for (let i = 0; i < this.result.length; i++) {
@@ -182,7 +181,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     clickTab(event: any) {
         this.first = 0
         this.tabIndex = event.index
-        console.log(event.index);
         if (this.tabIndex == 0) {
             this.postInit()
         } else if (this.tabIndex == 1) {
@@ -213,7 +211,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i + this.first].showMoreComment = false
                 this.result[i + this.first].commentOffset = 0
             }
-            console.log(this.result);
         })
     }
 
@@ -252,7 +249,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickSave(i: number) {
-        console.log("save");
         this.bookmarkForm.controls['postId'].setValue(this.result[i].id)
         this.insertBookmarkSubscription = this.bookmarkService.insert(this.bookmarkForm.value).subscribe(() => {
             this.result[i].isBookmarked = true
@@ -260,7 +256,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickLike(i: number) {
-        console.log("insert");
         this.likeForm.controls['postId'].setValue(this.result[i].id)
         this.insertLikeSubscription = this.likeService.insert(this.likeForm.value).subscribe(() => {
             this.result[i].isLiked = true
@@ -269,7 +264,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickVote(i: number, pollIndex: number) {
-        console.log(this.result[i].pollData.pollOptionDatas[pollIndex].id);
         this.voteForm.controls['pollOptionId'].setValue(this.result[i].pollData.pollOptionDatas[pollIndex].id)
 
         this.insertVoteSubscription = this.pollVoteService.insert(this.voteForm.value).subscribe(() => {
@@ -280,10 +274,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickUnSave(i: number) {
-        console.log("Unsave");
         this.bookmarkedIdSubscription = this.bookmarkService.getId(this.result[i].id).subscribe(data => {
-            console.log(data.id);
-
             this.deleteBookmarkSubscription = this.bookmarkService.delete(data.id).subscribe(() => {
                 this.result[i].isBookmarked = false
                 if (this.tabIndex == 2) {
@@ -294,9 +285,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickUnLike(i: number) {
-        console.log("Unlike");
         this.likedIdSubscription = this.likeService.getId(this.result[i].id).subscribe(data => {
-            console.log(data.id);
             this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(() => {
                 this.result[i].isLiked = false
                 this.result[i].countLike -= 1
@@ -311,23 +300,23 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.result[index].moreComment = true
         this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.commentFirst, this.commentLimit).subscribe(comments => {
             this.result[index].commentDatas = comments.data
-            if(this.result[index].countComment<=this.result[index].commentDatas.length){
+            if (this.result[index].countComment <= this.result[index].commentDatas.length) {
                 this.result[index].showMoreComment = false
-            }else{
+            } else {
                 this.result[index].showMoreComment = true
             }
         })
     }
 
-    seeMoreComment(index: number){
+    seeMoreComment(index: number) {
         this.result[index].commentOffset += this.commentLimit
-        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments=>{
-            for(let i=0;i<comments.data.length;i++){
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments => {
+            for (let i = 0; i < comments.data.length; i++) {
                 this.result[index].commentDatas.push(comments.data[i])
             }
-            if(this.result[index].countComment<=this.result[index].commentDatas.length){
+            if (this.result[index].countComment <= this.result[index].commentDatas.length) {
                 this.result[index].showMoreComment = false
-            }else{
+            } else {
                 this.result[index].showMoreComment = true
             }
         })
@@ -400,7 +389,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
-            this.result[postIndex].countComment +=1
+            this.result[postIndex].countComment += 1
             this.commentForm.reset()
         })
     }
@@ -417,6 +406,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     imageClick(index: number, indexPhoto: number) {
         this.activeIndex = indexPhoto;
         this.result[index].showImg = true
+    }
+
+
+    showPremiumDoalog() {
+        this.premiumDialog = true
     }
 
     ngOnDestroy(): void {

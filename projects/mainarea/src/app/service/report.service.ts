@@ -19,7 +19,7 @@ export class ReportService {
     }
 
     reportMemberIncome(startDate: string, endDate: string): Observable<any> {
-        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-member-income?start-date=${startDate}&end-date=${endDate}`)
+        return this.http.get<any>(`${BASE_URL.LOCALHOST}/reports/report-member-income?start-date=${startDate}&end-date=${endDate}`, { responseType: 'blob' as 'json', observe: 'response' })
     }
 
     countSuperAdminIncome(startDate: string, endDate: string): Observable<number> {

@@ -1,20 +1,17 @@
 <div class="container">
-    <p-toolbar styleClass="mb-2 gap-2">
-        <ng-template pTemplate="right">
-            <button pButton pRipple label="Export" icon="pi pi-upload"
-                class="p-button-help p-button-sm custom-btn border-none" (click)="export()"></button>
-        </ng-template>
-    </p-toolbar>
-
     <p-table #dt [value]="reportsRes" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalReports"
         [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         (onLazyLoad)="loadData($event)" [lazy]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
-                <label class="mr-2">Date Range</label>
-                <p-calendar class="p-inputtext-sm" selectionMode="range" [readonlyInput]="true" inputId="range"
-                    (onSelect)="getDates()" selectionMode="range" [(ngModel)]="dateRange">
-                </p-calendar>
+                <div>
+                    <label class="mr-2">Date Range</label>
+                    <p-calendar class="p-inputtext-sm" selectionMode="range" [readonlyInput]="true" inputId="range"
+                        (onSelect)="getDates()" selectionMode="range" [(ngModel)]="dateRange">
+                    </p-calendar>
+                </div>
+                <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-help p-button-sm custom-btn border-none" (click)="export()"></button>
             </div>
         </ng-template>
 

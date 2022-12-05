@@ -28,16 +28,23 @@ export class MemberGuard implements CanLoad, CanActivate {
         }
         return false
     }
+    
     canLoad(): boolean {
+        const data = this.apiService.getData()
         console.log("masuk load member");
-        const roleCode = this.apiService.getRoleCode()
-        if (roleCode == ROLECODE.SUPERADMIN) {
-            this.router.navigateByUrl('/dashboard/super-admin')
-        } else if (roleCode == ROLECODE.ADMIN) {
-            this.router.navigateByUrl('/dashboard/admin')
+        if (data) {
+            const roleCode = this.apiService.getRoleCode()
+            if (roleCode == ROLECODE.SUPERADMIN) {
+                this.router.navigateByUrl('/dashboard/super-admin')
+            } else if (roleCode == ROLECODE.ADMIN) {
+                this.router.navigateByUrl('/dashboard/admin')
+            } else {
+                return true
+            }
+            return false
         } else {
-            return true
+            this.router.navigateByUrl('/member/login')
+            return false
         }
-        return false
     }
 }

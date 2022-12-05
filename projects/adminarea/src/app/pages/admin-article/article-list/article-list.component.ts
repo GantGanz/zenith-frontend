@@ -18,7 +18,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     first = 0;
     rows = 10;
     position: string = 'top'
-    articlesRes: any[]=[]
+    articlesRes: any[] = []
 
     limit = this.rows
     totalArticles!: number

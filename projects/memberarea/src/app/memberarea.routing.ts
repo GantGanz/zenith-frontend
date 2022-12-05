@@ -1,7 +1,6 @@
 import { Routes } from "@angular/router";
 import { MemberGuard } from "projects/mainarea/src/app/guard/member.guard";
 import { ContentComponent } from "./components/content/content.component";
-import { NotFoundMemberComponent } from "./pages/not-found/not-found-member.component";
 
 export const memberAreaRoutes: Routes = [
     {

@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     hideComment = false
     replyComment = true
     showReplyComment = false
+    premiumDialog = false
 
     showForm = false
     showUploadImg = true
@@ -131,9 +132,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         private commentService: CommentService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.myUserSubscription = this.userService.getByPrincipal().subscribe(user=>{
+        this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
             this.myUser = user.data
-            this.myFileId = user.data.fileId  
+            this.myFileId = user.data.fileId
         })
         this.postInit()
     }
@@ -311,23 +312,23 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.result[index].moreComment = true
         this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.commentFirst, this.commentLimit).subscribe(comments => {
             this.result[index].commentDatas = comments.data
-            if(this.result[index].countComment<=this.result[index].commentDatas.length){
+            if (this.result[index].countComment <= this.result[index].commentDatas.length) {
                 this.result[index].showMoreComment = false
-            }else{
+            } else {
                 this.result[index].showMoreComment = true
             }
         })
     }
 
-    seeMoreComment(index: number){
+    seeMoreComment(index: number) {
         this.result[index].commentOffset += this.commentLimit
-        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments=>{
-            for(let i=0;i<comments.data.length;i++){
+        this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments => {
+            for (let i = 0; i < comments.data.length; i++) {
                 this.result[index].commentDatas.push(comments.data[i])
             }
-            if(this.result[index].countComment<=this.result[index].commentDatas.length){
+            if (this.result[index].countComment <= this.result[index].commentDatas.length) {
                 this.result[index].showMoreComment = false
-            }else{
+            } else {
                 this.result[index].showMoreComment = true
             }
         })
@@ -400,7 +401,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
-            this.result[postIndex].countComment +=1
+            this.result[postIndex].countComment += 1
             this.commentForm.reset()
         })
     }
@@ -417,6 +418,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     imageClick(index: number, indexPhoto: number) {
         this.activeIndex = indexPhoto;
         this.result[index].showImg = true
+    }
+
+
+    showPremiumDoalog() {
+        this.premiumDialog = true
     }
 
     ngOnDestroy(): void {

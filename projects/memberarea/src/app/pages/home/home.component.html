@@ -22,7 +22,7 @@
                         <div class="card border-noround mb-3">
                             <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
-                                    style="height: 80%"></div>
+                                    style="height: 80%" (click)="showPremiumDoalog()"></div>
                             </ng-container>
 
                             <div class="card-container p-3 md:p-4">
@@ -1011,7 +1011,6 @@
                             formControlName="endAt" [showTime]="true"></p-calendar>
                     </div>
                 </div>
-
             </div>
 
             <!-- Upload Image -->
@@ -1036,4 +1035,20 @@
         </form>
     </p-dialog>
 
+    <!-- Pop-up Premium -->
+    <p-dialog [breakpoints]="{'960px': '100vw'}" [style]="{width: '45vw'}" [(visible)]="premiumDialog" [modal]="true"
+        [draggable]="false" [resizable]="false">
+
+        <div class="grid">
+            <div class="col-12 text-center">
+                <li class="pi pi-lock" style="font-size: 29px"></li>
+                <p>This post is only available to premium members.</p>
+                <h5>Upgrade to Premium now !</h5>
+            </div>
+            <div class="col-12 text-center">
+                <button pButton class="p-button-sm p-button-rounded" label="Join Now"
+                    routerLink="/payment/premium"></button>
+            </div>
+        </div>
+    </p-dialog>
 </div>

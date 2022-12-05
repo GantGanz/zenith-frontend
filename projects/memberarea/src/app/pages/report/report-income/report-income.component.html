@@ -18,8 +18,8 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center" style="width: 6rem">No</th>
-                <th>Title</th>
                 <th>Activity Type</th>
+                <th>Title</th>
                 <th>Start At</th>
                 <th class="text-center">Total Income</th>
             </tr>
@@ -28,8 +28,8 @@
         <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
             <tr>
                 <td class="text-center" style="width: 6rem">{{i+1}}</td>
-                <td>{{reportIncome.title}}</td>
                 <td>{{reportIncome.activityType}}</td>
+                <td>{{reportIncome.title}}</td>
                 <td>{{reportIncome.startDate}}</td>
                 <td class="text-center">{{reportIncome.totalIncome}}</td>
             </tr>

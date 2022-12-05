@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     myUser!: UserData
 
     tabIndex = 0
+    postLoading = false
 
     like = true
     bookmark = true
@@ -139,7 +140,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     postInit() {
-        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
+        this.postLoading = true
+        this.result = []
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).pipe(finalize(()=>this.postLoading = false)).subscribe(posts => {
             this.result = posts.data
             console.log(this.result)
             for (let i = 0; i < this.result.length; i++) {
@@ -202,7 +205,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     addData() {
-        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).subscribe(posts => {
+        this.postLoading = true
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).pipe(finalize(()=> this.postLoading = false)).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
                 this.result[i + this.first].commentStatus = false

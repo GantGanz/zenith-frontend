@@ -14,8 +14,8 @@ import { SignUpComponent } from "./pages/sign-up/sign-up.component"
 
 const mainRoutes: Routes = [
     {
-        path: "",
-        redirectTo: "/member/login",
+        path: '',
+        redirectTo: "member/login",
         pathMatch: "full"
     },
     {

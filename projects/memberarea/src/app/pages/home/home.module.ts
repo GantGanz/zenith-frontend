@@ -23,7 +23,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { BlockUIModule } from 'primeng/blockui';
 import { ImageModule } from 'primeng/image';
 import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -52,7 +52,8 @@ import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
         InfiniteScrollModule,
         BlockUIModule,
         ImageModule,
-        TimeModule
+        TimeModule,
+        ProgressSpinnerModule
     ],
     exports: [
         HomeComponent, rightContentComponent

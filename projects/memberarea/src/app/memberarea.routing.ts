@@ -53,5 +53,10 @@ export const memberAreaRoutes: Routes = [
         canLoad: [
             MemberGuard
         ]
-    }
+    },
+    {
+        path: "",
+        redirectTo: "member/login",
+        pathMatch: "full"
+    },
 ]

@@ -1,32 +1,97 @@
-import { Component } from "@angular/core";
+import { formatDate } from "@angular/common";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { flush } from "@angular/core/testing";
+import { FormBuilder } from "@angular/forms";
+import { LazyLoadEvent } from "primeng/api";
+import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
+import { ReportService } from "projects/mainarea/src/app/service/report.service";
+import { finalize, Subscription } from "rxjs";
 
 
 @Component({
     selector: "report-member",
     templateUrl: "./report-member.component.html"
 })
-export class ReportMemberComponent {
+export class ReportMemberComponent implements OnInit, OnDestroy {
 
-    first = 0
-    rows = 10
+    fileLink = BASE_URL.FILE
 
-    reportMember: any = [
-        {
-            memberName: "Sarah",
-            providerName: "Lawencon",
-            type: "Event",
-            title: "Event 1",
-            startDate: "2022/10/12",
-            totalParticipants: 90
-        },
-        {
-            memberName: "Sarah",
-            providerName: "Lawencon",
-            type: "Event",
-            title: "Event 1",
-            startDate: "2022/10/12",
-            totalParticipants: 90
+    first = 0;
+    rows = 10;
+    position: string = 'top'
+    reportsRes: any[] = []
+    dateRange: any[] = []
+    loading = false
+    loadingExport = false
+
+    limit = this.rows
+    totalReports!: number
+
+    private reportsSubscription?: Subscription
+    private pageChangeSubscription?: Subscription
+    private countSubscription?: Subscription
+    private exportsSubscription?: Subscription
+
+    date = this.fb.group({
+        startDate: ['1000-01-01'],
+        endDate: ['3000-12-12'],
+    })
+
+    constructor(private reportService: ReportService, private fb: FormBuilder) { }
+
+    ngOnInit(): void {
+        this.init()
+    }
+
+    init() {
+        this.loading = true
+        this.reportsSubscription = this.reportService.getAllActivitySuperAdmin(this.date.value.startDate!, this.date.value.endDate!, this.first, this.limit).pipe(finalize(() => this.loading = false)).subscribe(result => {
+            this.reportsRes = result.data
+        })
+        this.countSubscription = this.reportService.countActivitySuperAdmin(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => {
+            this.totalReports = result
+        })
+    }
+
+    getDates() {
+        if (this.dateRange[0] !== null && this.dateRange[1] !== null) {
+            this.date.patchValue({
+                startDate: formatDate(this.dateRange[0]!, `yyyy-MM-dd`, 'en'),
+                endDate: formatDate(this.dateRange[1]!, `yyyy-MM-dd`, 'en')
+            })
+            this.getData(this.first, this.limit)
         }
-    ]
+    }
 
+    getData(offset: number, limit: number) {
+        this.loading = true
+        this.pageChangeSubscription = this.reportService.getAllActivitySuperAdmin(this.date.value.startDate!, this.date.value.endDate!, offset, limit).pipe(finalize(() => this.loading = false)).subscribe(result => {
+            this.reportsRes = result.data
+        })
+        this.countSubscription = this.reportService.countActivitySuperAdmin(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => {
+            this.totalReports = result
+        })
+    }
+
+    loadData(event: LazyLoadEvent) {
+        this.first = event.first!
+        this.getData(event.first!, event.rows!)
+    }
+
+    export() {
+        this.loadingExport = true
+        this.exportsSubscription = this.reportService.reportActivitySuperAdmin(this.date.value.startDate!, this.date.value.endDate!).pipe(finalize(() => this.loadingExport = false)).subscribe(result => {
+            const anchor = document.createElement('a');
+            anchor.download = "superadmin-activity.pdf";
+            anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
+            anchor.click();
+        })
+    }
+
+    ngOnDestroy(): void {
+        this.pageChangeSubscription?.unsubscribe()
+        this.reportsSubscription?.unsubscribe()
+        this.exportsSubscription?.unsubscribe()
+        this.countSubscription?.unsubscribe()
+    }
 }

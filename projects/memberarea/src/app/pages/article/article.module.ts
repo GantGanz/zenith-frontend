@@ -7,6 +7,7 @@ import { ButtonModule } from "primeng/button";
 import { DividerModule } from 'primeng/divider'
 import { CommonModule } from "@angular/common";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
         ButtonModule,
         DividerModule,
         CommonModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        TimeModule
     ],
     exports: [
         ArticleListComponent, ArticleDetailComponent

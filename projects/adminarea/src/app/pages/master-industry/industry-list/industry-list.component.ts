@@ -4,7 +4,7 @@ import { ConfirmationService, LazyLoadEvent, Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { IndustriesRes } from "projects/interface/industry/industries-res";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "industry-list",
@@ -21,6 +21,8 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     msgs: Message[] = [];
 
     id!: string
+
+    tableLoad = false
 
     private industriesSubscription?: Subscription
     private pageChangeSubscription?: Subscription
@@ -42,9 +44,10 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.industries = []
+        this.tableLoad = true
         this.primeNgConfig.ripple = true;
-        this.industriesSubscription = this.industryService.getAllLimit(this.first, this.rows).subscribe(result => {
+        this.industriesSubscription = this.industryService.getAllLimit(this.first, this.rows).pipe(finalize(() => this.tableLoad = false)).subscribe(result => {
+            this.industries = []
             for (let i = 0; i < result.data.length; i++) {
                 this.industries.push(result.data[i])
             }
@@ -55,8 +58,9 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     }
 
     getData(offset: number, limit: number) {
-        this.industries = []
-        this.industriesSubscription = this.industryService.getAllLimit(offset, limit).subscribe(result => {
+        this.tableLoad = true
+        this.pageChangeSubscription = this.industryService.getAllLimit(offset, limit).pipe(finalize(() => this.tableLoad = false)).subscribe(result => {
+            this.industries = []
             for (let i = 0; i < result.data.length; i++) {
                 this.industries.push(result.data[i])
             }

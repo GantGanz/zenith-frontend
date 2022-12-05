@@ -19,7 +19,7 @@
                                 alt="article-banner">
                             <div class="card-body">
                                 <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> |
-                                    <span>{{data.createdAt | date:'dd/MM/yyyy'}}</span>
+                                    <span>{{data.createdAt | timeAgo}}</span>
                                 </p>
                                 <h5 class="card-title custom-text-overlay">{{data.articleTitle}}</h5>
                                 <p class="card-text custom-text-overlay">{{data.articleContent}}</p>

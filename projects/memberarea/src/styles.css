@@ -7,6 +7,10 @@
     object-fit: cover;
 }
 
+.color-primary {
+    color: #1089FF;
+}
+
 .card-img {
     background-color: #ecf5ff;
 }

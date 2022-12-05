@@ -2,14 +2,15 @@
     <div class="grid">
         <!-- Main Content -->
         <div class="col-12 lg:col-8">
-            <div class="card box mb-3">
+            <div class="card border-none mb-3">
                 <div class="flex mx-5 my-5">
                     <div class="max-w-max">
                         <img class="border-circle w-10 h-3rem w-3rem" style="object-fit: cover"
                             src="{{fileLink}}{{myFileId}}" alt="profile picture">
                     </div>
                     <div class="w-full ml-4">
-                        <button pButton class="p-button-rounded p-button-outlined p-button-sm w-full"
+                        <button pButton
+                            class="p-button-rounded p-button-outlined p-button-sm w-full text-gray-500 hover:bg-gray-200"
                             (click)="showCreatePostDialog()">Start a Post</button>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
                                 </ng-container>
                                 <ng-template #contentRegular>
                                     <div class="w-full">
-                                        <p class="text-sm">{{data.postContent}}</p>
+                                        <p>{{data.postContent}}</p>
                                     </div>
                                 </ng-template>
 
@@ -249,36 +250,42 @@
 
                                 <div class="grid mt-2">
                                     <div class="col-6">{{data.countLike}} Likes</div>
-                                    <div class="col-6 text-end">{{data.countComment}} Comments</div>
+                                    <div class="col-6 text-end text-sm">{{data.countComment}} Comments</div>
                                 </div>
                                 <div class="grid border-top-1 border-gray-300 pt-2">
                                     <ng-container *ngIf="data.isLiked ;else elseBlock">
-                                        <div class="px-3 py-1 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
                                             (click)="clickUnLike(i)">
-                                            <span class="font-bold"><i class="pi pi-thumbs-up-fill"></i> Like</span>
+                                            <span class="font-semibold color-primary text-sm"><i
+                                                    class="pi pi-thumbs-up-fill"></i> Like</span>
                                         </div>
-                                        <!-- <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                            (click)="clickUnLike(i)"></button> -->
 
                                     </ng-container>
                                     <ng-template #elseBlock>
-                                        <div class="px-3 py-1 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center border-round-md cursor-pointer"
                                             (click)="clickLike(i)">
-                                            <span><i class="pi pi-thumbs-up"></i> Like</span>
+                                            <span class="font-semibold"><i class="pi pi-thumbs-up"></i> Like</span>
                                         </div>
-                                        <!-- <button pButton label="Like" icon="pi pi-thumbs-up"
-                                            class="p-button-text btn-sec" (click)="clickLike(i)"></button> -->
                                     </ng-template>
+
                                     <ng-container *ngIf="data.isBookmarked; else notBookmarked">
-                                        <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
-                                            (click)="clickUnSave(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickUnSave(i)">
+                                            <span class="font-semibold color-primary"><i
+                                                    class="pi pi-bookmark-fill"></i> Save</span>
+                                        </div>
                                     </ng-container>
                                     <ng-template #notBookmarked>
-                                        <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
-                                            (click)="clickSave(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickSave(i)">
+                                            <span class="font-semibold"><i class="pi pi-bookmark"></i> Save</span>
+                                        </div>
+
                                     </ng-template>
-                                    <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                        (click)="clickCommentPost(i)"></button>
+                                    <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                        (click)="clickCommentPost(i)">
+                                        <span class="font-semibold"><i class="pi pi-comment"></i> Comment</span>
+                                    </div>
                                 </div>
                                 <div *ngIf="data.commentStatus">
                                     <div class="flex mt-2">
@@ -316,10 +323,12 @@
                                                         style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
                                                         alt="">
                                                 </div>
-                                                <div class="card col-11">
-                                                    <div class="px-2">
-                                                        <p class="font-medium mb-0">{{comment.userName}}</p>
-                                                        <span class="text-xs">{{comment.createdAt | timeAgo}}</span>
+                                                <div class="bg-gray-50 border-round-md py-1">
+                                                    <div class="px-3">
+                                                        <p class="font-medium text-sm mb-0">{{comment.userName}}
+                                                        </p>
+                                                        <span class="text-xs">{{comment.createdAt |
+                                                            timeAgo}}</span>
                                                     </div>
                                                     <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
@@ -578,28 +587,39 @@
 
                                 <div class="grid mt-2">
                                     <div class="col-6">{{data.countLike}} Likes</div>
-
-                                    <div class="col-6 text-end">{{data.countComment}} Comments</div>
+                                    <div class="col-6 text-end text-sm">{{data.countComment}} Comments</div>
                                 </div>
                                 <div class="grid border-top-1 border-gray-300 pt-2">
                                     <ng-container *ngIf="data.isLiked ;else elseBlock">
-                                        <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                            (click)="clickUnLike(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickUnLike(i)">
+                                            <span class="font-semibold color-primary text-sm"><i
+                                                    class="pi pi-thumbs-up-fill"></i> Like</span>
+                                        </div>
                                     </ng-container>
                                     <ng-template #elseBlock>
-                                        <button pButton label="Like" icon="pi pi-thumbs-up"
-                                            class="p-button-text btn-sec" (click)="clickLike(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center border-round-md cursor-pointer"
+                                            (click)="clickLike(i)">
+                                            <span class="font-semibold"><i class="pi pi-thumbs-up"></i> Like</span>
+                                        </div>
                                     </ng-template>
                                     <ng-container *ngIf="data.isBookmarked; else notBookmarked">
-                                        <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
-                                            (click)="clickUnSave(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickUnSave(i)">
+                                            <span class="font-semibold color-primary"><i
+                                                    class="pi pi-bookmark-fill"></i> Save</span>
+                                        </div>
                                     </ng-container>
                                     <ng-template #notBookmarked>
-                                        <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
-                                            (click)="clickSave(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickSave(i)">
+                                            <span class="font-semibold"><i class="pi pi-bookmark"></i> Save</span>
+                                        </div>
                                     </ng-template>
-                                    <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                        (click)="clickCommentPost(i)"></button>
+                                    <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                        (click)="clickCommentPost(i)">
+                                        <span class="font-semibold"><i class="pi pi-comment"></i> Comment</span>
+                                    </div>
                                 </div>
                                 <div *ngIf="data.commentStatus">
                                     <div class="flex mt-2">
@@ -641,8 +661,7 @@
                                                     <div class="px-3">
                                                         <p class="font-medium text-sm mb-0">{{comment.userName}}
                                                         </p>
-                                                        <span class="text-xs">{{comment.createdAt |
-                                                            date:'dd/MM/yyyy'}}</span>
+                                                        <span class="text-xs">{{comment.createdAt | timeAgo}}</span>
                                                     </div>
                                                     <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
@@ -721,7 +740,7 @@
                                                         [(visible)]="data.showImg" [(activeIndex)]="activeIndex"
                                                         [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
                                                         [circular]="true" [fullScreen]="true"
-                                                        [showItemNavigators]="true" [showThumbnails]="false"
+                                                        [showItemNavigators]="true" [showThumbnails]="true"
                                                         [baseZIndex]="100000">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
@@ -760,21 +779,30 @@
                                                             </div>
                                                         </ng-container>
                                                         <ng-container *ngIf="data.attachmentPostDatas.length > 3">
-                                                            <ng-container *ngIf="j == 2">
+                                                            <ng-container *ngIf="j == 3; else elsePict">
                                                                 <div
                                                                     class="w-full flex justify-content-center align-content-center h-15rem overflow-hidden pb-1 relative">
                                                                     <img src={{fileLink}}{{attach.fileId}} alt="image"
                                                                         class="h-auto cursor-pointer"
                                                                         style="object-fit: cover"
                                                                         (click)="imageClick(i,j)" />
-                                                                    <div
-                                                                        class="absolute w-full h-full bg-black-alpha-90 opacity-70 flex justify-content-center align-items-center">
+                                                                    <div class="absolute w-full h-full bg-black-alpha-90 opacity-80 flex justify-content-center align-items-center"
+                                                                        (click)="imageClick(i,j)">
                                                                         <h1 class="text-white">
                                                                             {{data.attachmentPostDatas.length -3}} +
                                                                         </h1>
                                                                     </div>
                                                                 </div>
                                                             </ng-container>
+                                                            <ng-template #elsePict>
+                                                                <div *ngIf=" j<=3"
+                                                                    class="w-full flex justify-content-center align-content-center h-15rem overflow-hidden pb-1 relative">
+                                                                    <img src={{fileLink}}{{attach.fileId}} alt="image"
+                                                                        class="h-auto cursor-pointer"
+                                                                        style="object-fit: cover"
+                                                                        (click)="imageClick(i,j)" />
+                                                                </div>
+                                                            </ng-template>
                                                         </ng-container>
                                                     </ng-container>
                                                 </div>
@@ -789,13 +817,7 @@
                                                         [baseZIndex]="100000">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="width: 80%; display: block;" />
-                                                        </ng-template>
-                                                        <ng-template pTemplate="thumbnail" let-item>
-                                                            <div class="grid grid-nogutter justify-content-center">
-                                                                <img src={{fileLink}}{{item.fileId}}
-                                                                    style="width: 100%; display: block;" />
-                                                            </div>
+                                                                style="height: 100vh; width: fit-content; object-fit: fill; display: block;" />
                                                         </ng-template>
                                                     </p-galleria>
 
@@ -824,21 +846,30 @@
                                                             </div>
                                                         </ng-container>
                                                         <ng-container *ngIf="data.attachmentPostDatas.length > 3">
-                                                            <ng-container *ngIf="j == 2">
+                                                            <ng-container *ngIf="j == 3; else elsePict">
                                                                 <div
-                                                                    class="w-full flex justify-content-center align-content-center h-15rem overflow-hidden pb-1 relative">
+                                                                    class="w-full flex justify-content-center align-content-center h-10rem overflow-hidden pb-1 relative">
                                                                     <img src={{fileLink}}{{attach.fileId}} alt="image"
                                                                         class="h-auto cursor-pointer"
                                                                         style="object-fit: cover"
                                                                         (click)="imageClick(i,j)" />
-                                                                    <div
-                                                                        class="absolute w-full h-full bg-black-alpha-90 opacity-70 flex justify-content-center align-items-center">
+                                                                    <div class="absolute w-full h-full bg-black-alpha-90 opacity-80 flex justify-content-center align-items-center"
+                                                                        (click)="imageClick(i,j)">
                                                                         <h1 class="text-white">
                                                                             {{data.attachmentPostDatas.length -3}} +
                                                                         </h1>
                                                                     </div>
                                                                 </div>
                                                             </ng-container>
+                                                            <ng-template #elsePict>
+                                                                <div *ngIf=" j<=3"
+                                                                    class="w-full flex justify-content-center align-content-center h-10rem overflow-hidden pb-1 relative">
+                                                                    <img src={{fileLink}}{{attach.fileId}} alt="image"
+                                                                        class="h-auto cursor-pointer"
+                                                                        style="object-fit: cover"
+                                                                        (click)="imageClick(i,j)" />
+                                                                </div>
+                                                            </ng-template>
                                                         </ng-container>
                                                     </ng-container>
                                                 </div>
@@ -884,27 +915,39 @@
                                 <div class="grid mt-2">
                                     <div class="col-6">{{data.countLike}} Likes</div>
 
-                                    <div class="col-6 text-end">{{data.countComment}} Comments</div>
+                                    <div class="col-6 text-end text-sm">{{data.countComment}} Comments</div>
                                 </div>
                                 <div class="grid border-top-1 border-gray-300 pt-2">
                                     <ng-container *ngIf="data.isLiked ;else elseBlock">
-                                        <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                            (click)="clickUnLike(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickUnLike(i)">
+                                            <span class="font-semibold color-primary text-sm"><i
+                                                    class="pi pi-thumbs-up-fill"></i> Like</span>
+                                        </div>
                                     </ng-container>
                                     <ng-template #elseBlock>
-                                        <button pButton label="Like" icon="pi pi-thumbs-up"
-                                            class="p-button-text btn-sec" (click)="clickLike(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center border-round-md cursor-pointer"
+                                            (click)="clickLike(i)">
+                                            <span class="font-semibold"><i class="pi pi-thumbs-up"></i> Like</span>
+                                        </div>
                                     </ng-template>
                                     <ng-container *ngIf="data.isBookmarked; else notBookmarked">
-                                        <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
-                                            (click)="clickUnSave(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickUnSave(i)">
+                                            <span class="font-semibold color-primary"><i
+                                                    class="pi pi-bookmark-fill"></i> Save</span>
+                                        </div>
                                     </ng-container>
                                     <ng-template #notBookmarked>
-                                        <button pButton label="Save" icon="pi pi-bookmark" class="p-button-text btn-sec"
-                                            (click)="clickSave(i)"></button>
+                                        <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickSave(i)">
+                                            <span class="font-semibold"><i class="pi pi-bookmark"></i> Save</span>
+                                        </div>
                                     </ng-template>
-                                    <button pButton label="Comment" icon="pi pi-comment" class="p-button-text btn-sec"
-                                        (click)="clickCommentPost(i)"></button>
+                                    <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                        (click)="clickCommentPost(i)">
+                                        <span class="font-semibold"><i class="pi pi-comment"></i> Comment</span>
+                                    </div>
                                 </div>
                                 <div *ngIf="data.commentStatus">
                                     <div class="flex mt-2">
@@ -947,7 +990,7 @@
                                                         <p class="font-medium text-sm mb-0">{{comment.userName}}
                                                         </p>
                                                         <span class="text-xs">{{comment.createdAt |
-                                                            date:'dd/MM/yyyy'}}</span>
+                                                            timeAgo}}</span>
                                                     </div>
                                                     <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
@@ -1069,8 +1112,8 @@
     </p-dialog>
 
     <!-- Pop-up Premium -->
-    <p-dialog [breakpoints]="{'960px': '100vw'}" [style]="{width: '45vw'}" [(visible)]="premiumDialog" [modal]="true"
-        [draggable]="false" [resizable]="false">
+    <p-dialog header="Upgrade Premium" [breakpoints]="{'960px': '100vw'}" [style]="{width: '45vw'}"
+        [(visible)]="premiumDialog" [modal]="true" [draggable]="false" [resizable]="false">
 
         <div class="grid mt-4">
             <div class="col-12 text-center">

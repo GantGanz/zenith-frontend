@@ -241,11 +241,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.viewComment = false
         this.hideComment = true
     }
-    // clickCloseComment() {
-    //     this.allComment = false
-    //     this.viewComment = true
-    //     this.hideComment = false
-    // }
+
     clickReplyComment() {
         this.showReplyComment = true
     }

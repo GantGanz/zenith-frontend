@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { BlockUIModule } from 'primeng/blockui';
 import { ImageModule } from 'primeng/image';
+import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
 
 
 
@@ -50,7 +51,8 @@ import { ImageModule } from 'primeng/image';
         CheckboxModule,
         InfiniteScrollModule,
         BlockUIModule,
-        ImageModule
+        ImageModule,
+        TimeModule
     ],
     exports: [
         HomeComponent, rightContentComponent

@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="w-full">
                                         <h6>{{data.creatorName}}</h6>
-                                        <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
+                                        <small>{{data.createdAt | timeAgo}}</small>
                                     </div>
                                     <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
                                         <div class="w-full text-end">
@@ -303,8 +303,7 @@
                                                 <div class="card col-11">
                                                     <div class="px-2">
                                                         <p class="font-medium mb-0">{{comment.userName}}</p>
-                                                        <span class="text-xs">{{comment.createdAt |
-                                                            date:'dd/MM/yyyy'}}</span>
+                                                        <span class="text-xs">{{comment.createdAt | timeAgo}}</span>
                                                     </div>
                                                     <div class="px-2 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
@@ -341,7 +340,7 @@
                                     </div>
                                     <div class="w-full">
                                         <h6>{{data.creatorName}}</h6>
-                                        <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
+                                        <small>{{data.createdAt | timeAgo}}</small>
                                     </div>
                                     <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
                                         <div class="w-full text-end">

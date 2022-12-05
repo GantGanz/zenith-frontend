@@ -6,7 +6,7 @@
     </div>
 
     <p-table [value]="positions" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalPositions" [showCurrentPageReport]="true" 
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onLazyLoad)="loadData($event)" [lazy]="true" paginatorPosition="both">
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onLazyLoad)="loadData($event)" [lazy]="true" paginatorPosition="both" [loading]="tableLoad" [lazyLoadOnInit]="false">
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">No</th>

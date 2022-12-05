@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "article-list",
@@ -22,6 +22,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
     limit = this.rows
     totalArticles!: number
+
+    tableLoad = false
 
     private articlesSubscription?: Subscription
     private pageChangeSubscription?: Subscription
@@ -43,7 +45,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.articlesSubscription = this.articleService.getAllById(this.first, this.limit).subscribe(result => {
+        this.tableLoad = true
+        this.articlesSubscription = this.articleService.getAllById(this.first, this.limit).pipe(finalize(() => this.tableLoad = false)).subscribe(result => {
             this.articlesRes = result.data
         })
         this.countSubscription = this.articleService.countAllById().subscribe(result => {
@@ -71,7 +74,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
 
     getData(offset: number, limit: number) {
-        this.pageChangeSubscription = this.articleService.getAllById(offset, limit).subscribe(result => {
+        this.tableLoad = true
+        this.pageChangeSubscription = this.articleService.getAllById(offset, limit).pipe(finalize(() => this.tableLoad = false)).subscribe(result => {
             this.articlesRes = result.data
         })
     }

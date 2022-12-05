@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 import { ROLECODE } from "../../constant/role";
 import { ApiService } from "../../service/api.service";
 import { LoginService } from "../../service/login.service";
@@ -14,6 +14,7 @@ import { LoginService } from "../../service/login.service";
 
 export class LoginComponent implements OnInit, OnDestroy {
 
+    loading = false
 
     loginSubscription?: Subscription
 
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     submit() {
-        this.loginSubscription = this.loginService.login(this.loginForm.value).subscribe(result => {
+        this.loading = true
+        this.loginSubscription = this.loginService.login(this.loginForm.value).pipe(finalize(() => this.loading = false)).subscribe(result => {
             if (this.memberLogin) {
                 if (result.roleCode == ROLECODE.MEMBER) {
                     this.apiService.saveData(result)

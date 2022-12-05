@@ -25,7 +25,7 @@
                     <input pInputText id="password" name="password" type="password" class="w-full p-inputtext-sm" formControlName="password" required>
                 </div>
                 <div class="mt-4">
-                    <button pButton class="w-full justify-content-center custom-btn" type="submit" id="btnLogin" name="btnLogin">Login</button>
+                    <button pButton class="w-full justify-content-center custom-btn" type="submit" id="btnLogin" name="btnLogin" [loading]="loading">Login</button>
                 </div>
             </form>
             <div class="mb-4" *ngIf="memberLogin">

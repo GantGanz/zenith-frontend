@@ -35,14 +35,22 @@
                                         <h6>{{data.creatorName}}</h6>
                                         <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
                                     </div>
+                                    <div class="w-full text-end">
+                                        <span
+                                            class="px-1 font-medium bg-red-50 text-red-500 text-xs mr-1 border-round-md pb-1">{{data.company}}
+                                        </span>
+                                        <span
+                                            class="px-1 font-medium bg-yellow-50 text-yellow-500 border-round-md text-xs pb-1">
+                                            {{data.positionName}}</span>
+                                    </div>
                                     <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
-                                        <div class="w-full text-end">
+                                        <div class="text-end">
                                             <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>
                                         </div>
                                     </ng-container>
                                 </div>
                                 <div class="mt-4">
-                                    <h4>{{data.postTitle}}</h4>
+                                    <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>
                                 </div>
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
@@ -52,7 +60,7 @@
                                 </ng-container>
                                 <ng-template #contentRegular>
                                     <div class="w-full">
-                                        <p>{{data.postContent}}</p>
+                                        <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-template>
 
@@ -241,17 +249,25 @@
 
                                 <div class="grid mt-2">
                                     <div class="col-6">{{data.countLike}} Likes</div>
-
                                     <div class="col-6 text-end">{{data.countComment}} Comments</div>
                                 </div>
                                 <div class="grid border-top-1 border-gray-300 pt-2">
                                     <ng-container *ngIf="data.isLiked ;else elseBlock">
-                                        <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
-                                            (click)="clickUnLike(i)"></button>
+                                        <div class="px-3 py-1 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickUnLike(i)">
+                                            <span class="font-bold"><i class="pi pi-thumbs-up-fill"></i> Like</span>
+                                        </div>
+                                        <!-- <button pButton label="Like" icon="pi pi-thumbs-up-fill" class="p-button-text"
+                                            (click)="clickUnLike(i)"></button> -->
+
                                     </ng-container>
                                     <ng-template #elseBlock>
-                                        <button pButton label="Like" icon="pi pi-thumbs-up"
-                                            class="p-button-text btn-sec" (click)="clickLike(i)"></button>
+                                        <div class="px-3 py-1 hover:bg-blue-50 flex align-items-center cursor-pointer"
+                                            (click)="clickLike(i)">
+                                            <span><i class="pi pi-thumbs-up"></i> Like</span>
+                                        </div>
+                                        <!-- <button pButton label="Like" icon="pi pi-thumbs-up"
+                                            class="p-button-text btn-sec" (click)="clickLike(i)"></button> -->
                                     </ng-template>
                                     <ng-container *ngIf="data.isBookmarked; else notBookmarked">
                                         <button pButton label="Save" icon="pi pi-bookmark-fill" class="p-button-text"
@@ -265,24 +281,24 @@
                                         (click)="clickCommentPost(i)"></button>
                                 </div>
                                 <div *ngIf="data.commentStatus">
-                                    <div class="grid mt-2">
-                                        <div class="col-1">
-                                            <img src="{{fileLink}}{{myFileId}}" class="border-circle w-3rem h-3rem"
-                                                style="object-fit: cover" alt="profile picture">
+                                    <div class="flex mt-2">
+                                        <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
+                                                class="border-circle w-3rem h-3rem" style="object-fit: cover"
+                                                alt="profile picture">
                                         </div>
-                                        <div class="col-11">
+                                        <div class="w-full">
                                             <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm pb-0"
+                                                        class="w-full p-inputtextarea-sm pb-0 text-sm"
                                                         placeholder="Add a comment..."
                                                         formControlName="commentContent"></textarea>
-                                                    <p-button type="submit">Send</p-button>
+                                                    <p-button type="submit" class="ml-2">Send</p-button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="my-3">
                                         <span class="text-sm cursor-pointer hover:text-blue-500"
                                             *ngIf="data.moreComment==false" (click)="clickSeeComment(i)">
                                             View Comments
@@ -295,24 +311,25 @@
 
                                     <div *ngIf="data.moreComment">
                                         <ng-container *ngFor="let comment of data.commentDatas">
-                                            <div class="grid mt-3">
-                                                <div class="col-1">
-                                                    <img class="border-circle w-2rem h-2rem" style="object-fit: cover"
-                                                        src="{{fileLink}}{{comment.fileId}}" alt="">
+                                            <div class="flex mt-2">
+                                                <div class="max-w-max mr-3"> <img class="border-circle w-2rem h-2rem"
+                                                        style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
+                                                        alt="">
                                                 </div>
-                                                <div class="card col-11">
-                                                    <div class="px-2">
-                                                        <p class="font-medium mb-0">{{comment.userName}}</p>
+                                                <div class="bg-gray-100 border-round-md py-1">
+                                                    <div class="px-3">
+                                                        <p class="font-medium text-sm mb-0">{{comment.userName}}
+                                                        </p>
                                                         <span class="text-xs">{{comment.createdAt |
                                                             date:'dd/MM/yyyy'}}</span>
                                                     </div>
-                                                    <div class="px-2 mt-2">
+                                                    <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </ng-container>
-                                        <span class="text-sm cursor-pointer hover:text-blue-500"
+                                        <span class="text-sm cursor-pointer hover:text-blue-500 mt-2"
                                             *ngIf="data.showMoreComment" (click)="seeMoreComment(i)">
                                             See More...
                                         </span>
@@ -343,19 +360,27 @@
                                         <h6>{{data.creatorName}}</h6>
                                         <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
                                     </div>
+                                    <div class="w-full text-end">
+                                        <span
+                                            class="px-1 font-medium bg-red-50 text-red-500 text-xs mr-1 border-round-md pb-1">{{data.company}}
+                                        </span>
+                                        <span
+                                            class="px-1 font-medium bg-yellow-50 text-yellow-500 border-round-md text-xs pb-1">
+                                            {{data.positionName}}</span>
+                                    </div>
                                     <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
-                                        <div class="w-full text-end">
+                                        <div class="text-end">
                                             <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>
                                         </div>
                                     </ng-container>
                                 </div>
                                 <div class="mt-4">
-                                    <h4>{{data.postTitle}}</h4>
+                                    <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>
                                 </div>
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
-                                        <p>{{data.postContent}}</p>
+                                        <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-container>
                                 <ng-template #contentRegular>
@@ -579,24 +604,24 @@
                                         (click)="clickCommentPost(i)"></button>
                                 </div>
                                 <div *ngIf="data.commentStatus">
-                                    <div class="grid mt-2">
-                                        <div class="col-1">
-                                            <img src="{{fileLink}}{{myFileId}}" class="border-circle w-3rem h-3rem"
-                                                style="object-fit: cover" alt="profile picture">
+                                    <div class="flex mt-2">
+                                        <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
+                                                class="border-circle w-3rem h-3rem" style="object-fit: cover"
+                                                alt="profile picture">
                                         </div>
-                                        <div class="col-11">
+                                        <div class="w-full">
                                             <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm pb-0"
+                                                        class="w-full p-inputtextarea-sm pb-0 text-sm"
                                                         placeholder="Add a comment..."
                                                         formControlName="commentContent"></textarea>
-                                                    <p-button type="submit">Send</p-button>
+                                                    <p-button type="submit" class="ml-2">Send</p-button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="my-3">
                                         <span class="text-sm cursor-pointer hover:text-blue-500"
                                             *ngIf="data.moreComment==false" (click)="clickSeeComment(i)">
                                             View Comments
@@ -609,24 +634,25 @@
 
                                     <div *ngIf="data.moreComment">
                                         <ng-container *ngFor="let comment of data.commentDatas">
-                                            <div class="grid mt-3">
-                                                <div class="col-1">
-                                                    <img class="border-circle w-2rem h-2rem" style="object-fit: cover"
-                                                        src="{{fileLink}}{{comment.fileId}}" alt="">
+                                            <div class="flex mt-2">
+                                                <div class="max-w-max mr-3"> <img class="border-circle w-2rem h-2rem"
+                                                        style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
+                                                        alt="">
                                                 </div>
-                                                <div class="card col-11">
-                                                    <div class="px-2">
-                                                        <p class="font-medium mb-0">{{comment.userName}}</p>
+                                                <div class="bg-gray-100 border-round-md py-1">
+                                                    <div class="px-3">
+                                                        <p class="font-medium text-sm mb-0">{{comment.userName}}
+                                                        </p>
                                                         <span class="text-xs">{{comment.createdAt |
                                                             date:'dd/MM/yyyy'}}</span>
                                                     </div>
-                                                    <div class="px-2 mt-2">
+                                                    <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </ng-container>
-                                        <span class="text-sm cursor-pointer hover:text-blue-500"
+                                        <span class="text-sm cursor-pointer hover:text-blue-500 mt-2"
                                             *ngIf="data.showMoreComment" (click)="seeMoreComment(i)">
                                             See More...
                                         </span>
@@ -657,19 +683,27 @@
                                         <h6>{{data.creatorName}}</h6>
                                         <small>{{data.createdAt | date:'dd/MM/yyyy'}}</small>
                                     </div>
+                                    <div class="w-full text-end">
+                                        <span
+                                            class="px-1 font-medium bg-red-50 text-red-500 text-xs mr-1 border-round-md pb-1">{{data.company}}
+                                        </span>
+                                        <span
+                                            class="px-1 font-medium bg-yellow-50 text-yellow-500 border-round-md text-xs pb-1">
+                                            {{data.positionName}}</span>
+                                    </div>
                                     <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
-                                        <div class="w-full text-end">
+                                        <div class="text-end">
                                             <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>
                                         </div>
                                     </ng-container>
                                 </div>
                                 <div class="mt-4">
-                                    <h4>{{data.postTitle}}</h4>
+                                    <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>
                                 </div>
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
-                                        <p>{{data.postContent}}</p>
+                                        <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-container>
                                 <ng-template #contentRegular>
@@ -875,24 +909,24 @@
                                         (click)="clickCommentPost(i)"></button>
                                 </div>
                                 <div *ngIf="data.commentStatus">
-                                    <div class="grid mt-2">
-                                        <div class="col-1">
-                                            <img src="{{fileLink}}{{myFileId}}" class="border-circle w-3rem h-3rem"
-                                                style="object-fit: cover" alt="profile picture">
+                                    <div class="flex mt-2">
+                                        <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
+                                                class="border-circle w-3rem h-3rem" style="object-fit: cover"
+                                                alt="profile picture">
                                         </div>
-                                        <div class="col-11">
+                                        <div class="w-full">
                                             <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm pb-0"
+                                                        class="w-full p-inputtextarea-sm pb-0 text-sm"
                                                         placeholder="Add a comment..."
                                                         formControlName="commentContent"></textarea>
-                                                    <p-button type="submit">Send</p-button>
+                                                    <p-button type="submit" class="ml-2">Send</p-button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="my-3">
                                         <span class="text-sm cursor-pointer hover:text-blue-500"
                                             *ngIf="data.moreComment==false" (click)="clickSeeComment(i)">
                                             View Comments
@@ -905,24 +939,25 @@
 
                                     <div *ngIf="data.moreComment">
                                         <ng-container *ngFor="let comment of data.commentDatas">
-                                            <div class="grid mt-3">
-                                                <div class="col-1">
-                                                    <img class="border-circle w-2rem h-2rem" style="object-fit: cover"
-                                                        src="{{fileLink}}{{comment.fileId}}" alt="">
+                                            <div class="flex mt-2">
+                                                <div class="max-w-max mr-3"> <img class="border-circle w-2rem h-2rem"
+                                                        style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
+                                                        alt="">
                                                 </div>
-                                                <div class="card col-11">
-                                                    <div class="px-2">
-                                                        <p class="font-medium mb-0">{{comment.userName}}</p>
+                                                <div class="bg-gray-100 border-round-md py-1">
+                                                    <div class="px-3">
+                                                        <p class="font-medium text-sm mb-0">{{comment.userName}}
+                                                        </p>
                                                         <span class="text-xs">{{comment.createdAt |
                                                             date:'dd/MM/yyyy'}}</span>
                                                     </div>
-                                                    <div class="px-2 mt-2">
+                                                    <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </ng-container>
-                                        <span class="text-sm cursor-pointer hover:text-blue-500"
+                                        <span class="text-sm cursor-pointer hover:text-blue-500 mt-2"
                                             *ngIf="data.showMoreComment" (click)="seeMoreComment(i)">
                                             See More...
                                         </span>
@@ -939,7 +974,7 @@
 
         <!-- Side Content -->
         <div class="lg:col-4 lg:block hidden">
-            <div class="sticky top-0">
+            <div class="">
                 <right-content></right-content>
             </div>
 
@@ -968,8 +1003,8 @@
             <!-- Post Content -->
             <div class="field col-12">
                 <label for="postContent">Content<span class="text-red-500">*</span></label>
-                <textarea rows="8" [autoResize]="true" pInputTextarea class="w-full" id="postContent" name="postContent"
-                    formControlName="postContent" required></textarea>
+                <textarea placeholder="write something..." rows="8" [autoResize]="true" pInputTextarea class="w-full"
+                    id="postContent" name="postContent" formControlName="postContent" required></textarea>
             </div>
 
             <!-- Create Polling -->
@@ -1039,7 +1074,7 @@
     <p-dialog [breakpoints]="{'960px': '100vw'}" [style]="{width: '45vw'}" [(visible)]="premiumDialog" [modal]="true"
         [draggable]="false" [resizable]="false">
 
-        <div class="grid">
+        <div class="grid mt-4">
             <div class="col-12 text-center">
                 <li class="pi pi-lock" style="font-size: 29px"></li>
                 <p>This post is only available to premium members.</p>

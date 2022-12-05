@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "article-update",
@@ -13,6 +13,8 @@ export class ArticleUpdateComponent implements OnInit, OnDestroy {
     private articleSubscription?: Subscription
     private articleUpdateSubscription?: Subscription
     private paramSubscription?: Subscription
+
+    loading = false
 
     articleForm = this.fb.group({
         id: ['', [Validators.required]],
@@ -40,8 +42,8 @@ export class ArticleUpdateComponent implements OnInit, OnDestroy {
     }
 
     clickUpdate() {
-        this.articleUpdateSubscription = this.articleService.update(this.articleForm.value).subscribe(() => {
-            this.router.navigateByUrl('/articles-admin/list')
+        this.loading = true
+        this.articleUpdateSubscription = this.articleService.update(this.articleForm.value).pipe(finalize(()=> this.loading =false)).subscribe(() => {
         })
     }
 

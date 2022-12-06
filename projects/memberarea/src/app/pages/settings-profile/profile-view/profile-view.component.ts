@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { PostData } from "projects/interface/post/post-data";
+import { PostRes } from "projects/interface/post/post-res";
+import { PostsRes } from "projects/interface/post/posts-res";
 import { UserData } from "projects/interface/user/user-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
@@ -22,7 +24,26 @@ import { POST_TYPE_CODE, POST_TYPE_ID } from "../../../constant/post.type";
 })
 export class ProfileViewComponent implements OnInit, OnDestroy {
 
+    postDelete = this.fb.group({
+        id: ['', [Validators.required]],
+        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
+        postContent: ['', [Validators.required]],
+        postTypeId: ['', [Validators.required]],
+        attachmentPostInsertReqs: this.fb.array([]),
+        // pollInsertReq: this.fb.group({
+        //     pollTitle: ['', [Validators.required]],
+        //     endAt: ['', [Validators.required]],
+        //     pollOptionInsertReqs: this.fb.array([
+        //         this.fb.group({ pollContent: ['', Validators.required] }),
+        //         this.fb.group({ pollContent: ['', Validators.required] })
+        //     ])
+        // }),
+        isPremium: [false, [Validators.required]]
+    })
+
     posts: any[] = []
+
+    postRes!: PostsRes
 
     like = true
     bookmark = true
@@ -34,6 +55,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     hideComment = false
     replyComment = true
     showReplyComment = false
+
+    dataEmpty = false
+    dataNotEmpty = true
 
     totalCourse!: number
     totalEvent!: number
@@ -123,12 +147,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.myFileId = result.data.fileId
         })
 
-        // this.postsSubscription = this.postService.getAllRegular().subscribe(result => {
-        //     for (let i = 0; i < result.data.length; i++) {
-        //         this.posts.push(result.data[i])
-        //     }
-        // })
-
         this.totalCourseSubscription = this.activityService.countCourse().subscribe(result => {
             this.totalCourse = result
         })
@@ -143,7 +161,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     postInit() {
-        this.postsSubscription = this.postService.getAll(this.first, this.limit).subscribe(posts => {
+        this.postsSubscription = this.postService.getAllById(this.first, this.limit).subscribe(posts => {
             this.result = posts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -301,14 +319,18 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(`/profile/change-password/${this.id}`)
     }
 
-    clickConfirmDelete() {
+    clickConfirmDelete(index: number) {
+        const i = index - this.first
         this.confirmationService.confirm({
             message: 'Do you want to delete this post?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',
             accept: () => {
-
+                this.postDelete.controls['id'].setValue(this.postRes.data[i].id)
+                this.postDelete.controls['postTitle'].setValue(this.postRes.data[i].postTitle)
+                this.postDelete.controls['postContent'].setValue(this.postRes.data[i].postContent)
+                this.postDelete.controls['postTypeId'].setValue(this.postRes.data[i].postTypeId)
             }
         })
     }

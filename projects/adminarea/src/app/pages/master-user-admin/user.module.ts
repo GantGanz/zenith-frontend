@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from "@angular/common";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ImageModule } from "primeng/image";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         CheckboxModule,
         FormsModule,
         CommonModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        ImageModule
     ],
     exports: [
         UserListComponent, UserInsertComponent, UserUpdateComponent

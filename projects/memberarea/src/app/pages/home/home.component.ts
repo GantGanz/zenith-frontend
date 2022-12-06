@@ -52,6 +52,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     showUploadImg = true
     showCreatePolling = false
 
+    dataEmpty = true
+    dataNotEmpty = false
+
     displayCustom!: boolean;
     activeIndex: number = 0;
 
@@ -141,7 +144,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     postInit() {
         this.postLoading = true
         this.result = []
-        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).pipe(finalize(()=>this.postLoading = false)).subscribe(posts => {
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).pipe(finalize(() => this.postLoading = false)).subscribe(posts => {
             this.result = posts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -204,7 +207,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     addData() {
         this.postLoading = true
-        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).pipe(finalize(()=> this.postLoading = false)).subscribe(posts => {
+        this.postsSubscribtion = this.postService.getAll(this.first, this.limit).pipe(finalize(() => this.postLoading = false)).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
                 this.result[i + this.first].commentStatus = false

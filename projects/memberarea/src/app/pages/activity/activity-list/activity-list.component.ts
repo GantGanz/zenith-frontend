@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
-import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
 import { Subscription } from "rxjs";
 import { STATUS_TYPE } from "../../../constant/status-type";
 
@@ -19,6 +17,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     dataEvents!: ActivityData[]
     dataJoinedCourses!: ActivityData[]
     dataJoinedEvents!: ActivityData[]
+
+    statusApproved = STATUS_TYPE.APPROVED
+    statusRejected = STATUS_TYPE.REJECTED
+    statusPending = STATUS_TYPE.PENDING
 
     first = 0
     limit = 6
@@ -43,9 +45,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     private activityJoinedEventsSubscription?: Subscription
     private paramSubscription?: Subscription
     private activitySubscription?: Subscription
-    private paidSubscription?: Subscription
 
-    constructor(private activityService: ActivityService, private paymentActivityService: PaymentActivityService, private active: ActivatedRoute) { }
+    constructor(private activityService: ActivityService) { }
 
     ngOnInit(): void {
         this.init()
@@ -63,17 +64,21 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
             for (let i = 0; i < this.dataCourses.length; i++) {
-                // if (this.dataCourses == STATUS_TYPE.APPROVED) {
-                //     this.dataCourses[i].isJoined = true
-                // }
+                if (this.dataCourses[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataCourses[i].paymentStatus == STATUS_TYPE.PENDING
+                    || this.dataCourses[i].paymentStatus == STATUS_TYPE.REJECTED) {
+                    this.dataCourses[i].isJoined = true
+                }
             }
-            console.log(this.dataCourses)
         })
 
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             this.dataEvents = result.data
-            // this.isPaid = true
-            // this.isRegister = false
+            for (let i = 0; i < this.dataEvents.length; i++) {
+                if (this.dataEvents[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataEvents[i].paymentStatus == STATUS_TYPE.PENDING
+                    || this.dataEvents[i].paymentStatus == STATUS_TYPE.REJECTED) {
+                    this.dataEvents[i].isJoined = true
+                }
+            }
         })
 
         this.activityJoinedCoursesSubscription = this.activityService.getAllJoinedCourseById(this.first, this.limit).subscribe(result => {

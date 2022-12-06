@@ -1,12 +1,13 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
+import { Router } from "@angular/router"
 import { ToastrService } from "ngx-toastr"
 import { Observable, tap } from "rxjs"
 import { ApiService } from "../service/api.service"
 
 @Injectable()
 export class FilterTokenInterceptor implements HttpInterceptor {
-    constructor(private apiService: ApiService, private toast: ToastrService) { }
+    constructor(private apiService: ApiService, private toast: ToastrService, private router: Router) { }
     
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.apiService.getData()
@@ -32,6 +33,10 @@ export class FilterTokenInterceptor implements HttpInterceptor {
                 error : err => {
                     if(err instanceof HttpErrorResponse) {
                         this.toast.error(err.error.message, 'Information')
+                        if(err.status == 401){
+                            this.apiService.logout()
+                            this.router.navigateByUrl('/member/login')
+                        }
                     }
                 }
             })

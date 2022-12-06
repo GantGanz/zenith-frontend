@@ -6,7 +6,7 @@ import { ActivityTypesRes } from "projects/interface/activity-type/activity-type
 import { ActivityTypeService } from "projects/mainarea/src/app/service/activity-type.service";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "activity-insert",
@@ -18,6 +18,7 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     private activityTypesSubscription?: Subscription
     activityTypesRes!: ActivityTypesRes
     activityTypes: any[] = []
+    loading = false
 
     activityForm = this.fb.group({
         activityTitle: [null, [Validators.required]],
@@ -47,11 +48,12 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     }
 
     clickSubmit() {
+        this.loading = true
         let formattedStart = formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
         this.activityForm.value.startAt = formattedStart
         let formattedEnd = formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
         this.activityForm.value.endAt = formattedEnd
-        this.activitySubscription = this.activityService.insert(this.activityForm.value).subscribe(() => {
+        this.activitySubscription = this.activityService.insert(this.activityForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
             this.router.navigateByUrl('/my-activity')
         })
     }
@@ -62,7 +64,7 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
             console.log(result);
-            this.detailFoto.insert(0,this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }));
+            this.detailFoto.insert(0, this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }));
         })
     }
 

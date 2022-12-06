@@ -50,8 +50,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     posts: any[] = []
 
-    postRes!: PostsRes
-
     like = true
     bookmark = true
     likeFill = false
@@ -151,12 +149,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     init() {
-
-        this.postSubscription = this.postService.getAllByUser(this.first, this.limit).subscribe(result => {
-            this.posts = result.data
-            this.postRes = result
-        })
-
+        this.first = 0
         this.countSubscription = this.postService.countMyPosts().subscribe(result => {
             this.totalMyPost = result
         })
@@ -330,21 +323,18 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     clickConfirmDelete(index: number) {
-        const i = index - this.first
         this.confirmationService.confirm({
             message: 'Do you want to delete this post?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',
             accept: () => {
-                this.postDelete.controls['id'].setValue(this.postRes.data[i].id)
-                this.postDelete.controls['version'].setValue(this.postRes.data[i].version)
-                this.postDelete.controls['postTitle'].setValue(this.postRes.data[i].postTitle)
-                this.postDelete.controls['postContent'].setValue(this.postRes.data[i].postContent)
-                this.postDelete.controls['postTypeId'].setValue(this.postRes.data[i].postTypeId)
+                this.postDelete.patchValue(this.result[index])
 
                 this.deleteSubscription = this.postService.update(this.postDelete.value).subscribe(a => {
-                    this.init()
+                    this.addData()
+                    this.postCount -= 1
+                    this.result.splice(index,1)
                 })
             }
         })

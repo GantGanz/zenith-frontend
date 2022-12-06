@@ -19,10 +19,10 @@
                             name="postContent" formControlName="postContent" required></textarea>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12 mb-4">
                         <div class="flex gap-2 mt-5 justify-content-end">
                             <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel"
-                                name="btnCancel">Cancel</button>
+                                name="btnCancel" routerLink="/profile">Cancel</button>
                             <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Save</button>
                         </div>
                     </div>
@@ -31,30 +31,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <p-dialog header="Create a Post" [breakpoints]="{'960px': '100vw'}" [style]="{width: '45vw'}" [modal]="true"
-    [draggable]="false" [resizable]="false">
-
-    <form class="formgrid grid" [formGroup]="postUpdateForm" (ngSubmit)="clickUpdate()">
-
-        <div class="field col-12">
-            <label for="postTitle">Title<span class="text-red-500">*</span></label>
-            <input pInputText class="w-full" type="text" id="postTitle" name="postTitle" formControlName="postTitle"
-                required>
-        </div>
-
-        <div class="field col-12">
-            <label for="postContent">Content<span class="text-red-500">*</span></label>
-            <textarea rows="8" [autoResize]="true" pInputTextarea class="w-full" id="postContent" name="postContent"
-                formControlName="postContent" required></textarea>
-        </div>
-
-        <div class="col-12">
-            <div class="flex gap-2 mt-5 justify-content-end">
-                <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel">Cancel</button>
-                <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Save</button>
-            </div>
-        </div>
-    </form>
-</p-dialog> -->

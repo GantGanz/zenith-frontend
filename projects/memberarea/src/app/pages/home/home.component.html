@@ -319,21 +319,69 @@
 
                                     <div *ngIf="data.moreComment">
                                         <ng-container *ngFor="let comment of data.commentDatas">
-                                            <div class="flex mt-2">
+                                            <div class="flex mt-2" *ngIf="myComment">
                                                 <div class="max-w-max mr-3"> <img class="border-circle w-2rem h-2rem"
                                                         style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
                                                         alt="">
                                                 </div>
                                                 <div class="bg-gray-50 border-round-md py-1">
-                                                    <div class="px-3">
-                                                        <p class="font-medium text-sm mb-0">{{comment.userName}}
-                                                        </p>
-                                                        <span class="text-xs">{{comment.createdAt |
-                                                            timeAgo}}</span>
+                                                    <div class="flex px-3">
+                                                        <div class="w-full">
+                                                            <p class="font-medium text-sm mb-0">{{comment.userName}}</p>
+                                                            <span class="text-xs">{{comment.createdAt |timeAgo}}</span>
+                                                        </div>
+
+                                                        <div class="inline-block justify-content-end relative ml-6">
+                                                            <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
+                                                                pStyleClass="@next" enterClass="hidden"
+                                                                leaveToClass="hidden" [hideOnOutsideClick]="true">
+                                                                <div
+                                                                    class="cursor-pointer transition-all transition-duration-200">
+                                                                    <i class="pi pi-ellipsis-h"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="absolute md:left-0 right-0 shadow-2 w-12rem z-5 bg-white hidden">
+                                                                <ul class="list-none p-0 m-0">
+                                                                    <li>
+                                                                        <a
+                                                                            class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer">
+                                                                            <span class="font-medium"
+                                                                                (click)="clickEditComment()">Edit</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a
+                                                                            class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer">
+                                                                            <span class="font-medium">Delete</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
+
                                                     <div class="px-3 mt-2">
                                                         <p class="text-sm mb-1">{{comment.commentContent}}</p>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex mt-2" *ngIf="editComment">
+                                                <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
+                                                        class="border-circle w-2rem h-2rem" style="object-fit: cover"
+                                                        alt="profile picture">
+                                                </div>
+                                                <div class="w-full">
+                                                    <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                                        <div class="flex flex-row align-content-center">
+                                                            <textarea pInputTextarea [autoResize]="true"
+                                                                class="w-full p-inputtextarea-sm pb-0 text-sm"
+                                                                placeholder="Add a comment..."
+                                                                formControlName="commentContent"></textarea>
+                                                            <p-button type="submit" class="ml-2">Send</p-button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </ng-container>

@@ -11,7 +11,7 @@ import { PREMIUM_PRICE } from "../../../constant/premium.price";
     templateUrl: "./payment-premium.component.html",
 })
 export class PaymentPremiumComponent implements OnInit, OnDestroy {
-    premiumStatus = 1
+    premiumStatus = 0
     price = `${PREMIUM_PRICE}`
 
     private paymentPremiumSubscription?: Subscription
@@ -34,15 +34,16 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
         let isPaid = false
         this.paidSubscription = this.paymentPremiumService.checkPaid().subscribe(result => {
             isPaid = result
-            if (isPaid) {
-                this.premiumStatus = 4
-            }
-        })
-        this.premiumSubscription = this.paymentPremiumService.checkPremium().subscribe(result => {
-            isPremium = result
-            if (isPremium) {
-                this.premiumStatus = 5
-            }
+            this.premiumSubscription = this.paymentPremiumService.checkPremium().subscribe(result => {
+                isPremium = result
+                if (isPremium) {
+                    this.premiumStatus = 5
+                } else if (isPaid) {
+                    this.premiumStatus = 4
+                } else {
+                    this.premiumStatus = 1
+                }
+            })
         })
     }
 

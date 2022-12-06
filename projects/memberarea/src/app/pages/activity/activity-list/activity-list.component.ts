@@ -23,7 +23,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     statusPending = STATUS_TYPE.PENDING
 
     first = 0
-    limit = 6
+    limit = 3
 
     Approved!: string
 
@@ -64,8 +64,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
             for (let i = 0; i < this.dataCourses.length; i++) {
-                if (this.dataCourses[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataCourses[i].paymentStatus == STATUS_TYPE.PENDING
-                    || this.dataCourses[i].paymentStatus == STATUS_TYPE.REJECTED) {
+                if (this.dataCourses[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataCourses[i].paymentStatus == STATUS_TYPE.PENDING) {
                     this.dataCourses[i].isJoined = true
                 }
             }
@@ -75,7 +74,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
             this.dataEvents = result.data
             for (let i = 0; i < this.dataEvents.length; i++) {
                 if (this.dataEvents[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataEvents[i].paymentStatus == STATUS_TYPE.PENDING
-                    || this.dataEvents[i].paymentStatus == STATUS_TYPE.REJECTED) {
+                ) {
                     this.dataEvents[i].isJoined = true
                 }
             }
@@ -99,6 +98,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {
                 this.dataCourses.push(result.data[i])
+                const index = i + this.first
+                if (this.dataCourses[index].paymentStatus == STATUS_TYPE.APPROVED || this.dataCourses[index].paymentStatus == STATUS_TYPE.PENDING) {
+                    this.dataCourses[index].isJoined = true
+                }
             }
         })
     }
@@ -106,6 +109,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {
                 this.dataEvents.push(result.data[i])
+                const index = i + this.first
+                if (this.dataCourses[index].paymentStatus == STATUS_TYPE.APPROVED || this.dataCourses[index].paymentStatus == STATUS_TYPE.PENDING) {
+                    this.dataCourses[index].isJoined = true
+                }
             }
         })
     }

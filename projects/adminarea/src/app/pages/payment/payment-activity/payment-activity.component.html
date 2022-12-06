@@ -3,11 +3,11 @@
 
     <p-tabView>
         <p-tabPanel header="Unapproved">
-            <p-table [value]="unapprovedPaymentActivtiesRes.data" [paginator]="true" [rows]="rows" [(first)]="first"
+            <p-table [value]="unapprovedPaymentActivtiesRes" [paginator]="true" [rows]="rows" [(first)]="first"
                 [totalRecords]="totalUnapprovedPaymentActivities" [showCurrentPageReport]="true"
                 (onLazyLoad)="loadUnapprovedData($event)" [lazy]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                paginatorPosition="both">
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
+                [lazyLoadOnInit]="false">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="text-center">No</th>
@@ -38,6 +38,8 @@
                         <td style="text-align: center ">
                             <button pButton type="button" class="p-button-sm" label="Approve" id="approvePayment"
                                 name="approvePayment" (click)="clickConfirmApprove(i)"></button>
+                            <button pButton type="button" class="p-button-sm" label="Reject" id="rejectPayment"
+                                name="rejectPayment" (click)="clickConfirmReject(i)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -45,11 +47,11 @@
         </p-tabPanel>
 
         <p-tabPanel header="Approved">
-            <p-table [value]="approvedPaymentActivtiesRes.data" [paginator]="true" [rows]="rows" [(first)]="first"
+            <p-table [value]="approvedPaymentActivtiesRes" [paginator]="true" [rows]="rows" [(first)]="first"
                 [totalRecords]="totalApprovedPaymentActivities" [showCurrentPageReport]="true"
                 (onLazyLoad)="loadApprovedData($event)" [lazy]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                paginatorPosition="both">
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
+                [lazyLoadOnInit]="false">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="text-center">No</th>
@@ -82,7 +84,46 @@
                 </ng-template>
             </p-table>
         </p-tabPanel>
+
+        <p-tabPanel header="Rejected">
+            <p-table [value]="rejectedPaymentActivtiesRes" [paginator]="true" [rows]="rows" [(first)]="first"
+                [totalRecords]="totalRejectedPaymentActivities" [showCurrentPageReport]="true"
+                (onLazyLoad)="loadRejectedData($event)" [lazy]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
+                [lazyLoadOnInit]="false">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Member Name</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Activity Title</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Fee</th>
+                        <th class="text-center">Payment Time</th>
+                        <th class="text-center">Rejected Time</th>
+                        <th class="text-center">Invoice</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-activity let-i="rowIndex">
+                    <tr>
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{activity.fullname}}</td>
+                        <td class="text-center">{{activity.email}}</td>
+                        <td class="text-center">{{activity.activityTitle}}</td>
+                        <td class="text-center">{{activity.activityType}}</td>
+                        <td class="text-center">{{activity.nominal}}</td>
+                        <td class="text-center">{{activity.createdAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
+                        <td class="text-center">{{activity.updatedAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
+                        <td class="text-center">
+                            <p-image alt="payment-pic" src="{{fileLink}}{{activity.fileId}}" [preview]="true"
+                                width="40px">
+                            </p-image>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
     </p-tabView>
 </div>
-<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined p-button-secondary"
-acceptButtonStyleClass="custom-btn"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"
+    rejectButtonStyleClass="p-button-outlined p-button-secondary" acceptButtonStyleClass="custom-btn"></p-confirmDialog>

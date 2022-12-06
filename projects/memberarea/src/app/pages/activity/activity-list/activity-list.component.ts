@@ -5,6 +5,7 @@ import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
 import { Subscription } from "rxjs";
+import { STATUS_TYPE } from "../../../constant/status-type";
 
 @Component({
     selector: "activity-list",
@@ -61,12 +62,18 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     init() {
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
+            for (let i = 0; i < this.dataCourses.length; i++) {
+                // if (this.dataCourses == STATUS_TYPE.APPROVED) {
+                //     this.dataCourses[i].isJoined = true
+                // }
+            }
+            console.log(this.dataCourses)
         })
 
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             this.dataEvents = result.data
-            this.isPaid = true
-            this.isRegister = false
+            // this.isPaid = true
+            // this.isRegister = false
         })
 
         this.activityJoinedCoursesSubscription = this.activityService.getAllJoinedCourseById(this.first, this.limit).subscribe(result => {

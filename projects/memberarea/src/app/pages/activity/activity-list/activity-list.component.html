@@ -1,5 +1,6 @@
 <div class="container mt-4" infinite-scroll (scrolled)="onScroll()">
   <p-tabView (onChange)="tabClick()">
+
     <p-tabPanel header="All Course">
       <div class="container mt-3 p-0">
         <div class="grid">
@@ -24,6 +25,7 @@
                     <span> Rp {{data.fee}}</span>
                   </p>
                   <p class="card-text -mt-2"><i class="pi pi-calendar"></i> Status : {{data.paymentStatus}}</p>
+
                   <div *ngIf="isRegister">
                     <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
                       routerLink="/payment/activity/{{data.id}}"></button>
@@ -31,6 +33,7 @@
                   <div *ngIf="isPaid">
                     <button pButton type="button" class="p-button-sm w-full py-2" label="Register" disabled></button>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -62,10 +65,17 @@
                     <span> Rp {{data.fee}}</span>
                   </p>
                   <p class="card-text -mt-2"><i class="pi pi-clock"></i> Status : {{data.paymentStatus}}</p>
-                  <div>
+                  <div *ngIf="isRegister">
                     <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
-                      routerLink="/payment/activity/{{data.id}}" disabled></button>
+                      routerLink="/payment/activity/{{data.id}}"></button>
                   </div>
+                  <div *ngIf="isPaid">
+                    <button pButton type="button" class="p-button-sm w-full py-2" label="Register" disabled></button>
+                  </div>
+                  <!-- <div>
+                    <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
+                      routerLink="/payment/activity/{{data.id}}"></button>
+                  </div> -->
                 </div>
               </div>
             </div>

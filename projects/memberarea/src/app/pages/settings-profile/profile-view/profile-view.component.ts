@@ -33,14 +33,14 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         postTypeId: ['', [Validators.required]],
         attachmentPostInsertReqs: this.fb.array([]),
         isActive: [false],
-        // pollInsertReq: this.fb.group({
-        //     pollTitle: ['', [Validators.required]],
-        //     endAt: ['', [Validators.required]],
-        //     pollOptionInsertReqs: this.fb.array([
-        //         this.fb.group({ pollContent: ['', Validators.required] }),
-        //         this.fb.group({ pollContent: ['', Validators.required] })
-        //     ])
-        // }),
+        pollInsertReq: this.fb.group({
+            pollTitle: ['', [Validators.required]],
+            endAt: ['', [Validators.required]],
+            pollOptionInsertReqs: this.fb.array([
+                this.fb.group({ pollContent: ['', Validators.required] }),
+                this.fb.group({ pollContent: ['', Validators.required] })
+            ])
+        }),
         isPremium: [false, [Validators.required]]
     })
 
@@ -94,6 +94,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     premiumPostCode = POST_TYPE_CODE.PREMIUM
 
     postCount = 0
+    // postRes!: PostsRes
 
     first = 0
     limit = 3
@@ -153,8 +154,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     init() {
 
-        this.postSubscription = this.postService.getAllById(this.first, this.limit).subscribe(result => {
+        this.postSubscription = this.postService.getAllByUser(this.first, this.limit).subscribe(result => {
             this.posts = result.data
+            this.postRes = result
         })
 
         this.countSubscription = this.postService.countMyPosts().subscribe(result => {
@@ -174,6 +176,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.totalCourseSubscription = this.activityService.countCourse().subscribe(result => {
             this.totalCourse = result
         })
+
         this.totalEventSubscription = this.activityService.countEvent().subscribe(result => {
             this.totalEvent = result
         })

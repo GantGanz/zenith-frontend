@@ -39,11 +39,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     totalEvent!: number
     totalIncome!: number
 
-    id!: string
-    fullname!: string
-    email!: string
-    position!: string
-    company!: string
     fileLink = BASE_URL.FILE
     myFileId!: string
 
@@ -61,7 +56,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     pollPostCode = POST_TYPE_CODE.POLLING
     premiumPostCode = POST_TYPE_CODE.PREMIUM
 
-    tabIndex = 0
+    postCount = 0
 
     first = 0
     limit = 3
@@ -87,6 +82,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     })
 
     private postsSubscription?: Subscription
+    private postCountSubscription?: Subscription
     private userSubscription?: Subscription
 
     private insertBookmarkSubscription?: Subscription
@@ -115,19 +111,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     init() {
         this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
-            this.id = result.data.id
-            this.fullname = result.data.fullname
-            this.email = result.data.email
-            this.position = result.data.positionName
-            this.company = result.data.company
-            this.myFileId = result.data.fileId
+            this.myUser = result.data
+            this.myFileId = this.myUser.fileId
         })
-
-        // this.postsSubscription = this.postService.getAllRegular().subscribe(result => {
-        //     for (let i = 0; i < result.data.length; i++) {
-        //         this.posts.push(result.data[i])
-        //     }
-        // })
 
         this.totalCourseSubscription = this.activityService.countCourse().subscribe(result => {
             this.totalCourse = result
@@ -143,7 +129,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     postInit() {
-        this.postsSubscription = this.postService.getAll(this.first, this.limit).subscribe(posts => {
+        this.postsSubscription = this.postService.getAllByUser(this.first, this.limit).subscribe(posts => {
             this.result = posts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -153,37 +139,14 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
                 this.result[i].commentOffset = 0
             }
         })
+        this.postCountSubscription = this.postService.countMyPosts().subscribe(count=>{
+            this.postCount = count
+        })
     }
 
 
     addData() {
-        this.postsSubscription = this.postService.getAll(this.first, this.limit).subscribe(posts => {
-            for (let i = 0; i < posts.data.length; i++) {
-                this.result.push(posts.data[i])
-                this.result[i + this.first].commentStatus = false
-                this.result[i + this.first].moreComment = false
-                this.result[i + this.first].showImg = false
-                this.result[i + this.first].showMoreComment = false
-                this.result[i + this.first].commentOffset = 0
-            }
-        })
-    }
-
-    addDataLiked() {
-        this.postsSubscription = this.postService.getAllLiked(this.first, this.limit).subscribe(posts => {
-            for (let i = 0; i < posts.data.length; i++) {
-                this.result.push(posts.data[i])
-                this.result[i + this.first].commentStatus = false
-                this.result[i + this.first].moreComment = false
-                this.result[i + this.first].showImg = false
-                this.result[i + this.first].showMoreComment = false
-                this.result[i + this.first].commentOffset = 0
-            }
-        })
-    }
-
-    addDataBookmarked() {
-        this.postsSubscription = this.postService.getAllBookmarked(this.first, this.limit).subscribe(posts => {
+        this.postsSubscription = this.postService.getAllByUser(this.first, this.limit).subscribe(posts => {
             for (let i = 0; i < posts.data.length; i++) {
                 this.result.push(posts.data[i])
                 this.result[i + this.first].commentStatus = false
@@ -211,9 +174,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(() => {
                 this.result[i].isLiked = false
                 this.result[i].countLike -= 1
-                if (this.tabIndex == 1) {
-                    this.result.splice(i, 1)
-                }
             })
         })
     }
@@ -228,9 +188,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.bookmarkedIdSubscription = this.bookmarkService.getId(this.result[i].id).subscribe(data => {
             this.deleteBookmarkSubscription = this.bookmarkService.delete(data.id).subscribe(() => {
                 this.result[i].isBookmarked = false
-                if (this.tabIndex == 2) {
-                    this.result.splice(i, 1)
-                }
             })
         })
     }
@@ -291,14 +248,19 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         })
     }
 
-
+    onScroll() {
+        this.first += this.limit
+        if (this.result.length < this.postCount) {
+            this.addData()
+        }
+    }
 
 
     clickEditProfile() {
-        this.router.navigateByUrl(`/profile/edit/${this.id}`)
+        this.router.navigateByUrl(`/profile/edit/${this.myUser}`)
     }
     clickChangePassword() {
-        this.router.navigateByUrl(`/profile/change-password/${this.id}`)
+        this.router.navigateByUrl(`/profile/change-password/${this.myUser}`)
     }
 
     clickConfirmDelete() {

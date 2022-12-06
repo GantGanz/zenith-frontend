@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
+import { FileUpload } from "primeng/fileupload";
 import { PostData } from "projects/interface/post/post-data";
 import { UserData } from "projects/interface/user/user-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
@@ -24,10 +25,14 @@ import { POST_TYPE_CODE } from "../../constant/post.type";
 
 export class HomeComponent implements OnInit, OnDestroy {
 
+    @ViewChild('uploadComponent') upload!: FileUpload
+
     fileLink = BASE_URL.FILE
     myFileId!: string
 
     type!: string
+
+    uploaded= false
 
     result: PostData[] = []
     likedPost: PostData[] = []
@@ -407,8 +412,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.postForm.get('pollInsertReq')?.get('pollOptionInsertReqs') as FormArray
     }
 
+    selectFile(event:any){
+        console.log(event.currentFiles);
+        if(event.currentFiles){
+            this.uploaded = true
+        }
+    }
+
     fileUpload(event: any) {
         this.detailFoto.clear()
+        this.uploaded = false
         this.fileService.fileUploadMulti(event).then(result => {
             for (let i = 0; i < result.length; i++) {
                 this.detailFoto.insert(i, this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
@@ -427,6 +440,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                     this.showForm = false
                     this.first = 0
                     this.postInit()
+                    this.upload.clear()
                 })
             })
         } else {
@@ -434,6 +448,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.showForm = false
                 this.first = 0
                 this.postInit()
+                this.upload.clear()
             })
         }
     }
@@ -482,6 +497,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.insertCommentSubscription?.unsubscribe()
         this.commentByPostSubscription?.unsubscribe()
         this.myUserSubscription?.unsubscribe()
+        this.postCountSubscription?.unsubscribe()
     }
 }
 

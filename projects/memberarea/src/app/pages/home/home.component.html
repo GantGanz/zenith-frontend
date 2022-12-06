@@ -1068,13 +1068,25 @@
             <div class="field col-12">
                 <label for="postTitle">Title<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="text" id="postTitle" name="postTitle" formControlName="postTitle"
-                    required>
+                    [maxlength]="100" required>
+                <small class="p-error"
+                    *ngIf="postForm.controls['postTitle'].errors?.['required'] && postForm.controls['postTitle'].touched">
+                    Please input post title
+                </small>
+                <small class="p-error"
+                    *ngIf="postForm.controls['postTitle'].errors?.['maxlength'] && postForm.controls['postTitle'].touched">
+                    Title exceed maximum input (100 characters)
+                </small>
             </div>
             <!-- Post Content -->
             <div class="field col-12">
                 <label for="postContent">Content<span class="text-red-500">*</span></label>
                 <textarea placeholder="write something..." rows="8" [autoResize]="true" pInputTextarea class="w-full"
                     id="postContent" name="postContent" formControlName="postContent" required></textarea>
+                <small class="p-error"
+                    *ngIf="postForm.controls['postContent'].errors?.['required'] && postForm.controls['postContent'].touched">
+                    Please input post content
+                </small>
             </div>
 
             <!-- Create Polling -->
@@ -1121,12 +1133,13 @@
             <!-- Upload Image -->
             <div class="field col-12" *ngIf="showUploadImg">
                 <label for="image">Upload Image</label>
-                <p-fileUpload url="./upload.php" [multiple]="true" accept="image/*" [customUpload]="true"
-                    (uploadHandler)="fileUpload($event)"></p-fileUpload>
+                <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*" [customUpload]="true"
+                    (onSelect)="selectFile($event)" (uploadHandler)="fileUpload($event)"></p-fileUpload>
             </div>
 
             <div class="field-checkbox col-12 md:col-6" *ngIf="showUploadImg">
-                <p-checkbox formControlName="isPremium" [binary]="true" inputId="binary" formControlName="isPremium"></p-checkbox>
+                <p-checkbox formControlName="isPremium" [binary]="true" inputId="binary" formControlName="isPremium">
+                </p-checkbox>
                 <label for="binary">Post as Premium</label>
             </div>
 
@@ -1134,7 +1147,7 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost" [disabled]="uploaded">Post</button>
                 </div>
             </div>
         </form>

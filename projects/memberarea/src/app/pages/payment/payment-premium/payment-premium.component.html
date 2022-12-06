@@ -11,8 +11,10 @@
                 <div class="card p-5">
                     <div class="grid">
                         <div class="col-6">
-                            <p class="text-sm mb-0"><i class="pi pi-check-circle text-green-700"></i>  Pay Once. Use Forever !</p> <br>
-                            <p class="text-sm mb-0"><i class="pi pi-check-circle text-green-700"></i>  Unlimited Access</p>
+                            <p class="text-sm mb-0"><i class="pi pi-check-circle text-green-700"></i> Pay Once. Use
+                                Forever !</p> <br>
+                            <p class="text-sm mb-0"><i class="pi pi-check-circle text-green-700"></i> Unlimited Access
+                            </p>
                         </div>
                         <div class="col-1">
                             <p-divider layout="vertical"></p-divider>
@@ -27,9 +29,9 @@
                     <div class="grid justify-content-center">
                         <div class="col-5">
                             <button pButton type="button" class="p-button-sm w-full" label="Upgrade Now"
-                        (click)="clickUpgrade()"></button>
-                    <button pButton type="button" class="p-button-sm p-button-text mt-2"
-                        label="Cancel" routerLink="/feed"></button>
+                                (click)="clickUpgrade()"></button>
+                            <button pButton type="button" class="p-button-sm p-button-text mt-2" label="Cancel"
+                                routerLink="/feed"></button>
                         </div>
                     </div>
                 </div>
@@ -96,7 +98,8 @@
                                 <div class="grid justify-content-end">
                                     <div class="col-6">
                                         <button pButton type="submit" class="p-button-sm w-full"
-                                            styleClass="p-button-sm text-center" label="Confirmation"></button>
+                                            styleClass="p-button-sm text-center" label="Confirmation"
+                                            [loading]="loading"></button>
                                     </div>
                                 </div>
                             </div>

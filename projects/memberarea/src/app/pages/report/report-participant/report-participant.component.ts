@@ -4,7 +4,7 @@ import { FormBuilder } from "@angular/forms";
 import { LazyLoadEvent } from "primeng/api";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ReportService } from "projects/mainarea/src/app/service/report.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 
 @Component({
@@ -23,6 +23,8 @@ export class ReportMemberComponent implements OnInit, OnDestroy {
 
     limit = this.rows
     totalReports!: number
+
+    loading = false
 
     private reportsSubscription?: Subscription
     private pageChangeSubscription?: Subscription
@@ -74,7 +76,8 @@ export class ReportMemberComponent implements OnInit, OnDestroy {
     }
 
     export() {
-        this.exportsSubscription = this.reportService.reportActivityMember(this.date.value.startDate!, this.date.value.endDate!).subscribe(result => {
+        this.loading = true
+        this.exportsSubscription = this.reportService.reportActivityMember(this.date.value.startDate!, this.date.value.endDate!).pipe(finalize(() => this.loading = false)).subscribe(result => {
             const anchor = document.createElement('a');
             anchor.download = "member-activity.pdf";
             anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);

@@ -14,12 +14,21 @@
                     <label for="fullnameInput">Full Name<span class="text-red-500">*</span></label>
                     <input pInputText id="fullnameInput" name="fullnameInput" type="text" class="w-full p-inputtext-sm"
                         formControlName="fullname" required maxlength="50">
+                    <small
+                        *ngIf="registerForm.controls['fullname'].errors?.['required'] && registerForm.controls['fullname'].touched"
+                        class="p-error">Please enter your name</small>
                 </div>
 
                 <div class="field mt-4">
                     <label for="email">Email<span class="text-red-500">*</span></label>
                     <input pInputText id="email" name="email" type="email" class="w-full p-inputtext-sm"
                         formControlName="email" required>
+                    <small
+                        *ngIf="registerForm.controls['email'].errors?.['required'] && registerForm.controls['email'].touched"
+                        class="p-error">Please enter your email</small>
+                    <small
+                        *ngIf="registerForm.controls['email'].errors?.['email'] && registerForm.controls['email'].touched"
+                        class="p-error">Wrong email format</small>
                 </div>
 
                 <div class="field mt-4">
@@ -27,12 +36,21 @@
                     <p-password id="password" name="password" type="password" styleClass="w-full"
                         [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" formControlName="password"
                         required></p-password>
+                    <small
+                        *ngIf="registerForm.controls['password'].errors?.['required'] && registerForm.controls['password'].touched"
+                        class="p-error">Please enter your password</small>
                 </div>
                 <div class="field mt-4">
                     <label for="password">Confirm Password<span class="text-red-500">*</span></label>
                     <p-password id="password" name="password" type="password" styleClass="w-full"
                         [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true"
-                        formControlName="confirmPassword" required></p-password>
+                        formControlName="confirmPassword" required [feedback]="false"></p-password>
+                    <small
+                        *ngIf="registerForm.controls['confirmPassword'].errors?.['required'] && registerForm.controls['confirmPassword'].touched"
+                        class="p-error">Please re-enter your password</small>
+                    <small
+                        *ngIf="registerForm.value.confirmPassword != registerForm.value.password && registerForm.controls['confirmPassword'].touched && registerForm.controls['confirmPassword'].valid"
+                        class="p-error">Password didn't match</small>
                 </div>
                 <div class="mt-4">
                     <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"
@@ -54,6 +72,9 @@
                     <label for="companyName">Company<span class="text-red-500">*</span></label>
                     <input pInputText id="companyName" name="companyName" type="text" class="w-full p-inputtext-sm"
                         required formControlName="company">
+                    <small
+                        *ngIf="registerForm.controls['company'].errors?.['required'] && registerForm.controls['company'].touched"
+                        class="p-error">Please enter your company</small>
                 </div>
                 <div class="field">
                     <label for="industryName">Industry<span class="text-red-500">*</span></label>
@@ -61,12 +82,18 @@
                         name="industryName" id="industryName" formControlName="industryId"
                         placeholder="Select an Industry">
                     </p-dropdown>
+                    <small
+                        *ngIf="registerForm.controls['industryId'].errors?.['required'] && registerForm.controls['industryId'].touched"
+                        class="p-error">Please enter your industry</small>
                 </div>
                 <div class="field">
                     <label for="positionName">Position<span class="text-red-500">*</span></label>
                     <p-dropdown [options]="positions" styleClass="w-full" optionLabel="name" optionValue="id"
                         name="positionName" id="positionName" formControlName="positionId"
                         placeholder="Select a Position"></p-dropdown>
+                    <small
+                        *ngIf="registerForm.controls['positionId'].errors?.['required'] && registerForm.controls['positionId'].touched"
+                        class="p-error">Please enter your position</small>
                 </div>
                 <div class="mt-4">
                     <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"
@@ -91,6 +118,9 @@
                 <div class="field mt-4">
                     <input pInputText id="verificationCode" name="verificationCode" type="text"
                         class="w-full p-inputtext-sm" required formControlName="verificationCode">
+                    <small
+                        *ngIf="verificationCode.controls['verificationCode'].errors?.['required'] && verificationCode.controls['verificationCode'].touched"
+                        class="p-error">Please enter the verification code</small>
                 </div>
                 <div class="mt-4 text-center">
                     <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"

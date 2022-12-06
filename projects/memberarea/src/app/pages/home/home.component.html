@@ -1081,7 +1081,7 @@
             <!-- Post Content -->
             <div class="field col-12">
                 <label for="postContent">Content<span class="text-red-500">*</span></label>
-                <textarea placeholder="write something..." rows="8" [autoResize]="true" pInputTextarea class="w-full"
+                <textarea placeholder="write something..." [autoResize]="true" pInputTextarea class="w-full"
                     id="postContent" name="postContent" formControlName="postContent" required></textarea>
                 <small class="p-error"
                     *ngIf="postForm.controls['postContent'].errors?.['required'] && postForm.controls['postContent'].touched">
@@ -1099,9 +1099,9 @@
                         <label for="pollQuestion">Question<span class="text-red-500">*</span></label>
                         <textarea rows="2" [autoResize]="true" pInputTextarea class="w-full" id="pollQuestion"
                             name="pollQuestion" formControlName="pollTitle"></textarea>
-                            <small class="p-error" *ngIf="pollTitle?.errors?.['required'] && pollTitle?.touched">
-                                Please fill the polling question
-                            </small>
+                        <small class="p-error" *ngIf="pollTitle?.errors?.['required'] && pollTitle?.touched">
+                            Please fill the polling question
+                        </small>
                     </div>
                     <div formArrayName="pollOptionInsertReqs">
                         <ng-container *ngFor="let option of pollingOption.controls; index as i" [formGroupName]="i">

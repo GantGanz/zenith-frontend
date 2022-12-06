@@ -12,9 +12,10 @@ import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.serv
 import { CommentService } from "projects/mainarea/src/app/service/comment.service";
 import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
+import { PollVoteService } from "projects/mainarea/src/app/service/poll-vote.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 import { POST_TYPE_CODE, POST_TYPE_ID } from "../../../constant/post.type";
 
 @Component({
@@ -26,10 +27,12 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     postDelete = this.fb.group({
         id: ['', [Validators.required]],
+        version: [0, [Validators.required]],
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
         postContent: ['', [Validators.required]],
         postTypeId: ['', [Validators.required]],
-        attachmentPostInsertReqs: this.fb.array([]),
+        // attachmentPostInsertReqs: this.fb.array([]),
+        isActive: [false],
         // pollInsertReq: this.fb.group({
         //     pollTitle: ['', [Validators.required]],
         //     endAt: ['', [Validators.required]],
@@ -38,7 +41,11 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         //         this.fb.group({ pollContent: ['', Validators.required] })
         //     ])
         // }),
-        isPremium: [false, [Validators.required]]
+        // isPremium: [false, [Validators.required]]
+    })
+
+    voteForm = this.fb.group({
+        pollOptionId: ['', [Validators.required]]
     })
 
     posts: any[] = []
@@ -72,6 +79,12 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     likedPost: PostData[] = []
     myUser!: UserData
 
+    fullName!: string
+    email!: string
+    positionName!: string
+    company!: string
+    isPremium!: boolean
+
     displayCustom!: boolean;
     activeIndex: number = 0;
 
@@ -85,6 +98,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     first = 0
     limit = 3
     fileLoading = false
+
+    totalMyPost!: number
 
     commentFirst = 0
     commentLimit = 3
@@ -117,31 +132,49 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     private deleteBookmarkSubscription?: Subscription
     private deleteLikeSubscription?: Subscription
     private likedIdSubscription?: Subscription
-
+    private deleteSubscription?: Subscription
+    private postSubscription?: Subscription
+    private countSubscription?: Subscription
+    private insertVoteSubscription?: Subscription
 
 
     private totalCourseSubscription?: Subscription
     private totalEventSubscription?: Subscription
-    private totalIncomeSubscription?: Subscription
 
     constructor(private fb: FormBuilder, private postService: PostService, private userService: UserService,
         private paymentActivityService: PaymentActivityService, private activityService: ActivityService,
         private router: Router, private confirmationService: ConfirmationService, private bookmarkService: BookmarkService,
-        private commentService: CommentService, private likeService: LikeService,) { }
+        private commentService: CommentService, private likeService: LikeService, private pollVoteService: PollVoteService) { }
 
     ngOnInit(): void {
         this.init()
     }
 
     init() {
+
+        this.postSubscription = this.postService.getAllByUser(this.first, this.limit).subscribe(result => {
+            this.posts = result.data
+            this.postRes = result
+        })
+
+        this.countSubscription = this.postService.countMyPosts().subscribe(result => {
+            this.totalMyPost = result
+        })
+
         this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
             this.myUser = result.data
             this.myFileId = this.myUser.fileId
+            this.fullName = this.myUser.fullname
+            this.email = this.myUser.email
+            this.company = this.myUser.company
+            this.positionName = this.myUser.positionName
+            this.isPremium = this.myUser.isPremium
         })
 
         this.totalCourseSubscription = this.activityService.countCourse().subscribe(result => {
             this.totalCourse = result
         })
+
         this.totalEventSubscription = this.activityService.countEvent().subscribe(result => {
             this.totalEvent = result
         })
@@ -163,7 +196,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
                 this.result[i].commentOffset = 0
             }
         })
-        this.postCountSubscription = this.postService.countMyPosts().subscribe(count=>{
+        this.postCountSubscription = this.postService.countMyPosts().subscribe(count => {
             this.postCount = count
         })
     }
@@ -179,6 +212,16 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
                 this.result[i + this.first].showMoreComment = false
                 this.result[i + this.first].commentOffset = 0
             }
+        })
+    }
+
+    clickVote(i: number, pollIndex: number) {
+        this.voteForm.controls['pollOptionId'].setValue(this.result[i].pollData.pollOptionDatas[pollIndex].id)
+
+        this.insertVoteSubscription = this.pollVoteService.insert(this.voteForm.value).subscribe(() => {
+            this.result[i].pollData.isVoted = true
+            this.result[i].pollData.countVote += 1
+            this.result[i].pollData.pollOptionDatas[pollIndex].isVoted = true
         })
     }
 
@@ -279,12 +322,11 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         }
     }
 
-
     clickEditProfile() {
-        this.router.navigateByUrl(`/profile/edit/${this.myUser}`)
+        this.router.navigateByUrl(`/profile/edit/${this.myUser.id}`)
     }
     clickChangePassword() {
-        this.router.navigateByUrl(`/profile/change-password/${this.myUser}`)
+        this.router.navigateByUrl(`/profile/change-password/${this.myUser.id}`)
     }
 
     clickConfirmDelete(index: number) {
@@ -296,19 +338,38 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             key: 'positionDialog',
             accept: () => {
                 this.postDelete.controls['id'].setValue(this.postRes.data[i].id)
+                this.postDelete.controls['version'].setValue(this.postRes.data[i].version)
                 this.postDelete.controls['postTitle'].setValue(this.postRes.data[i].postTitle)
                 this.postDelete.controls['postContent'].setValue(this.postRes.data[i].postContent)
                 this.postDelete.controls['postTypeId'].setValue(this.postRes.data[i].postTypeId)
+
+                this.deleteSubscription = this.postService.update(this.postDelete.value).subscribe(a => {
+                    this.init()
+                })
             }
         })
     }
-
 
     ngOnDestroy(): void {
         this.postsSubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()
         this.totalEventSubscription?.unsubscribe()
         this.totalCourseSubscription?.unsubscribe()
-        this.totalIncomeSubscription?.unsubscribe()
+
+        this.insertBookmarkSubscription?.unsubscribe()
+        this.insertLikeSubscription?.unsubscribe()
+
+        this.insertCommentSubscription?.unsubscribe()
+        this.commentByPostSubscription?.unsubscribe()
+        this.bookmarkedIdSubscription?.unsubscribe()
+        this.deleteBookmarkSubscription?.unsubscribe()
+        this.deleteLikeSubscription?.unsubscribe()
+        this.likedIdSubscription?.unsubscribe()
+        this.postSubscription?.unsubscribe()
+        this.postCountSubscription?.unsubscribe()
+        this.countSubscription?.unsubscribe()
+        this.insertVoteSubscription?.unsubscribe()
+        this.deleteSubscription?.unsubscribe()
     }
 }
+

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import { ActivityData } from "projects/interface/activity/activity-data";
 import { ActivityTypeService } from "projects/mainarea/src/app/service/activity-type.service";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { Subscription } from "rxjs";
@@ -20,12 +21,14 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
         endAt: ['', [Validators.required]],
         fee: [0, [Validators.required]],
         activityTypeId: ['', [Validators.required]],
-        isActive: [true, [Validators.required]],
+        isActive: [true],
         version: [0, [Validators.required]]
     })
 
     activityTypes: any[] = []
     disable = false
+
+    activityRes!: ActivityData
 
 
     private activityTypeSubscription?: Subscription
@@ -40,9 +43,8 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.myActivitySubscription = this.activityService.getById(id).subscribe(result => {
-                this.activityUpdateForm.patchValue(
-                    result.data
-                )
+                this.activityUpdateForm.patchValue(result.data)
+                this.activityRes = result.data
             })
             this.activityTypeSubscription = this.activityTypeService.getAll().subscribe(result => {
                 for (let i = 0; i < result.data.length; i++) {

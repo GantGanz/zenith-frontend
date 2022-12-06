@@ -1,12 +1,14 @@
-
 <div class="container">
     <h2 class="my-4">List Of Industry</h2>
     <div class="my-3">
-        <button pButton class="p-button-sm btn-custom" type="button" id="insertIndustry" name="insertIndustry" routerLink="/industries/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
+        <button pButton class="p-button-sm btn-custom" type="button" id="insertIndustry" name="insertIndustry"
+            routerLink="/industries/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> New</span></button>
     </div>
 
-    <p-table [value]="industries" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalIndustries"  [showCurrentPageReport]="true" 
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onLazyLoad)="loadData($event)" [lazy]="true" paginatorPosition="both" [loading]="tableLoad" [lazyLoadOnInit]="false">
+    <p-table [value]="industries" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalIndustries"
+        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onLazyLoad)="loadData($event)" [lazy]="true" paginatorPosition="both" [loading]="tableLoad"
+        [lazyLoadOnInit]="false">
         <ng-template pTemplate="header">
             <tr>
                 <th style="text-align: center ">No</th>
@@ -29,15 +31,17 @@
                         <i class="pi pi-times text-danger"></i>
                     </ng-template>
                 </td>
-                <td style="text-align: center ">
+                <td style="text-align: center">
                     <div>
-                        <button pButton type="button" class="p-button-text" pTooltip="Update" routerLink="/industries/edit/{{industry.id}}"><i class="pi pi-file-edit"></i></button>
-                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete" (click)="confirmPosition('top',i)"><i class="pi pi-trash"></i></button>
+                        <button pButton type="button" class="p-button-text" pTooltip="Update"
+                            routerLink="/industries/edit/{{industry.id}}"><i class="pi pi-file-edit"></i></button>
+                        <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"
+                            (click)="confirmPosition('top',i)"><i class="pi pi-trash"></i></button>
                     </div>
                 </td>
             </tr>
         </ng-template>
-    </p-table> 
+    </p-table>
 </div>
-<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-secondary"
-acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position"
+    rejectButtonStyleClass="p-button-secondary" acceptButtonStyleClass="p-button-danger"></p-confirmDialog>

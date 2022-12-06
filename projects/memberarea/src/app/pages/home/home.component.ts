@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
             this.myUser = user.data
             this.myFileId = user.data.fileId
-            if(!this.myUser.isPremium){
+            if (!this.myUser.isPremium) {
                 this.postForm.get('isPremium')?.disable()
             }
         })
@@ -178,10 +178,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
         this.postCountSubscription = this.postService.countLiked().subscribe(count => {
             this.postCount = count
-            if(count>0){
+            if (count > 0) {
                 this.dataEmpty = false
                 this.dataNotEmpty = true
-            }else{
+            } else {
                 this.dataEmpty = true
                 this.dataNotEmpty = false
             }
@@ -201,10 +201,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
         this.postCountSubscription = this.postService.countBookmarked().subscribe(count => {
             this.postCount = count
-            if(count>0){
+            if (count > 0) {
                 this.dataEmpty = false
                 this.dataNotEmpty = true
-            }else{
+            } else {
                 this.dataEmpty = true
                 this.dataNotEmpty = false
             }
@@ -224,11 +224,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     onScroll() {
-        console.log(this.result.length);
-        console.log(this.postCount);
-        
         this.first += this.limit
-        if(this.result.length < this.postCount){
+        if (this.result.length < this.postCount) {
             if (this.tabIndex == 0) {
                 this.addData()
             } else if (this.tabIndex == 1) {
@@ -332,10 +329,10 @@ export class HomeComponent implements OnInit, OnDestroy {
                 if (this.tabIndex == 1) {
                     this.result.splice(i, 1)
                 }
-                if(this.postCount>0){
+                if (this.postCount > 0) {
                     this.dataEmpty = false
                     this.dataNotEmpty = true
-                }else{
+                } else {
                     this.dataEmpty = true
                     this.dataNotEmpty = false
                 }

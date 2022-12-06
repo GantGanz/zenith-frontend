@@ -26,13 +26,13 @@
                   </p>
                   <p class="card-text -mt-2"><i class="pi pi-calendar"></i> Status : {{data.paymentStatus}}</p>
 
-                  <div *ngIf="isRegister">
-                    <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
-                      routerLink="/payment/activity/{{data.id}}"></button>
-                  </div>
-                  <div *ngIf="isPaid">
+
+                  <button pButton type="button" class="p-button-sm w-full py-2" label="Register"
+                    routerLink="/payment/activity/{{data.id}}" [disabled]="true"></button>
+
+                  <!-- <div *ngIf="isPaid">
                     <button pButton type="button" class="p-button-sm w-full py-2" label="Register" disabled></button>
-                  </div>
+                  </div> -->
 
                 </div>
               </div>

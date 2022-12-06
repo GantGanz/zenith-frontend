@@ -19,5 +19,6 @@ export interface ActivityData {
 	isActive: boolean
 	attachmentActivityDatas: AttachmentActivityData[]
 	paymentStatus: string
+	isJoined: boolean
 }
 

@@ -93,8 +93,7 @@ export class MyActivityComponent implements OnInit, OnDestroy {
     }
 
 
-    clickConfirmDelete(index: number) {
-        const i = index - this.first
+    clickConfirmDelete(i: number) {
         this.confirmationService.confirm({
             message: 'Do you want to delete this activity?',
             header: 'Delete Confirmation',

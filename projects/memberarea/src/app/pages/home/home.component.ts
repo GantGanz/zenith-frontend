@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
             this.myUser = user.data
             this.myFileId = user.data.fileId
-            if(!this.myUser.isPremium){
+            if (!this.myUser.isPremium) {
                 this.postForm.get('isPremium')?.disable()
             }
         })
@@ -205,12 +205,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     onScroll() {
         this.first += this.limit
-        if (this.tabIndex == 0) {
-            this.addData()
-        } else if (this.tabIndex == 1) {
-            this.addDataLiked()
-        } else {
-            this.addDataBookmarked()
+        if (this.result.length < this.postCount) {
+            if (this.tabIndex == 0) {
+                this.addData()
+            } else if (this.tabIndex == 1) {
+                this.addDataLiked()
+            } else {
+                this.addDataBookmarked()
+            }
         }
     }
 

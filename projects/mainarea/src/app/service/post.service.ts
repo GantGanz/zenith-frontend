@@ -62,4 +62,7 @@ export class PostService {
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/posts`, data)
     }
 
+    getAllByUser(offset:number, limit:number){
+        return this.http.get<PostsRes>(`${BASE_URL.LOCALHOST}/posts/user?offset=${offset}&limit=${limit}`)
+    }
 }

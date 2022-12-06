@@ -67,6 +67,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     limit = 3
     fileLoading = false
 
+    postCount = 0
+
     commentFirst = 0
     commentLimit = 3
 
@@ -111,6 +113,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private likedPostSubscription?: Subscription
     private postTypeSubscription?: Subscription
     private bookmarkedPostSubscription?: Subscription
+    private postCountSubscription?: Subscription
 
     private insertVoteSubscription?: Subscription
 
@@ -137,6 +140,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
             this.myUser = user.data
             this.myFileId = user.data.fileId
+            if(!this.myUser.isPremium){
+                this.postForm.get('isPremium')?.disable()
+            }
         })
         this.postInit()
     }
@@ -153,6 +159,9 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i].showMoreComment = false
                 this.result[i].commentOffset = 0
             }
+        })
+        this.postCountSubscription = this.postService.countAll().subscribe(count => {
+            this.postCount = count
         })
     }
 
@@ -381,13 +390,19 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (this.postForm.value.isPremium) {
             this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
                 this.postForm.controls['postTypeId'].setValue(result.id)
+                this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
+                    this.showForm = false
+                    this.first = 0
+                    this.postInit()
+                })
+            })
+        } else {
+            this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
+                this.showForm = false
+                this.first = 0
+                this.postInit()
             })
         }
-        this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
-            this.showForm = false
-            this.first = 0
-            this.postInit()
-        })
     }
 
     submitcomment(postIndex: number) {

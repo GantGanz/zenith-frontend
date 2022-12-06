@@ -14,7 +14,7 @@ import { LikeService } from "projects/mainarea/src/app/service/like.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 import { POST_TYPE_CODE, POST_TYPE_ID } from "../../../constant/post.type";
 
 @Component({
@@ -26,10 +26,12 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     postDelete = this.fb.group({
         id: ['', [Validators.required]],
+        version: [0, [Validators.required]],
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
         postContent: ['', [Validators.required]],
         postTypeId: ['', [Validators.required]],
         attachmentPostInsertReqs: this.fb.array([]),
+        isActive: [false],
         // pollInsertReq: this.fb.group({
         //     pollTitle: ['', [Validators.required]],
         //     endAt: ['', [Validators.required]],
@@ -91,6 +93,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     limit = 3
     fileLoading = false
 
+    totalMyPost!: number
+
     commentFirst = 0
     commentLimit = 3
 
@@ -121,7 +125,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     private deleteBookmarkSubscription?: Subscription
     private deleteLikeSubscription?: Subscription
     private likedIdSubscription?: Subscription
-
+    private deleteSubscription?: Subscription
+    private postSubscription?: Subscription
+    private countSubscription?: Subscription
 
 
     private totalCourseSubscription?: Subscription
@@ -138,6 +144,16 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     init() {
+
+        this.postSubscription = this.postService.getAllById(this.first, this.limit).subscribe(result => {
+            this.posts = result.data
+        })
+
+        this.countSubscription = this.postService.countMyPosts().subscribe(result => {
+            this.totalMyPost = result
+        })
+
+
         this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
             this.id = result.data.id
             this.fullname = result.data.fullname
@@ -309,9 +325,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         })
     }
 
-
-
-
     clickEditProfile() {
         this.router.navigateByUrl(`/profile/edit/${this.id}`)
     }
@@ -328,9 +341,14 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             key: 'positionDialog',
             accept: () => {
                 this.postDelete.controls['id'].setValue(this.postRes.data[i].id)
+                this.postDelete.controls['version'].setValue(this.postRes.data[i].version)
                 this.postDelete.controls['postTitle'].setValue(this.postRes.data[i].postTitle)
                 this.postDelete.controls['postContent'].setValue(this.postRes.data[i].postContent)
                 this.postDelete.controls['postTypeId'].setValue(this.postRes.data[i].postTypeId)
+
+                this.deleteSubscription = this.postService.update(this.postDelete.value).subscribe(a => {
+                    this.init()
+                })
             }
         })
     }

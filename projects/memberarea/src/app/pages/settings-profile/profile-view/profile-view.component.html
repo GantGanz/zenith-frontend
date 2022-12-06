@@ -96,6 +96,12 @@
                                     class="px-1 font-medium bg-yellow-50 text-yellow-500 border-round-md text-xs pb-1">
                                     {{data.positionName}}</span>
                             </div>
+                            <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
+                                <div class="text-end">
+                                    <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>
+                                </div>
+                            </ng-container>
+
                             <div class="inline-block justify-content-end">
                                 <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
                                     pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
@@ -122,11 +128,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <ng-container *ngIf="data.postTypeCode == premiumPostCode;">
-                                <div class="text-end">
-                                    <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>
-                                </div>
-                            </ng-container>
                         </div>
                         <div class="mt-4">
                             <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>

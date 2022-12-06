@@ -31,6 +31,10 @@
                                 <label for="fullName">Full Name<span class="text-red-500">*</span></label>
                                 <input pInputText class="w-full" type="text" id="fullName" name="fullName"
                                     formControlName="fullname" required>
+                                <small class="p-error"
+                                    *ngIf="userUpdateForm.controls['fullname'].errors?.['required'] && userUpdateForm.controls['fullname'].touched">
+                                    Please input your name
+                                </small>
                             </div>
                             <div class="field col-12">
                                 <label for="email">Email</label>
@@ -41,6 +45,10 @@
                                 <label for="company">Company<span class="text-red-500">*</span></label>
                                 <input pInputText class="w-full" type="text" id="company" name="company"
                                     formControlName="company" required>
+                                <small class="p-error"
+                                    *ngIf="userUpdateForm.controls['company'].errors?.['required'] && userUpdateForm.controls['company'].touched">
+                                    Please input company name
+                                </small>
                             </div>
                             <div class="field col-12">
                                 <label for="industryName">Industry<span class="text-red-500">*</span></label>

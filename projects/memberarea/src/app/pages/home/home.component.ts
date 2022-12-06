@@ -409,6 +409,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.postForm.get('pollInsertReq')?.get('pollOptionInsertReqs') as FormArray
     }
 
+    get pollTitle(){
+        return this.postForm.get('pollInsertReq')?.get('pollTitle')
+    }
+
     selectFile(event:any){
         console.log(event.currentFiles);
         if(event.currentFiles){

@@ -1099,6 +1099,9 @@
                         <label for="pollQuestion">Question<span class="text-red-500">*</span></label>
                         <textarea rows="2" [autoResize]="true" pInputTextarea class="w-full" id="pollQuestion"
                             name="pollQuestion" formControlName="pollTitle"></textarea>
+                            <small class="p-error" *ngIf="pollTitle?.errors?.['required'] && pollTitle?.touched">
+                                Please fill the polling question
+                            </small>
                     </div>
                     <div formArrayName="pollOptionInsertReqs">
                         <ng-container *ngFor="let option of pollingOption.controls; index as i" [formGroupName]="i">
@@ -1108,6 +1111,9 @@
                                     <div class="col-10">
                                         <input pInputText class="w-full p-inputtext-sm" type="text" id="pollOption"
                                             name="pollOption" formControlName="pollContent" required>
+                                        <small class="p-error" *ngIf="option.invalid && option.touched">
+                                            Please fill the polling option
+                                        </small>
                                     </div>
                                     <div class="col-2">
                                         <button pButton class="p-button-sm p-button-danger"
@@ -1116,7 +1122,6 @@
                                 </div>
                             </div>
                         </ng-container>
-                        <pre>{{postForm.value | json}}</pre>
                     </div>
                     <!-- Add Option -->
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnAddOption"
@@ -1133,8 +1138,9 @@
             <!-- Upload Image -->
             <div class="field col-12" *ngIf="showUploadImg">
                 <label for="image">Upload Image</label>
-                <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*" [customUpload]="true"
-                    (onSelect)="selectFile($event)" (uploadHandler)="fileUpload($event)"></p-fileUpload>
+                <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
+                    [customUpload]="true" (onSelect)="selectFile($event)" (uploadHandler)="fileUpload($event)">
+                </p-fileUpload>
             </div>
 
             <div class="field-checkbox col-12 md:col-6" *ngIf="showUploadImg">
@@ -1147,7 +1153,8 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost" [disabled]="uploaded">Post</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
+                        [disabled]="uploaded">Post</button>
                 </div>
             </div>
         </form>

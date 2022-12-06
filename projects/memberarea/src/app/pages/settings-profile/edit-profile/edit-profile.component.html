@@ -56,6 +56,10 @@
                                     optionValue="id" name="industryName" id="industryName"
                                     placeholder="Select an Industry" formControlName="industryId">
                                 </p-dropdown>
+                                <small class="p-error"
+                                    *ngIf="userUpdateForm.controls['industryId'].errors?.['required'] && userUpdateForm.controls['industryId'].touched">
+                                    Please select your industry
+                                </small>
                             </div>
                             <div class="field col-12">
                                 <label for="positionName">Position<span class="text-red-500">*</span></label>
@@ -63,6 +67,10 @@
                                     optionLabel="positionName" optionValue="id" name="positionName" id="positionName"
                                     placeholder="Select Position" formControlName="positionId">
                                 </p-dropdown>
+                                <small class="p-error"
+                                    *ngIf="userUpdateForm.controls['positionId'].errors?.['required'] && userUpdateForm.controls['positionId'].touched">
+                                    Please select your position
+                                </small>
                             </div>
                             <div class="field col-12 mt-2 mb-4 flex justify-content-end">
                                 <button pButton type="submit" id="btnSaveChange" name="btnSaveChange" label="Save"

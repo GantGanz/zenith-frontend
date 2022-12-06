@@ -1,49 +1,51 @@
 <nav class="navbar navbar-expand-md bg-white">
   <div class="container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-      <a class="navbar-brand"><img src="../../../../assets/images/zenith_logo.png" alt="zenith logo" style="width: 3rem;"></a>
-      
-      <div class="collapse navbar-collapse justify-content-start" id="navbarTogglerDemo01">
-          <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
-              <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" routerLink="/dashboard/super-admin">Dashboard</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                  Data Master
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" routerLink="/users/list">Users</a></li>
-                  <li><a class="dropdown-item" routerLink="/positions/list">Position</a></li>
-                  <li><a class="dropdown-item" routerLink="/industries/list">Industry</a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                  Information Reports
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" routerLink="/report-member/member">Members Information</a></li>
-                  <li><a class="dropdown-item" routerLink="/report-member/income-member">Members Income</a></li>
-                </ul>
-              </li>
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand"><img src="../../../../assets/images/zenith_logo.png" alt="zenith logo"
+        style="width: 3rem;"></a>
+
+    <div class="collapse navbar-collapse justify-content-start" id="navbarTogglerDemo01">
+      <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/dashboard/super-admin">Dashboard</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Data Master
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/users/list">Users</a></li>
+            <li><a class="dropdown-item" routerLink="/positions/list">Position</a></li>
+            <li><a class="dropdown-item" routerLink="/industries/list">Industry</a></li>
           </ul>
-          <div class="btn-group">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <ng-container *ngIf="imgLoad">
-                  <img src="{{fileLink}}{{fileId}}" class="w-3rem h-3rem border-circle" style="object-fit: cover ;" alt="photo member">
-                </ng-container>
-              </a>
-              <ul
-                  class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">
-                  <li><button class="dropdown-item" type="button" routerLink="/super-admin/profiles/view">View Profile</button></li>
-                  <li><button class="dropdown-item text-danger btnLogout" type="button" (click)="logout()">Logout</button></li>
-              </ul>
-          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+            Information Reports
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/report-member/member">Members Information</a></li>
+            <li><a class="dropdown-item" routerLink="/report-member/income-member">Members Income</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="btn-group">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <ng-container *ngIf="imgLoad">
+            <img src="{{fileLink}}{{fileId}}" class="w-3rem h-3rem border-circle" style="object-fit: cover ;"
+              alt="photo member">
+          </ng-container>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">
+          <li><button class="dropdown-item" type="button" routerLink="/profiles/super-admin/view">View Profile</button>
+          </li>
+          <li><button class="dropdown-item text-danger btnLogout" type="button" (click)="logout()">Logout</button></li>
+        </ul>
       </div>
+    </div>
   </div>
 </nav>
-

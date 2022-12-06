@@ -2,21 +2,22 @@
     <div class="card flex align-items-center border-none border-round-2xl p-8 mt-4">
         <div class="text-center">
             <ng-container *ngIf="userLoaded">
-                <img src={{fileLink}}{{fileId}} class="w-8rem h-8rem border-circle mb-3" style="object-fit: cover" alt="profile pic super-admin">
+                <img src={{fileLink}}{{fileId}} class="w-8rem h-8rem border-circle mb-3" style="object-fit: cover"
+                    alt="profile pic super-admin">
             </ng-container>
             <h4>{{fullname}}</h4>
             <span>{{email}}</span>
         </div>
         <div class="flex gap-2 mt-4">
             <button pButton type="button" class="p-button-sm" *ngIf="editProfileSuperAdmin"
-                routerLink="/super-admin/profiles/edit/{{myId}}">Edit Profile</button>
+                routerLink="/profiles/super-admin/edit/{{myId}}">Edit Profile</button>
             <button pButton type="button" class="p-button-sm" *ngIf="editProfileAdmin"
-                routerLink="/admin/profiles/edit/{{myId}}">Edit Profile</button>
+                routerLink="/profiles/admin/edit/{{myId}}">Edit Profile</button>
 
             <button pButton type="button" class="p-button-sm" *ngIf="changePasswordAdmin"
-                routerLink="/admin/profiles/change-password/{{myId}}">Change Password</button>
+                routerLink="/profiles/admin/change-password/{{myId}}">Change Password</button>
             <button pButton type="button" class="p-button-sm" *ngIf="changePasswordSuperAdmin"
-                routerLink="/super-admin/profiles/change-password/{{myId}}">Change Password</button>
+                routerLink="/profiles/super-admin/change-password/{{myId}}">Change Password</button>
         </div>
     </div>
 </div>

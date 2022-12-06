@@ -52,6 +52,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     showUploadImg = true
     showCreatePolling = false
 
+    dataEmpty = true
+    dataNotEmpty = false
+
     displayCustom!: boolean;
     activeIndex: number = 0;
 

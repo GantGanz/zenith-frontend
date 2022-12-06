@@ -25,9 +25,12 @@ export class PostUpdateComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder, private active: ActivatedRoute, private postService: PostService, private router: Router) { }
 
     postUpdateForm = this.fb.group({
+        id: ['', [Validators.required]],
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
         postContent: ['', [Validators.required]],
         postTypeId: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]],
         attachmentPostInsertReqs: this.fb.array([]),
         pollInsertReq: this.fb.group({
             pollTitle: ['', [Validators.required]],

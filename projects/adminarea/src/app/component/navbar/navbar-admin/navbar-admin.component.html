@@ -4,8 +4,9 @@
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <a class="navbar-brand"><img src="../../../../assets/images/zenith_logo.png" alt="zenith logo" style="width: 3rem;"></a>
+
+        <a class="navbar-brand"><img src="../../../../assets/images/zenith_logo.png" alt="zenith logo"
+                style="width: 3rem;"></a>
         <div class="collapse navbar-collapse justify-content-start" id="navbarTogglerDemo01">
             <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
                 <li class="nav-item">
@@ -15,27 +16,30 @@
                     <a class="nav-link" routerLink="/articles-admin/list">Article</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                    Approve Payment
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" routerLink="/payment/event">Course & Event</a></li>
-                    <li><a class="dropdown-item" routerLink="/payment/member-premium">Member Premium</a></li>
-                  </ul>
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                        Approve Payment
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLink="/payment/event">Course & Event</a></li>
+                        <li><a class="dropdown-item" routerLink="/payment/member-premium">Member Premium</a></li>
+                    </ul>
                 </li>
             </ul>
             <div class="btn-group">
                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <ng-container *ngIf="imgLoaded">
-                        <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover ;" alt="photo member">
+                        <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover ;"
+                            alt="photo member">
                     </ng-container>
                 </a>
                 <ul
                     class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">
-                    <li><button class="dropdown-item" type="button" routerLink="/admin/profiles/view">View Profile</button></li>
-                    <li><button class="dropdown-item text-danger btnLogout" type="button" (click)="logout()">Logout</button></li>
+                    <li><button class="dropdown-item" type="button" routerLink="/profiles/admin/view">View
+                            Profile</button></li>
+                    <li><button class="dropdown-item text-danger btnLogout" type="button"
+                            (click)="logout()">Logout</button></li>
                 </ul>
             </div>
         </div>
     </div>
-  </nav>
+</nav>

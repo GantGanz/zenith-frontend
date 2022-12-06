@@ -80,6 +80,7 @@ export class MyActivityComponent implements OnInit, OnDestroy {
             }
         })
     }
+
     addDataEvents() {
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {

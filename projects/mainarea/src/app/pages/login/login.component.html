@@ -22,7 +22,7 @@
                 </div>
                 <div class="field mt-4">
                     <label for="password">Password<span class="text-red-500">*</span></label>
-                    <input pInputText id="password" name="password" type="password" class="w-full p-inputtext-sm" formControlName="password" required>
+                    <p-password id="password" name="password" type="password" class="w-full p-inputtext-sm" formControlName="password" [feedback]="false" [toggleMask]="true" required></p-password>
                 </div>
                 <div class="mt-4">
                     <button pButton class="w-full justify-content-center custom-btn" type="submit" id="btnLogin" name="btnLogin" [loading]="loading">Login</button>

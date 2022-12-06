@@ -176,6 +176,16 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i].commentOffset = 0
             }
         })
+        this.postCountSubscription = this.postService.countLiked().subscribe(count => {
+            this.postCount = count
+            if(count>0){
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            }else{
+                this.dataEmpty = true
+                this.dataNotEmpty = false
+            }
+        })
     }
 
     bookmarkedInit() {
@@ -187,6 +197,16 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i].showImg = false
                 this.result[i].showMoreComment = false
                 this.result[i].commentOffset = 0
+            }
+        })
+        this.postCountSubscription = this.postService.countBookmarked().subscribe(count => {
+            this.postCount = count
+            if(count>0){
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            }else{
+                this.dataEmpty = true
+                this.dataNotEmpty = false
             }
         })
     }
@@ -206,7 +226,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     onScroll() {
         console.log(this.result.length);
         console.log(this.postCount);
-        
         
         this.first += this.limit
         if(this.result.length < this.postCount){
@@ -309,8 +328,16 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(() => {
                 this.result[i].isLiked = false
                 this.result[i].countLike -= 1
+                this.postCount -= 1
                 if (this.tabIndex == 1) {
                     this.result.splice(i, 1)
+                }
+                if(this.postCount>0){
+                    this.dataEmpty = false
+                    this.dataNotEmpty = true
+                }else{
+                    this.dataEmpty = true
+                    this.dataNotEmpty = false
                 }
             })
         })

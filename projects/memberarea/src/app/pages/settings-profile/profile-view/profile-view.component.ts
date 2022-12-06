@@ -31,17 +31,17 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
         postContent: ['', [Validators.required]],
         postTypeId: ['', [Validators.required]],
-        attachmentPostInsertReqs: this.fb.array([]),
+        // attachmentPostInsertReqs: this.fb.array([]),
         isActive: [false],
-        pollInsertReq: this.fb.group({
-            pollTitle: ['', [Validators.required]],
-            endAt: ['', [Validators.required]],
-            pollOptionInsertReqs: this.fb.array([
-                this.fb.group({ pollContent: ['', Validators.required] }),
-                this.fb.group({ pollContent: ['', Validators.required] })
-            ])
-        }),
-        isPremium: [false, [Validators.required]]
+        // pollInsertReq: this.fb.group({
+        //     pollTitle: ['', [Validators.required]],
+        //     endAt: ['', [Validators.required]],
+        //     pollOptionInsertReqs: this.fb.array([
+        //         this.fb.group({ pollContent: ['', Validators.required] }),
+        //         this.fb.group({ pollContent: ['', Validators.required] })
+        //     ])
+        // }),
+        // isPremium: [false, [Validators.required]]
     })
 
     voteForm = this.fb.group({
@@ -94,7 +94,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     premiumPostCode = POST_TYPE_CODE.PREMIUM
 
     postCount = 0
-    // postRes!: PostsRes
 
     first = 0
     limit = 3
@@ -141,7 +140,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     private totalCourseSubscription?: Subscription
     private totalEventSubscription?: Subscription
-    private totalIncomeSubscription?: Subscription
 
     constructor(private fb: FormBuilder, private postService: PostService, private userService: UserService,
         private paymentActivityService: PaymentActivityService, private activityService: ActivityService,
@@ -352,12 +350,26 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         })
     }
 
-
     ngOnDestroy(): void {
         this.postsSubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()
         this.totalEventSubscription?.unsubscribe()
         this.totalCourseSubscription?.unsubscribe()
-        this.totalIncomeSubscription?.unsubscribe()
+
+        this.insertBookmarkSubscription?.unsubscribe()
+        this.insertLikeSubscription?.unsubscribe()
+
+        this.insertCommentSubscription?.unsubscribe()
+        this.commentByPostSubscription?.unsubscribe()
+        this.bookmarkedIdSubscription?.unsubscribe()
+        this.deleteBookmarkSubscription?.unsubscribe()
+        this.deleteLikeSubscription?.unsubscribe()
+        this.likedIdSubscription?.unsubscribe()
+        this.postSubscription?.unsubscribe()
+        this.postCountSubscription?.unsubscribe()
+        this.countSubscription?.unsubscribe()
+        this.insertVoteSubscription?.unsubscribe()
+        this.deleteSubscription?.unsubscribe()
     }
 }
+

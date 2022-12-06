@@ -93,6 +93,12 @@ export class MyActivityComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl("/profile")
     }
 
+    isFuture(date: string) {
+        const now = new Date();
+        now.setHours(now.getHours() + 7)
+        const nowString = now.toISOString()
+        return date > nowString
+    }
 
     clickConfirmDelete(i: number) {
         // const i = index - this.first

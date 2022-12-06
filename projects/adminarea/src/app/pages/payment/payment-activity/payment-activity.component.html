@@ -36,10 +36,12 @@
                             </p-image>
                         </td>
                         <td style="text-align: center ">
-                            <button pButton type="button" class="p-button-sm" label="Approve" id="approvePayment"
-                                name="approvePayment" (click)="clickConfirmApprove(i)"></button>
-                            <button pButton type="button" class="p-button-sm" label="Reject" id="rejectPayment"
-                                name="rejectPayment" (click)="clickConfirmReject(i)"></button>
+                            <div class="flex flex-row gap-2">
+                                <button pButton type="button" class="p-button-sm" label="Approve" id="approvePayment"
+                                    name="approvePayment" (click)="clickConfirmApprove(i)"></button>
+                                <button pButton type="button" class="p-button-sm p-button-danger" label="Reject"
+                                    id="rejectPayment" name="rejectPayment" (click)="clickConfirmReject(i)"></button>
+                            </div>
                         </td>
                     </tr>
                 </ng-template>

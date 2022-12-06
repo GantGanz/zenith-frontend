@@ -29,6 +29,10 @@ export class PaymentActivityService {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/count-approved`)
     }
 
+    countAllRejected(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/count-rejected`)
+    }
+
     getCreatorIncome(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/payment-activities/creator-income`)
     }
@@ -45,6 +49,10 @@ export class PaymentActivityService {
         return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/unapproved?offset=${offset}&limit=${limit}`)
     }
 
+    getAllRejected(offset: number, limit: number): Observable<PaymentActivitiesRes> {
+        return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/rejected?offset=${offset}&limit=${limit}`)
+    }
+
     getAllByCreatorId(): Observable<PaymentActivitiesRes> {
         return this.http.get<PaymentActivitiesRes>(`${BASE_URL.LOCALHOST}/payment-activities/user`)
     }
@@ -59,6 +67,10 @@ export class PaymentActivityService {
 
     approve(data: any): Observable<UpdateRes> {
         return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/payment-activities`, data)
+    }
+
+    reject(data: any): Observable<UpdateRes> {
+        return this.http.put<UpdateRes>(`${BASE_URL.LOCALHOST}/payment-activities/reject`, data)
     }
 
     getById(id: string): Observable<PaymentActivityRes> {

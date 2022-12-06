@@ -5,7 +5,7 @@ import { ActivityData } from "projects/interface/activity/activity-data";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "payment-activity",
@@ -30,6 +30,7 @@ export class PaymentActivityComponent implements OnInit, OnDestroy {
     activityTitle = ''
     provider = ''
     fee = 0
+    loading = false
 
     constructor(private active: ActivatedRoute, private paymentActivityService: PaymentActivityService, private fb: FormBuilder, private fileService: FileService, private activityService: ActivityService) { }
 
@@ -48,18 +49,18 @@ export class PaymentActivityComponent implements OnInit, OnDestroy {
                 this.provider = result.data.provider
                 this.fee = result.data.fee
 
-                this.paidSubscription = this.paymentActivityService.checkPaid(result.data.id).subscribe(result => {
-                    isPaid = result
-                    if (isPaid) {
-                        this.paymentStatus = 4
-                    }
-                })
-
-                this.activitySubscription = this.paymentActivityService.checkApproved(result.data.id).subscribe(result => {
-                    isActivity = result
-                    if (isActivity) {
-                        this.paymentStatus = 5
-                    }
+                this.paidSubscription = this.paymentActivityService.checkPaid(result.data.id).subscribe(resultPaid => {
+                    isPaid = resultPaid
+                    this.activitySubscription = this.paymentActivityService.checkApproved(result.data.id).subscribe(resultApproved => {
+                        isActivity = resultApproved
+                        if (isActivity) {
+                            this.paymentStatus = 5
+                        } else if (isPaid) {
+                            this.paymentStatus = 4
+                        } else {
+                            this.paymentStatus = 1
+                        }
+                    })
                 })
             })
         })
@@ -74,9 +75,10 @@ export class PaymentActivityComponent implements OnInit, OnDestroy {
     }
 
     clickSubmit() {
+        this.loading = true
         this.paymentActivityForm.addControl('activityId', this.fb.control(this.activityId))
         this.paymentActivityForm.addControl('nominal', this.fb.control(this.fee))
-        this.paymentActivitySubscription = this.paymentActivityService.insert(this.paymentActivityForm.value).subscribe(() => this.paymentStatus = 4)
+        this.paymentActivitySubscription = this.paymentActivityService.insert(this.paymentActivityForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => this.paymentStatus = 4)
     }
 
     fileUpload(event: any) {

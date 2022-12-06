@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { PaymentPremiumService } from "projects/mainarea/src/app/service/payment-premium.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 import { PREMIUM_PRICE } from "../../../constant/premium.price";
 
 
@@ -13,6 +13,7 @@ import { PREMIUM_PRICE } from "../../../constant/premium.price";
 export class PaymentPremiumComponent implements OnInit, OnDestroy {
     premiumStatus = 0
     price = `${PREMIUM_PRICE}`
+    loading = false
 
     private paymentPremiumSubscription?: Subscription
     private premiumSubscription?: Subscription
@@ -56,7 +57,8 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
     }
 
     clickSubmit() {
-        this.paymentPremiumSubscription = this.paymentPremiumService.insert(this.paymentPremiumForm.value).subscribe(() => this.premiumStatus = 4)
+        this.loading = true
+        this.paymentPremiumSubscription = this.paymentPremiumService.insert(this.paymentPremiumForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => this.premiumStatus = 4)
     }
 
     fileUpload(event: any) {

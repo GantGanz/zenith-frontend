@@ -204,13 +204,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     onScroll() {
+        console.log(this.result.length);
+        console.log(this.postCount);
+        
+        
         this.first += this.limit
-        if (this.tabIndex == 0) {
-            this.addData()
-        } else if (this.tabIndex == 1) {
-            this.addDataLiked()
-        } else {
-            this.addDataBookmarked()
+        if(this.result.length < this.postCount){
+            if (this.tabIndex == 0) {
+                this.addData()
+            } else if (this.tabIndex == 1) {
+                this.addDataLiked()
+            } else {
+                this.addDataBookmarked()
+            }
         }
     }
 

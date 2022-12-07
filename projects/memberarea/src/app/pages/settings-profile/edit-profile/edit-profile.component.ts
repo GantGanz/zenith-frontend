@@ -76,6 +76,7 @@ export class EditProfileComponent {
         this.updateLoading = true
         this.updateSubscription = this.userService.update(this.userUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe()
     }
+    
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
             this.userUpdateForm.controls['fileCodes'].setValue(result[0][1])

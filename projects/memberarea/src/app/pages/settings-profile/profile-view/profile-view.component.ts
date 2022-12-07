@@ -299,10 +299,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     clickEditComment(postIndex: number, commentIndex: number) {
         this.editComment = true
         this.result[postIndex].commentDatas[commentIndex].editComment = true
-        const commentId = this.result[postIndex].commentDatas[commentIndex].id
-        this.commentByIdSubscription = this.commentService.getByIdComment(commentId).subscribe(result => {
-            this.updateCommentForm.patchValue(result.data)
-        })
+        this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
     }
 
     seeMoreComment(index: number) {
@@ -333,7 +330,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     submitComment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
-            this.clickSeeComment(postIndex)
             this.result[postIndex].countComment += 1
             this.commentForm.reset()
         })

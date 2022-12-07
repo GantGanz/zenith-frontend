@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     type!: string
 
-    uploaded= false
+    uploaded = false
 
     result: PostData[] = []
     likedPost: PostData[] = []
@@ -59,6 +59,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     dataEmpty = true
     dataNotEmpty = false
+
+    myComment = true
+    editComment = false
 
     displayCustom!: boolean;
     activeIndex: number = 0;
@@ -226,6 +229,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
             this.bookmarkedInit()
         }
+    }
+
+    clickEditComment() {
+        this.editComment = true
+        this.myComment = false
     }
 
     onScroll() {
@@ -409,13 +417,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.postForm.get('pollInsertReq')?.get('pollOptionInsertReqs') as FormArray
     }
 
-    get pollTitle(){
+    get pollTitle() {
         return this.postForm.get('pollInsertReq')?.get('pollTitle')
     }
 
-    selectFile(event:any){
+    selectFile(event: any) {
         console.log(event.currentFiles);
-        if(event.currentFiles){
+        if (event.currentFiles) {
             this.uploaded = true
         }
     }

@@ -61,6 +61,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     replyComment = true
     showReplyComment = false
 
+    editComment = false
+    myComment = true
+
     dataEmpty = false
     dataNotEmpty = true
 
@@ -275,6 +278,11 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         })
     }
 
+    clickEditComment() {
+        this.editComment = true
+        this.myComment = false
+    }
+
     seeMoreComment(index: number) {
         this.result[index].commentOffset += this.commentLimit
         this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments => {
@@ -334,7 +342,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
                 this.deleteSubscription = this.postService.update(this.postDelete.value).subscribe(a => {
                     this.addData()
                     this.postCount -= 1
-                    this.result.splice(index,1)
+                    this.result.splice(index, 1)
                 })
             }
         })

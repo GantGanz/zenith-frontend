@@ -217,7 +217,7 @@
                                         <div class="mt-3 w-full">
                                             <div class="card p-4 border-none bg-gray-50">
                                                 <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
-                                                <ng-container *ngIf="data.pollData.isVoted; else notVoted">
+                                                <ng-container *ngIf="data.pollData.isVoted ; else notVoted">
                                                     <ng-container
                                                         *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
@@ -619,7 +619,7 @@
                                         <div class="mt-3 w-full">
                                             <div class="card p-4 border-none bg-gray-50">
                                                 <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
-                                                <ng-container *ngIf="data.pollData.isVoted; else notVoted">
+                                                <ng-container *ngIf="data.pollData.isVoted ; else notVoted">
                                                     <ng-container
                                                         *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
@@ -957,7 +957,7 @@
                                         <div class="mt-3 w-full">
                                             <div class="card p-4 border-none bg-gray-50">
                                                 <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
-                                                <ng-container *ngIf="data.pollData.isVoted; else notVoted">
+                                                <ng-container *ngIf="data.pollData.isVoted ; else notVoted">
                                                     <ng-container
                                                         *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">

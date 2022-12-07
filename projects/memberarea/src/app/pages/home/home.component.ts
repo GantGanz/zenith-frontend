@@ -485,9 +485,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.result[index].showImg = true
     }
 
-
     showPremiumDoalog() {
         this.premiumDialog = true
+    }
+
+    isExpired(date: string) {
+        const now = new Date();
+        now.setHours(now.getHours() + 7)
+        const nowString = now.toISOString()
+        return date > nowString
     }
 
     ngOnDestroy(): void {

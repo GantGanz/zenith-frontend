@@ -75,7 +75,7 @@ export class MyActivityComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl("/profile")
     }
 
-    isFuture(date: string) {
+    isExpired(date: string) {
         const now = new Date();
         now.setHours(now.getHours() + 7)
         const nowString = now.toISOString()

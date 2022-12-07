@@ -2,6 +2,10 @@
     cursor: pointer;
 }
 
+.bg-color {
+    background-color: #1089FF;
+}
+
 .card-img>img {
     height: 180px;
     object-fit: cover;

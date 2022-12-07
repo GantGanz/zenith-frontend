@@ -16,8 +16,10 @@
             </ul>
 
             <div class="btn-group">
-                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="fileLoading">
-                    <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle mb-3" style="object-fit: cover" alt="photo member">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    *ngIf="fileLoading">
+                    <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover"
+                        alt="photo member">
                 </a>
                 <ul
                     class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start dropdown-menu-sm-start dropdown-menu-xs-start">
@@ -25,7 +27,8 @@
                             Profile</button></li>
                     <li><button class="dropdown-item px-5 py-2" type="button" routerLink="/my-activity">My
                             Activity</button></li>
-                    <li><button class="dropdown-item px-5 py-2" type="button" routerLink="/payment/premium"><i class="pi pi-star-fill text-yellow-500"></i> Upgrade
+                    <li><button class="dropdown-item px-5 py-2" type="button" routerLink="/payment/premium"><i
+                                class="pi pi-star-fill text-yellow-500"></i> Upgrade
                             Premium</button></li>
                     <li><button class="dropdown-item px-5 py-2 text-danger btnLogout" type="button"
                             (click)="logout()">Logout</button></li>

@@ -79,7 +79,7 @@ export class MyActivityComponent implements OnInit, OnDestroy {
         const now = new Date();
         now.setHours(now.getHours() + 7)
         const nowString = now.toISOString()
-        return date > nowString
+        return date < nowString
     }
 
     ngOnDestroy(): void {

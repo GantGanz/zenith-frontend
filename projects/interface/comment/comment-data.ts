@@ -8,6 +8,8 @@ export interface CommentData {
 	 commentId: string
 	 createdAt: string
 	 positionName: string
-	 company: string 
+	 company: string
+	 editComment: boolean
+	 version: number
 } 
 

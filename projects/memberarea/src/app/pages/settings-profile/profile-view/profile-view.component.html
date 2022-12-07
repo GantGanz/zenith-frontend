@@ -309,12 +309,6 @@
                                         <div class="grid mt-2">
                                             <div class="col-6"><span class="text-sm mr-3">{{data.pollData.countVote}}
                                                     votes</span>
-                                                <span class="text-end text-sm">Until 5 Day</span>
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <span
-                                                    class="text-end px-3 py-2 bg-blue-500 text-white border-round-md text-sm font-medium cursor-pointer">End
-                                                    Polling</span>
                                             </div>
                                         </div>
                                     </div>
@@ -368,19 +362,19 @@
                                         alt="profile picture">
                                 </div>
                                 <div class="w-full">
-                                    <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                    <form [formGroup]="commentForm" (ngSubmit)="submitComment(i)">
                                         <div class="flex flex-row align-content-center">
-                                            <textarea pInputTextarea [autoResize]="true"
-                                                class="w-full p-inputtextarea-sm pb-0 text-sm"
+                                            <input pInputText
+                                                class="w-full p-inputtext-sm text-sm"
                                                 placeholder="Add a comment..."
-                                                formControlName="commentContent"></textarea>
-                                            <p-button type="submit" class="ml-2">Send</p-button>
+                                                formControlName="commentContent">
+                                            <p-button type="submit" class="ml-2" [hidden]="true">Send</p-button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <div class="my-3">
-                                <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="data.moreComment==false"
+                                <span class="text-sm cursor-pointer hover:text-blue-500" *ngIf="!data.moreComment"
                                     (click)="clickSeeComment(i)">
                                     View Comments
                                 </span>
@@ -391,8 +385,8 @@
                             </div>
 
                             <div *ngIf="data.moreComment">
-                                <ng-container *ngFor="let comment of data.commentDatas">
-                                    <div class="flex mt-2" *ngIf="myComment">
+                                <ng-container *ngFor="let comment of data.commentDatas; index as commentIndex">
+                                    <div class="flex mt-2" *ngIf="!comment.editComment">
                                         <div class="max-w-max mr-3"> <img class="border-circle w-2rem h-2rem"
                                                 style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}" alt="">
                                         </div>
@@ -415,15 +409,15 @@
                                                         class="absolute md:left-0 right-0 shadow-2 w-12rem z-5 bg-white hidden">
                                                         <ul class="list-none p-0 m-0">
                                                             <li>
-                                                                <a
-                                                                    class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer">
-                                                                    <span class="font-medium"
-                                                                        (click)="clickEditComment()">Edit</span>
+                                                                <a *ngIf="comment.userId == myId && !editComment"
+                                                                    class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
+                                                                    (click)="clickEditComment(i, commentIndex)">
+                                                                    <span class="font-medium">Edit</span>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
-                                                                    (click)="clickConfirmDelete(i)">
+                                                                    (click)="clickConfirmDeleteComment(i, commentIndex)">
                                                                     <span class="font-medium">Delete</span>
                                                                 </a>
                                                             </li>
@@ -436,19 +430,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex mt-2" *ngIf="editComment">
+                                    <div class="flex mt-2" *ngIf="comment.editComment">
                                         <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
                                                 class="border-circle w-2rem h-2rem" style="object-fit: cover"
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
-                                            <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                            <form [formGroup]="updateCommentForm" (ngSubmit)="submitEditComment(i, commentIndex)">
                                                 <div class="flex flex-row align-content-center">
-                                                    <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm pb-0 text-sm"
-                                                        placeholder="Add a comment..."
-                                                        formControlName="commentContent"></textarea>
-                                                    <p-button type="submit" class="ml-2">Send</p-button>
+                                                    <input pInputText
+                                                        class="w-full p-inputtext-sm text-sm"
+                                                        placeholder="Edit comment..."
+                                                        formControlName="commentContent">
+                                                    <p-button type="submit" class="ml-2" [hidden]="true">Send</p-button>
                                                 </div>
                                             </form>
                                         </div>

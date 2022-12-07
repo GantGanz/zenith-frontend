@@ -41,7 +41,7 @@
                     <!-- Action -->
                     <ng-container *ngIf="data.isActive">
                       <div class="flex justify-content-end ">
-                        <ng-container *ngIf="isExpired(data.startAt)">
+                        <ng-container *ngIf="!isExpired(data.startAt)">
                           <div class="col-5">
                             <button pButton type="button" class="p-button-sm w-full py-2" label="Edit"
                               routerLink="/my-activity/edit/{{data.id}}"></button>
@@ -84,7 +84,7 @@
                     <!-- Action -->
                     <ng-container *ngIf="data.isActive">
                       <div class="flex justify-content-end">
-                        <ng-container *ngIf="isExpired(data.startAt)">
+                        <ng-container *ngIf="!isExpired(data.startAt)">
                           <div class="col-5">
                             <button pButton type="button" class="p-button-sm w-full py-2" label="Edit"
                               routerLink="/my-activity/edit/{{data.id}}"></button>

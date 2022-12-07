@@ -289,11 +289,12 @@
                                                 *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                 <ng-container *ngIf="poll.isVoted; else optionNotVoted">
                                                     <button pButton class="p-button-sm mb-2" type="button"
-                                                        label={{poll.pollContent}} [disabled]="true"></button>
+                                                        label="{{poll.pollContent}} | votes: ({{poll.countVote}})" 
+                                                        [disabled]="true"></button>
                                                 </ng-container>
                                                 <ng-template #optionNotVoted>
                                                     <button pButton class="p-button-outlined p-button-sm mb-2"
-                                                        type="button" label={{poll.pollContent}}
+                                                        type="button" label="{{poll.pollContent}} | votes: ({{poll.countVote}})"
                                                         [disabled]="true"></button>
                                                 </ng-template>
                                             </ng-container>

@@ -485,6 +485,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.result[index].showImg = true
     }
 
+    clickConfirmDelete(index:number){
+        
+    }
 
     showPremiumDoalog() {
         this.premiumDialog = true

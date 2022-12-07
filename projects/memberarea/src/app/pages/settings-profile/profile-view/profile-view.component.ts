@@ -62,7 +62,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     showReplyComment = false
 
     editComment = false
-    myComment = true
 
     dataEmpty = false
     dataNotEmpty = true
@@ -85,6 +84,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     positionName!: string
     company!: string
     isPremium!: boolean
+    myId!: string
 
     displayCustom!: boolean;
     activeIndex: number = 0;
@@ -98,7 +98,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     first = 0
     limit = 3
+
     fileLoading = false
+    buttonLoading = false
 
     totalMyPost!: number
 
@@ -114,6 +116,13 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         postId: ['', [Validators.required]]
     })
 
+    updateCommentForm = this.fb.group({
+        id: ['', [Validators.required]],
+        commentContent: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]]
+    })
+
     likeForm = this.fb.group({
         id: ['', [Validators.required]],
         userId: ['', [Validators.required]],
@@ -127,8 +136,13 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     private insertBookmarkSubscription?: Subscription
     private insertLikeSubscription?: Subscription
+
     private insertCommentSubscription?: Subscription
     private commentByPostSubscription?: Subscription
+    private updateCommentSubscription?: Subscription
+    private deleteCommentSubscription?: Subscription
+    private commentByIdSubscription?: Subscription
+
     private bookmarkedIdSubscription?: Subscription
     private deleteBookmarkSubscription?: Subscription
     private deleteLikeSubscription?: Subscription
@@ -159,6 +173,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
         this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
             this.myUser = result.data
+            this.myId = this.myUser.id
             this.myFileId = this.myUser.fileId
             this.fullName = this.myUser.fullname
             this.email = this.myUser.email
@@ -270,6 +285,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.result[index].moreComment = true
         this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.commentFirst, this.commentLimit).subscribe(comments => {
             this.result[index].commentDatas = comments.data
+            for (let i = 0; i < comments.data.length; i++) {
+                this.result[index].commentDatas[i].editComment = false
+            }
             if (this.result[index].countComment <= this.result[index].commentDatas.length) {
                 this.result[index].showMoreComment = false
             } else {
@@ -278,9 +296,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickEditComment() {
+    clickEditComment(postIndex: number, commentIndex: number) {
         this.editComment = true
-        this.myComment = false
+        this.result[postIndex].commentDatas[commentIndex].editComment = true
+        this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
     }
 
     seeMoreComment(index: number) {
@@ -288,6 +307,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments => {
             for (let i = 0; i < comments.data.length; i++) {
                 this.result[index].commentDatas.push(comments.data[i])
+                this.result[index].commentDatas[i + this.result[index].commentOffset].editComment = false
             }
             if (this.result[index].countComment <= this.result[index].commentDatas.length) {
                 this.result[index].showMoreComment = false
@@ -307,12 +327,24 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.result[index].showImg = true
     }
 
-    submitcomment(postIndex: number) {
+    submitComment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
-            this.clickSeeComment(postIndex)
             this.result[postIndex].countComment += 1
             this.commentForm.reset()
+        })
+    }
+
+    submitEditComment(postIndex: number, commentIndex: number) {
+        this.buttonLoading = true
+        this.updateCommentSubscription = this.commentService.updateComment(this.updateCommentForm.value).pipe(finalize(() => {
+            this.editComment = false
+            this.result[postIndex].commentDatas[commentIndex].editComment = false
+            this.buttonLoading = false
+        })).subscribe(() => {
+            this.commentByIdSubscription = this.commentService.getByIdComment(this.updateCommentForm.value.id!).subscribe(comment => {
+                this.result[postIndex].commentDatas.splice(commentIndex, 1, comment.data)
+            })
         })
     }
 
@@ -343,6 +375,24 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
                     this.addData()
                     this.postCount -= 1
                     this.result.splice(index, 1)
+                })
+            }
+        })
+    }
+
+
+    clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this post?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            key: 'positionDialog',
+            accept: () => {
+                this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
+                this.deleteCommentSubscription = this.commentService.deleteComment(this.updateCommentForm.value).subscribe(() => {
+                    this.result[postIndex].commentDatas.splice(commentIndex, 1)
+                    this.result[postIndex].countComment -= 1
+                    this.result[postIndex].commentOffset -= 1
                 })
             }
         })

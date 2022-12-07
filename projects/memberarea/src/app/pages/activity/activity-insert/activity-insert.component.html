@@ -57,7 +57,8 @@
                         name="btnCancelActivity" routerLink="/my-activity">Back</button>
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton type="submit" id="btnSubmitActivity" name="btnSubmitActivity">Submit</button>
+                    <button pButton type="submit" id="btnSubmitActivity" name="btnSubmitActivity"
+                        [loading]="loading">Submit</button>
                 </div>
             </div>
         </form>

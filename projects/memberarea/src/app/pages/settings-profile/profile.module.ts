@@ -26,8 +26,6 @@ import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 
-
-
 @NgModule({
     declarations: [
         MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileViewComponent, PostUpdateComponent

@@ -16,7 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { rightContentComponent } from "./right-content/right-content.component";
 import { CheckboxModule } from 'primeng/checkbox';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
@@ -25,10 +25,13 @@ import { ImageModule } from 'primeng/image';
 import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { StyleClassModule } from 'primeng/styleclass';
+import { PostUpdateHomeComponent } from "./post-update/post-update.component";
+
+
 
 @NgModule({
     declarations: [
-        HomeComponent, rightContentComponent
+        HomeComponent, rightContentComponent, PostUpdateHomeComponent
     ],
     imports: [
         RouterModule,
@@ -54,10 +57,11 @@ import { StyleClassModule } from 'primeng/styleclass';
         ImageModule,
         TimeModule,
         ProgressSpinnerModule,
-        StyleClassModule
+        StyleClassModule,
+        FormsModule
     ],
     exports: [
-        HomeComponent, rightContentComponent
+        HomeComponent, rightContentComponent, PostUpdateHomeComponent
     ]
 })
 

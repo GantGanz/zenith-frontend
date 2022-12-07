@@ -50,7 +50,6 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
         ImageModule,
         TimeModule,
         InfiniteScrollModule
-
     ],
     exports: [
         MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, PostUpdateComponent,

@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i].commentStatus = false
                 this.result[i].moreComment = false
                 this.result[i].showImg = false
-                this.result[i].showMoreComment = false 
+                this.result[i].showMoreComment = false
                 this.result[i].commentOffset = 0
             }
         })
@@ -426,7 +426,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     selectFile(event: any) {
-        console.log(event.currentFiles);
         if (event.currentFiles) {
             this.uploaded = true
         }

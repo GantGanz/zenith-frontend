@@ -36,10 +36,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     result: PostData[] = []
     likedPost: PostData[] = []
-    myUser!: UserData
+    myUserId = ""
+    myUserIsPremium = false
 
     tabIndex = 0
     postLoading = false
+    loadingImg = false
 
     like = true
     bookmark = true
@@ -146,9 +148,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
-            this.myUser = user.data
+            this.myUserId = user.data.id
+            this.myUserIsPremium = user.data.isPremium
             this.myFileId = user.data.fileId
-            if (!this.myUser.isPremium) {
+            this.loadingImg = true
+            if (!user.data.isPremium) {
                 this.postForm.get('isPremium')?.disable()
             }
         })
@@ -485,12 +489,19 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.result[index].showImg = true
     }
 
-    clickConfirmDelete(index:number){
-        
+    clickConfirmDelete(index: number) {
+
     }
 
     showPremiumDoalog() {
         this.premiumDialog = true
+    }
+
+    isExpired(date: string) {
+        const now = new Date();
+        now.setHours(now.getHours() + 7)
+        const nowString = now.toISOString()
+        return date < nowString
     }
 
     ngOnDestroy(): void {

@@ -4,7 +4,7 @@
         <div class="col-12 lg:col-8">
             <div class="card border-none mb-3">
                 <div class="flex mx-5 my-5">
-                    <div class="max-w-max">
+                    <div class="max-w-max" *ngIf="loadingImg">
                         <img class="border-circle w-10 h-3rem w-3rem" style="object-fit: cover"
                             src="{{fileLink}}{{myFileId}}" alt="profile picture">
                     </div>
@@ -21,7 +21,7 @@
                     <!-- Post -->
                     <ng-container *ngFor="let data of result; index as i">
                         <div class="card border-none mb-3">
-                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
+                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUserIsPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%" (click)="showPremiumDoalog()"></div>
                             </ng-container>
@@ -49,7 +49,7 @@
                                             <li class="pi pi-star-fill text-yellow-500" style="font-size: 25px"></li>
                                         </div>
                                     </ng-container>
-                                    <ng-container *ngIf="data.userId == myUser.id">
+                                    <ng-container *ngIf="data.userId == myUserId">
                                         <div class="inline-block justify-content-end">
                                             <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
                                                 pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
@@ -82,7 +82,7 @@
                                     <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>
                                 </div>
                                 <ng-container
-                                    *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
+                                    *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
                                         <p class="text-sm">{{data.postContent}}</p>
                                     </div>
@@ -97,7 +97,7 @@
                                     <div class="flex w-full column-gap-1 cursor-pointer">
                                         <ng-container *ngIf="pollPostCode!=data.postTypeCode; else elsePoll">
                                             <ng-container
-                                                *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else attacmentRegular">
+                                                *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else attacmentRegular">
                                                 <div class="flex w-full column-gap-1 cursor-pointer"
                                                     style="filter: blur(12px)">
                                                     <p-galleria [value]="data.attachmentPostDatas"
@@ -245,7 +245,8 @@
                                         <div class="mt-3 w-full">
                                             <div class="card p-4 border-none bg-gray-50">
                                                 <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
-                                                <ng-container *ngIf="data.pollData.isVoted; else notVoted">
+                                                <ng-container
+                                                    *ngIf="data.pollData.isVoted || isExpired(data.pollData.endAt); else notVoted">
                                                     <ng-container
                                                         *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
@@ -445,7 +446,7 @@
 
                     <ng-container *ngFor="let data of result; index as i">
                         <div class="card border-none mb-3" *ngIf="dataNotEmpty">
-                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
+                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUserIsPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
                             </ng-container>
@@ -478,7 +479,7 @@
                                     <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>
                                 </div>
                                 <ng-container
-                                    *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
+                                    *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
                                         <p class="text-sm">{{data.postContent}}</p>
                                     </div>
@@ -493,7 +494,7 @@
                                     <div class="flex w-full column-gap-1 cursor-pointer">
                                         <ng-container *ngIf="pollPostCode!=data.postTypeCode; else elsePoll">
                                             <ng-container
-                                                *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else attacmentRegular">
+                                                *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else attacmentRegular">
                                                 <div class="flex w-full column-gap-1 cursor-pointer"
                                                     style="filter: blur(12px)">
                                                     <p-galleria [value]="data.attachmentPostDatas"
@@ -647,7 +648,8 @@
                                         <div class="mt-3 w-full">
                                             <div class="card p-4 border-none bg-gray-50">
                                                 <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
-                                                <ng-container *ngIf="data.pollData.isVoted; else notVoted">
+                                                <ng-container
+                                                    *ngIf="data.pollData.isVoted || isExpired(data.pollData.endAt); else notVoted">
                                                     <ng-container
                                                         *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
@@ -789,7 +791,7 @@
                     </div>
                     <ng-container *ngFor="let data of result; index as i">
                         <div class="card border-none mb-3" *ngIf="dataNotEmpty">
-                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUser.isPremium==false">
+                            <ng-container *ngIf="premiumPostCode==data.postTypeCode && myUserIsPremium==false">
                                 <div class="absolute w-full bottom-0 flex justify-content-center align-items-center z-5 cursor-pointer"
                                     style="height: 80%"></div>
                             </ng-container>
@@ -822,7 +824,7 @@
                                     <p class="text-lg font-semibold mb-1">{{data.postTitle}}</p>
                                 </div>
                                 <ng-container
-                                    *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
+                                    *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
                                         <p class="text-sm">{{data.postContent}}</p>
                                     </div>
@@ -837,7 +839,7 @@
                                     <div class="flex w-full column-gap-1 cursor-pointer">
                                         <ng-container *ngIf="pollPostCode!=data.postTypeCode; else elsePoll">
                                             <ng-container
-                                                *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else attacmentRegular">
+                                                *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else attacmentRegular">
                                                 <div class="flex w-full column-gap-1 cursor-pointer"
                                                     style="filter: blur(12px)">
                                                     <p-galleria [value]="data.attachmentPostDatas"
@@ -985,7 +987,8 @@
                                         <div class="mt-3 w-full">
                                             <div class="card p-4 border-none bg-gray-50">
                                                 <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
-                                                <ng-container *ngIf="data.pollData.isVoted; else notVoted">
+                                                <ng-container
+                                                    *ngIf="data.pollData.isVoted || isExpired(data.pollData.endAt); else notVoted">
                                                     <ng-container
                                                         *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">

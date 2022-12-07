@@ -5,5 +5,6 @@ export interface PollOptionData {
 	 pollId: string 
 	 isActive: boolean 
 	 isVoted: boolean
+	 countVote: number
 } 
 

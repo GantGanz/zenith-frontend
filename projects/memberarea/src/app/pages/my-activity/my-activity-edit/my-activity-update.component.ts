@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import { ActivityTypeData } from "projects/interface/activity-type/activity-type-data";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { ActivityTypeService } from "projects/mainarea/src/app/service/activity-type.service";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
@@ -25,11 +26,10 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
         version: [0, [Validators.required]]
     })
 
-    activityTypes: any[] = []
+    activityTypes: ActivityTypeData[] = []
     disable = false
 
     activityRes!: ActivityData
-
 
     private activityTypeSubscription?: Subscription
     private paramSubscription?: Subscription
@@ -40,25 +40,31 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
         private fb: FormBuilder, private activityTypeService: ActivityTypeService) { }
 
     ngOnInit(): void {
+        this.init()
+    }
+
+    init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.myActivitySubscription = this.activityService.getById(id).subscribe(result => {
                 this.activityUpdateForm.patchValue(result.data)
                 this.activityRes = result.data
+                this.activityUpdateForm.controls['activityTypeId'].disable()
+                this.activityUpdateForm.controls['fee'].disable()
+                this.activityUpdateForm.controls['startAt'].disable()
+                this.activityUpdateForm.controls['endAt'].disable()
             })
             this.activityTypeSubscription = this.activityTypeService.getAll().subscribe(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    this.activityTypes.push({
-                        name: result.data[i].activityTypeName,
-                        code: result.data[i].activityTypeCode,
-                        id: result.data[i].id
-                    })
-                }
+                this.activityTypes = result.data
             })
         })
     }
 
     clickUpdate() {
+        this.activityUpdateForm.controls['activityTypeId'].enable()
+        this.activityUpdateForm.controls['fee'].enable()
+        this.activityUpdateForm.controls['startAt'].enable()
+        this.activityUpdateForm.controls['endAt'].enable()
         this.updateSubscription = this.activityService.update(this.activityUpdateForm.value).subscribe()
     }
     ngOnDestroy(): void {

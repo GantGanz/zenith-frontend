@@ -33,8 +33,8 @@
                                             alt="profile-picture">
                                     </div>
                                     <div class="w-full">
-                                        <h6>{{data.creatorName}}</h6>
-                                        <small>{{data.createdAt | timeAgo}}</small>
+                                        <h6 class="mb-0">{{data.creatorName}}</h6>
+                                        <span class="text-xs">{{data.createdAt | timeAgo}}</span>
                                     </div>
                                     <div class="w-full text-end">
                                         <span
@@ -84,12 +84,12 @@
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUser.isPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(2px)">
-                                        <p>{{data.postContent}}</p>
+                                        <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-container>
                                 <ng-template #contentRegular>
                                     <div class="w-full">
-                                        <p>{{data.postContent}}</p>
+                                        <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-template>
 
@@ -1157,8 +1157,8 @@
             <!-- Post Content -->
             <div class="field col-12">
                 <label for="postContent">Content<span class="text-red-500">*</span></label>
-                <textarea placeholder="write something..." [autoResize]="true" pInputTextarea class="w-full"
-                    id="postContent" name="postContent" formControlName="postContent" required></textarea>
+                <textarea [autoResize]="true" pInputTextarea class="w-full" id="postContent" name="postContent"
+                    formControlName="postContent" required></textarea>
                 <small class="p-error"
                     *ngIf="postForm.controls['postContent'].errors?.['required'] && postForm.controls['postContent'].touched">
                     Please input post content
@@ -1213,7 +1213,9 @@
 
             <!-- Upload Image -->
             <div class="field col-12" *ngIf="showUploadImg">
-                <label for="image">Upload Image</label>
+                <label for="image" class="mb-0">Upload Image</label>
+                <small id="username1-help" class="block">Please click upload button after choose image</small>
+
                 <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
                     [customUpload]="true" (onSelect)="selectFile($event)" (uploadHandler)="fileUpload($event)">
                 </p-fileUpload>

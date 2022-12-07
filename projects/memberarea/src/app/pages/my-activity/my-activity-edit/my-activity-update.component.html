@@ -4,8 +4,8 @@
         <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="activityUpdateForm" (ngSubmit)="clickUpdate()">
             <div class="field col-12 md:col-6">
                 <label for="activityType">Activity Type</label>
-                <p-dropdown [options]="activityTypes" styleClass="w-full" optionLabel="name" optionValue="id"
-                    name="activityType" id="activityType" placeholder="Select an Activity Type"
+                <p-dropdown [options]="activityTypes" styleClass="w-full" optionLabel="activityTypeName"
+                    optionValue="id" name="activityType" id="activityType" placeholder="Select an Activity Type"
                     formControlName="activityTypeId">
                 </p-dropdown>
             </div>
@@ -28,27 +28,9 @@
             </div>
 
             <div class="field col-12 md:col-6">
-                <label for="startAt">Start At<span class="text-red-500">*</span></label>
-                <p-calendar [readonlyInput]="true" inputId="startAt" name="startAt" styleClass="w-full"
-                    formControlName="startAt" [showTime]="true" [showIcon]="true" [showButtonBar]="true">
-                </p-calendar>
-            </div>
-
-            <div class="field col-12 md:col-6">
-                <label for="endAt">End At<span class="text-red-500">*</span></label>
-                <p-calendar [readonlyInput]="true" inputId="endAt" styleClass="w-full" name="startAt"
-                    formControlName="endAt" [showTime]="true" [showIcon]="true" [showButtonBar]="true">
-                </p-calendar>
-            </div>
-
-            <div class="field col-12 md:col-6">
                 <label for="currency-indonesia" class="w-full">Fee<span class="text-red-500">*</span></label>
                 <p-inputNumber mode="currency" currency="IDR" inputId="currency-indonesia" name="currency-indonesia"
                     styleClass="w-full" class="w-full" formControlName="fee"></p-inputNumber>
-            </div>
-            <div class="field-checkbox col-12 md:col-6">
-                <p-checkbox formControlName="isActive" [binary]="true" inputId="binary"></p-checkbox>
-                <label for="binary">Active</label>
             </div>
 
             <div class="grid col-12 mt-4">

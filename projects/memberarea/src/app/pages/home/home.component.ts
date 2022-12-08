@@ -356,6 +356,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.result[i].pollData.isVoted = true
             this.result[i].pollData.countVote += 1
             this.result[i].pollData.pollOptionDatas[pollIndex].isVoted = true
+            this.result[i].pollData.pollOptionDatas[pollIndex].countVote += 1
         })
     }
 
@@ -603,6 +604,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         now.setHours(now.getHours() + 7)
         const nowString = now.toISOString()
         return date < nowString
+    }
+
+    pollValue(poll: any, pollData: any) {
+        return Math.round(poll.countVote / pollData.countVote * 100)
     }
 
     ngOnDestroy(): void {

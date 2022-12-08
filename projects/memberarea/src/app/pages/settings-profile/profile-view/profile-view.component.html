@@ -76,7 +76,7 @@
                     <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
                 </div>
                 <div class="text-center mb-6">
-                    <h6>It's empty in here</h6>
+                    <h6>It's empty here</h6>
                     <p class="text-sm">Share a post to get started</p>
                 </div>
             </div>
@@ -300,7 +300,8 @@
                                                 </ng-container>
                                                 <ng-template #optionNotVoted>
                                                     <p-progressBar styleClass="h-2rem border-round-3xl"
-                                                        [value]="pollValue(poll, data.pollData)">
+                                                        [value]="pollValue(poll, data.pollData)"
+                                                        class="customProgressBarReg">
                                                     </p-progressBar>
                                                 </ng-template>
                                             </ng-container>

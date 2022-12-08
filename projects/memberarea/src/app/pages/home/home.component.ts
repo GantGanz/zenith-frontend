@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     uploaded = false
 
     result: PostData[] = []
-    likedPost: PostData[] = []
     myUserId = ""
     myUserIsPremium = false
 

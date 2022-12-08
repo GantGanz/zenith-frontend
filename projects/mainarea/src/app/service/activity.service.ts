@@ -13,12 +13,28 @@ import { BASE_URL } from "../constant/base.url";
 export class ActivityService {
     constructor(private http: HttpClient) { }
 
-    countCourse(): Observable<number> {
+    countMyCourse(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-my-course`)
     }
 
-    countEvent(): Observable<number> {
+    countMyEvent(): Observable<number> {
         return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-my-event`)
+    }
+
+    countCourse(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-course`)
+    }
+
+    countEvent(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-event`)
+    }
+
+    countJoinedCourse(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-joined-course`)
+    }
+
+    countJoinedEvent(): Observable<number> {
+        return this.http.get<number>(`${BASE_URL.LOCALHOST}/activities/count-joined-event`)
     }
 
     getAllEvent(offset: number, limit: number): Observable<ActivitiesRes> {

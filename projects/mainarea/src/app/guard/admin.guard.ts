@@ -12,7 +12,6 @@ export class AdminGuard implements CanLoad, CanActivate {
 
     canActivate(): boolean {
         const data = this.apiService.getData()
-        console.log("masuk active admin");
 
         if (data) {
             const roleCode = this.apiService.getRoleCode()
@@ -29,8 +28,7 @@ export class AdminGuard implements CanLoad, CanActivate {
         return false
     }
     canLoad(): boolean {
-        console.log("masuk load admin");
-        
+
         const roleCode = this.apiService.getRoleCode()
         if (roleCode == ROLECODE.SUPERADMIN) {
             this.router.navigateByUrl('/dashboard/super-admin')

@@ -12,30 +12,28 @@ export class SuperAdminGuard implements CanLoad, CanActivate {
 
     canActivate(): boolean {
         const data = this.apiService.getData()
-        console.log("masuk active super-admin");
-        
-        if(data){
-            const roleCode=this.apiService.getRoleCode()
-            if(roleCode==ROLECODE.SUPERADMIN){
+
+        if (data) {
+            const roleCode = this.apiService.getRoleCode()
+            if (roleCode == ROLECODE.SUPERADMIN) {
                 return true
-            }else if(roleCode == ROLECODE.ADMIN){
+            } else if (roleCode == ROLECODE.ADMIN) {
                 this.router.navigateByUrl('/dashboard/admin')
-            }else{
+            } else {
                 this.router.navigateByUrl('/feed')
             }
-        }else{
+        } else {
             this.router.navigateByUrl('/member/login')
         }
         return false
     }
     canLoad(): boolean {
-        console.log("masuk load super-admin");
-        const roleCode=this.apiService.getRoleCode()
-        if(roleCode==ROLECODE.SUPERADMIN){
+        const roleCode = this.apiService.getRoleCode()
+        if (roleCode == ROLECODE.SUPERADMIN) {
             return true
-        }else if(roleCode == ROLECODE.ADMIN){
+        } else if (roleCode == ROLECODE.ADMIN) {
             this.router.navigateByUrl('/dashboard/admin')
-        }else{
+        } else {
             this.router.navigateByUrl('/feed')
         }
         return false

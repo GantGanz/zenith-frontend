@@ -12,8 +12,6 @@ export class MemberGuard implements CanLoad, CanActivate {
 
     canActivate(): boolean {
         const data = this.apiService.getData()
-        console.log("masuk active member");
-
         if (data) {
             const roleCode = this.apiService.getRoleCode()
             if (roleCode == ROLECODE.SUPERADMIN) {
@@ -28,10 +26,9 @@ export class MemberGuard implements CanLoad, CanActivate {
         }
         return false
     }
-    
+
     canLoad(): boolean {
         const data = this.apiService.getData()
-        console.log("masuk load member");
         if (data) {
             const roleCode = this.apiService.getRoleCode()
             if (roleCode == ROLECODE.SUPERADMIN) {

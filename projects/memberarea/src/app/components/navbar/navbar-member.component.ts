@@ -5,15 +5,18 @@ import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { finalize, Subscription } from "rxjs";
 
+
 @Component({
     selector: "navbar-member",
-    templateUrl: "navbar-member.component.html"
+    templateUrl: "navbar-member.component.html",
+    styleUrls: ["../../../styles.css"]
 })
 
 export class NavbarMemberComponent implements OnInit {
 
     fileLink = BASE_URL.FILE
     fileId!: string
+    fullName!: string
 
 
     fileLoading = false
@@ -27,6 +30,7 @@ export class NavbarMemberComponent implements OnInit {
             this.fileId = result.data.fileId
         })
     }
+
 
     logout() {
         this.apiService.logout()

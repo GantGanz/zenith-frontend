@@ -2,6 +2,12 @@
     cursor: pointer;
 }
 
+
+.active {
+    color: #1089FF !important;
+    font-weight: 500;
+}
+
 .bg-color {
     background-color: #1089FF;
 }

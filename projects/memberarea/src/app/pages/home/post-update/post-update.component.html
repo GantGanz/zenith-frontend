@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="col-12 mt-4">
+        <span class="cursor-pointer" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back to Home</span>
+    </div>
+    <div class="card mt-2 border-none">
+        <div class="grid flex justify-content-center mt-3">
+            <div class="col-12 md:col-10 lg:col-8">
+                <h5 class="filed pb-4">Edit Post</h5>
+                <form class="formgrid grid" [formGroup]="postUpdateForm" (ngSubmit)="clickUpdate()">
+                    <div class="field col-12">
+                        <label for="postTitle">Title<span class="text-red-500">*</span></label>
+                        <input pInputText class="w-full" type="text" id="postTitle" name="postTitle"
+                            formControlName="postTitle" required>
+                    </div>
+
+                    <div class="field col-12">
+                        <label for="postContent">Content<span class="text-red-500">*</span></label>
+                        <textarea rows="8" [autoResize]="true" pInputTextarea class="w-full" id="postContent"
+                            name="postContent" formControlName="postContent" required></textarea>
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <div class="flex gap-2 mt-5 justify-content-end">
+                            <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel"
+                                name="btnCancel" routerLink="/feed">Cancel</button>
+                            <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

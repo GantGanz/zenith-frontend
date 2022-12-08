@@ -8,6 +8,7 @@ import { NavbarMemberComponent } from "./navbar-member.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ImageModule } from 'primeng/image';
 import { CommonModule } from "@angular/common";
+import { StyleClassModule } from 'primeng/styleclass';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CommonModule } from "@angular/common";
         MenubarModule,
         DropdownModule,
         ImageModule,
-        CommonModule
+        CommonModule,
+        StyleClassModule
     ],
     exports: [
         NavbarMemberComponent, FooterComponent

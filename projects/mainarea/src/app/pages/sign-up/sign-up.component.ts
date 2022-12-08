@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MenuItem } from 'primeng/api';
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 import { SignUpService } from "../../service/sign-up.service";
 import { UserService } from "../../service/user.service";
 import { PositionsRes } from "../../../../../interface/position/positions-res";
@@ -38,6 +38,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
     stepsIndex: number = 0
     items: MenuItem[] = []
 
+    verifyLoading = false
+    positionLoading = false
+    industryLoading = false
+    sendVerificationLoading = false
+
     registerForm = this.fb.group({
         fullname: ['' || null, [Validators.required, Validators.maxLength(50)]],
         email: ['' || null, [Validators.required, Validators.email, Validators.maxLength(50)]],
@@ -57,6 +62,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
         private industryService: IndustryService, private toast: ToastrService) { }
 
     ngOnInit(): void {
+        this.positionLoading = true
+        this.industryLoading = true
         this.items = [
             { label: "Sign Up" },
             { label: "Account Detail" },
@@ -72,6 +79,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
                     id: this.positionsRes.data[i].id
                 })
             }
+            this.positionLoading = false
         })
         this.industriesSubscription = this.industryService.getAll().subscribe(result => {
             this.industriesRes = result
@@ -82,6 +90,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
                     id: this.industriesRes.data[i].id
                 })
             }
+            this.industryLoading = false
         })
     }
 
@@ -97,21 +106,27 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
 
     clickAccountDtl() {
-        this.accountDtl = false
-        this.signUp = false
-        this.verification = true
-        this.stepsIndex += 1
+        this.sendVerificationLoading = true
         this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).subscribe(() => {
+            this.sendVerificationLoading = false
+            this.accountDtl = false
+            this.signUp = false
+            this.verification = true
+            this.stepsIndex += 1
         })
     }
 
     clickVerify() {
+        this.verifyLoading = true
         this.verificationCode.addControl('email', this.fb.control(this.registerForm.value.email, [Validators.required]))
-        this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).subscribe(u => {
+        this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).pipe(finalize(() => this.verifyLoading = false)).subscribe(u => {
             if (u) {
-                this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(() => { })
-                this.signUpView = false
-                this.verificationSuccess = true
+                this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(s => {
+                    if (s) {
+                        this.signUpView = false
+                        this.verificationSuccess = true
+                    }
+                })
             }
         })
     }

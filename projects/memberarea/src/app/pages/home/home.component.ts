@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
+import { ConfirmationService } from "primeng/api";
 import { FileUpload } from "primeng/fileupload";
 import { PostData } from "projects/interface/post/post-data";
 import { UserData } from "projects/interface/user/user-data";
@@ -98,6 +99,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         isPremium: [false, [Validators.required]]
     })
 
+    postDelete = this.fb.group({
+        id: ['', [Validators.required]],
+        version: [0, [Validators.required]],
+        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
+        postContent: ['', [Validators.required]],
+        postTypeId: ['', [Validators.required]],
+        isActive: [false],
+    })
+
     likeForm = this.fb.group({
         id: ['', [Validators.required]],
         userId: ['', [Validators.required]],
@@ -133,6 +143,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private postCountSubscription?: Subscription
 
     private insertVoteSubscription?: Subscription
+    private deleteSubscription?: Subscription
 
     private insertLikeSubscription?: Subscription
     private deleteLikeSubscription?: Subscription
@@ -151,7 +162,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
-        private commentService: CommentService, private userService: UserService) { }
+        private commentService: CommentService, private userService: UserService,
+        private confirmationService: ConfirmationService) { }
 
     ngOnInit(): void {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
@@ -433,7 +445,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     selectFile(event: any) {
-        console.log(event.currentFiles);
         if (event.currentFiles) {
             this.uploaded = true
         }
@@ -509,7 +520,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     cancelEdit(postIndex: number, commentIndex: number){
-
     }
 
     showPremiumDoalog() {
@@ -540,6 +550,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.commentByPostSubscription?.unsubscribe()
         this.myUserSubscription?.unsubscribe()
         this.postCountSubscription?.unsubscribe()
+        this.deleteSubscription?.unsubscribe()
     }
 }
 

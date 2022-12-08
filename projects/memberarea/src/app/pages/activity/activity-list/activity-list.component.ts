@@ -25,6 +25,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
 
     first = 0
     limit = 3
+    tabIndex = 0
+    activityCount = 0
 
     Approved!: string
 
@@ -38,6 +40,9 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     provider = ''
     fee = 0
 
+    dataEmptyCourse = false
+    dataEmptyEvent = false
+
     fileLink = BASE_URL.FILE
 
     private activityCoursesSubscription?: Subscription
@@ -47,24 +52,42 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     private paramSubscription?: Subscription
     private activitySubscription?: Subscription
     private userSubscription?: Subscription
+    private countCourseSubscription?: Subscription
+    private countEventSubscription?: Subscription
+    private countMyCourseSubscription?: Subscription
+    private countMyEventSubscription?: Subscription
+    private countJoinedCourseSubscription?: Subscription
+    private countJoinedEventSubscription?: Subscription
 
     constructor(private activityService: ActivityService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.init()
+        this.userSubscription = this.userService.getByPrincipal().subscribe(result => this.id = result.data.id)
+        this.courseInit()
     }
 
     onScroll() {
         this.first += this.limit
-        this.addDataCourses()
-        this.addDataEvents()
-        this.addDataJoinedCourses()
-        this.addDataJoinedEvents()
+        if (this.tabIndex == 0) {
+            if (this.dataCourses.length < this.activityCount) {
+                this.addDataCourses()
+            }
+        } else if (this.tabIndex == 1) {
+            if (this.dataEvents.length < this.activityCount) {
+                this.addDataEvents()
+            }
+        } else if (this.tabIndex == 2) {
+            if (this.dataJoinedCourses.length < this.activityCount) {
+                this.addDataJoinedCourses()
+            }
+        } else {
+            if (this.dataJoinedEvents.length < this.activityCount) {
+                this.addDataJoinedEvents()
+            }
+        }
     }
 
-    init() {
-        this.userSubscription = this.userService.getByPrincipal().subscribe(result => this.id = result.data.id)
-
+    courseInit() {
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
             for (let i = 0; i < this.dataCourses.length; i++) {
@@ -73,29 +96,54 @@ export class ActivityListComponent implements OnInit, OnDestroy {
                 }
             }
         })
+        this.countCourseSubscription = this.activityService.countCourse().subscribe(count => {
+            this.activityCount = count
+        })
+    }
 
+    eventInit() {
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             this.dataEvents = result.data
             for (let i = 0; i < this.dataEvents.length; i++) {
-                if (this.dataEvents[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataEvents[i].paymentStatus == STATUS_TYPE.PENDING
-                ) {
+                if (this.dataEvents[i].paymentStatus == STATUS_TYPE.APPROVED || this.dataEvents[i].paymentStatus == STATUS_TYPE.PENDING) {
                     this.dataEvents[i].isJoined = true
                 }
             }
         })
-
-        this.activityJoinedCoursesSubscription = this.activityService.getAllJoinedCourseById(this.first, this.limit).subscribe(result => {
-            this.dataJoinedCourses = result.data
-        })
-
-        this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
-            this.dataJoinedEvents = result.data
+        this.countEventSubscription = this.activityService.countEvent().subscribe(count => {
+            this.activityCount = count
         })
     }
 
-    tabClick() {
+    joinedCourseInit() {
+        this.activityJoinedCoursesSubscription = this.activityService.getAllJoinedCourseById(this.first, this.limit).subscribe(result => {
+            this.dataJoinedCourses = result.data
+        })
+        this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
+            this.activityCount = count
+        })
+    }
+
+    joinedEventInit() {
+        this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
+            this.dataJoinedEvents = result.data
+        })
+        this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
+            this.activityCount = count
+        })
+    }
+
+    tabClick(event: any) {
         this.first = 0
-        this.init()
+        if (event.index == 0) {
+            this.courseInit()
+        } else if (event.index == 1) {
+            this.eventInit()
+        } else if (event.index == 2) {
+            this.joinedCourseInit()
+        } else {
+            this.joinedEventInit()
+        }
     }
 
     addDataCourses() {

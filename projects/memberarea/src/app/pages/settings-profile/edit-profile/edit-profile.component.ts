@@ -58,7 +58,7 @@ export class EditProfileComponent {
     init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-            this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoading = true)).subscribe(result => {
+            this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.userLoading = true)).subscribe(result => {
                 this.userUpdateForm.patchValue(result.data)
                 this.userRes = result.data
                 this.fileId = result.data.fileId
@@ -76,7 +76,7 @@ export class EditProfileComponent {
         this.updateLoading = true
         this.updateSubscription = this.userService.update(this.userUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe()
     }
-    
+
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
             this.userUpdateForm.controls['fileCodes'].setValue(result[0][1])

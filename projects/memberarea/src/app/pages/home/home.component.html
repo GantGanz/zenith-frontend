@@ -188,8 +188,8 @@
                                                         *ngFor="let attach of data.attachmentPostDatas ; index as j">
                                                         <ng-container *ngIf="data.attachmentPostDatas.length == 1">
                                                             <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                                class="w-full h-15rem cursor-pointer"
-                                                                style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                                class="w-full h-20rem cursor-pointer"
+                                                                style="object-fit: cover" (click)="imageClick(i,j)" />
                                                         </ng-container>
 
                                                         <ng-container *ngIf="data.attachmentPostDatas.length == 2">
@@ -349,15 +349,18 @@
                                         <ng-container *ngFor="let comment of data.commentDatas; index as commentIndex">
                                             <ng-container *ngIf="!comment.editComment; else elseEditComment">
                                                 <div class="flex mt-2">
-                                                    <div class="max-w-max mr-3"> <img class="border-circle w-2rem h-2rem"
-                                                            style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
-                                                            alt="">
+                                                    <div class="max-w-max mr-3"> <img
+                                                            class="border-circle w-2rem h-2rem"
+                                                            style="object-fit: cover"
+                                                            src="{{fileLink}}{{comment.fileId}}" alt="">
                                                     </div>
                                                     <div class="bg-gray-50 border-round-md py-1">
                                                         <div class="flex px-3">
                                                             <div class="w-full">
-                                                                <p class="font-medium text-sm mb-0">{{comment.userName}}</p>
-                                                                <span class="text-xs">{{comment.createdAt | timeAgo}}</span>
+                                                                <p class="font-medium text-sm mb-0">{{comment.userName}}
+                                                                </p>
+                                                                <span class="text-xs">{{comment.createdAt |
+                                                                    timeAgo}}</span>
                                                             </div>
                                                             <div class="inline-block justify-content-end relative ml-6">
                                                                 <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
@@ -389,7 +392,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="px-3 mt-2">
-                                                            <p class="text-sm mb-1">{{comment.commentContent}} <em *ngIf="comment.version>0"><small>(edited)</small></em></p>
+                                                            <p class="text-sm mb-1">{{comment.commentContent}} <em
+                                                                    *ngIf="comment.version>0"><small>(edited)</small></em>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -397,8 +402,8 @@
                                             <ng-template #elseEditComment>
                                                 <div class="flex mt-2" *ngIf="comment.editComment">
                                                     <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
-                                                            class="border-circle w-2rem h-2rem" style="object-fit: cover"
-                                                            alt="profile picture">
+                                                            class="border-circle w-2rem h-2rem"
+                                                            style="object-fit: cover" alt="profile picture">
                                                     </div>
                                                     <div class="w-full">
                                                         <form [formGroup]="updateCommentForm"
@@ -407,11 +412,14 @@
                                                                 <input pInputText class="w-full p-inputtext-sm text-sm"
                                                                     placeholder="Edit comment..."
                                                                     formControlName="commentContent">
-                                                                <p-button type="submit" class="ml-2" [hidden]="true">Send
+                                                                <p-button type="submit" class="ml-2"
+                                                                    [hidden]="true">Send
                                                                 </p-button>
                                                             </div>
                                                             <small>Press enter to edit comment. Click here to
-                                                                <a class="text-primary cursor-pointer" style="text-decoration: none;" (click)="cancelEdit(i, commentIndex)">cancel</a></small>
+                                                                <a class="text-primary cursor-pointer"
+                                                                    style="text-decoration: none;"
+                                                                    (click)="cancelEdit(i, commentIndex)">cancel</a></small>
                                                         </form>
                                                     </div>
                                                 </div>

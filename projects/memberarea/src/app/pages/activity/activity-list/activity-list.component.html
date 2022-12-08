@@ -1,5 +1,5 @@
 <div class="container mt-4" infinite-scroll (scrolled)="onScroll()">
-  <p-tabView (onChange)="tabClick()">
+  <p-tabView (onChange)="tabClick($event)">
 
     <p-tabPanel header="All Course">
       <div class="container mt-3 p-0">
@@ -78,13 +78,13 @@
           <ng-container *ngFor="let data of dataJoinedCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
 
-              <div class="card border-none">
+              <div class="card border-none" *ngIf="dataEmptyCourse">
                 <div class="flex justify-content-center">
                   <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
                 </div>
                 <div class="text-center mb-6">
-                  <h6>It's empty in here</h6>
-                  <p class="text-sm">Posts that you like will be displayed here</p>
+                  <h6>It's empty here</h6>
+                  <p class="text-sm">Course that you join will be displayed here</p>
                 </div>
               </div>
 
@@ -118,6 +118,17 @@
         <div class="grid">
           <ng-container *ngFor="let data of dataJoinedEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
+
+              <div class="card border-none" *ngIf="dataEmptyEvent">
+                <div class="flex justify-content-center">
+                  <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+                </div>
+                <div class="text-center mb-6">
+                  <h6>It's empty here</h6>
+                  <p class="text-sm">Course that you join will be displayed here</p>
+                </div>
+              </div>
+
               <div class="card h-100">
                 <div class="card-img flex justify-content-center">
                   <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} imageClass="h-15rem w-full"

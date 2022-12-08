@@ -18,6 +18,7 @@ export class NavbarMemberComponent implements OnInit {
     fileId!: string
     fullName!: string
 
+    premiumStatus!: boolean
 
     fileLoading = false
 
@@ -28,6 +29,7 @@ export class NavbarMemberComponent implements OnInit {
     ngOnInit(): void {
         this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.fileLoading = true)).subscribe(result => {
             this.fileId = result.data.fileId
+            this.premiumStatus = result.data.isPremium
         })
     }
 

@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     tabIndex = 0
     postLoading = false
     loadingImg = false
+    buttonLoading= false
 
     like = true
     bookmark = true
@@ -155,6 +156,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private insertCommentSubscription?: Subscription
     private commentByPostSubscription?: Subscription
+    private deleteCommentSubscription?: Subscription
+    private updateCommentSubscription?: Subscription
+    private commentByIdSubscription?: Subscription
 
     private myUserSubscription?: Subscription
 
@@ -256,7 +260,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickEditComment(postIndex: number, commentIndex: number) {
         this.editComment = true
-        this.myComment = false
+        this.result[postIndex].commentDatas[commentIndex].editComment = true
+        this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
     }
 
     onScroll() {
@@ -494,7 +499,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     submitEditComment(postIndex: number, commentIndex: number) {
-        //TODO pasang submit edit
+        this.buttonLoading = true
+        this.updateCommentSubscription = this.commentService.updateComment(this.updateCommentForm.value).pipe(finalize(() => {
+            this.editComment = false
+            this.result[postIndex].commentDatas[commentIndex].editComment = false
+            this.buttonLoading = false
+        })).subscribe(() => {
+            this.commentByIdSubscription = this.commentService.getByIdComment(this.updateCommentForm.value.id!).subscribe(comment => {
+                this.result[postIndex].commentDatas.splice(commentIndex, 1, comment.data)
+            })
+        })
     }
 
     addPoll() {
@@ -512,14 +526,44 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickConfirmDelete(index: number) {
-        //TODO pasang modal buat hapus post
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this post?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            key: 'positionDialog',
+            accept: () => {
+                this.postDelete.patchValue(this.result[index])
+
+                this.deleteSubscription = this.postService.update(this.postDelete.value).subscribe(a => {
+                    this.addData()
+                    this.postCount -= 1
+                    this.result.splice(index, 1)
+                })
+            }
+        })
     }
 
     clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
-        //TODO pasang modal buat hapus comment
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this post?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            key: 'positionDialog',
+            accept: () => {
+                this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
+                this.deleteCommentSubscription = this.commentService.deleteComment(this.updateCommentForm.value).subscribe(() => {
+                    this.result[postIndex].commentDatas.splice(commentIndex, 1)
+                    this.result[postIndex].countComment -= 1
+                    this.result[postIndex].commentOffset -= 1
+                })
+            }
+        })
     }
 
-    cancelEdit(postIndex: number, commentIndex: number){
+    cancelEdit(postIndex: number, commentIndex: number) {
+        this.editComment = false
+        this.result[postIndex].commentDatas[commentIndex].editComment = false
+        this.updateCommentForm.reset()
     }
 
     showPremiumDoalog() {
@@ -551,6 +595,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.myUserSubscription?.unsubscribe()
         this.postCountSubscription?.unsubscribe()
         this.deleteSubscription?.unsubscribe()
+        this.deleteCommentSubscription?.unsubscribe()
+        this.updateCommentSubscription?.unsubscribe()
+        this.commentByIdSubscription?.unsubscribe()
     }
 }
 

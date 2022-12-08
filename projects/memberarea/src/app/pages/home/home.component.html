@@ -1148,7 +1148,7 @@
 
 
     <!-- Create Post -->
-    <p-dialog header="Create a Post" [breakpoints]="{'960px': '100vw'}" [style]="{width: '45vw'}" [(visible)]="showForm"
+    <p-dialog header="Create a Post" [breakpoints]="{'960px': '90vw'}" [style]="{width: '45vw'}" [(visible)]="showForm"
         [modal]="true" [draggable]="false" [resizable]="false">
         <form class="formgrid grid" [formGroup]="postForm" (ngSubmit)="submitPost()">
             <div class="field col-12">
@@ -1176,7 +1176,7 @@
             <!-- Post Content -->
             <div class="field col-12">
                 <label for="postContent">Content<span class="text-red-500">*</span></label>
-                <textarea [autoResize]="true" pInputTextarea class="w-full" id="postContent" name="postContent"
+                <textarea pInputTextarea class="w-full w-10rem" id="postContent" name="postContent"
                     formControlName="postContent" required></textarea>
                 <small class="p-error"
                     *ngIf="postForm.controls['postContent'].errors?.['required'] && postForm.controls['postContent'].touched">

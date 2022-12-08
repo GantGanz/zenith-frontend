@@ -59,7 +59,8 @@
                                                     <i class="pi pi-ellipsis-v"></i>
                                                 </div>
                                             </div>
-                                            <div class="absolute right-0 py-1 shadow-2 w-12rem bg-white hidden">
+                                            <div
+                                                class="absolute right-0 py-1 shadow-2 border-round-lg w-12rem bg-white hidden">
                                                 <ul class="list-none p-0 m-0">
                                                     <li>
                                                         <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
@@ -319,18 +320,19 @@
                                 <div *ngIf="data.commentStatus">
                                     <div class="flex mt-2">
                                         <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
-                                                class="border-circle w-3rem h-3rem" style="object-fit: cover"
+                                                class="border-circle w-2rem h-2rem" style="object-fit: cover"
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
                                             <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
                                                 <div class="flex flex-row align-content-center">
-                                                    <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm pb-0 text-sm"
-                                                        placeholder="Add a comment..."
-                                                        formControlName="commentContent"></textarea>
-                                                    <p-button type="submit" class="ml-2">Send</p-button>
+                                                    <input pInputText pAutoFocus
+                                                        class="w-full p-inputtext-sm border-round-3xl text-sm"
+                                                        [autofocus]="true" placeholder="Write a comment..."
+                                                        formControlName="commentContent">
+                                                    <p-button type="submit" class="ml-2" [hidden]="true">Send</p-button>
                                                 </div>
+                                                <small class="text-xs">Press enter to post.</small>
                                             </form>
                                         </div>
                                     </div>
@@ -354,7 +356,7 @@
                                                             style="object-fit: cover"
                                                             src="{{fileLink}}{{comment.fileId}}" alt="">
                                                     </div>
-                                                    <div class="bg-gray-50 border-round-md py-1">
+                                                    <div class="card border-none bg-gray-50 border-round-md py-1">
                                                         <div class="flex px-3">
                                                             <div class="w-full">
                                                                 <p class="font-medium text-sm mb-0">{{comment.userName}}
@@ -362,7 +364,8 @@
                                                                 <span class="text-xs">{{comment.createdAt |
                                                                     timeAgo}}</span>
                                                             </div>
-                                                            <div class="inline-block justify-content-end relative ml-6">
+                                                            <div class="inline-block justify-content-end relative ml-6"
+                                                                *ngIf="data.userId==myUserId || comment.userId == myUserId">
                                                                 <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
                                                                     pStyleClass="@next" enterClass="hidden"
                                                                     leaveToClass="hidden" [hideOnOutsideClick]="true">
@@ -372,17 +375,18 @@
                                                                     </div>
                                                                 </div>
                                                                 <div
-                                                                    class="absolute md:left-0 right-0 shadow-2 w-12rem z-5 bg-white hidden">
+                                                                    class="absolute right-0 shadow-2 border-round-lg w-12rem z-5 bg-white hidden">
                                                                     <ul class="list-none p-0 m-0">
                                                                         <li>
                                                                             <a *ngIf="comment.userId == myUserId && !editComment"
-                                                                                class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
+                                                                                class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 hover:border-round-top-lg transition-all transition-duration-200 cursor-pointer"
                                                                                 (click)="clickEditComment(i, commentIndex)">
                                                                                 <span class="font-medium">Edit</span>
                                                                             </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
+                                                                            <a *ngIf="comment.userId == myUserId || data.userId==myUserId"
+                                                                                class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 hover:border-round-bottom-lg transition-all transition-duration-200 cursor-pointer"
                                                                                 (click)="clickConfirmDeleteComment(i, commentIndex)">
                                                                                 <span class="font-medium">Delete</span>
                                                                             </a>
@@ -392,7 +396,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="px-3 mt-2">
-                                                            <p class="text-sm mb-1">{{comment.commentContent}} <em
+                                                            <p class="text-sm mb-1 line-height-2">
+                                                                {{comment.commentContent}} <em
                                                                     *ngIf="comment.version>0"><small>(edited)</small></em>
                                                             </p>
                                                         </div>
@@ -409,17 +414,19 @@
                                                         <form [formGroup]="updateCommentForm"
                                                             (ngSubmit)="submitEditComment(i, commentIndex)">
                                                             <div class="flex flex-row align-content-center">
-                                                                <input pInputText class="w-full p-inputtext-sm text-sm"
-                                                                    placeholder="Edit comment..."
+                                                                <input pInputText pAutoFocus
+                                                                    class="w-full p-inputtext-sm border-round-3xl text-sm"
+                                                                    [autofocus]="true" placeholder="Edit comment..."
                                                                     formControlName="commentContent">
-                                                                <p-button type="submit" class="ml-2"
-                                                                    [hidden]="true">Send
+                                                                <p-button type="submit" class="ml-2" [hidden]="true">
+                                                                    Send
                                                                 </p-button>
                                                             </div>
-                                                            <small>Press enter to edit comment. Click here to
-                                                                <a class="text-primary cursor-pointer"
+                                                            <small class="text-xs">Press enter to edit comment. Click
+                                                                here to
+                                                                <a class="text-primary cursor-pointer font-medium"
                                                                     style="text-decoration: none;"
-                                                                    (click)="cancelEdit(i, commentIndex)">cancel</a></small>
+                                                                    (click)="cancelEdit(i, commentIndex)">Cancel</a></small>
                                                         </form>
                                                     </div>
                                                 </div>

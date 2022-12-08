@@ -27,8 +27,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PostUpdateHomeComponent } from "./post-update/post-update.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
-
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @NgModule({
     declarations: [
@@ -60,7 +59,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         ProgressSpinnerModule,
         StyleClassModule,
         FormsModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        AutoFocusModule
     ],
     exports: [
         HomeComponent, rightContentComponent, PostUpdateHomeComponent

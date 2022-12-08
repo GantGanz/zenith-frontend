@@ -9,8 +9,8 @@
                 <form class="formgrid grid" [formGroup]="postUpdateForm" (ngSubmit)="clickUpdate()">
                     <div class="field col-12">
                         <label for="postTitle">Title<span class="text-red-500">*</span></label>
-                        <input pInputText class="w-full" type="text" id="postTitle" name="postTitle"
-                            formControlName="postTitle" required>
+                        <input pInputText pAutoFocus [autofocus]="true" class="w-full" type="text" id="postTitle"
+                            name="postTitle" formControlName="postTitle" required>
                     </div>
 
                     <div class="field col-12">

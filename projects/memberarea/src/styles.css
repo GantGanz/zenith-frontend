@@ -5,8 +5,13 @@
 
 
 :host ::ng-deep .customProgressBar .p-progressbar-value-animate {
-    background: #FF1010 !important;
+    background-color: #1089FF;
 }
+
+:host ::ng-deep .customProgressBarReg .p-progressbar-value-animate {
+    background-color: #a2d0ff;
+}
+
 
 .active {
     color: #1089FF !important;

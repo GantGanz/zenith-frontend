@@ -15,8 +15,9 @@
                     <input pInputText id="fullnameInput" name="fullnameInput" type="text" class="w-full p-inputtext-sm"
                         formControlName="fullname" required maxlength="50">
                     <small
-                        *ngIf="registerForm.controls['fullname'].errors?.['required'] && registerForm.controls['fullname'].touched"
+                        *ngIf="registerForm.controls['fullname'].errors?.['required'] && registerForm.controls['fullname'].touched; else nameEmpty"
                         class="p-error">Please enter your name</small>
+                        <ng-template #nameEmpty>&nbsp;</ng-template>
                 </div>
 
                 <div class="field mt-4">

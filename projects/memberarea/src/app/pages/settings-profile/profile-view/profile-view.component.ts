@@ -71,20 +71,20 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     totalIncome!: number
 
     fileLink = BASE_URL.FILE
-    myFileId!: string
-
+    
     type!: string
-
+    
     result: PostData[] = []
     likedPost: PostData[] = []
     myUser!: UserData
-
+    
     fullName!: string
     email!: string
     positionName!: string
     company!: string
     isPremium!: boolean
     myId!: string
+    myFileId!: string
 
     displayCustom!: boolean;
     activeIndex: number = 0;
@@ -171,7 +171,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.totalMyPost = result
         })
 
-        this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
+        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(()=>this.fileLoading=true)).subscribe(result => {
             this.myUser = result.data
             this.myId = this.myUser.id
             this.myFileId = this.myUser.fileId
@@ -336,6 +336,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     submitComment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
+            this.clickSeeComment(postIndex)
             this.result[postIndex].countComment += 1
             this.commentForm.reset()
         })

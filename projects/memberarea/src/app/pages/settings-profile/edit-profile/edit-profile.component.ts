@@ -58,7 +58,7 @@ export class EditProfileComponent {
     init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-            this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoading = true)).subscribe(result => {
+            this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.userLoading = true)).subscribe(result => {
                 this.userUpdateForm.patchValue(result.data)
                 this.userRes = result.data
                 this.fileId = result.data.fileId

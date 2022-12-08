@@ -287,16 +287,15 @@
                                         <ng-container *ngIf="data.pollData.isVoted; else notVoted">
                                             <ng-container
                                                 *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
+                                                {{poll.pollContent}} | votes: ({{poll.countVote}})
                                                 <ng-container *ngIf="poll.isVoted; else optionNotVoted">
-                                                    <button pButton class="p-button-sm mb-2" type="button"
-                                                        label="{{poll.pollContent}} | votes: ({{poll.countVote}})"
-                                                        [disabled]="true"></button>
+                                                    <p-progressBar [value]="pollValue(poll, data.pollData)"
+                                                        class="customProgressBar">
+                                                    </p-progressBar>
                                                 </ng-container>
                                                 <ng-template #optionNotVoted>
-                                                    <button pButton class="p-button-outlined p-button-sm mb-2"
-                                                        type="button"
-                                                        label="{{poll.pollContent}} | votes: ({{poll.countVote}})"
-                                                        [disabled]="true"></button>
+                                                    <p-progressBar [value]="pollValue(poll, data.pollData)">
+                                                    </p-progressBar>
                                                 </ng-template>
                                             </ng-container>
                                         </ng-container>
@@ -428,7 +427,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="px-3 mt-2">
-                                                    <p class="text-sm mb-1">{{comment.commentContent}} <em *ngIf="comment.version>0"><small>(edited)</small></em></p>
+                                                    <p class="text-sm mb-1">{{comment.commentContent}} <em
+                                                            *ngIf="comment.version>0"><small>(edited)</small></em></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -450,7 +450,9 @@
                                                         </p-button>
                                                     </div>
                                                     <small>Press enter to edit comment. Click here to
-                                                        <a class="text-primary cursor-pointer" style="text-decoration: none;" (click)="cancelEdit(i, commentIndex)">cancel</a></small>
+                                                        <a class="text-primary cursor-pointer"
+                                                            style="text-decoration: none;"
+                                                            (click)="cancelEdit(i, commentIndex)">cancel</a></small>
                                                 </form>
                                             </div>
                                         </div>

@@ -68,3 +68,11 @@
     height: 300px;
     object-fit: cover;
 }
+
+:host ::ng-deep .ui-progressbar .ui-progressbar-label {
+    color: yellow !important;
+}
+
+:host ::ng-deep .ui-progressbar .ui-progressbar-value {
+    background: lightgreen !important;
+}

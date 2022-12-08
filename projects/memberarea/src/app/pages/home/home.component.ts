@@ -118,6 +118,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         postId: ['', [Validators.required]]
     })
 
+    updateCommentForm = this.fb.group({
+        id: ['', [Validators.required]],
+        commentContent: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]]
+    })
+
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
     private likedPostSubscription?: Subscription
@@ -168,7 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.result[i].commentStatus = false
                 this.result[i].moreComment = false
                 this.result[i].showImg = false
-                this.result[i].showMoreComment = false 
+                this.result[i].showMoreComment = false
                 this.result[i].commentOffset = 0
             }
         })
@@ -235,7 +242,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
     }
 
-    clickEditComment() {
+    clickEditComment(postIndex: number, commentIndex: number) {
         this.editComment = true
         this.myComment = false
     }
@@ -475,6 +482,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
+    submitEditComment(postIndex: number, commentIndex: number) {
+        //TODO pasang submit edit
+    }
+
     addPoll() {
         this.pollingOption.push(this.fb.group({ pollContent: ['', [Validators.required]] }))
     }
@@ -490,6 +501,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickConfirmDelete(index: number) {
+        //TODO pasang modal buat hapus post
+    }
+
+    clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
+        //TODO pasang modal buat hapus comment
+    }
+
+    cancelEdit(postIndex: number, commentIndex: number){
 
     }
 

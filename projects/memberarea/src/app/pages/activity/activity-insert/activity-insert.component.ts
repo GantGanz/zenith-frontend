@@ -23,9 +23,9 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     maxDateValue = new Date()
 
     activityForm = this.fb.group({
-        activityTitle: [null, [Validators.required]],
+        activityTitle: [null, [Validators.required, Validators.maxLength(50)]],
         activityLocation: [null, [Validators.required]],
-        provider: [null, [Validators.required]],
+        provider: [null, [Validators.required, Validators.maxLength(50)]],
         startAt: ['', [Validators.required]],
         endAt: ['', [Validators.required]],
         fee: [null, [Validators.required]],

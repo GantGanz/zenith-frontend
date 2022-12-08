@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     fileLink = BASE_URL.FILE
     myFileId!: string
-
+    minDateValue = new Date()
     type!: string
 
     uploaded = false
@@ -400,10 +400,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             } else {
                 this.result[index].showMoreComment = true
             }
-            for(let i=0;i<this.result.length;i++){
-                if(this.result[i].commentDatas){
-                    for(let j=0;j<this.result[i].commentDatas.length;j++){
-                        this.cancelEdit(i,j)
+            for (let i = 0; i < this.result.length; i++) {
+                if (this.result[i].commentDatas) {
+                    for (let j = 0; j < this.result[i].commentDatas.length; j++) {
+                        this.cancelEdit(i, j)
                     }
                 }
             }
@@ -422,10 +422,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             } else {
                 this.result[index].showMoreComment = true
             }
-            for(let i=0;i<this.result.length;i++){
-                if(this.result[i].commentDatas){
-                    for(let j=0;j<this.result[i].commentDatas.length;j++){
-                        this.cancelEdit(i,j)
+            for (let i = 0; i < this.result.length; i++) {
+                if (this.result[i].commentDatas) {
+                    for (let j = 0; j < this.result[i].commentDatas.length; j++) {
+                        this.cancelEdit(i, j)
                     }
                 }
             }

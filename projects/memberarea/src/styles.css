@@ -3,6 +3,11 @@
 }
 
 
+
+:host ::ng-deep .customProgressBar .p-progressbar-value-animate {
+    background: #FF1010 !important;
+}
+
 .active {
     color: #1089FF !important;
     font-weight: 500;

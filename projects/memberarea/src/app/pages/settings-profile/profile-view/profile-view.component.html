@@ -7,7 +7,7 @@
                 <div class="container">
                     <div class="grid">
                         <div class="col-12 mt-4">
-                            <div class="text-center">
+                            <div class="text-center" *ngIf="fileLoading">
                                 <img src={{fileLink}}{{myFileId}} class="w-8rem h-8rem border-circle mb-3"
                                     style="object-fit: cover" alt="img">
                             </div>

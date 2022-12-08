@@ -65,7 +65,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-            this.userSubscription = this.userService.getById(id).pipe(finalize(() => this.userLoaded = true)).subscribe(result => {
+            this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.userLoaded = true)).subscribe(result => {
                 this.userUpdateForm.patchValue(
                     result.data
                 )

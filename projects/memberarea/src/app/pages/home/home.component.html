@@ -335,7 +335,7 @@
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
-                                            <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                            <form [formGroup]="commentForm" (ngSubmit)="commentForm.valid && submitcomment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -423,7 +423,7 @@
                                                     </div>
                                                     <div class="w-full">
                                                         <form [formGroup]="updateCommentForm"
-                                                            (ngSubmit)="submitEditComment(i, commentIndex)">
+                                                            (ngSubmit)="updateCommentForm.valid && submitEditComment(i, commentIndex)">
                                                             <div class="flex flex-row align-content-center">
                                                                 <input pInputText pAutoFocus
                                                                     class="w-full p-inputtext-sm border-round-3xl text-sm"

@@ -440,6 +440,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickCommentPost(postIndex: number) {
         this.result[postIndex].commentStatus = true
+        this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
     }
 
     clickAddPhotos() {

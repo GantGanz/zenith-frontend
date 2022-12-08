@@ -28,14 +28,15 @@
             <div class="field col-12 md:col-6">
                 <label for="startAt">Start At<span class="text-red-500">*</span></label>
                 <p-calendar [readonlyInput]="true" inputId="startAt" styleClass="w-full" formControlName="startAt"
-                    [showTime]="true" [showIcon]="true" [showButtonBar]="true">
+                    [showTime]="true" [showIcon]="true" [showButtonBar]="true" [minDate]="minDateValue"
+                    (onSelect)="startAtSelected()">
                 </p-calendar>
             </div>
 
             <div class="field col-12 md:col-6">
                 <label for="endAt">End At<span class="text-red-500">*</span></label>
                 <p-calendar [readonlyInput]="true" inputId="endAt" styleClass="w-full" formControlName="endAt"
-                    [showTime]="true" [showIcon]="true" [showButtonBar]="true">
+                    [showTime]="true" [showIcon]="true" [showButtonBar]="true" [minDate]="maxDateValue">
                 </p-calendar>
             </div>
 

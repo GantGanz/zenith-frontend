@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     fileLink = BASE_URL.FILE
     myFileId!: string
-
+    minDateValue = new Date()
     type!: string
 
     uploaded = false
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     tabIndex = 0
     postLoading = false
     loadingImg = false
-    buttonLoading= false
+    buttonLoading = false
 
     like = true
     bookmark = true
@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     commentForm = this.fb.group({
-        commentContent: ['', [Validators.required]],
+        commentContent: ['' || null, [Validators.required]],
         postId: ['', [Validators.required]]
     })
 
@@ -262,6 +262,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.editComment = true
         this.result[postIndex].commentDatas[commentIndex].editComment = true
         this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
+        this.commentForm.controls['commentContent'].disable()
     }
 
     onScroll() {
@@ -390,7 +391,15 @@ export class HomeComponent implements OnInit, OnDestroy {
             } else {
                 this.result[index].showMoreComment = true
             }
+            for (let i = 0; i < this.result.length; i++) {
+                if (this.result[i].commentDatas) {
+                    for (let j = 0; j < this.result[i].commentDatas.length; j++) {
+                        this.cancelEdit(i, j)
+                    }
+                }
+            }
         })
+        this.editComment = false
     }
 
     seeMoreComment(index: number) {
@@ -404,7 +413,15 @@ export class HomeComponent implements OnInit, OnDestroy {
             } else {
                 this.result[index].showMoreComment = true
             }
+            for (let i = 0; i < this.result.length; i++) {
+                if (this.result[i].commentDatas) {
+                    for (let j = 0; j < this.result[i].commentDatas.length; j++) {
+                        this.cancelEdit(i, j)
+                    }
+                }
+            }
         })
+        this.editComment = false
     }
 
     clickCloseComment(index: number) {
@@ -504,6 +521,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.editComment = false
             this.result[postIndex].commentDatas[commentIndex].editComment = false
             this.buttonLoading = false
+            this.commentForm.controls['commentContent'].enable()
         })).subscribe(() => {
             this.commentByIdSubscription = this.commentService.getByIdComment(this.updateCommentForm.value.id!).subscribe(comment => {
                 this.result[postIndex].commentDatas.splice(commentIndex, 1, comment.data)
@@ -564,6 +582,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.editComment = false
         this.result[postIndex].commentDatas[commentIndex].editComment = false
         this.updateCommentForm.reset()
+        this.commentForm.controls['commentContent'].enable()
     }
 
     showPremiumDoalog() {

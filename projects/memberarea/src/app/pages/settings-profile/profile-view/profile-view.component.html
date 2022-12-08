@@ -285,18 +285,22 @@
                             <ng-template #elsePoll>
                                 <div class="mt-3 w-full">
                                     <div class="card p-4 border-none bg-gray-50">
-                                        <h6 class="mb-4">{{data.pollData.pollTitle}}</h6>
+                                        <h6 class="mb-2">{{data.pollData.pollTitle}}</h6>
                                         <ng-container *ngIf="data.pollData.isVoted; else notVoted">
                                             <ng-container
                                                 *ngFor="let poll of data.pollData.pollOptionDatas; index as pollIndex">
-                                                {{poll.pollContent}} | votes: ({{poll.countVote}})
+                                                <div class="mt-3">
+                                                    {{poll.pollContent}} | votes: ({{poll.countVote}})
+                                                </div>
                                                 <ng-container *ngIf="poll.isVoted; else optionNotVoted">
-                                                    <p-progressBar [value]="pollValue(poll, data.pollData)"
+                                                    <p-progressBar styleClass="h-2rem border-round-3xl"
+                                                        [value]="pollValue(poll, data.pollData)"
                                                         class="customProgressBar">
                                                     </p-progressBar>
                                                 </ng-container>
                                                 <ng-template #optionNotVoted>
-                                                    <p-progressBar [value]="pollValue(poll, data.pollData)">
+                                                    <p-progressBar styleClass="h-2rem border-round-3xl"
+                                                        [value]="pollValue(poll, data.pollData)">
                                                     </p-progressBar>
                                                 </ng-template>
                                             </ng-container>

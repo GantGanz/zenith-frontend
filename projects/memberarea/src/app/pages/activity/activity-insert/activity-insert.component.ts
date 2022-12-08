@@ -19,6 +19,8 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     activityTypesRes!: ActivityTypesRes
     activityTypes: any[] = []
     loading = false
+    minDateValue = new Date()
+    maxDateValue = new Date()
 
     activityForm = this.fb.group({
         activityTitle: [null, [Validators.required]],
@@ -66,6 +68,10 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
             console.log(result);
             this.detailFoto.insert(0, this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }));
         })
+    }
+
+    startAtSelected() {
+        this.maxDateValue = new Date(formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
     }
 
     ngOnDestroy(): void {

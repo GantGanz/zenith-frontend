@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
+import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { Subscription } from "rxjs";
 import { STATUS_TYPE } from "../../../constant/status-type";
 
@@ -27,7 +28,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
 
     Approved!: string
 
-    id!: string
+    id = ''
 
     isRegister = true
     isPaid = false
@@ -45,8 +46,9 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     private activityJoinedEventsSubscription?: Subscription
     private paramSubscription?: Subscription
     private activitySubscription?: Subscription
+    private userSubscription?: Subscription
 
-    constructor(private activityService: ActivityService) { }
+    constructor(private activityService: ActivityService, private userService: UserService) { }
 
     ngOnInit(): void {
         this.init()
@@ -61,6 +63,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     }
 
     init() {
+        this.userSubscription = this.userService.getByPrincipal().subscribe(result => this.id = result.data.id)
+
         this.activityCoursesSubscription = this.activityService.getAllCourse(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
             for (let i = 0; i < this.dataCourses.length; i++) {
@@ -138,5 +142,6 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityJoinedEventsSubscription?.unsubscribe()
         this.paramSubscription?.unsubscribe()
         this.activitySubscription?.unsubscribe()
+        this.userSubscription?.unsubscribe()
     }
 }

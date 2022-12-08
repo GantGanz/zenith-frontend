@@ -325,12 +325,13 @@
                                         <div class="w-full">
                                             <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
                                                 <div class="flex flex-row align-content-center">
-                                                    <textarea pInputTextarea [autoResize]="true"
-                                                        class="w-full p-inputtextarea-sm pb-0 text-sm"
+                                                    <input pInputText
+                                                        class="w-full p-inputtextarea-sm text-sm"
                                                         placeholder="Add a comment..."
-                                                        formControlName="commentContent"></textarea>
-                                                    <p-button type="submit" class="ml-2">Send</p-button>
+                                                        formControlName="commentContent">
+                                                    <p-button type="submit" class="ml-2" [hidden]="true">Send</p-button>
                                                 </div>
+                                                <small>Press enter to add comment</small>
                                             </form>
                                         </div>
                                     </div>

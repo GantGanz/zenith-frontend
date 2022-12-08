@@ -197,11 +197,19 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
         this.postCountSubscription = this.postService.countAll().subscribe(count => {
             this.postCount = count
+            if (count > 0) {
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            } else {
+                this.dataEmpty = true
+                this.dataNotEmpty = false
+            }
         })
     }
 
     likedInit() {
-        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).subscribe(likedPosts => {
+        this.postLoading =true
+        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).pipe(finalize(()=>this.postLoading=false)).subscribe(likedPosts => {
             this.result = likedPosts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -224,7 +232,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     bookmarkedInit() {
-        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).subscribe(bookmarkedPosts => {
+        this.postLoading = true
+        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).pipe(finalize(()=>this.postLoading =false)).subscribe(bookmarkedPosts => {
             this.result = bookmarkedPosts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false

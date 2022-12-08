@@ -71,13 +71,13 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     totalIncome!: number
 
     fileLink = BASE_URL.FILE
-    
+
     type!: string
-    
+
     result: PostData[] = []
     likedPost: PostData[] = []
     myUser!: UserData
-    
+
     fullName!: string
     email!: string
     positionName!: string
@@ -171,7 +171,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.totalMyPost = result
         })
 
-        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(()=>this.fileLoading=true)).subscribe(result => {
+        this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.fileLoading = true)).subscribe(result => {
             this.myUser = result.data
             this.myId = this.myUser.id
             this.myFileId = this.myUser.fileId
@@ -233,6 +233,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.result[i].pollData.isVoted = true
             this.result[i].pollData.countVote += 1
             this.result[i].pollData.pollOptionDatas[pollIndex].isVoted = true
+            this.result[i].pollData.pollOptionDatas[pollIndex].countVote += 1
         })
     }
 
@@ -302,7 +303,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
     }
 
-    cancelEdit(postIndex: number, commentIndex: number){
+    cancelEdit(postIndex: number, commentIndex: number) {
         this.editComment = false
         this.result[postIndex].commentDatas[commentIndex].editComment = false
         this.updateCommentForm.reset()
@@ -403,6 +404,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
                 })
             }
         })
+    }
+
+    pollValue(poll: any, pollData: any) {
+        return Math.round(poll.countVote / pollData.countVote * 100)
     }
 
     ngOnDestroy(): void {

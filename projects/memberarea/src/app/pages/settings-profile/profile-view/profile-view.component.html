@@ -360,16 +360,17 @@
                         <div *ngIf="data.commentStatus">
                             <div class="flex mt-2">
                                 <div class="max-w-max mr-3"><img src="{{fileLink}}{{myFileId}}"
-                                        class="border-circle w-3rem h-3rem" style="object-fit: cover"
+                                        class="border-circle w-2rem h-2rem" style="object-fit: cover"
                                         alt="profile picture">
                                 </div>
                                 <div class="w-full">
                                     <form [formGroup]="commentForm" (ngSubmit)="submitComment(i)">
                                         <div class="flex flex-row align-content-center">
-                                            <input pInputText class="w-full p-inputtext-sm text-sm"
-                                                placeholder="Add a comment..." formControlName="commentContent">
+                                            <input pInputText class="w-full p-inputtext-sm border-round-3xl text-sm"
+                                                placeholder="Write a comment..." formControlName="commentContent">
                                             <p-button type="submit" class="ml-2" [hidden]="true">Send</p-button>
                                         </div>
+                                        <small class="text-xs">Press enter to post.</small>
                                     </form>
                                 </div>
                             </div>
@@ -392,7 +393,7 @@
                                                     style="object-fit: cover" src="{{fileLink}}{{comment.fileId}}"
                                                     alt="">
                                             </div>
-                                            <div class="bg-gray-50 border-round-md py-1">
+                                            <div class="card bg-gray-50 border-none border-round-md py-1">
                                                 <div class="flex px-3">
                                                     <div class="w-full">
                                                         <p class="font-medium text-sm mb-0">{{comment.userName}}</p>
@@ -408,7 +409,7 @@
                                                             </div>
                                                         </div>
                                                         <div
-                                                            class="absolute md:left-0 right-0 shadow-2 w-12rem z-5 bg-white hidden">
+                                                            class="absolute right-0 shadow-2 border-round-lg w-12rem z-5 bg-white hidden">
                                                             <ul class="list-none p-0 m-0">
                                                                 <li>
                                                                     <a *ngIf="comment.userId == myId && !editComment"
@@ -428,7 +429,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="px-3 mt-2">
-                                                    <p class="text-sm mb-1">{{comment.commentContent}} <em *ngIf="comment.version>0"><small>(edited)</small></em></p>
+                                                    <p class="text-sm mb-1 line-height-2">{{comment.commentContent}} <em
+                                                            *ngIf="comment.version>0"><small>(edited)</small></em></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -443,14 +445,17 @@
                                                 <form [formGroup]="updateCommentForm"
                                                     (ngSubmit)="submitEditComment(i, commentIndex)">
                                                     <div class="flex flex-row align-content-center">
-                                                        <input pInputText class="w-full p-inputtext-sm text-sm"
+                                                        <input pInputText
+                                                            class="w-full p-inputtext-sm border-round-3xl text-sm"
                                                             placeholder="Edit comment..."
                                                             formControlName="commentContent">
                                                         <p-button type="submit" class="ml-2" [hidden]="true">Send
                                                         </p-button>
                                                     </div>
-                                                    <small>Press enter to edit comment. Click here to
-                                                        <a class="text-primary cursor-pointer" style="text-decoration: none;" (click)="cancelEdit(i, commentIndex)">cancel</a></small>
+                                                    <small class="text-xs">Press enter to edit comment. Click here to
+                                                        <a class="text-primary cursor-pointer"
+                                                            style="text-decoration: none;"
+                                                            (click)="cancelEdit(i, commentIndex)">Cancel</a></small>
                                                 </form>
                                             </div>
                                         </div>
@@ -469,8 +474,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <p-confirmDialog [style]="{width: '45vw'}" key="positionDialog" rejectButtonStyleClass="p-button-secondary p-button-sm"

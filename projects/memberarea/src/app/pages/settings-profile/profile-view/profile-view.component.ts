@@ -302,6 +302,12 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.updateCommentForm.patchValue(this.result[postIndex].commentDatas[commentIndex])
     }
 
+    cancelEdit(postIndex: number, commentIndex: number){
+        this.editComment = false
+        this.result[postIndex].commentDatas[commentIndex].editComment = false
+        this.updateCommentForm.reset()
+    }
+
     seeMoreComment(index: number) {
         this.result[index].commentOffset += this.commentLimit
         this.commentByPostSubscription = this.commentService.getAllByPost(this.result[index].id, this.result[index].commentOffset, this.commentLimit).subscribe(comments => {

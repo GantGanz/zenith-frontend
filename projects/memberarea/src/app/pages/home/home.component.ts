@@ -128,6 +128,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         postId: ['', [Validators.required]]
     })
 
+    updateCommentForm = this.fb.group({
+        id: ['', [Validators.required]],
+        commentContent: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]]
+    })
+
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
     private likedPostSubscription?: Subscription
@@ -247,7 +254,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
     }
 
-    clickEditComment() {
+    clickEditComment(postIndex: number, commentIndex: number) {
         this.editComment = true
         this.myComment = false
     }
@@ -486,6 +493,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
     }
 
+    submitEditComment(postIndex: number, commentIndex: number) {
+        //TODO pasang submit edit
+    }
+
     addPoll() {
         this.pollingOption.push(this.fb.group({ pollContent: ['', [Validators.required]] }))
     }
@@ -501,21 +512,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickConfirmDelete(index: number) {
-        this.confirmationService.confirm({
-            message: 'Do you want to delete this post?',
-            header: 'Delete Confirmation',
-            icon: 'pi pi-info-circle',
-            key: 'positionDialog',
-            accept: () => {
-                this.postDelete.patchValue(this.result[index])
+        //TODO pasang modal buat hapus post
+    }
 
-                this.deleteSubscription = this.postService.update(this.postDelete.value).subscribe(a => {
-                    this.addData()
-                    this.postCount -= 1
-                    this.result.splice(index, 1)
-                })
-            }
-        })
+    clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
+        //TODO pasang modal buat hapus comment
+    }
+
+    cancelEdit(postIndex: number, commentIndex: number){
     }
 
     showPremiumDoalog() {

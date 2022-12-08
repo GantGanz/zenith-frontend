@@ -328,8 +328,7 @@
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
-                                                        [autofocus]="true"
-                                                        placeholder="Write a comment..."
+                                                        [autofocus]="true" placeholder="Write a comment..."
                                                         formControlName="commentContent">
                                                     <p-button type="submit" class="ml-2" [hidden]="true">Send</p-button>
                                                 </div>
@@ -1226,7 +1225,7 @@
                     <div class="field mt-4">
                         <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
                         <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"
-                            formControlName="endAt" [showTime]="true"></p-calendar>
+                            formControlName="endAt" [showTime]="true" [minDate]="minDateValue"></p-calendar>
                     </div>
                 </div>
             </div>

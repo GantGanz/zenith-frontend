@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     postLoading = false
     loadingImg = false
     buttonLoading = false
+    insertLoading = false
 
     like = true
     bookmark = true
@@ -166,8 +167,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
         private commentService: CommentService, private userService: UserService,
         private confirmationService: ConfirmationService, private title: Title) {
-            this.title.setTitle('Feed | Zenith')
-        }
+        this.title.setTitle('Feed | Zenith')
+    }
 
     ngOnInit(): void {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
@@ -483,6 +484,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.postForm.get('pollInsertReq')?.get('pollTitle')
     }
 
+    get endAt() {
+        return this.postForm.get('pollInsertReq')?.get('endAt')
+    }
+
     removeFile(event: any) {
         this.fileService.fileUploadForDeletion(event).then(result => {
             for (let i = 0; i < this.detailFoto.length; i++) {
@@ -504,13 +509,46 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     submitPost() {
-        let formattedStart = formatDate(this.postForm.value.pollInsertReq!.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
-        this.postForm.value.pollInsertReq!.endAt = formattedStart
-        this.postForm.controls['postTypeId'].setValue(this.postTypeId)
-        if (this.postForm.value.isPremium) {
-            this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
-                this.postForm.controls['postTypeId'].setValue(result.id)
-                this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
+        let valid = false
+        this.insertLoading = true
+        if (this.showCreatePolling) {
+            if ((this.postForm.controls['postTitle'].invalid || this.postForm.controls['postContent'].invalid) || (this.postForm.get('pollInsertReq')?.invalid)) {
+                valid = false
+            } else {
+                valid = true
+            }
+        } else {
+            if (this.postForm.controls['postTitle'].invalid || this.postForm.controls['postContent'].invalid) {
+                valid = false
+            } else {
+                valid = true
+            }
+        }
+        if (!valid) {
+            this.postForm.markAllAsTouched();
+            this.insertLoading = false
+        } else {
+            let formattedStart = formatDate(this.postForm.value.pollInsertReq!.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+            this.postForm.value.pollInsertReq!.endAt = formattedStart
+            this.postForm.controls['postTypeId'].setValue(this.postTypeId)
+            if (this.postForm.value.isPremium) {
+                this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
+                    this.postForm.controls['postTypeId'].setValue(result.id)
+                    this.postInsertSubscription = this.postService.insert(this.postForm.value).pipe(finalize(() => this.insertLoading = false)).subscribe(() => {
+                        this.showForm = false
+                        this.first = 0
+                        this.postInit()
+                        this.upload.clear()
+                        this.detailFoto.clear()
+                        for (let i = 0; i < this.pollingOption.length; i++) {
+                            if (i > 1) {
+                                this.pollingOption.removeAt(i)
+                            }
+                        }
+                    })
+                })
+            } else {
+                this.postInsertSubscription = this.postService.insert(this.postForm.value).pipe(finalize(() => this.insertLoading = false)).subscribe(() => {
                     this.showForm = false
                     this.first = 0
                     this.postInit()
@@ -522,20 +560,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                         }
                     }
                 })
-            })
-        } else {
-            this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
-                this.showForm = false
-                this.first = 0
-                this.postInit()
-                this.upload.clear()
-                this.detailFoto.clear()
-                for (let i = 0; i < this.pollingOption.length; i++) {
-                    if (i > 1) {
-                        this.pollingOption.removeAt(i)
-                    }
-                }
-            })
+            }
         }
     }
 

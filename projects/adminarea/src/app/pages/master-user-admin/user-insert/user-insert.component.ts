@@ -15,8 +15,7 @@ export class UserInsertComponent implements OnInit, OnDestroy {
     userInsertForm = this.fb.group({
         id: [null, [Validators.required]],
         fullname: [null, [Validators.required, Validators.maxLength(50)]],
-        email: [null, [Validators.email, Validators.required, Validators.maxLength(50)]],
-        company: [null, [Validators.required]],
+        email: [null, [Validators.email, Validators.required, Validators.maxLength(50)]]
     })
 
     submitLoading = false

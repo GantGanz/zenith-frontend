@@ -13,11 +13,11 @@ const routes: Routes = [
         component: ProfileViewComponent,
     },
     {
-        path: "edit/:id",
+        path: "edit",
         component: EditProfileComponent
     },
     {
-        path: "change-password/:id",
+        path: "change-password",
         component: ChangePasswordComponent
     },
     {

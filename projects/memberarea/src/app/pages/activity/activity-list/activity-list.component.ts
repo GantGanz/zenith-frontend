@@ -31,6 +31,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     Approved!: string
 
     id = ''
+    dataEmpty = true
+    dataNotEmpty = false
 
     isRegister = true
     isPaid = false

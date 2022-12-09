@@ -1,8 +1,10 @@
-.click {
+/* .click {
     cursor: pointer;
+} */
+
+.scroll::-webkit-scrollbar {
+    display: none;
 }
-
-
 
 :host ::ng-deep .customProgressBar .p-progressbar-value-animate {
     background-color: #1089FF;

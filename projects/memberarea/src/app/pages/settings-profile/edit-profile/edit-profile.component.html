@@ -3,7 +3,7 @@
         <div class="col-12">
             <span class="cursor-pointer" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back to Profile</span>
         </div>
-        <div class="md:col-3 col-12">
+        <div class="md:col-3 col-12 hidden md:block">
             <menu-profile></menu-profile>
         </div>
         <div class="md:col-9 col-12">
@@ -17,15 +17,17 @@
                             <img src="{{fileLink}}{{fileId}}" class="w-6rem h-6rem border-circle mb-3"
                                 style="object-fit: cover" alt="profile pic super-admin">
                         </div>
-                        <div class="col-5">
+                        <div class="col-12">
                             <!-- Change Photo -->
-                            <p-fileUpload url="./upload.php" accept="image/*" [customUpload]="true"
-                                (uploadHandler)="fileUpload($event)" [auto]="true" chooseLabel="Upload New Picture">
-                            </p-fileUpload>
+                            <div class="mx-2 lg:mx-6">
+                                <p-fileUpload url="./upload.php" accept="image/*" [customUpload]="true"
+                                    (uploadHandler)="fileUpload($event)" [auto]="true" chooseLabel="Upload New Picture">
+                                </p-fileUpload>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mx-6" *ngIf="userLoading">
+                    <div class="mx-2 lg:mx-6" *ngIf="userLoading">
                         <form class="formgrid grid" [formGroup]="userUpdateForm" (ngSubmit)="clickUpdate()">
                             <div class="field col-12">
                                 <label for="fullName">Full Name<span class="text-red-500">*</span></label>

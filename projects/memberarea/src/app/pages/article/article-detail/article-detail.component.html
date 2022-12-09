@@ -4,7 +4,7 @@
             <span class="cursor-pointer hover:text-blue-500" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back
                 to all Article</span>
         </div>
-        <div class="col-8">
+        <div class="col-12 lg:col-8">
             <!-- title -->
             <h3 class="mt-4">{{title}}</h3>
             <p-divider></p-divider>
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Side Article -->
-        <div class="col-4">
+        <div class="col-12 lg:col-4 hidden lg:block">
             <div class="sticky top-0">
                 <ng-container *ngFor="let data of articles; index as i">
                     <div class="card mb-3">

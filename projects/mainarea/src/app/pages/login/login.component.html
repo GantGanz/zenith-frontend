@@ -14,17 +14,26 @@
                 <p-image src="../../../assets/images/zenith_logo.png" alt="Image" width="70"></p-image>
             </div>
             <h2 class="text-center">Login</h2>
-            <form class="mt-4 mb-5" [formGroup]="loginForm" (ngSubmit)="submit()">
+            <form class="mt-4 mb-5" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && submit()">
                 <div class="field">
                     <label for="email">Email<span class="text-red-500">*</span></label>
                     <input pInputText id="email" name="email" type="text" class="w-full p-inputtext-sm"
                         formControlName="email" placeholder="example@mail.com" required>
+                        <small class="p-error" *ngIf="loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched">
+                            Please input your email
+                        </small>
+                        <small class="p-error" *ngIf="loginForm.controls['email'].errors?.['email'] && loginForm.controls['email'].touched">
+                            Incorrect email format
+                        </small>
                 </div>
                 <div class="field mt-4">
                     <label for="password">Password<span class="text-red-500">*</span></label>
                     <p-password id="password" name="password" type="password" styleClass="w-full"
                         [inputStyle]="{'width':'100%','height':'45px'}" formControlName="password" [feedback]="false"
                         [toggleMask]="true" required></p-password>
+                        <small class="p-error" *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">
+                            Please input your password
+                        </small>
                 </div>
                 <div class="mt-4">
                     <button pButton class="w-full justify-content-center custom-btn" type="submit" id="btnLogin"

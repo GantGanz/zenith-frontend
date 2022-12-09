@@ -21,6 +21,7 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     loading = false
     minDateValue = new Date()
     maxDateValue = new Date()
+    startMaxDateValue = new Date('3000-01-01')
 
     activityForm = this.fb.group({
         activityTitle: [null, [Validators.required, Validators.maxLength(50)]],
@@ -77,6 +78,10 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
 
     startAtSelected() {
         this.maxDateValue = new Date(formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
+    }
+
+    endAtSelected() {
+        this.startMaxDateValue = new Date(formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
     }
 
     ngOnDestroy(): void {

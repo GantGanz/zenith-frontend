@@ -267,7 +267,7 @@
                                                         <div class="mt-1 md:mt-3">
                                                             {{poll.pollContent}} | votes: ({{poll.countVote}})
                                                         </div>
-                                                        
+
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
                                                             <p-progressBar styleClass="h-2rem"
                                                                 [value]="pollValue(poll, data.pollData)"
@@ -292,7 +292,8 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
+                                                        date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -744,7 +745,8 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
+                                                        date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1186,7 +1188,8 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
+                                                        date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1465,7 +1468,8 @@
                 <small id="username1-help" class="block text-xs">**Please click upload button after choose image</small>
 
                 <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
-                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)" [auto]="true">
+                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)"
+                    [auto]="true">
                 </p-fileUpload>
             </div>
 
@@ -1504,5 +1508,5 @@
 </div>
 
 <p-confirmDialog [style]="{width: '45vw'}" [breakpoints]="{'960px': '90vw'}" key="positionDialog"
-    rejectButtonStyleClass="p-button-secondary p-button-sm"
-    acceptButtonStyleClass="p-button-danger p-button-sm"></p-confirmDialog>
+    rejectButtonStyleClass="p-button-secondary p-button-sm" acceptButtonStyleClass="p-button-danger p-button-sm">
+</p-confirmDialog>

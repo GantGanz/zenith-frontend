@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-6">
                                 <p class="text-right font-bold text-green-700">
-                                    Rp. {{ fee }}
+                                    {{ fee | currency:'IDR ':'symbol':'3.0'}}
                                 </p>
                             </div>
                         </div>
@@ -73,7 +73,8 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="text-sm">Total:</p>
-                                            <p class="font-bold text-green-700">Rp.{{ fee }}</p>
+                                            <p class="font-bold text-green-700">{{ fee | currency:'IDR
+                                                ':'symbol':'3.0'}}</p>
                                         </div>
                                     </div>
                                 </div>

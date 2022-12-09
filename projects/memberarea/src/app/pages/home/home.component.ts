@@ -517,11 +517,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     submitcomment(postIndex: number) {
+        console.log('masuk');
+        
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
             this.result[postIndex].countComment += 1
-            this.commentForm.reset()
+            this.commentForm.controls['commentContent'].reset()
         })
     }
 

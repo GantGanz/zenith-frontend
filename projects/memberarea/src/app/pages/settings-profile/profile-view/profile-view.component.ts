@@ -31,17 +31,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         postTitle: ['', [Validators.required, Validators.maxLength(100)]],
         postContent: ['', [Validators.required]],
         postTypeId: ['', [Validators.required]],
-        // attachmentPostInsertReqs: this.fb.array([]),
         isActive: [false],
-        // pollInsertReq: this.fb.group({
-        //     pollTitle: ['', [Validators.required]],
-        //     endAt: ['', [Validators.required]],
-        //     pollOptionInsertReqs: this.fb.array([
-        //         this.fb.group({ pollContent: ['', Validators.required] }),
-        //         this.fb.group({ pollContent: ['', Validators.required] })
-        //     ])
-        // }),
-        // isPremium: [false, [Validators.required]]
     })
 
     voteForm = this.fb.group({
@@ -391,7 +381,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
         this.confirmationService.confirm({
-            message: 'Do you want to delete this post?',
+            message: 'Do you want to delete this Comment?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',

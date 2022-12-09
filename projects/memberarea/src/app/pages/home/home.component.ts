@@ -2,6 +2,7 @@ import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { FileUpload } from "primeng/fileupload";
 import { PostData } from "projects/interface/post/post-data";
@@ -45,6 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     postLoading = false
     loadingImg = false
     buttonLoading = false
+    updateLoading = false
 
     like = true
     bookmark = true
@@ -72,6 +74,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     displayCustom!: boolean;
     activeIndex: number = 0;
+
+    postRes!: PostData
 
     postTypeId!: string
     regularPostCode = POST_TYPE_CODE.REGULAR
@@ -109,6 +113,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         isActive: [false],
     })
 
+    postUpdateForm = this.fb.group({
+        id: ['', [Validators.required]],
+        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
+        postContent: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]],
+    })
+
     likeForm = this.fb.group({
         id: ['', [Validators.required]],
         userId: ['', [Validators.required]],
@@ -138,6 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
+    private postSubscribtion?: Subscription
     private likedPostSubscription?: Subscription
     private postTypeSubscription?: Subscription
     private bookmarkedPostSubscription?: Subscription
@@ -161,15 +174,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     private commentByIdSubscription?: Subscription
 
     private myUserSubscription?: Subscription
+    private paramSubscription?: Subscription
+    private updateSubscription?: Subscription
 
     constructor(private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
         private commentService: CommentService, private userService: UserService,
-        private confirmationService: ConfirmationService, private title: Title) {
-            this.title.setTitle('Feed | Zenith')
-        }
+        private confirmationService: ConfirmationService, private title: Title,
+        private active: ActivatedRoute,) {
+        this.title.setTitle('Feed | Zenith')
+    }
 
     ngOnInit(): void {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
@@ -182,6 +198,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
         })
         this.postInit()
+    }
+
+    postEditIndex!: any
+
+    clickEditPost(postId: string, index: number) {
+        this.postEditIndex = index
+        this.postsSubscribtion = this.postService.getById(postId).pipe(finalize(() => this.postLoading = true)).subscribe(result => {
+            this.postUpdateForm.patchValue(result.data)
+            this.postRes = result.data
+            this.showEditForm = true
+        })
     }
 
     postInit() {
@@ -254,6 +281,16 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.dataEmpty = true
                 this.dataNotEmpty = false
             }
+        })
+    }
+    clickUpdate() {
+        this.updateLoading = true
+        this.updateSubscription = this.postService.update(this.postUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe(() => {
+            this.postSubscribtion = this.postService.getById(this.result[this.postEditIndex].id).subscribe(post => {
+                this.result.splice(this.postEditIndex, 1, post.data)
+                console.log(this.result[this.postEditIndex]);
+
+            })
         })
     }
 
@@ -337,9 +374,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
         this.upload.clear()
         this.detailFoto.clear()
-    }
-    showEditPost() {
-        this.showEditForm = true
     }
 
     clickSave(i: number) {
@@ -573,7 +607,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.pollingOption.removeAt(i)
     }
 
-
     imageClick(index: number, indexPhoto: number) {
         this.activeIndex = indexPhoto;
         this.result[index].showImg = true
@@ -657,6 +690,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.deleteCommentSubscription?.unsubscribe()
         this.updateCommentSubscription?.unsubscribe()
         this.commentByIdSubscription?.unsubscribe()
+        this.paramSubscription?.unsubscribe()
+        this.updateSubscription?.unsubscribe()
     }
 }
 

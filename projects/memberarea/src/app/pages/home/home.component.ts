@@ -91,10 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         pollInsertReq: this.fb.group({
             pollTitle: ['', [Validators.required]],
             endAt: ['', [Validators.required]],
-            pollOptionInsertReqs: this.fb.array([
-                this.fb.group({ pollContent: ['', Validators.required] }),
-                this.fb.group({ pollContent: ['', Validators.required] })
-            ])
+            pollOptionInsertReqs: this.fb.array([])
         }),
         isPremium: [false, [Validators.required]]
     })
@@ -207,8 +204,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     likedInit() {
-        this.postLoading =true
-        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).pipe(finalize(()=>this.postLoading=false)).subscribe(likedPosts => {
+        this.postLoading = true
+        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).pipe(finalize(() => this.postLoading = false)).subscribe(likedPosts => {
             this.result = likedPosts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -232,7 +229,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     bookmarkedInit() {
         this.postLoading = true
-        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).pipe(finalize(()=>this.postLoading =false)).subscribe(bookmarkedPosts => {
+        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).pipe(finalize(() => this.postLoading = false)).subscribe(bookmarkedPosts => {
             this.result = bookmarkedPosts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -458,6 +455,9 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.postTypeId = result.id
         })
         this.postForm.reset()
+        this.pollingOption.clear()
+        this.pollingOption.push(this.fb.group({ pollContent: [null, [Validators.required]] }))
+        this.pollingOption.push(this.fb.group({ pollContent: [null, [Validators.required]] }))
     }
 
     clickReplyComment() {
@@ -504,6 +504,11 @@ export class HomeComponent implements OnInit, OnDestroy {
                     this.first = 0
                     this.postInit()
                     this.upload.clear()
+                    for (let i = 0; i < this.pollingOption.length; i++) {
+                        if (i > 1) {
+                            this.pollingOption.removeAt(i)
+                        }
+                    }
                 })
             })
         } else {
@@ -512,13 +517,16 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.first = 0
                 this.postInit()
                 this.upload.clear()
+                for (let i = 0; i < this.pollingOption.length; i++) {
+                    if (i > 1) {
+                        this.pollingOption.removeAt(i)
+                    }
+                }
             })
         }
     }
 
-    submitcomment(postIndex: number) {
-        console.log('masuk');
-        
+    submitComment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
@@ -542,7 +550,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     addPoll() {
-        this.pollingOption.push(this.fb.group({ pollContent: ['', [Validators.required]] }))
+        this.pollingOption.push(this.fb.group({ pollContent: [null, [Validators.required]] }))
     }
 
     removePoll(i: number) {

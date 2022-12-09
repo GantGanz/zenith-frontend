@@ -1,4 +1,4 @@
-<div class="container mt-5" infinite-scroll (scrolled)="onScroll()">
+<div class="container mt-5" infinite-scroll (scrolled)="!postLoading && onScroll()">
     <div class="grid">
         <!-- Main Content -->
         <div class="col-12 lg:col-8">
@@ -94,7 +94,7 @@
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else contentRegular">
                                     <div class="w-full" style="filter: blur(5px)">
-                                        <p class="text-sm">{{data.postContent}}</p>
+                                        <p class="text-sm select-none">{{data.postContent}}</p>
                                     </div>
                                 </ng-container>
                                 <ng-template #contentRegular>
@@ -267,7 +267,7 @@
                                                         <div class="mt-1 md:mt-3">
                                                             {{poll.pollContent}} | votes: ({{poll.countVote}})
                                                         </div>
-
+                                                        
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
                                                             <p-progressBar styleClass="h-2rem"
                                                                 [value]="pollValue(poll, data.pollData)"
@@ -292,8 +292,7 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
-                                                        date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -374,7 +373,7 @@
                                             View Comments
                                         </span>
                                         <span class="text-sm cursor-pointer hover:text-blue-500"
-                                            *ngIf="data.moreComment" (click)="clickCloseComment(i)">
+                                            *ngIf="data.moreComment && data.countComment>0" (click)="clickCloseComment(i)">
                                             Close Comments
                                         </span>
                                     </div>
@@ -745,8 +744,7 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
-                                                        date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1188,8 +1186,7 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
-                                                        date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1458,22 +1455,19 @@
                         <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
                         <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"
                             formControlName="endAt" [showTime]="true" [minDate]="minDateValue"></p-calendar>
-                        <small class="p-error" *ngIf="endAt?.errors?.['required'] && endAt?.touched">
-                            Please fill the expired time
-                        </small>
                     </div>
                 </div>
             </div>
 
             <!-- Upload Image -->
             <div class="field col-12" *ngIf="showUploadImg">
-                <label for="image" class="mb-0">Upload Image**</label>
-                <small id="username1-help" class="block text-xs">**Please click upload button after choose image</small>
+                <label for="image" class="mb-0">Upload Image</label>
 
                 <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
-                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)"
-                    [auto]="true">
+                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)" [auto]="true" [disabled]="fileSelected">
                 </p-fileUpload>
+                <pre>{{detailFoto.length}}</pre>
+                <pre>{{detailFoto.value | json}}</pre>
             </div>
 
             <div class="field-checkbox col-12 md:col-6" *ngIf="showUploadImg">
@@ -1486,8 +1480,7 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
-                        [loading]="insertLoading">Post</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
                 </div>
             </div>
         </form>
@@ -1512,5 +1505,5 @@
 </div>
 
 <p-confirmDialog [style]="{width: '45vw'}" [breakpoints]="{'960px': '90vw'}" key="positionDialog"
-    rejectButtonStyleClass="p-button-secondary p-button-sm" acceptButtonStyleClass="p-button-danger p-button-sm">
-</p-confirmDialog>
+    rejectButtonStyleClass="p-button-secondary p-button-sm"
+    acceptButtonStyleClass="p-button-danger p-button-sm"></p-confirmDialog>

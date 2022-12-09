@@ -443,6 +443,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickCommentPost(postIndex: number) {
+        this.clickSeeComment(postIndex)
         this.result[postIndex].commentStatus = true
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
     }
@@ -500,6 +501,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
+            this.detailFoto.clear()
             for (let i = 0; i < result.length; i++) {
                 this.detailFoto.insert(i, this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
             }
@@ -619,7 +621,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
         this.confirmationService.confirm({
-            message: 'Do you want to delete this post?',
+            message: 'Do you want to delete this comment?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',

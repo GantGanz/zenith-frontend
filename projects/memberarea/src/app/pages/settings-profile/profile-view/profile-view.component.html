@@ -36,7 +36,8 @@
                                             Income</span>
                                     </div>
                                     <div class="col-12 text-center -mt-3">
-                                        <span class="font-bold ">IDR {{ totalIncome }}</span>
+                                        <span class="font-bold ">{{ totalIncome | currency:'IDR
+                                            ':'symbol':'3.0'}}</span>
                                     </div>
                                 </div>
                             </div>

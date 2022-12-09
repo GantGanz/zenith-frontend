@@ -288,8 +288,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.updateSubscription = this.postService.update(this.postUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe(() => {
             this.postSubscribtion = this.postService.getById(this.result[this.postEditIndex].id).subscribe(post => {
                 this.result.splice(this.postEditIndex, 1, post.data)
-                console.log(this.result[this.postEditIndex]);
-
+                this.postUpdateForm.patchValue(post.data)
             })
         })
     }
@@ -632,7 +631,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
         this.confirmationService.confirm({
-            message: 'Do you want to delete this post?',
+            message: 'Do you want to delete this Comment?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',

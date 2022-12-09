@@ -13,12 +13,12 @@
                     timeAgo}}</span></p>
             <img src={{fileLink}}{{fileId}} alt="" class="img-content w-full" style="object-fit: contain">
             <!-- Content -->
-            <p class="mt-4">{{articleContent}}</p>
+            <p class="mt-4 text-justify">{{articleContent}}</p>
         </div>
 
         <!-- Side Article -->
         <div class="col-12 lg:col-4 hidden lg:block">
-            <div class="sticky top-0">
+            <div class="sticky">
                 <ng-container *ngFor="let data of articles; index as i">
                     <div class="card mb-3">
                         <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}}

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { InitEditableRow } from "primeng/table";
 import { PostData } from "projects/interface/post/post-data";
 import { PostService } from "projects/mainarea/src/app/service/post.service";
 import { finalize, Subscription } from "rxjs";

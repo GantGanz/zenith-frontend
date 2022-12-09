@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { ActivityTypeData } from "projects/interface/activity-type/activity-type-data";
 import { ActivityData } from "projects/interface/activity/activity-data";
@@ -37,7 +38,9 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
     private updateSubscription?: Subscription
 
     constructor(private activityService: ActivityService, private active: ActivatedRoute,
-        private fb: FormBuilder, private activityTypeService: ActivityTypeService) { }
+        private fb: FormBuilder, private activityTypeService: ActivityTypeService, private title: Title) {
+        this.title.setTitle('Activity Update | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

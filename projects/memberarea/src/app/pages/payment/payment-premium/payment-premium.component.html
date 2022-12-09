@@ -20,7 +20,7 @@
                             <p-divider layout="vertical"></p-divider>
                         </div>
                         <div class="col-5">
-                            <h4 class="text-green-700">Just Rp {{price}}</h4>
+                            <h4 class="text-green-700">Just {{price | currency:'IDR ':'symbol':'3.0'}}</h4>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="text-sm">Total:</p>
-                                            <p class="font-bold text-green-700">Rp {{price}}</p>
+                                            <p class="font-bold text-green-700">IDR {{price}}</p>
                                         </div>
                                     </div>
                                 </div>

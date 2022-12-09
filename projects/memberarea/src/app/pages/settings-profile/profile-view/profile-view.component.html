@@ -21,11 +21,11 @@
                             </div>
 
                             <!-- Action -->
-                            <div class="col-12 flex gap-3 text-center justify-content-center">
-                                <button pButton type="button" class="py-2 px-4" (click)="clickEditProfile()"
+                            <div class="col-12 flex gap-1 justify-content-center">
+                                <button pButton type="button" class="p-button-sm text-sm" (click)="clickEditProfile()"
                                     label="Edit Profile"></button>
-                                <button pButton type="button" class="py-2 px-4" (click)="clickChangePassword()"
-                                    label="Change Password"></button>
+                                <button pButton type="button" class="p-button-sm text-sm"
+                                    (click)="clickChangePassword()" label="Change Password"></button>
                             </div>
 
                             <!-- Income -->
@@ -91,7 +91,7 @@
                                 <h6>{{data.creatorName}}</h6>
                                 <small>{{data.createdAt | timeAgo}}</small>
                             </div>
-                            <div class="w-full text-end">
+                            <div class="w-full text-end hidden sm:block">
                                 <span
                                     class="px-1 font-medium bg-yellow-50 text-yellow-500 border-round-md text-xs pb-1">
                                     {{data.positionName}}</span>
@@ -106,11 +106,9 @@
                             </ng-container>
 
                             <div class="inline-block justify-content-end">
-                                <div class="flex align-items-center text-900 cursor-pointer hover:bg-gray-100"
-                                    pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
-                                    [hideOnOutsideClick]="true">
-                                    <div
-                                        class="cursor-pointer hover:bg-gray-100 transition-all transition-duration-200 px-3 py-2">
+                                <div class="flex align-items-center text-900 cursor-pointer" pStyleClass="@next"
+                                    enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+                                    <div class="cursor-pointer ml-2">
                                         <i class="pi pi-ellipsis-v"></i>
                                     </div>
                                 </div>
@@ -332,35 +330,43 @@
                             <ng-container *ngIf="data.isLiked ;else elseBlock">
                                 <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
                                     (click)="clickUnLike(i)">
-                                    <span class="font-semibold color-primary text-sm"><i
+                                    <span class="font-semibold color-primary text-sm hidden sm:block"><i
                                             class="pi pi-thumbs-up-fill"></i> Like</span>
+                                    <i class="pi pi-thumbs-up-fill color-primary block sm:hidden"></i>
                                 </div>
 
                             </ng-container>
                             <ng-template #elseBlock>
                                 <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center border-round-md cursor-pointer"
                                     (click)="clickLike(i)">
-                                    <span class="font-semibold"><i class="pi pi-thumbs-up"></i> Like</span>
+                                    <span class="font-semibold hidden sm:block"><i class="pi pi-thumbs-up"></i>
+                                        Like</span>
+                                    <i class="pi pi-thumbs-up block sm:hidden"></i>
                                 </div>
                             </ng-template>
 
                             <ng-container *ngIf="data.isBookmarked; else notBookmarked">
                                 <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
                                     (click)="clickUnSave(i)">
-                                    <span class="font-semibold color-primary"><i class="pi pi-bookmark-fill"></i>
+                                    <span class="font-semibold color-primary hidden sm:block"><i
+                                            class="pi pi-bookmark-fill"></i>
                                         Save</span>
+                                    <i class="pi pi-bookmark-fill color-primary block sm:hidden"></i>
                                 </div>
                             </ng-container>
                             <ng-template #notBookmarked>
                                 <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
                                     (click)="clickSave(i)">
-                                    <span class="font-semibold"><i class="pi pi-bookmark"></i> Save</span>
+                                    <span class="font-semibold hidden sm:block"><i class="pi pi-bookmark"></i>
+                                        Save</span>
+                                    <i class="pi pi-bookmark  block sm:hidden"></i>
                                 </div>
 
                             </ng-template>
                             <div class="px-3 py-3 hover:bg-blue-50 flex align-items-center cursor-pointer"
                                 (click)="clickCommentPost(i)">
-                                <span class="font-semibold"><i class="pi pi-comment"></i> Comment</span>
+                                <span class="font-semibold hidden sm:block"><i class="pi pi-comment"></i> Comment</span>
+                                <i class="pi pi-comment  block sm:hidden"></i>
                             </div>
                         </div>
                         <div *ngIf="data.commentStatus">

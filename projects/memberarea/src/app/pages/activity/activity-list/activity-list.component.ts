@@ -31,6 +31,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     Approved!: string
 
     id = ''
+    dataEmpty = true
+    dataNotEmpty = false
 
     isRegister = true
     isPaid = false
@@ -39,9 +41,6 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     activityTitle = ''
     provider = ''
     fee = 0
-
-    dataEmptyCourse = false
-    dataEmptyEvent = false
 
     fileLink = BASE_URL.FILE
 
@@ -98,6 +97,13 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countCourseSubscription = this.activityService.countCourse().subscribe(count => {
             this.activityCount = count
+            if (count > 0) {
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            } else {
+                this.dataEmpty = true
+                this.dataNotEmpty = false
+            }
         })
     }
 
@@ -112,6 +118,13 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countEventSubscription = this.activityService.countEvent().subscribe(count => {
             this.activityCount = count
+            if (count > 0) {
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            } else {
+                this.dataEmpty = true
+                this.dataNotEmpty = false
+            }
         })
     }
 
@@ -121,6 +134,13 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
             this.activityCount = count
+            if (count > 0) {
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            } else {
+                this.dataEmpty = true
+                this.dataNotEmpty = false
+            }
         })
     }
 
@@ -130,6 +150,13 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
             this.activityCount = count
+            if (count > 0) {
+                this.dataEmpty = false
+                this.dataNotEmpty = true
+            } else {
+                this.dataEmpty = true
+                this.dataNotEmpty = false
+            }
         })
     }
 

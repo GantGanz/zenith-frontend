@@ -29,6 +29,9 @@ import { PostUpdateHomeComponent } from "./post-update/post-update.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AutoFocusModule } from 'primeng/autofocus';
 
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { DropdownModule } from "primeng/dropdown";
+
 @NgModule({
     declarations: [
         HomeComponent, rightContentComponent, PostUpdateHomeComponent
@@ -60,7 +63,11 @@ import { AutoFocusModule } from 'primeng/autofocus';
         StyleClassModule,
         FormsModule,
         ConfirmDialogModule,
-        AutoFocusModule
+        AutoFocusModule,
+
+
+        ScrollPanelModule,
+        DropdownModule
     ],
     exports: [
         HomeComponent, rightContentComponent, PostUpdateHomeComponent

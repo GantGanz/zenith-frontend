@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ConfirmationService } from "primeng/api";
 import { FileUpload } from "primeng/fileupload";
 import { PostData } from "projects/interface/post/post-data";
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     minDateValue = new Date()
     type!: string
 
-    uploaded = false
+    fileSelected = false
+    selectedFileRange = 0
 
     result: PostData[] = []
     myUserId = ""
@@ -93,10 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         pollInsertReq: this.fb.group({
             pollTitle: ['', [Validators.required]],
             endAt: ['', [Validators.required]],
-            pollOptionInsertReqs: this.fb.array([
-                this.fb.group({ pollContent: ['', Validators.required] }),
-                this.fb.group({ pollContent: ['', Validators.required] })
-            ])
+            pollOptionInsertReqs: this.fb.array([])
         }),
         isPremium: [false, [Validators.required]]
     })
@@ -168,7 +167,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
         private commentService: CommentService, private userService: UserService,
-        private confirmationService: ConfirmationService) { }
+        private confirmationService: ConfirmationService, private title: Title) {
+            this.title.setTitle('Feed | Zenith')
+        }
 
     ngOnInit(): void {
         this.myUserSubscription = this.userService.getByPrincipal().subscribe(user => {
@@ -334,6 +335,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.REGULAR).subscribe(result => {
             this.postTypeId = result.id
         })
+        this.upload.clear()
+        this.detailFoto.clear()
     }
     showEditPost() {
         this.showEditForm = true
@@ -463,6 +466,9 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.postTypeId = result.id
         })
         this.postForm.reset()
+        this.pollingOption.clear()
+        this.pollingOption.push(this.fb.group({ pollContent: [null, [Validators.required]] }))
+        this.pollingOption.push(this.fb.group({ pollContent: [null, [Validators.required]] }))
     }
 
     clickReplyComment() {
@@ -481,15 +487,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.postForm.get('pollInsertReq')?.get('pollTitle')
     }
 
-    selectFile(event: any) {
-        if (event.currentFiles) {
-            this.uploaded = true
-        }
+    removeFile(event: any) {
+        this.fileService.fileUploadForDeletion(event).then(result => {
+            for (let i = 0; i < this.detailFoto.length; i++) {
+                if (result[1] == this.detailFoto.at(i).value.fileCodes) {
+                    this.detailFoto.removeAt(i)
+                    break
+                }
+            }
+        })
     }
 
     fileUpload(event: any) {
-        this.detailFoto.clear()
-        this.uploaded = false
         this.fileService.fileUploadMulti(event).then(result => {
             for (let i = 0; i < result.length; i++) {
                 this.detailFoto.insert(i, this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
@@ -509,6 +518,12 @@ export class HomeComponent implements OnInit, OnDestroy {
                     this.first = 0
                     this.postInit()
                     this.upload.clear()
+                    this.detailFoto.clear()
+                    for (let i = 0; i < this.pollingOption.length; i++) {
+                        if (i > 1) {
+                            this.pollingOption.removeAt(i)
+                        }
+                    }
                 })
             })
         } else {
@@ -517,16 +532,22 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.first = 0
                 this.postInit()
                 this.upload.clear()
+                this.detailFoto.clear()
+                for (let i = 0; i < this.pollingOption.length; i++) {
+                    if (i > 1) {
+                        this.pollingOption.removeAt(i)
+                    }
+                }
             })
         }
     }
 
-    submitcomment(postIndex: number) {
+    submitComment(postIndex: number) {
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
         this.insertCommentSubscription = this.commentService.insert(this.commentForm.value).subscribe(() => {
             this.clickSeeComment(postIndex)
             this.result[postIndex].countComment += 1
-            this.commentForm.reset()
+            this.commentForm.controls['commentContent'].reset()
         })
     }
 
@@ -545,7 +566,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     addPoll() {
-        this.pollingOption.push(this.fb.group({ pollContent: ['', [Validators.required]] }))
+        this.pollingOption.push(this.fb.group({ pollContent: [null, [Validators.required]] }))
     }
 
     removePoll(i: number) {

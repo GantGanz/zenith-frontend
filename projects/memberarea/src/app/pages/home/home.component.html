@@ -95,7 +95,7 @@
                                 </div>
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else contentRegular">
-                                    <div class="w-full" style="filter: blur(2px)">
+                                    <div class="w-full" style="filter: blur(5px)">
                                         <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-container>
@@ -269,6 +269,7 @@
                                                         <div class="mt-1 md:mt-3">
                                                             {{poll.pollContent}} | votes: ({{poll.countVote}})
                                                         </div>
+                                                        
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
                                                             <p-progressBar styleClass="h-2rem"
                                                                 [value]="pollValue(poll, data.pollData)"
@@ -293,7 +294,7 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until 5 Day</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -356,7 +357,7 @@
                                         </div>
                                         <div class="w-full">
                                             <form [formGroup]="commentForm"
-                                                (ngSubmit)="commentForm.valid && submitcomment(i)">
+                                                (ngSubmit)="commentForm.valid && submitComment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -745,7 +746,7 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until 5 Day</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -799,7 +800,7 @@
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
-                                            <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                            <form [formGroup]="commentForm" (ngSubmit)="submitComment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -1187,7 +1188,7 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until 5 Day</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1241,7 +1242,7 @@
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
-                                            <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                            <form [formGroup]="commentForm" (ngSubmit)="submitComment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -1462,11 +1463,11 @@
 
             <!-- Upload Image -->
             <div class="field col-12" *ngIf="showUploadImg">
-                <label for="image" class="mb-0">Upload Image</label>
+                <label for="image" class="mb-0">Upload Image**</label>
                 <small id="username1-help" class="block text-xs">**Please click upload button after choose image</small>
 
                 <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
-                    [customUpload]="true" (onSelect)="selectFile($event)" (uploadHandler)="fileUpload($event)">
+                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)" [auto]="true">
                 </p-fileUpload>
             </div>
 
@@ -1480,8 +1481,7 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
-                        [disabled]="uploaded">Post</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
                 </div>
             </div>
         </form>

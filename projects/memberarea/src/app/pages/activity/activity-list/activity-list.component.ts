@@ -42,6 +42,11 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     provider = ''
     fee = 0
 
+    dataEmptyCourse = false
+    dataEmptyEvent = false
+    dataEmptyJoinedCourse = false
+    dataEmptyJoinedEvent = false
+
     fileLink = BASE_URL.FILE
 
     private activityCoursesSubscription?: Subscription
@@ -97,12 +102,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countCourseSubscription = this.activityService.countCourse().subscribe(count => {
             this.activityCount = count
-            if (count > 0) {
-                this.dataEmpty = false
-                this.dataNotEmpty = true
+            if (count == 0) {
+                this.dataEmptyCourse = true
             } else {
-                this.dataEmpty = true
-                this.dataNotEmpty = false
+                this.dataEmptyCourse = false
             }
         })
     }
@@ -118,12 +121,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countEventSubscription = this.activityService.countEvent().subscribe(count => {
             this.activityCount = count
-            if (count > 0) {
-                this.dataEmpty = false
-                this.dataNotEmpty = true
+            if (count == 0) {
+                this.dataEmptyEvent = true
             } else {
-                this.dataEmpty = true
-                this.dataNotEmpty = false
+                this.dataEmptyEvent = false
             }
         })
     }
@@ -134,12 +135,12 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
             this.activityCount = count
-            if (count > 0) {
-                this.dataEmpty = false
-                this.dataNotEmpty = true
+            console.log(count);
+
+            if (count == 0) {
+                this.dataEmptyJoinedCourse = true
             } else {
-                this.dataEmpty = true
-                this.dataNotEmpty = false
+                this.dataEmptyJoinedCourse = false
             }
         })
     }
@@ -150,12 +151,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         })
         this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
             this.activityCount = count
-            if (count > 0) {
-                this.dataEmpty = false
-                this.dataNotEmpty = true
+            if (count == 0) {
+                this.dataEmptyJoinedEvent = true
             } else {
-                this.dataEmpty = true
-                this.dataNotEmpty = false
+                this.dataEmptyJoinedEvent = false
             }
         })
     }
@@ -215,6 +214,12 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityEventsSubscription?.unsubscribe()
         this.activityJoinedCoursesSubscription?.unsubscribe()
         this.activityJoinedEventsSubscription?.unsubscribe()
+        this.countCourseSubscription?.unsubscribe()
+        this.countEventSubscription?.unsubscribe()
+        this.countMyCourseSubscription?.unsubscribe()
+        this.countMyEventSubscription?.unsubscribe()
+        this.countJoinedCourseSubscription?.unsubscribe()
+        this.countJoinedEventSubscription?.unsubscribe()
         this.paramSubscription?.unsubscribe()
         this.activitySubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()

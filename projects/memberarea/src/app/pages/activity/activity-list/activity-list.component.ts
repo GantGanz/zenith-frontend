@@ -149,7 +149,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
         this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
             this.dataJoinedEvents = result.data
         })
-        this.countJoinedCourseSubscription = this.activityService.countJoinedCourse().subscribe(count => {
+        this.countJoinedEventSubscription = this.activityService.countJoinedEvent().subscribe(count => {
             this.activityCount = count
             if (count == 0) {
                 this.dataEmptyJoinedEvent = true

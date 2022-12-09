@@ -1,4 +1,4 @@
-<div class="container mt-5" infinite-scroll (scrolled)="onScroll()">
+<div class="container mt-5" infinite-scroll (scrolled)="!postLoading && onScroll()">
     <div class="grid">
         <!-- Main Content -->
         <div class="col-12 lg:col-8">

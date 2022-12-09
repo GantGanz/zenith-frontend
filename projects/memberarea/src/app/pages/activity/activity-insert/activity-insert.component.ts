@@ -51,13 +51,18 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
 
     clickSubmit() {
         this.loading = true
-        let formattedStart = formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
-        this.activityForm.value.startAt = formattedStart
-        let formattedEnd = formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
-        this.activityForm.value.endAt = formattedEnd
-        this.activitySubscription = this.activityService.insert(this.activityForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
-            this.router.navigateByUrl('/my-activity')
-        })
+        if (this.activityForm.invalid || this.activityForm.value.startAt == '' || this.activityForm.value.endAt == '') {
+            this.activityForm.markAllAsTouched();
+            this.loading = false
+        } else {
+            let formattedStart = formatDate(this.activityForm.value.startAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+            this.activityForm.value.startAt = formattedStart
+            let formattedEnd = formatDate(this.activityForm.value.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+            this.activityForm.value.endAt = formattedEnd
+            this.activitySubscription = this.activityService.insert(this.activityForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
+                this.router.navigateByUrl('/my-activity')
+            })
+        }
     }
     get detailFoto(): FormArray {
         return this.activityForm.get('attachmentActivityInsertReqs') as FormArray

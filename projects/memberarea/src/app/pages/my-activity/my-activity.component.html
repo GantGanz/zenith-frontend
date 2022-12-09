@@ -36,7 +36,7 @@
                     </p>
                     <p class="card-text text-medium -mt-2">
                       <li class="pi pi-money-bill"></li>
-                      <span> IDR {{data.fee}}</span>
+                      <span>{{data.fee | currency:'IDR ':'symbol':'3.0'}}</span>
                     </p>
                     <!-- Action -->
                     <ng-container *ngIf="data.isActive">
@@ -78,7 +78,7 @@
                     </p>
                     <p class="card-text text-medium -mt-2">
                       <li class="pi pi-money-bill"></li>
-                      <span> Rp {{data.fee}}</span>
+                      <span>{{data.fee | currency:'IDR ':'symbol':'3.0'}}</span>
                     </p>
 
                     <!-- Action -->

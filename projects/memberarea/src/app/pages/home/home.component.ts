@@ -60,6 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     showUploadImg = true
     showCreatePolling = false
 
+    showEditForm = false
+
     dataEmpty = true
     dataNotEmpty = false
 
@@ -207,8 +209,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     likedInit() {
-        this.postLoading =true
-        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).pipe(finalize(()=>this.postLoading=false)).subscribe(likedPosts => {
+        this.postLoading = true
+        this.likedPostSubscription = this.postService.getAllLiked(this.first, this.limit).pipe(finalize(() => this.postLoading = false)).subscribe(likedPosts => {
             this.result = likedPosts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -232,7 +234,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     bookmarkedInit() {
         this.postLoading = true
-        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).pipe(finalize(()=>this.postLoading =false)).subscribe(bookmarkedPosts => {
+        this.bookmarkedPostSubscription = this.postService.getAllBookmarked(this.first, this.limit).pipe(finalize(() => this.postLoading = false)).subscribe(bookmarkedPosts => {
             this.result = bookmarkedPosts.data
             for (let i = 0; i < this.result.length; i++) {
                 this.result[i].commentStatus = false
@@ -332,6 +334,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.REGULAR).subscribe(result => {
             this.postTypeId = result.id
         })
+    }
+    showEditPost() {
+        this.showEditForm = true
     }
 
     clickSave(i: number) {

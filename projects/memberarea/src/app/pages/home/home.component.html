@@ -342,7 +342,7 @@
                                         </div>
                                         <div class="w-full">
                                             <form [formGroup]="commentForm"
-                                                (ngSubmit)="commentForm.valid && submitcomment(i)">
+                                                (ngSubmit)="commentForm.valid && submitComment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -785,7 +785,7 @@
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
-                                            <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                            <form [formGroup]="commentForm" (ngSubmit)="submitComment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -1227,7 +1227,7 @@
                                                 alt="profile picture">
                                         </div>
                                         <div class="w-full">
-                                            <form [formGroup]="commentForm" (ngSubmit)="submitcomment(i)">
+                                            <form [formGroup]="commentForm" (ngSubmit)="submitComment(i)">
                                                 <div class="flex flex-row align-content-center">
                                                     <input pInputText pAutoFocus
                                                         class="w-full p-inputtext-sm border-round-3xl text-sm"
@@ -1433,6 +1433,7 @@
                                 </div>
                             </div>
                         </ng-container>
+                        <pre>{{ postForm.value | json }}</pre>
                     </div>
                     <!-- Add Option -->
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnAddOption"

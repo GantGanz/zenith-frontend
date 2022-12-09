@@ -3,6 +3,15 @@
 
     <p-tabPanel header="All Course">
       <div class="container mt-3 p-0">
+        <div class="card border-none" *ngIf="dataEmptyCourse">
+          <div class="flex justify-content-center">
+            <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+          </div>
+          <div class="text-center mb-6">
+            <h6>It's empty here</h6>
+            <p class="text-sm">Available course that you join will be displayed here</p>
+          </div>
+        </div>
         <div class="grid">
           <ng-container *ngFor="let data of dataCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
@@ -39,6 +48,15 @@
 
     <p-tabPanel header="All Event">
       <div class="container mt-3 p-0">
+        <div class="card border-none" *ngIf="dataEmptyEvent">
+          <div class="flex justify-content-center">
+            <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+          </div>
+          <div class="text-center mb-6">
+            <h6>It's empty here</h6>
+            <p class="text-sm">Available event that you join will be displayed here</p>
+          </div>
+        </div>
         <div class="grid">
           <ng-container *ngFor="let data of dataEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
@@ -74,20 +92,18 @@
     <!-- Joined Course -->
     <p-tabPanel header="Joined Course">
       <div class="container mt-3 p-0">
+        <div class="card border-none" *ngIf="dataEmptyJoinedCourse">
+          <div class="flex justify-content-center">
+            <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+          </div>
+          <div class="text-center mb-6">
+            <h6>It's empty here</h6>
+            <p class="text-sm">Course that you join will be displayed here</p>
+          </div>
+        </div>
         <div class="grid">
           <ng-container *ngFor="let data of dataJoinedCourses; index as i">
             <div class="col-12 md:col-6 lg:col-4">
-
-              <div class="card border-none" *ngIf="dataEmptyCourse">
-                <div class="flex justify-content-center">
-                  <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
-                </div>
-                <div class="text-center mb-6">
-                  <h6>It's empty here</h6>
-                  <p class="text-sm">Course that you join will be displayed here</p>
-                </div>
-              </div>
-
               <div class="card h-100">
                 <div class="card-img flex justify-content-center">
                   <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} imageClass="h-15rem w-full"
@@ -115,20 +131,18 @@
 
     <p-tabPanel header="Joined Event">
       <div class="container mt-3 p-0">
+        <div class="card border-none" *ngIf="dataEmptyJoinedEvent">
+          <div class="flex justify-content-center">
+            <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+          </div>
+          <div class="text-center mb-6">
+            <h6>It's empty here</h6>
+            <p class="text-sm">Event that you join will be displayed here</p>
+          </div>
+        </div>
         <div class="grid">
           <ng-container *ngFor="let data of dataJoinedEvents; index as i">
             <div class="col-12 md:col-6 lg:col-4">
-
-              <div class="card border-none" *ngIf="dataEmptyEvent">
-                <div class="flex justify-content-center">
-                  <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
-                </div>
-                <div class="text-center mb-6">
-                  <h6>It's empty here</h6>
-                  <p class="text-sm">Course that you join will be displayed here</p>
-                </div>
-              </div>
-
               <div class="card h-100">
                 <div class="card-img flex justify-content-center">
                   <p-image src={{fileLink}}{{data.attachmentActivityDatas[0].fileId}} imageClass="h-15rem w-full"

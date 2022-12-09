@@ -93,7 +93,7 @@
                                 </div>
                                 <ng-container
                                     *ngIf="data.postTypeCode == premiumPostCode && myUserIsPremium==false; else contentRegular">
-                                    <div class="w-full" style="filter: blur(2px)">
+                                    <div class="w-full" style="filter: blur(5px)">
                                         <p class="text-sm">{{data.postContent}}</p>
                                     </div>
                                 </ng-container>
@@ -1446,7 +1446,6 @@
                                 </div>
                             </div>
                         </ng-container>
-                        <pre>{{ postForm.value | json }}</pre>
                     </div>
                     <!-- Add Option -->
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnAddOption"
@@ -1466,7 +1465,7 @@
                 <small id="username1-help" class="block text-xs">**Please click upload button after choose image</small>
 
                 <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
-                    [customUpload]="true" (onSelect)="selectFile($event)" (uploadHandler)="fileUpload($event)">
+                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)" [auto]="true">
                 </p-fileUpload>
             </div>
 
@@ -1480,8 +1479,7 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
-                        [disabled]="uploaded">Post</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
                 </div>
             </div>
         </form>

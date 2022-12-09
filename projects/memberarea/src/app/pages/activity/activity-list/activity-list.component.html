@@ -2,14 +2,6 @@
   <p-tabView (onChange)="tabClick($event)">
 
     <p-tabPanel header="All Course">
-      <div class="card border-none" *ngIf="dataEmpty">
-        <div class="flex justify-content-center">
-          <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
-        </div>
-        <div class="text-center mb-6 mx-4">
-          <h6>It's empty in here</h6>
-        </div>
-      </div>
       <div class="container mt-3 p-0">
         <div class="card border-none" *ngIf="dataEmptyCourse">
           <div class="flex justify-content-center">
@@ -55,14 +47,6 @@
     </p-tabPanel>
 
     <p-tabPanel header="All Event">
-      <div class="card border-none" *ngIf="dataEmpty">
-        <div class="flex justify-content-center">
-          <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
-        </div>
-        <div class="text-center mb-6 mx-4">
-          <h6>It's empty in here</h6>
-        </div>
-      </div>
       <div class="container mt-3 p-0">
         <div class="card border-none" *ngIf="dataEmptyEvent">
           <div class="flex justify-content-center">
@@ -107,15 +91,6 @@
 
     <!-- Joined Course -->
     <p-tabPanel header="Joined Course">
-      <div class="card border-none" *ngIf="dataEmpty">
-        <div class="flex justify-content-center">
-          <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
-        </div>
-        <div class="text-center mb-6 mx-4">
-          <h6>It's empty in here</h6>
-          <p class="text-sm">Course that you join will be displayed here</p>
-        </div>
-      </div>
       <div class="container mt-3 p-0">
         <div class="card border-none" *ngIf="dataEmptyJoinedCourse">
           <div class="flex justify-content-center">
@@ -155,15 +130,6 @@
     </p-tabPanel>
 
     <p-tabPanel header="Joined Event">
-      <div class="card border-none" *ngIf="dataEmpty">
-        <div class="flex justify-content-center">
-          <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
-        </div>
-        <div class="text-center mb-6 mx-4">
-          <h6>It's empty in here</h6>
-          <p class="text-sm">Event that you join will be displayed here</p>
-        </div>
-      </div>
       <div class="container mt-3 p-0">
         <div class="card border-none" *ngIf="dataEmptyJoinedEvent">
           <div class="flex justify-content-center">

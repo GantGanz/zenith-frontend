@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="card bg-white col-12 lg:col-8 lg:col-offset-2 md:col-10 md:col-offset-1 mt-5">
         <h3 class="text-center text-3xl mt-4">Insert User Admin</h3>
@@ -6,22 +5,21 @@
         <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="userInsertForm" (ngSubmit)="clickInsert()">
             <div class="field col-12 md:col-6">
                 <label for="fullName">Full Name<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="fullName" name="fullName" formControlName="fullname" required>
+                <input pInputText class="w-full" type="text" id="fullName" name="fullName" formControlName="fullname"
+                    required>
             </div>
             <div class="field col-12 md:col-6">
                 <label for="email">Email<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="email" id="email" name="email" formControlName="email" required>
             </div>
-            <div class="field col-12 md:col-6">
-                <label for="company">Company<span class="text-red-500">*</span></label>
-                <input pInputText class="w-full" type="text" id="company" name="company" formControlName="company" required>
-            </div>
             <div class="col-12 grid mt-2">
                 <div class="col-6">
-                    <button pButton class="p-button-outlined" type="submit" id="btnCancelUser" name="btnCancelUser" routerLink="/users/list">Back</button>
+                    <button pButton class="p-button-outlined" type="submit" id="btnCancelUser" name="btnCancelUser"
+                        routerLink="/users/list">Back</button>
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton [loading]="submitLoading" type="submit" id="btnSubmitUser" name="btnSubmitUser">Submit</button>
+                    <button pButton [loading]="submitLoading" type="submit" id="btnSubmitUser"
+                        name="btnSubmitUser">Submit</button>
                 </div>
             </div>
         </form>

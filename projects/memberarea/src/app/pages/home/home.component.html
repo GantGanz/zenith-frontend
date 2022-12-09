@@ -1458,6 +1458,9 @@
                         <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
                         <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"
                             formControlName="endAt" [showTime]="true" [minDate]="minDateValue"></p-calendar>
+                        <small class="p-error" *ngIf="endAt?.errors?.['required'] && endAt?.touched">
+                            Please fill the expired time
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1483,7 +1486,8 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
+                        [loading]="insertLoading">Post</button>
                 </div>
             </div>
         </form>

@@ -699,6 +699,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.insertLikeSubscription?.unsubscribe()
         this.deleteLikeSubscription?.unsubscribe()
         this.likedIdSubscription?.unsubscribe()
+        this.postSubscribtion?.unsubscribe()
         this.postTypeSubscription?.unsubscribe()
         this.insertVoteSubscription?.unsubscribe()
         this.likedPostSubscription?.unsubscribe()

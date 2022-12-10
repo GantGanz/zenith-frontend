@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     displayCustom!: boolean;
     activeIndex: number = 0;
+    postEditIndex!: any
 
     postRes!: PostData
 
@@ -198,8 +199,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
         this.postInit()
     }
-
-    postEditIndex!: any
 
     clickEditPost(postId: string, index: number) {
         this.postEditIndex = index

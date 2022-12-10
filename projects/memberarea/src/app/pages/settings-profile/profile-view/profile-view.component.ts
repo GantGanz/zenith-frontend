@@ -33,6 +33,13 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         postTypeId: ['', [Validators.required]],
         isActive: [false],
     })
+    postUpdateForm = this.fb.group({
+        id: ['', [Validators.required]],
+        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
+        postContent: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]],
+    })
 
     voteForm = this.fb.group({
         pollOptionId: ['', [Validators.required]]
@@ -79,12 +86,19 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     displayCustom!: boolean;
     activeIndex: number = 0;
 
+    postEditIndex!: any
+    postLoading = false
+    showEditForm = false
+    updateLoading = false
+
+
     postTypeId!: string
     regularPostCode = POST_TYPE_CODE.REGULAR
     pollPostCode = POST_TYPE_CODE.POLLING
     premiumPostCode = POST_TYPE_CODE.PREMIUM
 
     postCount = 0
+    postRes!: PostData
 
     first = 0
     limit = 3
@@ -123,6 +137,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     private postsSubscription?: Subscription
     private postCountSubscription?: Subscription
     private userSubscription?: Subscription
+    private updateSubscription?: Subscription
 
     private insertBookmarkSubscription?: Subscription
     private insertLikeSubscription?: Subscription
@@ -202,6 +217,26 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         })
     }
 
+    clickEditPost(postId: string, index: number) {
+        this.postEditIndex = index
+        this.postSubscription = this.postService.getById(postId).pipe(finalize(() => this.postLoading = true)).subscribe(result => {
+            this.postUpdateForm.patchValue(result.data)
+            this.postRes = result.data
+            this.showEditForm = true
+        })
+    }
+
+    clickUpdate() {
+        this.updateLoading = true
+
+        this.updateSubscription = this.postService.update(this.postUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe(() => {
+            this.postSubscription = this.postService.getById(this.result[this.postEditIndex].id).subscribe(post => {
+                this.result.splice(this.postEditIndex, 1, post.data)
+                this.postUpdateForm.patchValue(post.data)
+                this.showEditForm = false
+            })
+        })
+    }
 
     addData() {
         this.postsSubscription = this.postService.getAllByUser(this.first, this.limit).subscribe(posts => {

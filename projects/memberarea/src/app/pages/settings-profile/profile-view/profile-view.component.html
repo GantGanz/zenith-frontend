@@ -117,7 +117,7 @@
                                     <ul class="list-none p-0 m-0">
                                         <li>
                                             <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
-                                                routerLink="/profile/edit-post/{{data.id}}">
+                                                (click)="clickEditPost(data.id,i)">
                                                 <span class="font-medium">Edit Post</span>
                                             </a>
                                         </li>
@@ -490,6 +490,43 @@
     </div>
 </div>
 
+<p-dialog header="Edit Post" [breakpoints]="{'960px': '90vw'}" [style]="{width: '45vw'}" [(visible)]="showEditForm"
+    [modal]="true" [draggable]="false" [resizable]="false">
+    <form class="formgrid grid" [formGroup]="postUpdateForm" (ngSubmit)="postUpdateForm.valid && clickUpdate()">
+        <div class="field col-12">
+            <label for="postTitle">Title<span class="text-red-500">*</span></label>
+            <input pInputText class="w-full" type="text" id="postTitle" name="postTitle" formControlName="postTitle"
+                required [maxlength]="100">
+            <small class="p-error"
+                *ngIf="postUpdateForm.controls['postTitle'].errors?.['required'] && postUpdateForm.controls['postTitle'].touched">
+                Please input post title
+            </small>
+            <small class="p-error"
+                *ngIf="postUpdateForm.controls['postTitle'].errors?.['maxlength'] && postUpdateForm.controls['postTitle'].touched">
+                Post title exceed maximum limit (100 characters)
+            </small>
+        </div>
+
+        <div class="field col-12">
+            <label for="postContent">Content<span class="text-red-500">*</span></label>
+            <textarea [rows]="5" [autoResize]="false" pInputTextarea class="w-full scroll" id="postContent"
+                name="postContent" formControlName="postContent" required></textarea>
+            <small class="p-error"
+                *ngIf="postUpdateForm.controls['postContent'].errors?.['required'] && postUpdateForm.controls['postContent'].touched">
+                Please input post content
+            </small>
+        </div>
+
+        <div class="col-12 mb-4">
+            <div class="flex gap-2 mt-5 justify-content-end">
+                <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
+                    (click)="showEditForm=false">Cancel</button>
+                <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
+                    (click)="clickUpdate()">Save</button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
 
 <p-confirmDialog [style]="{width: '45vw'}" key="positionDialog" rejectButtonStyleClass="p-button-secondary p-button-sm"
     acceptButtonStyleClass="p-button-danger p-button-sm"></p-confirmDialog>

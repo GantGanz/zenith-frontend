@@ -95,40 +95,60 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
 
     clickSignUp() {
-        if (this.registerForm.value.confirmPassword == this.registerForm.value.password) {
-            this.accountDtl = true
-            this.signUp = false
-            this.verification = false
-            this.stepsIndex += 1
+        if (this.registerForm.controls['fullname'].invalid || this.registerForm.controls['email'].invalid
+            || this.registerForm.controls['password'].invalid || this.registerForm.controls['confirmPassword'].invalid) {
+            this.registerForm.controls['fullname'].markAsTouched()
+            this.registerForm.controls['email'].markAsTouched()
+            this.registerForm.controls['password'].markAsTouched()
+            this.registerForm.controls['confirmPassword'].markAsTouched()
         } else {
-            this.toast.warning("Confirm password doesn't match");
+            if (this.registerForm.value.confirmPassword == this.registerForm.value.password) {
+                this.accountDtl = true
+                this.signUp = false
+                this.verification = false
+                this.stepsIndex += 1
+            } else {
+                this.toast.warning("Confirm password doesn't match");
+            }
         }
     }
 
     clickAccountDtl() {
         this.sendVerificationLoading = true
-        this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).subscribe(() => {
+        if (this.registerForm.controls['company'].invalid || this.registerForm.controls['industryId'].invalid
+            || this.registerForm.controls['positionId'].invalid) {
+            this.registerForm.controls['company'].markAsTouched()
+            this.registerForm.controls['industryId'].markAsTouched()
+            this.registerForm.controls['positionId'].markAsTouched()
             this.sendVerificationLoading = false
-            this.accountDtl = false
-            this.signUp = false
-            this.verification = true
-            this.stepsIndex += 1
-        })
+        } else {
+            this.sendVerificationSubscription = this.signUpService.sendVerification(this.registerForm.value.email).pipe(finalize(() => this.sendVerificationLoading = false)).subscribe(() => {
+                this.accountDtl = false
+                this.signUp = false
+                this.verification = true
+                this.stepsIndex += 1
+            })
+        }
     }
 
     clickVerify() {
         this.verifyLoading = true
-        this.verificationCode.addControl('email', this.fb.control(this.registerForm.value.email, [Validators.required]))
-        this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).pipe(finalize(() => this.verifyLoading = false)).subscribe(u => {
-            if (u) {
-                this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(s => {
-                    if (s) {
-                        this.signUpView = false
-                        this.verificationSuccess = true
-                    }
-                })
-            }
-        })
+        if (this.verificationCode.invalid) {
+            this.verificationCode.markAllAsTouched();
+            this.verifyLoading = false
+        } else {
+            this.verificationCode.addControl('email', this.fb.control(this.registerForm.value.email, [Validators.required]))
+            this.verificateCodeSubscription = this.signUpService.verificateCode(this.verificationCode.value).pipe(finalize(() => this.verifyLoading = false)).subscribe(u => {
+                if (u) {
+                    this.registerSubscription = this.userService.register(this.registerForm.value).subscribe(s => {
+                        if (s) {
+                            this.signUpView = false
+                            this.verificationSuccess = true
+                        }
+                    })
+                }
+            })
+        }
     }
 
     ngOnDestroy(): void {

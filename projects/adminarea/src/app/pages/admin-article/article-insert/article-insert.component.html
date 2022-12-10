@@ -6,11 +6,19 @@
                 <label for="articleTitle">Title<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="text" id="articleTitle" name="articleTitle"
                     formControlName="articleTitle" required>
+                <small class="p-error"
+                    *ngIf="articleForm.controls['articleTitle'].errors?.['required'] && articleForm.controls['articleTitle'].touched">
+                    Please insert article title
+                </small>
             </div>
             <div class="field col-12">
                 <label for="articleContent">Content<span class="text-red-500">*</span></label>
                 <textarea rows="8" [autoResize]="true" pInputTextarea class="w-full" id="articleContent"
                     formControlName="articleContent" name="articleContent"></textarea>
+                <small class="p-error"
+                    *ngIf="articleForm.controls['articleContent'].errors?.['required'] && articleForm.controls['articleContent'].touched">
+                    Please insert article content
+                </small>
             </div>
 
             <div class="field col-12">
@@ -21,11 +29,12 @@
 
             <div class="grid col-12 mt-4">
                 <div class="col-6">
-                    <button pButton class="p-button-outlined" type="button" id="btnCancelArticle" name="btnCancelArticle"
-                    routerLink="/articles-admin/list">Back</button>                
+                    <button pButton class="p-button-outlined" type="button" id="btnCancelArticle"
+                        name="btnCancelArticle" routerLink="/articles-admin/list">Back</button>
                 </div>
                 <div class="col-6 text-end">
-                    <button pButton type="submit" id="btnSubmitArticle" name="btnSubmitArticle" [loading]="loading">Publish</button>
+                    <button pButton type="submit" id="btnSubmitArticle" name="btnSubmitArticle"
+                        [loading]="loading">Publish</button>
                 </div>
             </div>
         </form>

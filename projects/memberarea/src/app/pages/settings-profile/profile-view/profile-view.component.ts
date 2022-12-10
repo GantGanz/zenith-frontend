@@ -228,7 +228,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     clickUpdate() {
         this.updateLoading = true
-
         this.updateSubscription = this.postService.update(this.postUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe(() => {
             this.postSubscription = this.postService.getById(this.result[this.postEditIndex].id).subscribe(post => {
                 this.result.splice(this.postEditIndex, 1, post.data)

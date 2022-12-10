@@ -74,7 +74,6 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
 
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
-            console.log(result);
             this.detailFoto.insert(0, this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }));
         })
     }

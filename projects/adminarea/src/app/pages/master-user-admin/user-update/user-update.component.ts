@@ -59,7 +59,6 @@ export class UserUpdateComponent {
                 } else {
                     this.disable = true
                 }
-                console.log(this.userUpdateForm.value);
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
                 this.industries = result.data

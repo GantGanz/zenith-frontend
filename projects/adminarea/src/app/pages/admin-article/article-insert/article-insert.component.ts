@@ -36,8 +36,7 @@ export class ArticleInsertComponent implements OnDestroy {
 
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
-            this.detailFoto.push(this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }));
-            console.log(this.articleForm.value);
+            this.detailFoto.push(this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }))
         })
     }
 

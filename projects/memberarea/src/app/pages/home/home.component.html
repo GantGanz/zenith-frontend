@@ -1488,6 +1488,9 @@
                         <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
                         <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"
                             formControlName="endAt" [showTime]="true" [minDate]="minDateValue"></p-calendar>
+                        <small class="p-error" *ngIf="endAt?.errors?.['required'] && endAt?.touched">
+                            Please enter polling end date
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1500,8 +1503,6 @@
                     [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)"
                     [auto]="true" [disabled]="fileSelected">
                 </p-fileUpload>
-                <pre>{{detailFoto.length}}</pre>
-                <pre>{{detailFoto.value | json}}</pre>
             </div>
 
             <div class="field-checkbox col-12 md:col-6" *ngIf="showUploadImg">

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { finalize, Subscription } from "rxjs";
@@ -26,7 +27,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
 
     constructor(private router: Router, private loginService: LoginService,
-        private apiService: ApiService, private fb: FormBuilder, private toast: ToastrService) { }
+        private apiService: ApiService, private fb: FormBuilder, private toast: ToastrService,
+        private title: Title) { 
+            this.title.setTitle('Login | Zenith')
+        }
 
     ngOnInit(): void {
         if (this.router.url == "/admin/login")

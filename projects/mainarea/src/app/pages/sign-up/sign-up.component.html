@@ -16,6 +16,10 @@
                     <small
                         *ngIf="registerForm.controls['fullname'].errors?.['required'] && registerForm.controls['fullname'].touched"
                         class="p-error">Please enter your name</small>
+                    <small class="p-error"
+                        *ngIf="registerForm.controls['fullname'].hasError('whitespace') && registerForm.controls['fullname'].touched && !registerForm.controls['fullname'].errors?.['required'] ">Please
+                        enter valid
+                        data</small>
                 </div>
                 <div class="field mt-4">
                     <label for="email">Email<span class="text-red-500">*</span></label>
@@ -37,6 +41,10 @@
                     <small
                         *ngIf="registerForm.controls['password'].errors?.['required'] && registerForm.controls['password'].touched"
                         class="p-error">Please enter your password</small>
+                    <small class="p-error"
+                        *ngIf="registerForm.controls['password'].hasError('whitespace') && registerForm.controls['password'].touched && !registerForm.controls['password'].errors?.['required'] ">Please
+                        enter valid
+                        data</small>
                 </div>
                 <div class="field mt-4">
                     <label for="password">Confirm Password<span class="text-red-500">*</span></label>
@@ -46,9 +54,9 @@
                     <small
                         *ngIf="registerForm.controls['confirmPassword'].errors?.['required'] && registerForm.controls['confirmPassword'].touched"
                         class="p-error">Please re-enter your password</small>
-                    <small
-                        *ngIf="registerForm.value.confirmPassword != registerForm.value.password && registerForm.controls['confirmPassword'].touched && registerForm.controls['confirmPassword'].valid"
-                        class="p-error">Password didn't match</small>
+                    <small *ngIf="registerForm.value.confirmPassword != registerForm.value.password && registerForm.controls['confirmPassword'].touched 
+                        && registerForm.controls['confirmPassword'].valid" class="p-error">Password didn't
+                        match</small>
                 </div>
                 <div class="mt-4">
                     <button pButton class="w-full justify-content-center p-button-sm custom-btn" type="submit"
@@ -72,6 +80,10 @@
                     <small
                         *ngIf="registerForm.controls['company'].errors?.['required'] && registerForm.controls['company'].touched"
                         class="p-error">Please enter your company</small>
+                    <small class="p-error"
+                        *ngIf="registerForm.controls['company'].hasError('whitespace') && registerForm.controls['company'].touched && !registerForm.controls['company'].errors?.['required'] ">Please
+                        enter valid
+                        data</small>
                 </div>
                 <div class="field">
                     <label for="industryName">Industry<span class="text-red-500">*</span></label>

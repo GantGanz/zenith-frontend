@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { MenuItem } from 'primeng/api';
 import { finalize, Subscription } from "rxjs";
 import { SignUpService } from "../../service/sign-up.service";
@@ -44,11 +44,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
     sendVerificationLoading = false
 
     registerForm = this.fb.group({
-        fullname: ['' || null, [Validators.required, Validators.maxLength(50)]],
+        fullname: ['' || null, [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator]],
         email: ['' || null, [Validators.required, Validators.email, Validators.maxLength(50)]],
-        password: ['' || null, [Validators.required]],
+        password: ['' || null, [Validators.required, this.noWhitespaceValidator]],
         confirmPassword: ['' || null, [Validators.required]],
-        company: ['' || null, [Validators.required]],
+        company: ['' || null, [Validators.required, this.noWhitespaceValidator]],
         industryId: ['' || null, [Validators.required]],
         positionId: ['' || null, [Validators.required]]
     })
@@ -149,6 +149,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
                 }
             })
         }
+    }
+
+    noWhitespaceValidator(control: FormControl) {
+        const isWhitespace = (control.value || '').trim().length === 0;
+        const isValid = !isWhitespace;
+        return isValid ? null : { 'whitespace': true };
     }
 
     ngOnDestroy(): void {

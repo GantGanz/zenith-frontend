@@ -36,9 +36,9 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     })
 
     constructor(private activityService: ActivityService, private activityTypeService: ActivityTypeService, private fb: FormBuilder,
-        private router: Router, private fileService: FileService, private title: Title) { 
-            this.title.setTitle('New Activity | Zenith')
-        }
+        private router: Router, private fileService: FileService, private title: Title) {
+        this.title.setTitle('New Activity | Zenith')
+    }
 
     ngOnInit(): void {
         this.activityTypesSubscription = this.activityTypeService.getAll().subscribe(result => {
@@ -74,7 +74,6 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
 
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
-            console.log(result);
             this.detailFoto.insert(0, this.fb.group({ extensions: result[0][0], fileCodes: result[0][1] }));
         })
     }

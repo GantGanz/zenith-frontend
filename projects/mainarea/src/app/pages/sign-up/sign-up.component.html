@@ -7,8 +7,7 @@
 
     <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap">
         <div class="col-11 md:col-7" *ngIf="signUp">
-            <form class="mt-4 mb-5" [formGroup]="registerForm"
-                (ngSubmit)="registerForm.controls['fullname'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid && clickSignUp()">
+            <form class="mt-4 mb-5" [formGroup]="registerForm" (ngSubmit)="clickSignUp()">
                 <h2 class="text-center">Sign-Up</h2>
                 <div class="field">
                     <label for="fullnameInput">Full Name<span class="text-red-500">*</span></label>
@@ -65,8 +64,7 @@
 
         <div class="col-11 md:col-7" *ngIf="accountDtl" id="stepAccountDtl">
             <h2 class="text-center">Account Detail</h2>
-            <form class="mt-4 mb-5" [formGroup]="registerForm"
-                (ngSubmit)="registerForm.controls['company'].valid && registerForm.controls['industryId'].valid && registerForm.controls['positionId'].valid && clickAccountDtl()">
+            <form class="mt-4 mb-5" [formGroup]="registerForm" (ngSubmit)="clickAccountDtl()">
                 <div class="field mt-4">
                     <label for="companyName">Company<span class="text-red-500">*</span></label>
                     <input pInputText id="companyName" name="companyName" type="text" class="w-full p-inputtext-sm"
@@ -114,8 +112,7 @@
                 <small>We have send a verification code to your email Please check your e-mail and type code
                     here</small>
             </div>
-            <form class="mt-4 mb-5 mx-6" [formGroup]="verificationCode"
-                (ngSubmit)="verificationCode.valid && clickVerify()">
+            <form class="mt-4 mb-5 mx-6" [formGroup]="verificationCode" (ngSubmit)="clickVerify()">
                 <div class="field mt-4">
                     <input pInputText id="verificationCode" name="verificationCode" type="text"
                         class="w-full p-inputtext-sm" required formControlName="verificationCode">

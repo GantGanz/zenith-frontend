@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { PostData } from "projects/interface/post/post-data";
@@ -164,7 +165,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder, private postService: PostService, private userService: UserService,
         private paymentActivityService: PaymentActivityService, private activityService: ActivityService,
         private router: Router, private confirmationService: ConfirmationService, private bookmarkService: BookmarkService,
-        private commentService: CommentService, private likeService: LikeService, private pollVoteService: PollVoteService) { }
+        private commentService: CommentService, private likeService: LikeService, private pollVoteService: PollVoteService,
+        private title:Title) {}
 
     ngOnInit(): void {
         this.init()
@@ -185,6 +187,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.company = this.myUser.company
             this.positionName = this.myUser.positionName
             this.isPremium = this.myUser.isPremium
+            this.title.setTitle(this.fullName+' | Zenith')
         })
 
         this.totalCourseSubscription = this.activityService.countCourse().subscribe(result => {
@@ -388,10 +391,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
 
     clickEditProfile() {
-        this.router.navigateByUrl(`/profile/edit/${this.myUser.id}`)
+        this.router.navigateByUrl(`/profile/edit`)
     }
     clickChangePassword() {
-        this.router.navigateByUrl(`/profile/change-password/${this.myUser.id}`)
+        this.router.navigateByUrl(`/profile/change-password`)
     }
 
     clickConfirmDelete(index: number) {

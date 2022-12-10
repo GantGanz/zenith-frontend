@@ -47,19 +47,18 @@ export class UserUpdateComponent {
     ngOnInit(): void {
         this.init()
     }
-    
-    init(){
+
+    init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.userSubscription = this.userService.getById(id).subscribe(result => {
                 this.userUpdateForm.patchValue(result.data)
-    
+
                 if (this.memberRole == result.data.roleName) {
                     this.disable = false
                 } else {
                     this.disable = true
                 }
-                console.log(this.userUpdateForm.value);
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
                 this.industries = result.data
@@ -67,13 +66,13 @@ export class UserUpdateComponent {
             this.positionSubscription = this.positionService.getAll().subscribe(result => {
                 this.positions = result.data
             })
-            
+
         })
     }
 
     clickUpdate() {
         this.loading = true
-        this.updateSubscription = this.userService.update(this.userUpdateForm.value).pipe(finalize(() => this.loading = false)).subscribe(()=>this.init())
+        this.updateSubscription = this.userService.update(this.userUpdateForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => this.init())
     }
 
     ngOnDestroy(): void {

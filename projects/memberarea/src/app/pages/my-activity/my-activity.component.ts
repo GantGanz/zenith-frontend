@@ -49,11 +49,6 @@ export class MyActivityComponent implements OnInit, OnDestroy {
         this.activityCoursesSubscription = this.activityService.getAllCourseById(this.first, this.limit).subscribe(result => {
             this.dataCourses = result.data
             this.activityRes = result
-            if (result) {
-                this.dataEmptyMyCourse = true
-            } else {
-                this.dataEmptyMyCourse = false
-            }
         })
         this.activityEventsSubscription = this.activityService.getAllEventById(this.first, this.limit).subscribe(result => {
             this.dataEvents = result.data

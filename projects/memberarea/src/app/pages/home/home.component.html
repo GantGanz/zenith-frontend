@@ -1485,9 +1485,12 @@
                         name="btnAddOption" (click)="addPoll()">Add Option</button>
 
                     <div class="field mt-4">
-                        <label for="pollDuration">Expired<span class="text-red-500">*</span></label>
-                        <p-calendar inputId="time" name="expiredAt" styleClass="w-full" [focusTrap]="true"
+                        <label for="endAt">Expired Time<span class="text-red-500">*</span></label>
+                        <p-calendar inputId="time" name="endAt" styleClass="w-full" [focusTrap]="true"
                             formControlName="endAt" [showTime]="true" [minDate]="minDateValue"></p-calendar>
+                        <small class="p-error" *ngIf="endAt?.errors?.['required'] && endAt?.touched">
+                            Please insert expired time
+                        </small>
                     </div>
                 </div>
             </div>

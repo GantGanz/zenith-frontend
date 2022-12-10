@@ -11,6 +11,7 @@ import { PositionService } from "projects/mainarea/src/app/service/position.serv
 import { UserService } from "projects/mainarea/src/app/service/user.service";
 import { finalize, Subscription } from "rxjs";
 import { UserData } from "projects/interface/user/user-data";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: "edit-profile",
@@ -49,9 +50,11 @@ export class EditProfileComponent {
 
     constructor(private industryService: IndustryService, private positionService: PositionService,
         private userService: UserService, private active: ActivatedRoute,
-        private fb: FormBuilder, private router: Router, private fileService: FileService) { }
+        private fb: FormBuilder, private router: Router, private fileService: FileService,
+        private title:Title) { }
 
     ngOnInit(): void {
+        this.title.setTitle('Edit | Zenith')
         this.init()
     }
 
@@ -62,6 +65,7 @@ export class EditProfileComponent {
                 this.userUpdateForm.patchValue(result.data)
                 this.userRes = result.data
                 this.fileId = result.data.fileId
+                
             })
             this.industrySubscription = this.industryService.getAll().subscribe(result => {
                 this.industries = result.data

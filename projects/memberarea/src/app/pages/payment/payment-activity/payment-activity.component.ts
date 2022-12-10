@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
@@ -32,7 +33,10 @@ export class PaymentActivityComponent implements OnInit, OnDestroy {
     fee = 0
     loading = false
 
-    constructor(private active: ActivatedRoute, private paymentActivityService: PaymentActivityService, private fb: FormBuilder, private fileService: FileService, private activityService: ActivityService) { }
+    constructor(private active: ActivatedRoute, private paymentActivityService: PaymentActivityService, private fb: FormBuilder, private fileService: FileService, private activityService: ActivityService,
+        private title:Title) { 
+            this.title.setTitle('Activity Payment | Zenith')
+        }
 
     ngOnInit(): void {
         this.init()

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { ArticleData } from "projects/interface/article/article-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
@@ -21,7 +22,9 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     private articlesSubscription?: Subscription
     private userSubscription?: Subscription
 
-    constructor(private articleService: ArticleService) { }
+    constructor(private articleService: ArticleService, private title: Title) { 
+        this.title.setTitle('Article | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

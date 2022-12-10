@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ArticleData } from "projects/interface/article/article-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
@@ -29,7 +30,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     fileLink = BASE_URL.FILE
 
-    constructor(private active: ActivatedRoute, private articleService: ArticleService, private router: Router) { }
+    constructor(private active: ActivatedRoute, private articleService: ArticleService, private router: Router,
+        private pageTitle: Title) {
+            
+         }
 
     ngOnInit(): void {
         this.paramSubscription = this.active.params.subscribe(u => {
@@ -41,6 +45,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
                 this.createdAt = result.data.createdAt
                 this.fileId = result.data.attachmentArticleDatas[0].fileId
                 this.articleContent = result.data.articleContent
+                this.pageTitle.setTitle(this.title+' | Zenith')
             })
         })
         this.articlesSubscription = this.articleService.getAll(0, 3).subscribe(result => {

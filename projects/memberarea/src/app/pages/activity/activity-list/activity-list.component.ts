@@ -184,6 +184,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
             }
         })
     }
+
     addDataEvents() {
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {
@@ -202,6 +203,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
             }
         })
     }
+
     addDataJoinedEvents() {
         this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {

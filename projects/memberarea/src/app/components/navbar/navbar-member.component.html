@@ -19,7 +19,8 @@
 
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item mr-5"><button class="dropdown-item py-2" type="button"
-                        routerLink="/payment/premium"><i class="pi pi-star-fill text-xl text-yellow-500"></i> <span *ngIf="!premiumStatus">Upgrade</span>
+                        routerLink="/payment/premium"><i class="pi pi-star-fill text-xl text-yellow-500"></i> <span
+                            *ngIf="!premiumStatus">Upgrade</span>
                         Premium</button>
                 </li>
                 <li class="lg:hidden">
@@ -40,7 +41,6 @@
                 </li>
             </ul>
 
-
             <div class="btn-group hidden lg:block">
                 <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="fileLoading">
                     <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover"
@@ -53,9 +53,6 @@
                             Profile</button></li>
                     <li><button class="dropdown-item px-5 py-2" type="button" routerLink="/my-activity">My
                             Activity</button></li>
-                    <!-- <li><button class="dropdown-item px-5 py-2" type="button" routerLink="/payment/premium"><i
-                                class="pi pi-star-fill text-yellow-500"></i> Upgrade
-                            Premium</button></li> -->
                     <li><button class="dropdown-item px-5 py-2 text-danger btnLogout" type="button"
                             (click)="logout()">Logout</button></li>
                 </ul>

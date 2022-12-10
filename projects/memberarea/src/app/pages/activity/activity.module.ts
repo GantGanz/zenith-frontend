@@ -10,7 +10,6 @@ import { FileUploadModule } from 'primeng/fileupload'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
-import { ActivityInsertComponent } from "./activity-insert/activity-insert.component";
 import { InputTextModule } from "primeng/inputtext";
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
@@ -21,7 +20,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
     declarations: [
-        ActivityListComponent, ActivityInsertComponent
+        ActivityListComponent
     ],
     imports: [
         RouterModule, CommonModule, ActivityRouting,
@@ -41,7 +40,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
         MenuModule
     ],
     exports: [
-        ActivityListComponent, ActivityInsertComponent
+        ActivityListComponent
     ]
 })
 export class ActivityModule { }

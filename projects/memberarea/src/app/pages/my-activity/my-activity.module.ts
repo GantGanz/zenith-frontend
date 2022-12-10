@@ -16,10 +16,12 @@ import { MyActivityUpdateComponent } from "./my-activity-edit/my-activity-update
 import { InputTextModule } from "primeng/inputtext";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { CheckboxModule } from "primeng/checkbox";
+import { MyActivityInsertComponent } from "./my-activity-insert/my-activity-insert.component";
+
 
 @NgModule({
     declarations: [
-        MyActivityComponent, MyActivityUpdateComponent
+        MyActivityComponent, MyActivityUpdateComponent, MyActivityInsertComponent
     ],
     imports: [
         RouterModule, CommonModule, MyActivityRouting,
@@ -38,7 +40,7 @@ import { CheckboxModule } from "primeng/checkbox";
         CheckboxModule
     ],
     exports: [
-        MyActivityComponent, MyActivityUpdateComponent
+        MyActivityComponent, MyActivityUpdateComponent, MyActivityInsertComponent
     ]
 })
 export class MyActivityModule { }

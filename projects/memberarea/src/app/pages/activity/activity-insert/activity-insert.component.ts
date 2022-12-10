@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ActivityTypesRes } from "projects/interface/activity-type/activity-types-res";
 import { ActivityTypeService } from "projects/mainarea/src/app/service/activity-type.service";
@@ -35,7 +36,9 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     })
 
     constructor(private activityService: ActivityService, private activityTypeService: ActivityTypeService, private fb: FormBuilder,
-        private router: Router, private fileService: FileService) { }
+        private router: Router, private fileService: FileService, private title: Title) { 
+            this.title.setTitle('New Activity | Zenith')
+        }
 
     ngOnInit(): void {
         this.activityTypesSubscription = this.activityTypeService.getAll().subscribe(result => {

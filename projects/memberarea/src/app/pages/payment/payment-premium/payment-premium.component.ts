@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { PaymentPremiumService } from "projects/mainarea/src/app/service/payment-premium.service";
 import { finalize, Subscription } from "rxjs";
@@ -24,7 +25,8 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
         extensions: ['', [Validators.required]]
     })
 
-    constructor(private paymentPremiumService: PaymentPremiumService, private fb: FormBuilder, private fileService: FileService) { }
+    constructor(private paymentPremiumService: PaymentPremiumService, private fb: FormBuilder, private fileService: FileService,
+        private title:Title) { this.title.setTitle('Premium User | Zenith')}
 
     ngOnInit(): void {
         this.init()

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ActivityService } from "projects/mainarea/src/app/service/activity.service";
@@ -63,7 +64,9 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     private countJoinedCourseSubscription?: Subscription
     private countJoinedEventSubscription?: Subscription
 
-    constructor(private activityService: ActivityService, private userService: UserService) { }
+    constructor(private activityService: ActivityService, private userService: UserService, private title : Title) { 
+        this.title.setTitle('activity | zenith')
+    }
 
     ngOnInit(): void {
         this.userSubscription = this.userService.getByPrincipal().subscribe(result => this.id = result.data.id)

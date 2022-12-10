@@ -22,7 +22,7 @@ export class MyActivityInsertComponent implements OnInit, OnDestroy {
     loading = false
     minDateValue = new Date()
     maxDateValue = new Date()
-    startMaxDateValue = new Date('3000-01-01')
+    startMaxDateValue = new Date('9999-01-01')
 
     activityForm = this.fb.group({
         activityTitle: [null, [Validators.required, Validators.maxLength(50)]],

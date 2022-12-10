@@ -31,7 +31,7 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
 
     date = this.fb.group({
         startDate: ['1000-01-01'],
-        endDate: ['3000-12-12'],
+        endDate: ['9999-12-31'],
     })
 
     constructor(private reportService: ReportService, private fb: FormBuilder) { }

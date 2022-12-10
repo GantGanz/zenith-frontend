@@ -6,7 +6,6 @@ import { ActivatedRoute } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { FileUpload } from "primeng/fileupload";
 import { PostData } from "projects/interface/post/post-data";
-import { UserData } from "projects/interface/user/user-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
 import { CommentService } from "projects/mainarea/src/app/service/comment.service";
@@ -47,6 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     loadingImg = false
     buttonLoading = false
     updateLoading = false
+    insertLoading = false
 
     like = true
     bookmark = true
@@ -182,8 +182,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private likeService: LikeService, private postTypeService: PostTypeService,
         private pollVoteService: PollVoteService, private bookmarkService: BookmarkService,
         private commentService: CommentService, private userService: UserService,
-        private confirmationService: ConfirmationService, private title: Title,
-        private active: ActivatedRoute,) {
+        private confirmationService: ConfirmationService, private title: Title) {
         this.title.setTitle('Feed | Zenith')
     }
 
@@ -289,6 +288,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.postSubscribtion = this.postService.getById(this.result[this.postEditIndex].id).subscribe(post => {
                 this.result.splice(this.postEditIndex, 1, post.data)
                 this.postUpdateForm.patchValue(post.data)
+                this.showEditForm = false
             })
         })
     }
@@ -480,6 +480,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     clickCommentPost(postIndex: number) {
+        this.clickSeeComment(postIndex)
         this.result[postIndex].commentStatus = true
         this.commentForm.controls['postId'].setValue(this.result[postIndex].id)
     }
@@ -520,6 +521,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.postForm.get('pollInsertReq')?.get('pollTitle')
     }
 
+    get endAt() {
+        return this.postForm.get('pollInsertReq')?.get('endAt')
+    }
+
     removeFile(event: any) {
         this.fileService.fileUploadForDeletion(event).then(result => {
             for (let i = 0; i < this.detailFoto.length; i++) {
@@ -533,6 +538,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     fileUpload(event: any) {
         this.fileService.fileUploadMulti(event).then(result => {
+            this.detailFoto.clear()
             for (let i = 0; i < result.length; i++) {
                 this.detailFoto.insert(i, this.fb.group({ extensions: result[i][0], fileCodes: result[i][1] }));
             }
@@ -540,13 +546,46 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     submitPost() {
-        let formattedStart = formatDate(this.postForm.value.pollInsertReq!.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
-        this.postForm.value.pollInsertReq!.endAt = formattedStart
-        this.postForm.controls['postTypeId'].setValue(this.postTypeId)
-        if (this.postForm.value.isPremium) {
-            this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
-                this.postForm.controls['postTypeId'].setValue(result.id)
-                this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
+        let valid = false
+        this.insertLoading = true
+        if (this.showCreatePolling) {
+            if ((this.postForm.controls['postTitle'].invalid || this.postForm.controls['postContent'].invalid) || (this.postForm.get('pollInsertReq')?.invalid)) {
+                valid = false
+            } else {
+                valid = true
+            }
+        } else {
+            if (this.postForm.controls['postTitle'].invalid || this.postForm.controls['postContent'].invalid) {
+                valid = false
+            } else {
+                valid = true
+            }
+        }
+        if (!valid) {
+            this.postForm.markAllAsTouched();
+            this.insertLoading = false
+        } else {
+            let formattedStart = formatDate(this.postForm.value.pollInsertReq!.endAt!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+            this.postForm.value.pollInsertReq!.endAt = formattedStart
+            this.postForm.controls['postTypeId'].setValue(this.postTypeId)
+            if (this.postForm.value.isPremium) {
+                this.postTypeSubscription = this.postTypeService.getIdByCode(POST_TYPE_CODE.PREMIUM).subscribe(result => {
+                    this.postForm.controls['postTypeId'].setValue(result.id)
+                    this.postInsertSubscription = this.postService.insert(this.postForm.value).pipe(finalize(() => this.insertLoading = false)).subscribe(() => {
+                        this.showForm = false
+                        this.first = 0
+                        this.postInit()
+                        this.upload.clear()
+                        this.detailFoto.clear()
+                        for (let i = 0; i < this.pollingOption.length; i++) {
+                            if (i > 1) {
+                                this.pollingOption.removeAt(i)
+                            }
+                        }
+                    })
+                })
+            } else {
+                this.postInsertSubscription = this.postService.insert(this.postForm.value).pipe(finalize(() => this.insertLoading = false)).subscribe(() => {
                     this.showForm = false
                     this.first = 0
                     this.postInit()
@@ -558,20 +597,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                         }
                     }
                 })
-            })
-        } else {
-            this.postInsertSubscription = this.postService.insert(this.postForm.value).subscribe(() => {
-                this.showForm = false
-                this.first = 0
-                this.postInit()
-                this.upload.clear()
-                this.detailFoto.clear()
-                for (let i = 0; i < this.pollingOption.length; i++) {
-                    if (i > 1) {
-                        this.pollingOption.removeAt(i)
-                    }
-                }
-            })
+            }
         }
     }
 

@@ -15,20 +15,19 @@
                     <div class="col-12 md:col-6 lg:col-4">
                         <div class="card h-100">
                             <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}}
-                                class="card-img-top max-h-13rem w-full" style="object-fit: contain"
-                                alt="article-banner">
+                                class="card-img-top max-h-13rem w-full" style="object-fit: cover" alt="article-banner">
                             <div class="card-body">
                                 <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> |
                                     <span>{{data.createdAt | timeAgo}}</span>
                                 </p>
                                 <h5 class="card-title custom-text-overlay">{{data.articleTitle}}</h5>
                                 <p class="card-text custom-text-overlay">{{data.articleContent}}</p>
-                                <div class="text-end">
-                                    <button pButton type="button" class="p-button-text fix-bottom"
-                                        routerLink="/articles/details/{{data.id}}"> <span>Read more <i
-                                                class="pi pi-arrow-right" style="font-size: 0.8rem"></i></span>
-                                    </button>
-                                </div>
+                            </div>
+                            <div class="card-footer text-end fix-bottom bg-white">
+                                <button pButton type="button" class="p-button-text bottom-0"
+                                    routerLink="/articles/details/{{data.id}}"> <span>Read more <i
+                                            class="pi pi-arrow-right" style="font-size: 0.8rem"></i></span>
+                                </button>
                             </div>
                         </div>
                     </div>

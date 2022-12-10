@@ -4,25 +4,26 @@
             <span class="cursor-pointer hover:text-blue-500" (click)="clickBack()"><i class="pi pi-angle-left"></i>Back
                 to all Article</span>
         </div>
-        <div class="col-12 lg:col-8">
+        <div class="col-12 lg:col-8 bg-white px-4 mt-2">
             <!-- title -->
-            <h3 class="mt-4">{{title}}</h3>
+            <h3 class="mt-2">{{title}}</h3>
             <p-divider></p-divider>
             <!-- Author -->
             <p class="mt-3 text-muted -mt-1"><span>{{fullname}}</span> | <span>{{createdAt |
                     timeAgo}}</span></p>
-            <img src={{fileLink}}{{fileId}} alt="" class="img-content w-full" style="object-fit: contain">
+            <img src={{fileLink}}{{fileId}} alt="" class="img-content w-full" style="object-fit: contain"
+                *ngIf="loadArticle">
             <!-- Content -->
             <p class="mt-4 text-justify">{{articleContent}}</p>
         </div>
 
-        <!-- Side Article -->
+        <!-- Side Content Article -->
         <div class="col-12 lg:col-4 hidden lg:block">
             <div class="sticky">
                 <ng-container *ngFor="let data of articles; index as i">
                     <div class="card mb-3">
                         <img src={{fileLink}}{{data.attachmentArticleDatas[0].fileId}}
-                            class="card-img-top max-h-13rem w-full" style="object-fit: contain" alt="article picture">
+                            class="card-img-top max-h-13rem w-full" style="object-fit: cover" alt="article picture">
                         <div class="card-body">
                             <p class="mt-3 text-muted text-sm -mt-1"><span>{{data.fullname}}</span> |
                                 <span>{{data.createdAt | timeAgo}}</span>

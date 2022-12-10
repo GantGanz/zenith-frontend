@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ArticleData } from "projects/interface/article/article-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
-import { Subscription } from "rxjs";
+import { finalize, Subscription } from "rxjs";
 
 
 @Component({
@@ -19,6 +19,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     articles!: ArticleData[]
 
+    loadArticle = true
+
     title = ''
     fullname = ''
     createdAt = ''
@@ -32,7 +34,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
-            this.articleSubscription = this.articleService.getById(id).subscribe(result => {
+            this.loadArticle = false
+            this.articleSubscription = this.articleService.getById(id).pipe(finalize(() => this.loadArticle = true)).subscribe(result => {
                 this.title = result.data.articleTitle
                 this.fullname = result.data.fullname
                 this.createdAt = result.data.createdAt

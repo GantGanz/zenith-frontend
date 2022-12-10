@@ -17,6 +17,15 @@
       <!-- Course yang dibuat -->
       <p-tabPanel header="Courses">
         <div class="container mt-4 p-0">
+          <div class="card border-none" *ngIf="dataEmptyMyCourse">
+            <div class="flex justify-content-center">
+              <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+            </div>
+            <div class="text-center mb-6">
+              <h6>It's empty here</h6>
+              <p class="text-sm">Course that you join will be displayed here</p>
+            </div>
+          </div>
           <div class="grid">
             <ng-container *ngFor="let data of dataCourses; index as i">
               <div class="col-12 md:col-6 lg:col-4">
@@ -60,6 +69,15 @@
       <!-- Event yang dibuat -->
       <p-tabPanel header="Events">
         <div class="container mt-4 p-0">
+          <div class="card border-none" *ngIf="dataEmptyMyEvent">
+            <div class="flex justify-content-center">
+              <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+            </div>
+            <div class="text-center mb-6">
+              <h6>It's empty here</h6>
+              <p class="text-sm">Course that you join will be displayed here</p>
+            </div>
+          </div>
           <div class="grid">
             <ng-container *ngFor="let data of dataEvents; index as i">
               <div class="col-12 md:col-6 lg:col-4">

@@ -1,1 +1,1 @@
-export const PREMIUM_PRICE: string = "50.000"
+export const PREMIUM_PRICE: string = "50000"

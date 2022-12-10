@@ -10,10 +10,10 @@ import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { finalize, Subscription } from "rxjs";
 
 @Component({
-    selector: "activity-insert",
-    templateUrl: "./activity-insert.component.html"
+    selector: "my-activity-insert",
+    templateUrl: "./my-activity-insert.component.html"
 })
-export class ActivityInsertComponent implements OnInit, OnDestroy {
+export class MyActivityInsertComponent implements OnInit, OnDestroy {
 
     private activitySubscription?: Subscription
     private activityTypesSubscription?: Subscription
@@ -22,7 +22,7 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     loading = false
     minDateValue = new Date()
     maxDateValue = new Date()
-    startMaxDateValue = new Date('3000-01-01')
+    startMaxDateValue = new Date('9999-01-01')
 
     activityForm = this.fb.group({
         activityTitle: [null, [Validators.required, Validators.maxLength(50)]],
@@ -36,9 +36,9 @@ export class ActivityInsertComponent implements OnInit, OnDestroy {
     })
 
     constructor(private activityService: ActivityService, private activityTypeService: ActivityTypeService, private fb: FormBuilder,
-        private router: Router, private fileService: FileService, private title: Title) { 
-            this.title.setTitle('New Activity | Zenith')
-        }
+        private router: Router, private fileService: FileService, private title: Title) {
+        this.title.setTitle('New Activity | Zenith')
+    }
 
     ngOnInit(): void {
         this.activityTypesSubscription = this.activityTypeService.getAll().subscribe(result => {

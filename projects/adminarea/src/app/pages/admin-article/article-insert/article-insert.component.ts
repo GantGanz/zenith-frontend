@@ -26,9 +26,14 @@ export class ArticleInsertComponent implements OnDestroy {
 
     clickSubmit() {
         this.loading = true
-        this.articleSubscription = this.articleService.insert(this.articleForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
-            this.router.navigateByUrl('/articles-admin/list')
-        })
+        if (this.articleForm.invalid) {
+            this.articleForm.markAllAsTouched();
+            this.loading = false
+        } else {
+            this.articleSubscription = this.articleService.insert(this.articleForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
+                this.router.navigateByUrl('/articles-admin/list')
+            })
+        }
     }
     get detailFoto(): FormArray {
         return this.articleForm.get('attachmentArticleInsertReqs') as FormArray

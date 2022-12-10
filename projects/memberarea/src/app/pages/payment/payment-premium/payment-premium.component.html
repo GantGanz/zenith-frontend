@@ -60,7 +60,8 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="text-sm">Total:</p>
-                                            <p class="font-bold text-green-700">IDR {{price}}</p>
+                                            <p class="font-bold text-green-700">{{price | currency:'IDR
+                                                ':'symbol':'3.0'}}</p>
                                         </div>
                                     </div>
                                 </div>

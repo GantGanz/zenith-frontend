@@ -64,8 +64,8 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     private countJoinedCourseSubscription?: Subscription
     private countJoinedEventSubscription?: Subscription
 
-    constructor(private activityService: ActivityService, private userService: UserService, private title : Title) { 
-        this.title.setTitle('activity | zenith')
+    constructor(private activityService: ActivityService, private userService: UserService, private title: Title) {
+        this.title.setTitle('Activity | zenith')
     }
 
     ngOnInit(): void {
@@ -184,6 +184,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
             }
         })
     }
+
     addDataEvents() {
         this.activityEventsSubscription = this.activityService.getAllEvent(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {
@@ -202,6 +203,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
             }
         })
     }
+
     addDataJoinedEvents() {
         this.activityJoinedEventsSubscription = this.activityService.getAllJoinedEventById(this.first, this.limit).subscribe(result => {
             for (let i = 0; i < result.data.length; i++) {

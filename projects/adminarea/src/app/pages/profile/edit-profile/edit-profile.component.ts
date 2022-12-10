@@ -80,7 +80,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             })
             this.positionSubscription = this.positionService.getAll().subscribe(result => {
                 this.positions = result.data
-
                 if (this.router.url == `/super-admin/profiles/edit/${this.userUpdateForm.value.id}`) {
                     this.backToSuperAdminProfile = true
                 }

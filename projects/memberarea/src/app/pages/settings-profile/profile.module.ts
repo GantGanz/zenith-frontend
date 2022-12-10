@@ -17,7 +17,6 @@ import { ProfileViewComponent } from "./profile-view/profile-view.component";
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { StyleClassModule } from 'primeng/styleclass';
-import { PostUpdateComponent } from "./post-update/post-update.component";
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GalleriaModule } from 'primeng/galleria';
@@ -29,7 +28,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 
 @NgModule({
     declarations: [
-        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileViewComponent, PostUpdateComponent
+        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileViewComponent
     ],
     imports: [
         RouterModule, CommonModule, ProfileRouting,
@@ -54,7 +53,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
         AutoFocusModule
     ],
     exports: [
-        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent, PostUpdateComponent,
+        MenuProfileComponent, EditProfileComponent, ChangePasswordComponent,
         ProfileViewComponent
     ]
 })

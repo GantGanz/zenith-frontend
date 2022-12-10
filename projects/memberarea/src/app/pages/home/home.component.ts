@@ -2,10 +2,10 @@ import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { FileUpload } from "primeng/fileupload";
 import { PostData } from "projects/interface/post/post-data";
-import { UserData } from "projects/interface/user/user-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { BookmarkService } from "projects/mainarea/src/app/service/bookmark.service";
 import { CommentService } from "projects/mainarea/src/app/service/comment.service";
@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     postLoading = false
     loadingImg = false
     buttonLoading = false
+    updateLoading = false
     insertLoading = false
 
     like = true
@@ -63,6 +64,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     showUploadImg = true
     showCreatePolling = false
 
+    showEditForm = false
+
     dataEmpty = true
     dataNotEmpty = false
 
@@ -71,6 +74,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     displayCustom!: boolean;
     activeIndex: number = 0;
+
+    postRes!: PostData
 
     postTypeId!: string
     regularPostCode = POST_TYPE_CODE.REGULAR
@@ -108,6 +113,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         isActive: [false],
     })
 
+    postUpdateForm = this.fb.group({
+        id: ['', [Validators.required]],
+        postTitle: ['', [Validators.required, Validators.maxLength(100)]],
+        postContent: ['', [Validators.required]],
+        isActive: [true, [Validators.required]],
+        version: [0, [Validators.required]],
+    })
+
     likeForm = this.fb.group({
         id: ['', [Validators.required]],
         userId: ['', [Validators.required]],
@@ -137,6 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private postInsertSubscription?: Subscription
     private postsSubscribtion?: Subscription
+    private postSubscribtion?: Subscription
     private likedPostSubscription?: Subscription
     private postTypeSubscription?: Subscription
     private bookmarkedPostSubscription?: Subscription
@@ -160,6 +174,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private commentByIdSubscription?: Subscription
 
     private myUserSubscription?: Subscription
+    private paramSubscription?: Subscription
+    private updateSubscription?: Subscription
 
     constructor(private fb: FormBuilder,
         private fileService: FileService, private postService: PostService,
@@ -181,6 +197,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
         })
         this.postInit()
+    }
+
+    postEditIndex!: any
+
+    clickEditPost(postId: string, index: number) {
+        this.postEditIndex = index
+        this.postsSubscribtion = this.postService.getById(postId).pipe(finalize(() => this.postLoading = true)).subscribe(result => {
+            this.postUpdateForm.patchValue(result.data)
+            this.postRes = result.data
+            this.showEditForm = true
+        })
     }
 
     postInit() {
@@ -253,6 +280,16 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.dataEmpty = true
                 this.dataNotEmpty = false
             }
+        })
+    }
+    clickUpdate() {
+        this.updateLoading = true
+        this.updateSubscription = this.postService.update(this.postUpdateForm.value).pipe(finalize(() => this.updateLoading = false)).subscribe(() => {
+            this.postSubscribtion = this.postService.getById(this.result[this.postEditIndex].id).subscribe(post => {
+                this.result.splice(this.postEditIndex, 1, post.data)
+                this.postUpdateForm.patchValue(post.data)
+                this.showEditForm = false
+            })
         })
     }
 
@@ -595,7 +632,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.pollingOption.removeAt(i)
     }
 
-
     imageClick(index: number, indexPhoto: number) {
         this.activeIndex = indexPhoto;
         this.result[index].showImg = true
@@ -621,7 +657,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     clickConfirmDeleteComment(postIndex: number, commentIndex: number) {
         this.confirmationService.confirm({
-            message: 'Do you want to delete this comment?',
+            message: 'Do you want to delete this Comment?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             key: 'positionDialog',
@@ -679,6 +715,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.deleteCommentSubscription?.unsubscribe()
         this.updateCommentSubscription?.unsubscribe()
         this.commentByIdSubscription?.unsubscribe()
+        this.paramSubscription?.unsubscribe()
+        this.updateSubscription?.unsubscribe()
     }
 }
 

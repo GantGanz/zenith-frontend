@@ -73,7 +73,7 @@
                                                 <ul class="list-none p-0 m-0">
                                                     <li>
                                                         <a class="block px-3 pt-2 pb-2 no-underline text-black-alpha-60 hover:bg-gray-100 transition-all transition-duration-200 cursor-pointer"
-                                                            routerLink="/feed/edit-post/{{data.id}}">
+                                                            (click)="clickEditPost(data.id,i)">
                                                             <span class="font-medium">Edit Post</span>
                                                         </a>
                                                     </li>
@@ -99,7 +99,7 @@
                                 </ng-container>
                                 <ng-template #contentRegular>
                                     <div class="w-full">
-                                        <p class="text-sm">{{data.postContent}}</p>
+                                        <p class="text-sm text-justify">{{data.postContent}}</p>
                                     </div>
                                 </ng-template>
 
@@ -117,14 +117,9 @@
                                                         [baseZIndex]="100000" class="cursor-pointer">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="width: 100%; display: block;" />
+                                                                style="max-width: 850px; max-height: 500px; display: block; " />
                                                         </ng-template>
-                                                        <ng-template pTemplate="thumbnail" let-item>
-                                                            <div class="grid grid-nogutter justify-content-center">
-                                                                <img src={{fileLink}}{{item.fileId}}
-                                                                    style="width: 100%; display: block;" />
-                                                            </div>
-                                                        </ng-template>
+
                                                     </p-galleria>
 
                                                     <ng-container
@@ -187,13 +182,13 @@
                                                 <div class="flex w-full column-gap-1">
                                                     <p-galleria [value]="data.attachmentPostDatas"
                                                         [(visible)]="data.showImg" [(activeIndex)]="activeIndex"
-                                                        [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
+                                                        [containerStyle]="{'max-width': '2000px'}" [numVisible]="7"
                                                         [circular]="true" [fullScreen]="true"
                                                         [showItemNavigators]="true" [showThumbnails]="false"
                                                         [baseZIndex]="100000" class="cursor-pointer">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="height: 100vh; width: fit-content; object-fit: fill; display: block;" />
+                                                                style="max-width: 850px; max-height: 500px; display: block; " />
                                                         </ng-template>
                                                     </p-galleria>
 
@@ -267,7 +262,7 @@
                                                         <div class="mt-1 md:mt-3">
                                                             {{poll.pollContent}} | votes: ({{poll.countVote}})
                                                         </div>
-                                                        
+
                                                         <ng-container *ngIf="poll.isVoted; else optionNotVoted">
                                                             <p-progressBar styleClass="h-2rem"
                                                                 [value]="pollValue(poll, data.pollData)"
@@ -292,7 +287,8 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
+                                                        date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -373,7 +369,8 @@
                                             View Comments
                                         </span>
                                         <span class="text-sm cursor-pointer hover:text-blue-500"
-                                            *ngIf="data.moreComment && data.countComment>0" (click)="clickCloseComment(i)">
+                                            *ngIf="data.moreComment && data.countComment>0"
+                                            (click)="clickCloseComment(i)">
                                             Close Comments
                                         </span>
                                     </div>
@@ -582,13 +579,7 @@
                                                         [baseZIndex]="100000" class="cursor-pointer">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="width: 100%; display: block;" />
-                                                        </ng-template>
-                                                        <ng-template pTemplate="thumbnail" let-item>
-                                                            <div class="grid grid-nogutter justify-content-center">
-                                                                <img src={{fileLink}}{{item.fileId}}
-                                                                    style="width: 100%; display: block;" />
-                                                            </div>
+                                                                style="max-width: 850px; max-height: 500px; display: block; " />
                                                         </ng-template>
                                                     </p-galleria>
 
@@ -655,7 +646,7 @@
                                                         [baseZIndex]="100000" class="cursor-pointer">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="height: 100vh; width: fit-content; object-fit: fill; display: block;" />
+                                                                style="max-width: 850px; max-height: 500px; display: block; " />
                                                         </ng-template>
                                                     </p-galleria>
 
@@ -744,7 +735,8 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
+                                                        date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1024,13 +1016,7 @@
                                                         [baseZIndex]="100000" class="cursor-pointer">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="width: 100%; display: block;" />
-                                                        </ng-template>
-                                                        <ng-template pTemplate="thumbnail" let-item>
-                                                            <div class="grid grid-nogutter justify-content-center">
-                                                                <img src={{fileLink}}{{item.fileId}}
-                                                                    style="width: 100%; display: block;" />
-                                                            </div>
+                                                                style="max-width: 850px; max-height: 500px; display: block; " />
                                                         </ng-template>
                                                     </p-galleria>
 
@@ -1097,7 +1083,7 @@
                                                         [baseZIndex]="100000" class="cursor-pointer">
                                                         <ng-template pTemplate="item" let-item>
                                                             <img src={{fileLink}}{{item.fileId}}
-                                                                style="height: 100vh; width: fit-content; object-fit: fill; display: block;" />
+                                                                style="max-width: 850px; max-height: 500px; display: block;" />
                                                         </ng-template>
                                                     </p-galleria>
 
@@ -1186,7 +1172,8 @@
                                                 </ng-template>
                                                 <div class="mt-2">
                                                     <span class="text-sm mr-3">{{data.pollData.countVote}} votes</span>
-                                                    <span class="text-end text-sm">Until {{data.pollData.endAt | date:'HH:mm dd/MM/yyyy'}}</span>
+                                                    <span class="text-end text-sm">Until {{data.pollData.endAt |
+                                                        date:'HH:mm dd/MM/yyyy'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1352,7 +1339,6 @@
                                             *ngIf="data.showMoreComment" (click)="seeMoreComment(i)">
                                             See More...
                                         </span>
-
                                     </div>
                                 </div>
                             </div>
@@ -1464,7 +1450,8 @@
                 <label for="image" class="mb-0">Upload Image</label>
 
                 <p-fileUpload #uploadComponent url="./upload.php" [multiple]="true" accept="image/*"
-                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)" [auto]="true" [disabled]="fileSelected">
+                    [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)"
+                    [auto]="true" [disabled]="fileSelected">
                 </p-fileUpload>
                 <pre>{{detailFoto.length}}</pre>
                 <pre>{{detailFoto.value | json}}</pre>
@@ -1481,6 +1468,46 @@
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
                     <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
+                </div>
+            </div>
+        </form>
+    </p-dialog>
+
+
+
+    <p-dialog header="Edit Post" [breakpoints]="{'960px': '90vw'}" [style]="{width: '45vw'}" [(visible)]="showEditForm"
+        [modal]="true" [draggable]="false" [resizable]="false">
+        <form class="formgrid grid" [formGroup]="postUpdateForm" (ngSubmit)="postUpdateForm.valid && clickUpdate()">
+            <div class="field col-12">
+                <label for="postTitle">Title<span class="text-red-500">*</span></label>
+                <input pInputText class="w-full" type="text" id="postTitle" name="postTitle" formControlName="postTitle"
+                    required [maxlength]="100">
+                <small class="p-error"
+                    *ngIf="postUpdateForm.controls['postTitle'].errors?.['required'] && postUpdateForm.controls['postTitle'].touched">
+                    Please input post title
+                </small>
+                <small class="p-error"
+                    *ngIf="postUpdateForm.controls['postTitle'].errors?.['maxlength'] && postUpdateForm.controls['postTitle'].touched">
+                    Post title exceed maximum limit (100 characters)
+                </small>
+            </div>
+
+            <div class="field col-12">
+                <label for="postContent">Content<span class="text-red-500">*</span></label>
+                <textarea [rows]="5" [autoResize]="false" pInputTextarea class="w-full scroll" id="postContent"
+                    name="postContent" formControlName="postContent" required></textarea>
+                <small class="p-error"
+                    *ngIf="postUpdateForm.controls['postContent'].errors?.['required'] && postUpdateForm.controls['postContent'].touched">
+                    Please input post content
+                </small>
+            </div>
+
+            <div class="col-12 mb-4">
+                <div class="flex gap-2 mt-5 justify-content-end">
+                    <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
+                        (click)="showEditForm=false">Cancel</button>
+                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost"
+                        (click)="clickUpdate()">Save</button>
                 </div>
             </div>
         </form>

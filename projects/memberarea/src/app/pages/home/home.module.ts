@@ -25,16 +25,14 @@ import { ImageModule } from 'primeng/image';
 import { TimeModule } from "projects/mainarea/src/app/pipe/time-ago.module";
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { StyleClassModule } from 'primeng/styleclass';
-import { PostUpdateHomeComponent } from "./post-update/post-update.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AutoFocusModule } from 'primeng/autofocus';
-
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { DropdownModule } from "primeng/dropdown";
 
 @NgModule({
     declarations: [
-        HomeComponent, rightContentComponent, PostUpdateHomeComponent
+        HomeComponent, rightContentComponent
     ],
     imports: [
         RouterModule,
@@ -70,7 +68,7 @@ import { DropdownModule } from "primeng/dropdown";
         DropdownModule
     ],
     exports: [
-        HomeComponent, rightContentComponent, PostUpdateHomeComponent
+        HomeComponent, rightContentComponent
     ]
 })
 

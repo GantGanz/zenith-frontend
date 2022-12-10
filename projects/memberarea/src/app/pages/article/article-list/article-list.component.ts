@@ -43,7 +43,6 @@ export class ArticleListComponent implements OnInit, OnDestroy {
             for (let i = 0; i < result.data.length; i++) {
                 this.data.push(result.data[i])
             }
-            console.log(this.data);
         })
     }
 

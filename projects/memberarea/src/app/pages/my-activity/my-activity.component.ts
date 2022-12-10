@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ActivitiesRes } from "projects/interface/activity/activities-res";
 import { ActivityData } from "projects/interface/activity/activity-data";
@@ -27,7 +28,9 @@ export class MyActivityComponent implements OnInit, OnDestroy {
     private activityCoursesSubscription?: Subscription
     private activityEventsSubscription?: Subscription
 
-    constructor(private activityService: ActivityService, private router: Router) { }
+    constructor(private activityService: ActivityService, private router: Router, private title: Title) {
+        this.title.setTitle('My Activity | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

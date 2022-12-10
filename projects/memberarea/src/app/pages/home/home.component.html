@@ -1503,8 +1503,6 @@
                     [customUpload]="true" (onRemove)="removeFile($event)" (uploadHandler)="fileUpload($event)"
                     [auto]="true" [disabled]="fileSelected">
                 </p-fileUpload>
-                <pre>{{detailFoto.length}}</pre>
-                <pre>{{detailFoto.value | json}}</pre>
             </div>
 
             <div class="field-checkbox col-12 md:col-6" *ngIf="showUploadImg">

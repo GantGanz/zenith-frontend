@@ -10,10 +10,10 @@ import { FileService } from "projects/mainarea/src/app/service/file.service";
 import { finalize, Subscription } from "rxjs";
 
 @Component({
-    selector: "activity-insert",
-    templateUrl: "./activity-insert.component.html"
+    selector: "my-activity-insert",
+    templateUrl: "./my-activity-insert.component.html"
 })
-export class ActivityInsertComponent implements OnInit, OnDestroy {
+export class MyActivityInsertComponent implements OnInit, OnDestroy {
 
     private activitySubscription?: Subscription
     private activityTypesSubscription?: Subscription

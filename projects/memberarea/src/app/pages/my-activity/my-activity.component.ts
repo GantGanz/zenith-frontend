@@ -17,6 +17,9 @@ export class MyActivityComponent implements OnInit, OnDestroy {
     dataCourses!: ActivityData[]
     dataEvents!: ActivityData[]
 
+    dataEmptyMyCourse = false
+    dataEmptyMyEvent = false
+
     activityRes!: ActivitiesRes
 
     first = 0
@@ -50,6 +53,11 @@ export class MyActivityComponent implements OnInit, OnDestroy {
         this.activityEventsSubscription = this.activityService.getAllEventById(this.first, this.limit).subscribe(result => {
             this.dataEvents = result.data
             this.activityRes = result
+            if (result == null) {
+                this.dataEmptyMyEvent = true
+            } else {
+                this.dataEmptyMyEvent = false
+            }
         })
     }
 

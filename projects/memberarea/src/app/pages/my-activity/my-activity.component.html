@@ -5,7 +5,7 @@
     </div>
     <div class="col-8 flex justify-content-end gap-2">
       <button pButton class="p-button-sm btn-custom" type="button" id="insertActivity" name="insertActivity"
-        routerLink="/activities/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> Add
+        routerLink="/my-activity/new"><span><i class="pi pi-plus" style="font-size: 12px"></i> Add
           Activity</span></button>
       <button pButton class="p-button-sm bg-green-500" type="button" id="btnReport" name="btnReport"
         routerLink="/report"><span><i class="pi pi-plus" style="font-size: 12px"></i> Report</span></button>
@@ -17,6 +17,15 @@
       <!-- Course yang dibuat -->
       <p-tabPanel header="Courses">
         <div class="container mt-4 p-0">
+          <div class="card border-none" *ngIf="dataEmptyMyCourse">
+            <div class="flex justify-content-center">
+              <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+            </div>
+            <div class="text-center mb-6">
+              <h6>It's empty here</h6>
+              <p class="text-sm">Course that you join will be displayed here</p>
+            </div>
+          </div>
           <div class="grid">
             <ng-container *ngFor="let data of dataCourses; index as i">
               <div class="col-12 md:col-6 lg:col-4">
@@ -60,6 +69,15 @@
       <!-- Event yang dibuat -->
       <p-tabPanel header="Events">
         <div class="container mt-4 p-0">
+          <div class="card border-none" *ngIf="dataEmptyMyEvent">
+            <div class="flex justify-content-center">
+              <img src="../../../assets/images/empty_ilustration.png" class="w-12rem p-5" alt="empty state">
+            </div>
+            <div class="text-center mb-6">
+              <h6>It's empty here</h6>
+              <p class="text-sm">Course that you join will be displayed here</p>
+            </div>
+          </div>
           <div class="grid">
             <ng-container *ngFor="let data of dataEvents; index as i">
               <div class="col-12 md:col-6 lg:col-4">

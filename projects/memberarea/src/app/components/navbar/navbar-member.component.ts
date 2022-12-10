@@ -19,7 +19,6 @@ export class NavbarMemberComponent implements OnInit {
     fullName!: string
 
     premiumStatus!: boolean
-
     fileLoading = false
 
     private userSubscription?: Subscription
@@ -33,7 +32,6 @@ export class NavbarMemberComponent implements OnInit {
         })
     }
 
-
     logout() {
         this.apiService.logout()
         this.router.navigateByUrl('/member/login')
@@ -42,6 +40,4 @@ export class NavbarMemberComponent implements OnInit {
     ngOnDestroy(): void {
         this.userSubscription?.unsubscribe()
     }
-
-
 }

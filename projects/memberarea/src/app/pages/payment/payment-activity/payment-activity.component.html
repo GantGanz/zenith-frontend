@@ -1,7 +1,7 @@
 <div class="container bg-color-green-800">
     <div class="card mt-4 border-none flex align-items-center p-5">
 
-        <div class="md:col-6 col-12" *ngIf="paymentStatus == 1">
+        <div class="lg:col-6 col-12" *ngIf="paymentStatus == 1">
             <div class="grid">
                 <div class="col-12">
                     <h5 class="font-semibold mb-3">Payment Detail</h5>
@@ -42,7 +42,7 @@
 
                 <div class="col-12 mt-3">
                     <div class="grid justify-content-end">
-                        <div class="col-4">
+                        <div class="col-6 md:col-4">
                             <button pButton type="submit" class="p-button-sm w-full"
                                 styleClass="p-button-sm text-center" label="Pay now" (click)="clickUpgrade()"></button>
                         </div>
@@ -52,7 +52,7 @@
         </div>
 
         <div class="grid justify-content-center" *ngIf="paymentStatus == 2">
-            <div class="md:col-6 col-12">
+            <div class="lg:col-6 col-12">
                 <div class="grid">
                     <div class="col-12">
                         <h5 class="font-semibold">Waiting for payment</h5>
@@ -84,7 +84,7 @@
 
                     <div class="col-12 mt-3 pb-0">
                         <div class="grid justify-content-end">
-                            <div class="col-6">
+                            <div class="col-6 md:col-5">
                                 <p>Completed the payment?</p>
                                 <button pButton type="submit" class="p-button-sm w-full"
                                     styleClass="p-button-sm text-center" label="Confirm"
@@ -110,9 +110,9 @@
                                 <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true"
                                     (uploadHandler)="fileUpload($event)" chooseLabel="Upload Invoice"></p-fileUpload>
                             </div>
-                            <div class="col-12 mt-5">
+                            <div class="col-12 mt-3">
                                 <div class="grid justify-content-end">
-                                    <div class="col-6">
+                                    <div class="col-6 md:col-4">
                                         <button pButton type="submit" class="p-button-sm w-full"
                                             styleClass="p-button-sm text-center" label="Confirm"
                                             [loading]="loading"></button>

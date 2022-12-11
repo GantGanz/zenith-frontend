@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityTypeData } from "projects/interface/activity-type/activity-type-data";
 import { ActivityData } from "projects/interface/activity/activity-data";
 import { ActivityTypeService } from "projects/mainarea/src/app/service/activity-type.service";
@@ -38,7 +38,7 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
     private updateSubscription?: Subscription
 
     constructor(private activityService: ActivityService, private active: ActivatedRoute,
-        private fb: FormBuilder, private activityTypeService: ActivityTypeService, private title: Title) {
+        private fb: FormBuilder, private activityTypeService: ActivityTypeService, private title: Title, private router: Router) {
         this.title.setTitle('Activity Update | Zenith')
     }
 
@@ -61,6 +61,9 @@ export class MyActivityUpdateComponent implements OnInit, OnDestroy {
                 this.activityTypes = result.data
             })
         })
+    }
+    clickBack() {
+        this.router.navigateByUrl("/my-activity")
     }
 
     clickUpdate() {

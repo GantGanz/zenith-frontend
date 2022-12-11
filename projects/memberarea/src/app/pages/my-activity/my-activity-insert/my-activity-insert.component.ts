@@ -52,6 +52,9 @@ export class MyActivityInsertComponent implements OnInit, OnDestroy {
             }
         })
     }
+    clickBack() {
+        this.router.navigateByUrl("/my-activity")
+    }
 
     clickSubmit() {
         this.loading = true

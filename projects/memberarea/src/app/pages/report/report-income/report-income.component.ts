@@ -83,6 +83,10 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
         })
     }
 
+    round(nominal: any) {
+        return Math.round(nominal)
+    }
+
     ngOnDestroy(): void {
         this.pageChangeSubscription?.unsubscribe()
         this.reportsSubscription?.unsubscribe()

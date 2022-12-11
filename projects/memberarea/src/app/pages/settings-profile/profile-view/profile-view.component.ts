@@ -166,7 +166,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         private paymentActivityService: PaymentActivityService, private activityService: ActivityService,
         private router: Router, private confirmationService: ConfirmationService, private bookmarkService: BookmarkService,
         private commentService: CommentService, private likeService: LikeService, private pollVoteService: PollVoteService,
-        private title:Title) {}
+        private title: Title) { }
 
     ngOnInit(): void {
         this.init()
@@ -187,14 +187,14 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.company = this.myUser.company
             this.positionName = this.myUser.positionName
             this.isPremium = this.myUser.isPremium
-            this.title.setTitle(this.fullName+' | Zenith')
+            this.title.setTitle(this.fullName + ' | Zenith')
         })
 
-        this.totalCourseSubscription = this.activityService.countCourse().subscribe(result => {
+        this.totalCourseSubscription = this.activityService.countMyCourse().subscribe(result => {
             this.totalCourse = result
         })
 
-        this.totalEventSubscription = this.activityService.countEvent().subscribe(result => {
+        this.totalEventSubscription = this.activityService.countMyEvent().subscribe(result => {
             this.totalEvent = result
         })
         this.totalCourseSubscription = this.paymentActivityService.getCreatorIncome().subscribe(result => {
@@ -437,6 +437,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         return Math.round(poll.countVote / pollData.countVote * 100)
     }
 
+    round(nominal: any) {
+        return Math.round(nominal)
+    }
+
     ngOnDestroy(): void {
         this.postsSubscription?.unsubscribe()
         this.userSubscription?.unsubscribe()
@@ -447,6 +451,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.insertLikeSubscription?.unsubscribe()
 
         this.insertCommentSubscription?.unsubscribe()
+        this.updateSubscription?.unsubscribe()
         this.commentByPostSubscription?.unsubscribe()
         this.bookmarkedIdSubscription?.unsubscribe()
         this.deleteBookmarkSubscription?.unsubscribe()
@@ -457,6 +462,9 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.countSubscription?.unsubscribe()
         this.insertVoteSubscription?.unsubscribe()
         this.deleteSubscription?.unsubscribe()
+        this.updateCommentSubscription?.unsubscribe()
+        this.deleteCommentSubscription?.unsubscribe()
+        this.commentByIdSubscription?.unsubscribe()
     }
 }
 

@@ -80,7 +80,7 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
         this.loadingExport = true
         this.exportsSubscription = this.reportService.reportSuperAdminIncome(this.date.value.startDate!, this.date.value.endDate!).pipe(finalize(() => this.loadingExport = false)).subscribe(result => {
             const anchor = document.createElement('a');
-            anchor.download = "superadmin-activity.pdf";
+            anchor.download = "superadmin-income.pdf";
             anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
             anchor.click();
         })

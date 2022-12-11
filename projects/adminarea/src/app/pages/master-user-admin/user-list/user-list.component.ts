@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms"
+import { Title } from "@angular/platform-browser"
 import { ConfirmationService, LazyLoadEvent, PrimeNGConfig } from "primeng/api"
 import { UsersRes } from "projects/interface/user/users-res"
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url"
@@ -26,7 +27,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     users: any[] = []
 
-    tableLoad=false
+    tableLoad = false
 
     private usersSubscription?: Subscription
     private pageChangeSubscription?: Subscription
@@ -39,7 +40,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     })
 
     constructor(private userService: UserService, private confirmationService: ConfirmationService,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('User | Zenith')
+    }
 
 
     ngOnInit(): void {
@@ -47,8 +50,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
 
     init() {
-        this.tableLoad=true
-        this.usersSubscription = this.userService.getAll(this.first, this.limit).pipe(finalize(()=>this.tableLoad=false)).subscribe(result => {
+        this.tableLoad = true
+        this.usersSubscription = this.userService.getAll(this.first, this.limit).pipe(finalize(() => this.tableLoad = false)).subscribe(result => {
             this.users = []
             for (let i = 0; i < result.data.length; i++) {
                 this.users.push(result.data[i])
@@ -78,7 +81,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     getData(offset: number, limit: number) {
         this.tableLoad = true
-        this.pageChangeSubscription = this.userService.getAll(offset, limit).pipe(finalize(()=> this.tableLoad=false)).subscribe(result => {
+        this.pageChangeSubscription = this.userService.getAll(offset, limit).pipe(finalize(() => this.tableLoad = false)).subscribe(result => {
             this.users = []
             for (let i = 0; i < result.data.length; i++) {
                 this.users.push(result.data[i])

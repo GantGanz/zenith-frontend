@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
 import { FileService } from "projects/mainarea/src/app/service/file.service";
@@ -22,7 +23,9 @@ export class ArticleInsertComponent implements OnDestroy {
     })
 
     constructor(private articleService: ArticleService, private fb: FormBuilder,
-        private router: Router, private fileService: FileService) { }
+        private router: Router, private fileService: FileService, private title: Title) {
+        this.title.setTitle('New Article | Zenith')
+    }
 
     clickSubmit() {
         this.loading = true

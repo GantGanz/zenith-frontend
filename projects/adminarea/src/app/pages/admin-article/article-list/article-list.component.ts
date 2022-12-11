@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
@@ -38,7 +39,10 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         isActive: [false]
     })
 
-    constructor(private confirmationService: ConfirmationService, private articleService: ArticleService, private fb: FormBuilder) { }
+    constructor(private confirmationService: ConfirmationService, private articleService: ArticleService,
+        private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Article Admin | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

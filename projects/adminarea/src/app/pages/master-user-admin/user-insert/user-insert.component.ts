@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms"
+import { Title } from "@angular/platform-browser"
 import { Router } from "@angular/router"
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
@@ -28,7 +29,10 @@ export class UserInsertComponent implements OnInit, OnDestroy {
     private positionSubscription?: Subscription
 
     constructor(private industryService: IndustryService, private positionService: PositionService,
-        private userService: UserService, private fb: FormBuilder, private router: Router) { }
+        private userService: UserService, private fb: FormBuilder, private router: Router,
+        private title: Title) {
+        this.title.setTitle('New User | Zenith')
+    }
 
     ngOnInit(): void {
         this.industrySubscription = this.industryService.getAll().subscribe(industry => {

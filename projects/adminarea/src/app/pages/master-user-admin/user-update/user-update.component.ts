@@ -1,5 +1,6 @@
 import { Component } from "@angular/core"
 import { Validators, FormBuilder } from "@angular/forms"
+import { Title } from "@angular/platform-browser"
 import { ActivatedRoute } from "@angular/router"
 import { IndustryData } from "projects/interface/industry/industry-data"
 import { PositionData } from "projects/interface/position/position-data"
@@ -42,7 +43,9 @@ export class UserUpdateComponent {
 
     constructor(private industryService: IndustryService, private positionService: PositionService,
         private userService: UserService, private active: ActivatedRoute,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Update User | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

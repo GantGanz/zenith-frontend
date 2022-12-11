@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms"
+import { Title } from "@angular/platform-browser"
 import { ActivatedRoute, Router } from "@angular/router"
 import { ToastrService } from "ngx-toastr"
 import { ApiService } from "projects/mainarea/src/app/service/api.service"
@@ -27,7 +28,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
         version: [0, [Validators.required]]
     })
 
-    constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private apiService: ApiService, private active: ActivatedRoute, private toast: ToastrService) { }
+    constructor(private router: Router, private fb: FormBuilder, private userService: UserService,
+        private apiService: ApiService, private active: ActivatedRoute,
+        private toast: ToastrService, private title: Title) {
+        this.title.setTitle('Change Password | Zenith')
+    }
 
     ngOnInit(): void {
         this.paramSubscription = this.active.params.subscribe(u => {

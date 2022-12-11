@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
 import { finalize, Subscription } from "rxjs";
 
@@ -25,7 +26,9 @@ export class ArticleUpdateComponent implements OnInit, OnDestroy {
     })
 
     constructor(private articleService: ArticleService, private fb: FormBuilder,
-        private router: Router, private active: ActivatedRoute) { }
+        private active: ActivatedRoute, private title: Title) {
+        this.title.setTitle('Update Article | Zenith')
+    }
 
 
     ngOnInit(): void {
@@ -43,7 +46,7 @@ export class ArticleUpdateComponent implements OnInit, OnDestroy {
 
     clickUpdate() {
         this.loading = true
-        this.articleUpdateSubscription = this.articleService.update(this.articleForm.value).pipe(finalize(()=> this.loading =false)).subscribe(() => {
+        this.articleUpdateSubscription = this.articleService.update(this.articleForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
         })
     }
 

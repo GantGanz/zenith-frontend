@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ConfirmationService, LazyLoadEvent, Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { IndustriesRes } from "projects/interface/industry/industries-res";
@@ -37,7 +38,9 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     })
 
     constructor(private confirmationService: ConfirmationService, private primeNgConfig: PrimeNGConfig,
-        private industryService: IndustryService, private fb: FormBuilder) { }
+        private industryService: IndustryService, private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Industry | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { UserService } from "projects/mainarea/src/app/service/user.service";
@@ -25,7 +26,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     private userSubscription?: Subscription
 
-    constructor(private router: Router, private userService: UserService) { }
+    constructor(private router: Router, private userService: UserService, private title: Title) { }
 
     ngOnInit(): void {
         this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.userLoaded = true)).subscribe(result => {
@@ -33,6 +34,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
             this.fullname = result.data.fullname
             this.myId = result.data.id
             this.email = result.data.email
+            this.title.setTitle(this.fullname + ' | Zenith')
         })
 
         if (this.router.url == "/profiles/super-admin/view") {

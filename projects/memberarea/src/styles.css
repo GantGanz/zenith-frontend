@@ -1,6 +1,6 @@
-/* .click {
+.click {
     cursor: pointer;
-} */
+}
 
 .scroll::-webkit-scrollbar {
     display: none;

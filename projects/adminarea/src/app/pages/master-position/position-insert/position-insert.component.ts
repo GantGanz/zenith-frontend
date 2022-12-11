@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { PositionService } from "projects/mainarea/src/app/service/position.service";
 import { finalize, Subscription } from "rxjs";
@@ -19,7 +20,9 @@ export class PositionInsertComponent implements OnDestroy {
     })
 
     constructor(private positionService: PositionService, private fb: FormBuilder,
-        private router: Router) { }
+        private router: Router, private title: Title) {
+        this.title.setTitle('New Position | Zenith')
+    }
 
     clickSubmit() {
         this.loading = true

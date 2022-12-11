@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { PaymentActivityData } from "projects/interface/payment-activity/payment-activity-data";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
@@ -47,7 +48,10 @@ export class PaymentActivity implements OnInit, OnDestroy {
         isActive: [false]
     })
 
-    constructor(private confirmationService: ConfirmationService, private paymentActivityService: PaymentActivityService, private fb: FormBuilder) { }
+    constructor(private confirmationService: ConfirmationService, private paymentActivityService: PaymentActivityService,
+        private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Payment Activity | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

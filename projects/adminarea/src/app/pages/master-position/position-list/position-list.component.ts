@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms"
+import { Title } from "@angular/platform-browser"
 import { ConfirmationService, LazyLoadEvent } from "primeng/api"
 import { PositionsRes } from "projects/interface/position/positions-res"
 import { PositionService } from "projects/mainarea/src/app/service/position.service"
@@ -32,7 +33,9 @@ export class PositionListComponent implements OnInit, OnDestroy {
     private deleteSubscription?: Subscription
 
     constructor(private positionService: PositionService, private confirmationService: ConfirmationService,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Position | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

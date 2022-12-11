@@ -2,6 +2,7 @@ import { formatDate } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { flush } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { LazyLoadEvent } from "primeng/api";
 import { BASE_URL } from "projects/mainarea/src/app/constant/base.url";
 import { ReportService } from "projects/mainarea/src/app/service/report.service";
@@ -37,7 +38,9 @@ export class ReportMemberComponent implements OnInit, OnDestroy {
         endDate: ['9999-12-31'],
     })
 
-    constructor(private reportService: ReportService, private fb: FormBuilder) { }
+    constructor(private reportService: ReportService, private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Report Member | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

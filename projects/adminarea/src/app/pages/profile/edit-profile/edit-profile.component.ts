@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormArray, FormBuilder, Validators } from "@angular/forms"
+import { Title } from "@angular/platform-browser"
 import { ActivatedRoute, Router } from "@angular/router"
 import { IndustryData } from "projects/interface/industry/industry-data"
 import { PositionData } from "projects/interface/position/position-data"
@@ -56,7 +57,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     constructor(private industryService: IndustryService, private positionService: PositionService,
         private userService: UserService, private active: ActivatedRoute,
-        private fb: FormBuilder, private router: Router, private fileService: FileService) { }
+        private fb: FormBuilder, private router: Router, private fileService: FileService,
+        private title: Title) {
+        this.title.setTitle('Edit Profile | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()

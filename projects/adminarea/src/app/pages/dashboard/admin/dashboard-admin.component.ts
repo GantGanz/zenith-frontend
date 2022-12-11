@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { ApiService } from "projects/mainarea/src/app/service/api.service";
 import { ArticleService } from "projects/mainarea/src/app/service/article.service";
 import { PaymentActivityService } from "projects/mainarea/src/app/service/payment-activity.service";
@@ -19,7 +20,11 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
     private premiumSubscription?: Subscription
     private activitySubscription?: Subscription
 
-    constructor(private articleService: ArticleService, private paymentPremiumService: PaymentPremiumService, private paymentActivityService: PaymentActivityService, private apiService: ApiService) { }
+    constructor(private articleService: ArticleService, private paymentPremiumService: PaymentPremiumService,
+        private paymentActivityService: PaymentActivityService, private apiService: ApiService,
+        private title: Title) {
+        this.title.setTitle('Dashboard Admin | Zenith')
+    }
 
     ngOnInit(): void {
         this.articleSubscription = this.articleService.countAllById().subscribe(result => {

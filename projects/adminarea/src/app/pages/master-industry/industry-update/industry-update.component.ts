@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
 import { Subscription } from "rxjs";
@@ -24,7 +25,9 @@ export class IndustryUpdateComponent implements OnInit, OnDestroy {
     })
 
     constructor(private industryService: IndustryService, private fb: FormBuilder,
-        private active: ActivatedRoute) { }
+        private active: ActivatedRoute, private title: Title) {
+        this.title.setTitle('Update Industry | Zenith')
+    }
 
     ngOnInit(): void {
         this.paramSubscription = this.active.params.subscribe(u => {
@@ -39,7 +42,7 @@ export class IndustryUpdateComponent implements OnInit, OnDestroy {
         })
     }
 
-    clickUpdate(){
+    clickUpdate() {
         this.industryUpdateSubscription = this.industryService.update(this.industryForm.value).subscribe()
     }
 

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { PositionRes } from "projects/interface/position/position-res";
 import { PositionService } from "projects/mainarea/src/app/service/position.service";
@@ -26,13 +27,15 @@ export class PositionUpdateComponent implements OnInit, OnDestroy {
     private paramSubscription?: Subscription
 
     constructor(private active: ActivatedRoute, private positionService: PositionService,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder, private title: Title) {
+        this.title.setTitle('Update Position | Zenith')
+    }
 
     ngOnInit(): void {
         this.init()
     }
-    
-    init(){
+
+    init() {
         this.paramSubscription = this.active.params.subscribe(u => {
             const id = String(Object.values(u))
             this.positionSubscription = this.positionService.getById(id).subscribe(result => {
@@ -43,7 +46,7 @@ export class PositionUpdateComponent implements OnInit, OnDestroy {
 
     clickUpdate() {
         this.loading = true
-        this.updateSubscription = this.positionService.update(this.positionForm.value).pipe(finalize(() => this.loading = false)).subscribe(()=>{
+        this.updateSubscription = this.positionService.update(this.positionForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
             this.init()
         })
     }

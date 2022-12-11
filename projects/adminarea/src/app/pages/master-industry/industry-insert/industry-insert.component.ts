@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { IndustryService } from "projects/mainarea/src/app/service/industry.service";
 import { Subscription } from "rxjs";
@@ -8,20 +9,22 @@ import { Subscription } from "rxjs";
     selector: "industry-insert",
     templateUrl: "./industry-insert.component.html"
 })
-export class IndustryInsertComponent implements OnDestroy{
+export class IndustryInsertComponent implements OnDestroy {
 
     private industrySubscription?: Subscription
 
     industryForm = this.fb.group({
-        industryCode:[null,[Validators.required,Validators.maxLength(5)]],
-        industryName:[null,[Validators.required,Validators.maxLength(50)]]
+        industryCode: [null, [Validators.required, Validators.maxLength(5)]],
+        industryName: [null, [Validators.required, Validators.maxLength(50)]]
     })
 
-    constructor(private industryService:IndustryService, private fb: FormBuilder,
-        private router:Router){}
+    constructor(private industryService: IndustryService, private fb: FormBuilder,
+        private router: Router, private title: Title) {
+        this.title.setTitle('New Industry | Zenith')
+    }
 
-    clickSubmit(){
-        this.industrySubscription = this.industryService.insert(this.industryForm.value).subscribe(()=>{
+    clickSubmit() {
+        this.industrySubscription = this.industryService.insert(this.industryForm.value).subscribe(() => {
             this.router.navigateByUrl('/industries/list')
         })
     }

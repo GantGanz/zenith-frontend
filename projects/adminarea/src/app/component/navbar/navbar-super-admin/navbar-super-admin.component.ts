@@ -22,7 +22,6 @@ export class NavbarSuperAdminComponent implements OnInit, OnDestroy {
     constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
 
     ngOnInit(): void {
-        // this.fileId = this.apiService.getPhoto()!
         this.userSubscription = this.userService.getByPrincipal().pipe(finalize(() => this.imgLoad = true)).subscribe(result => {
             this.fileId = result.data.fileId
         })

@@ -7,10 +7,6 @@ const routes: Routes = [
         path: "",
         component: HomeComponent,
     },
-    // {
-    //     path: "edit-post/:id",
-    //     component: PostUpdateHomeComponent
-    // }
 ]
 
 @NgModule({

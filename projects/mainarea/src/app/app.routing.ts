@@ -49,8 +49,6 @@ const mainRoutes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(mainRoutes),
-        // MemberAreaModule,
-        // AdminAreaModule,
         ContentMemberModule,
         ContentAdminModule
     ],

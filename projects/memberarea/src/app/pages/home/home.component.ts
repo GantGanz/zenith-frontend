@@ -405,7 +405,15 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.deleteBookmarkSubscription = this.bookmarkService.delete(data.id).subscribe(() => {
                 this.result[i].isBookmarked = false
                 if (this.tabIndex == 2) {
+                    this.postCount -= 1
                     this.result.splice(i, 1)
+                }
+                if (this.postCount > 0) {
+                    this.dataEmpty = false
+                    this.dataNotEmpty = true
+                } else {
+                    this.dataEmpty = true
+                    this.dataNotEmpty = false
                 }
             })
         })
@@ -416,8 +424,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.deleteLikeSubscription = this.likeService.delete(data.id).subscribe(() => {
                 this.result[i].isLiked = false
                 this.result[i].countLike -= 1
-                this.postCount -= 1
                 if (this.tabIndex == 1) {
+                    this.postCount -= 1
                     this.result.splice(i, 1)
                 }
                 if (this.postCount > 0) {
@@ -574,7 +582,9 @@ export class HomeComponent implements OnInit, OnDestroy {
                         this.showForm = false
                         this.first = 0
                         this.postInit()
-                        this.upload.clear()
+                        if(!this.showCreatePolling){
+                            this.upload.clear()
+                        }
                         this.detailFoto.clear()
                         for (let i = 0; i < this.pollingOption.length; i++) {
                             if (i > 1) {
@@ -588,7 +598,9 @@ export class HomeComponent implements OnInit, OnDestroy {
                     this.showForm = false
                     this.first = 0
                     this.postInit()
-                    this.upload.clear()
+                    if(!this.showCreatePolling){
+                        this.upload.clear()
+                    }
                     this.detailFoto.clear()
                     for (let i = 0; i < this.pollingOption.length; i++) {
                         if (i > 1) {

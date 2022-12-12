@@ -49,10 +49,5 @@ export const adminAreaRoutes: Routes = [
     {
         path: "payment",
         loadChildren: () => import("./pages/payment/payment.module").then(p => p.PaymentModule)
-    },
-    // {
-    //     path: "",
-    //     redirectTo: "admin/login",
-    //     pathMatch: "full"
-    // },
+    }
 ]

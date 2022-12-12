@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivityTypeRes } from "projects/interface/activity-type/activity-type";
 import { ActivityTypesRes } from "projects/interface/activity-type/activity-types-res";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.url";
 
 @Injectable({

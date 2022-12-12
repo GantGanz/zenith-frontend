@@ -1,12 +1,18 @@
 <div class="grid h-screen w-full" *ngIf="signUpView">
     <div class="col-5 hidden lg:block">
-        <div class="flex justify-content-center mt-8 box-side">
+        <div class=" text-center mt-8">
+            <p-image src="../../../assets/images/zenith_logo_title.png" alt="Image" width="100"></p-image>
+        </div>
+        <div class="flex justify-content-center lg:mt-5 box-side">
             <p-image src="../../../assets/images/ilustrasi sign-up.png" alt="Image" width="400"></p-image>
         </div>
     </div>
 
     <div class="col-12 lg:col-7 bg-white flex align-content-center justify-content-center flex-wrap">
         <div class="col-11 md:col-7" *ngIf="signUp">
+            <div class="text-center mb-3 lg:hidden">
+                <p-image src="../../../assets/images/zenith_logo_title.png" alt="Image" width="70"></p-image>
+            </div>
             <form class="mt-4 mb-5" [formGroup]="registerForm" (ngSubmit)="clickSignUp()">
                 <h2 class="text-center">Sign-Up</h2>
                 <div class="field">
@@ -63,15 +69,15 @@
                         id="btnLogin" name="btnLogin" [loading]="positionLoading && industryLoading">Next</button>
                 </div>
             </form>
-            <div class="mb-4">
-                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm"
+            <div class="mb-2">
+                <button class="p-button-text w-full justify-content-center border-none bg-white p-button-sm"
                     type="submit" id="btnStudentLogin" name="btnStudentLogin">Have an account? <span
                         class="font-semibold custom-text" routerLink="/member/login">Login</span></button>
             </div>
         </div>
 
         <div class="col-11 md:col-7" *ngIf="accountDtl" id="stepAccountDtl">
-            <h2 class="text-center">Account Detail</h2>
+            <h2 class="text-center mt-4">Account Detail</h2>
             <form class="mt-4 mb-5" [formGroup]="registerForm" (ngSubmit)="clickAccountDtl()">
                 <div class="field mt-4">
                     <label for="companyName">Company<span class="text-red-500">*</span></label>
@@ -111,8 +117,8 @@
                         Code</button>
                 </div>
             </form>
-            <div class="mb-4">
-                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm"
+            <div class="mb-2">
+                <button class="p-button-text w-full justify-content-center border-none bg-white p-button-sm"
                     type="submit" name="btnStudentLogin">Have an account? <span class="font-semibold custom-text"
                         routerLink="/member/login">Login</span></button>
             </div>
@@ -137,8 +143,8 @@
                         id="btnVerify" name="btnVerify" [loading]="verifyLoading">Verify</button>
                 </div>
             </form>
-            <div class="mb-4">
-                <button class="p-button-text w-full justify-content-center mt-2 border-none bg-white p-button-sm"
+            <div class="mb-2">
+                <button class="p-button-text w-full justify-content-center border-none bg-white p-button-sm"
                     type="submit" name="btnStudentLogin">Have an account? <span class="font-semibold custom-text"
                         routerLink="/member/login">Login</span></button>
             </div>

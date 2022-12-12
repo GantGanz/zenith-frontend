@@ -1413,16 +1413,15 @@
     <p-dialog header="Create a Post" [breakpoints]="{'960px': '90vw'}" [style]="{width: '45vw'}" [(visible)]="showForm"
         [modal]="true" [draggable]="false" [resizable]="false">
         <form class="formgrid grid" [formGroup]="postForm" (ngSubmit)="submitPost()">
-            <div class="field col-12">
-                <span class="cursor-pointer hover:text-blue-500 mr-4" (click)="clickAddPhotos()" pTooltip="Create a Post"
-                    tooltipPosition="top"><i class="pi pi-images" style="font-size: 20px"></i> Create a Post</span>
+            <div class="field col-12 mt-2">
+                <span class="cursor-pointer hover:text-blue-500 mr-2 border-1 p-2 border-round-md"
+                    (click)="clickAddPhotos()" pTooltip="Create a Post" tooltipPosition="top">Create a Post</span>
 
-                <span class="cursor-pointer hover:text-blue-500" (click)="clickCreatePoll()" pTooltip="Create a Poll"
-                    tooltipPosition="top"><i class="pi pi-chart-bar" style="font-size: 20px"></i> Create a Poll</span>
-
+                <span class="cursor-pointer hover:text-blue-500 border-1 p-2 border-round-md"
+                    (click)="clickCreatePoll()" pTooltip="Create a Poll" tooltipPosition="top">Create a Poll</span>
             </div>
             <!-- Post Title -->
-            <div class="field col-12">
+            <div class="field col-12 mt-2">
                 <label for="postTitle">Title<span class="text-red-500">*</span></label>
                 <input pInputText class="w-full" type="text" id="postTitle" name="postTitle" formControlName="postTitle"
                     [maxlength]="100" required>
@@ -1515,7 +1514,7 @@
                 <div class="flex gap-2 mt-5 justify-content-end">
                     <button pButton class="p-button-outlined p-button-sm" type="button" id="btnCancel" name="btnCancel"
                         (click)="showForm=false">Cancel</button>
-                    <button pButton class="p-button-sm" type="submit" id="btnPost" name="btnPost">Post</button>
+                    <button pButton class="p-button-sm px-5" type="submit" id="btnPost" name="btnPost">Post</button>
                 </div>
             </div>
         </form>

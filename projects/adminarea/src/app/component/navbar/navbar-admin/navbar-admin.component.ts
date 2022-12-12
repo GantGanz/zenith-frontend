@@ -7,7 +7,8 @@ import { finalize, Subscription } from "rxjs";
 
 @Component({
     selector: "navbar-admin",
-    templateUrl: "./navbar-admin.component.html"
+    templateUrl: "./navbar-admin.component.html",
+    styleUrls: ["../../../../styles.css"]
 })
 export class NavbarAdminComponent implements OnInit, OnDestroy {
 

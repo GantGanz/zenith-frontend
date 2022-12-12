@@ -10,27 +10,31 @@
         <div class="collapse navbar-collapse justify-content-start" id="navbarTogglerDemo01">
             <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/dashboard/admin">Dashboard</a>
+                    <a class="nav-link active" aria-current="page" routerLinkActive="active"
+                        routerLink="/dashboard/admin">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/articles-admin/list">Article</a>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/articles-admin/list">Article</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link" role="button" data-bs-toggle="dropdown">
                         Approve Payment
+                        <i class="pi pi-chevron-down text-xs ml-2"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/payment/event">Course & Event</a></li>
+                        <li><a class="dropdown-item" routerLink="/payment/event">Course &
+                                Event</a></li>
                         <li><a class="dropdown-item" routerLink="/payment/member-premium">Member Premium</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="btn-group">
-                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <ng-container *ngIf="imgLoaded">
                         <img src={{fileLink}}{{fileId}} class="w-3rem h-3rem border-circle" style="object-fit: cover ;"
                             alt="photo member">
                     </ng-container>
+                    <i class="pi pi-chevron-down text-xs ml-2"></i>
                 </a>
                 <ul
                     class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-end dropdown-menu-sm-start dropdown-menu-xs-start">

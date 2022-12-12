@@ -23,9 +23,9 @@ export class TimeAgoPipe implements PipeTransform {
                 counter = Math.floor(seconds / intervals[i]);
                 if (counter > 0)
                     if (counter === 1) {
-                        return counter + ' ' + i + ' ago'; // singular
+                        return counter + ' ' + i + ' ago'
                     } else {
-                        return counter + ' ' + i + 's ago'; // plural
+                        return counter + ' ' + i + 's ago'
                     }
             }
         }

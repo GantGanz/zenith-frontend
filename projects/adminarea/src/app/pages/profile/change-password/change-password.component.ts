@@ -35,11 +35,9 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.paramSubscription = this.active.params.subscribe(u => {
-            const id = String(Object.values(u))
-            this.userSubscription = this.userService.getById(id).subscribe(result => {
-                this.userUpdateForm.controls['version'].setValue(result.data.version)
-            })
+
+        this.userSubscription = this.userService.getByPrincipal().subscribe(result => {
+            this.userUpdateForm.controls['version'].setValue(result.data.version)
         })
 
         if (this.router.url == `/super-admin/profiles/change-password/${this.userUpdateForm.value.id}`) {

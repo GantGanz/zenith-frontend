@@ -8,7 +8,8 @@
 
     <p-table [value]="articlesRes" [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalArticles"
         [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true" [lazyLoadOnInit]="false" [loading]="tableLoad">
+        paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true" [lazyLoadOnInit]="false"
+        [loading]="tableLoad">
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">No</th>

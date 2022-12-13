@@ -1,10 +1,10 @@
 <div class="container bg-color-green-800">
-    <div class="card mt-4 border-none flex align-items-center p-5">
+    <div class="card mt-5 border-none flex align-items-center p-5">
 
         <div class="lg:col-6 col-12" *ngIf="paymentStatus == 1">
             <div class="grid">
-                <div class="col-12">
-                    <h5 class="font-semibold mb-3">Payment Detail</h5>
+                <div class="col-12 text-center">
+                    <h4 class="font-semibold mb-3">Payment Detail</h4>
                 </div>
                 <div class="card col-12">
                     <div class="col-12">
@@ -13,7 +13,7 @@
                                 <span>Title</span>
                             </div>
                             <div class="col-9">
-                                <p>{{ activityTitle }}</p>
+                                <p class="text-md font-medium">{{ activityTitle }}</p>
                             </div>
                         </div>
                         <div class="grid -mt-3 -mb-4">
@@ -21,18 +21,18 @@
                                 <span>Provider</span>
                             </div>
                             <div class="col-9">
-                                <p>{{ provider }}</p>
+                                <p class="text-md font-medium">{{ provider }}</p>
                             </div>
                         </div>
                         <p-divider></p-divider>
                     </div>
                     <div class="col-12">
-                        <div class="grid ">
-                            <div class="col-6">
+                        <div class="grid -mt-4">
+                            <div class="col-3">
                                 <span class="font-medium">Price</span>
                             </div>
-                            <div class="col-6">
-                                <p class="text-right font-bold text-green-700">
+                            <div class="col-9">
+                                <p class="font-bold text-green-700 mb-0">
                                     {{ fee | currency:'IDR ':'symbol':'3.0'}}
                                 </p>
                             </div>
@@ -42,7 +42,7 @@
 
                 <div class="col-12 mt-3">
                     <div class="grid justify-content-end">
-                        <div class="col-6 md:col-4">
+                        <div class="col-12 md:col-4 px-0">
                             <button pButton type="submit" class="p-button-sm w-full"
                                 styleClass="p-button-sm text-center" label="Pay now" (click)="clickUpgrade()"></button>
                         </div>
@@ -52,28 +52,27 @@
         </div>
 
         <div class="grid justify-content-center" *ngIf="paymentStatus == 2">
-            <div class="lg:col-6 col-12">
-                <div class="grid">
-                    <div class="col-12">
-                        <h5 class="font-semibold">Waiting for payment</h5>
+            <div class="lg:col-7 col-12">
+                <div class="grid grid-nogutter">
+                    <div class="col-12 text-center">
+                        <h4 class="font-semibold">Waiting for payment</h4>
                     </div>
                     <div class="col-12 pt-2">
                         <p class="text-sm">Make a payment to the virtual account number according to the total bill in
                             the summary as below:</p>
                     </div>
-
                     <div class="card col-12">
                         <div class="container">
                             <div class="grid mt-2">
                                 <div class="col-12">
-                                    <div class="grid">
+                                    <div class="grid px-2">
                                         <div class="col-12">
                                             <p class="text-sm">Virtual Account Number:</p>
                                             <p class="font-bold">10511091003273</p>
                                         </div>
                                         <div class="col-12">
                                             <p class="text-sm">Total:</p>
-                                            <p class="font-bold text-green-700">{{ fee | currency:'IDR
+                                            <p class="font-bold text-green-800 text-lg">{{fee | currency:'IDR
                                                 ':'symbol':'3.0'}}</p>
                                         </div>
                                     </div>
@@ -83,9 +82,9 @@
                     </div>
 
                     <div class="col-12 mt-3 pb-0">
-                        <div class="grid justify-content-end">
-                            <div class="col-6 md:col-5">
-                                <p>Completed the payment?</p>
+                        <div class="grid md:justify-content-end">
+                            <div class="col-12 md:col-4">
+                                <p class="text-sm">Completed the payment?</p>
                                 <button pButton type="submit" class="p-button-sm w-full"
                                     styleClass="p-button-sm text-center" label="Confirm"
                                     (click)="clickCheckout()"></button>
@@ -100,19 +99,19 @@
             <div class="col-12">
                 <div class="grid">
                     <div class="col-12">
-                        <h5 class="font-semibold">Payment Confirmation</h5>
-                        <p class="text-sm mt-2">Upload your proof of payment for confirmation. </p>
+                        <h4 class="font-semibold text-center">Payment Confirmation</h4>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12 text-center">
+                        <p class="text-sm mt-2 mb-0 px-2 text-start">Upload your proof of payment for confirmation. </p>
                         <form [formGroup]="paymentActivityForm" (ngSubmit)="clickSubmit() ">
                             <div class="col-12">
                                 <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true"
                                     (uploadHandler)="fileUpload($event)" chooseLabel="Upload Invoice"></p-fileUpload>
                             </div>
-                            <div class="col-12 mt-3">
+                            <div class="col-12 mt-2">
                                 <div class="grid justify-content-end">
-                                    <div class="col-6 md:col-4">
+                                    <div class="col-12 md:col-4">
                                         <button pButton type="submit" class="p-button-sm w-full"
                                             styleClass="p-button-sm text-center" label="Confirm"
                                             [loading]="loading"></button>
@@ -127,18 +126,17 @@
 
         <!-- Confirm -->
         <div class="text-center" *ngIf="paymentStatus == 4">
-            <h3>Thank You</h3>
+            <h4>Thank You</h4>
             <div class="mt-2 text-center">
-                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
-                    class="mt-4 w-12rem">
+                <img src="../../../../assets/images/handshake_ilustration.png" alt="subsribe ilustration"
+                    class="custom-img w-16rem">
             </div>
-
             <div class="mt-3">
-                <p class="text-sm text-center">Please wait for the confirmation </p>
+                <p class="text-sm text-center">Please wait for the confirmation. </p>
             </div>
-
             <div class="mt-3">
-                <button pButton type="button" class="p-button-sm w-full" label="Back" routerLink="/activities"></button>
+                <button pButton type="button" class="p-button-sm " label="Back to Activity"
+                    routerLink="/activities"></button>
             </div>
         </div>
 

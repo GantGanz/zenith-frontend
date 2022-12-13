@@ -1,49 +1,44 @@
 <div class="container">
-    <div class="card mt-4 border-none flex align-items-center p-5">
+    <div class="card mt-5 border-none flex align-items-center p-5">
 
         <div class="grid" *ngIf="premiumStatus == 1">
-            <div class="col-12 mt-4 text-center">
-                <h3>Upgrade Premium</h3>
-                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
-                    class="mt-4 custom-img max-w-18rem">
+            <div class="col-12 text-center">
+                <h4 class="font-semibold text-center mb-0">Upgrade Premium</h4>
             </div>
-            <div class="col-12 mt-4">
-                <div class="card p-5">
-                    <div class="grid">
-                        <div class="col-6">
-                            <p class="text-sm mb-0"><i class="pi pi-check-circle text-green-700"></i> Pay Once. Use
-                                Forever !</p> <br>
-                            <p class="text-sm mb-0"><i class="pi pi-check-circle text-green-700"></i> Unlimited Access
-                            </p>
+            <div class="col-12 mt-3">
+                <div class="card px-4 py-2">
+                    <div class="flex flex-column justify-content-center row-gap-0">
+                        <img src="../../../assets/images/subscribe_ilustration.png"
+                            class="max-w-10rem mx-auto text-center" alt="startup">
+                        <div class="mt-3 text-center">
+                            <span class="text-3xl font-bold mr-2 text-900">{{price | currency:'IDR
+                                ':'symbol':'3.0'}}</span>
+                            <span class="text-600">/ Forever</span>
                         </div>
-                        <div class="col-1">
-                            <p-divider layout="vertical"></p-divider>
-                        </div>
-                        <div class="col-5">
-                            <h4 class="text-green-700">Just {{price | currency:'IDR ':'symbol':'3.0'}}</h4>
-                        </div>
+                        <p-divider class="w-full bg-surface-200"></p-divider>
+                        <ul class="list-none p-0 flex text-900 flex-column">
+                            <li class="py-1">
+                                <i class="pi pi-fw pi-check text-xl text-green-500 mr-2"></i>
+                                <span class="text-lg line-height-3">Premium Content</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-
-                <div class=" col-12 mt-3 text-center">
-                    <div class="grid justify-content-center">
-                        <div class="col-5">
-                            <button pButton type="button" class="p-button-sm w-full" label="Upgrade Now"
-                                (click)="clickUpgrade()"></button>
-                            <button pButton type="button" class="p-button-sm p-button-text mt-2" label="Cancel"
-                                routerLink="/feed"></button>
-                        </div>
-                    </div>
+                <div class=" col-12 mt-3 text-center p-0">
+                    <button pButton type="button" class="p-button-sm w-full" label="Upgrade Now"
+                        (click)="clickUpgrade()"></button>
+                    <button pButton type="button" class="p-button-sm p-button-text mt-2" label="Cancel"
+                        routerLink="/feed"></button>
                 </div>
             </div>
         </div>
 
 
         <div class="grid justify-content-center" *ngIf="premiumStatus == 2">
-            <div class="md:col-6 col-12">
-                <div class="grid">
-                    <div class="col-12">
-                        <h5 class="font-semibold">Waiting for payment</h5>
+            <div class="lg:col-7 col-12">
+                <div class="grid grid-nogutter">
+                    <div class="col-12 text-center">
+                        <h4 class="font-semibold">Waiting for payment</h4>
                     </div>
                     <div class="col-12 pt-2">
                         <p class="text-sm">Make a payment to the virtual account number according to the total bill in
@@ -60,7 +55,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="text-sm">Total:</p>
-                                            <p class="font-bold text-green-700">{{price | currency:'IDR
+                                            <p class="font-bold text-green-800 text-lg">{{price | currency:'IDR
                                                 ':'symbol':'3.0'}}</p>
                                         </div>
                                     </div>
@@ -69,9 +64,9 @@
                         </div>
                     </div>
                     <div class="col-12 mt-3 pb-0">
-                        <div class="grid justify-content-end">
-                            <div class="col-6">
-                                <p>Completed the payment?</p>
+                        <div class="grid md:justify-content-end">
+                            <div class="col-12 md:col-5">
+                                <p class="text-sm">Completed the payment?</p>
                                 <button pButton type="submit" class="p-button-sm w-full"
                                     styleClass="p-button-sm text-center" label="Confirm"
                                     (click)="clickCheckout()"></button>
@@ -84,20 +79,20 @@
 
         <div class="grid justify-content-center" *ngIf="premiumStatus == 3">
             <div class="col-12">
-                <div class="grid">
+                <div class="grid grid-nogutter">
                     <div class="col-12">
-                        <h5 class="font-semibold">Payment Confirmation</h5>
-                        <p class="text-sm mt-2">Upload your proof of payment for confirmation. </p>
+                        <h4 class="font-semibold text-center">Payment Confirmation</h4>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 text-center">
+                        <p class="text-sm mt-2 mb-0 px-2 text-start">Upload your proof of payment for confirmation. </p>
                         <form [formGroup]="paymentPremiumForm" (ngSubmit)="clickSubmit() ">
                             <div class="col-12">
                                 <p-fileUpload #fubauto accept="image/*" [customUpload]="true" [auto]="true"
                                     (uploadHandler)="fileUpload($event)" chooseLabel="Upload Invoice"></p-fileUpload>
                             </div>
-                            <div class="col-12 mt-5">
+                            <div class="col-12 mt-2">
                                 <div class="grid justify-content-end">
-                                    <div class="col-6">
+                                    <div class="col-12 md:col-5">
                                         <button pButton type="submit" class="p-button-sm w-full"
                                             styleClass="p-button-sm text-center" label="Confirm"
                                             [loading]="loading"></button>
@@ -111,10 +106,10 @@
         </div>
 
         <div class="text-center" *ngIf="premiumStatus == 4">
-            <h3>Thank You</h3>
+            <h4>Thank You</h4>
             <div class="mt-2 text-center">
-                <img src="../../../assets/images/subscribe_ilustration.png" alt="subsribe ilustration"
-                    class="mt-4 custom-img w-16rem">
+                <img src="../../../../assets/images/handshake_ilustration.png" alt="subsribe ilustration"
+                    class="custom-img w-16rem">
             </div>
             <div class="mt-3">
                 <p class="text-sm text-center">Please wait for the confirmation. </p>

@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 class="my-4">List Of Payment Events and Courses</h3>
+    <h3 class="my-4">List Of Payment Event and Course</h3>
 
     <p-tabView>
         <p-tabPanel header="Unapproved">
@@ -32,7 +32,7 @@
                         <td class="text-center">{{activity.createdAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
                         <td class="text-center">
                             <p-image alt="payment-pic" src="{{fileLink}}{{activity.fileId}}" [preview]="true"
-                                width="40px">
+                                width="60px">
                             </p-image>
                         </td>
                         <td style="text-align: center ">
@@ -79,7 +79,7 @@
                         <td class="text-center">{{activity.updatedAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
                         <td class="text-center">
                             <p-image alt="payment-pic" src="{{fileLink}}{{activity.fileId}}" [preview]="true"
-                                width="40px">
+                                width="50px">
                             </p-image>
                         </td>
                     </tr>
@@ -118,7 +118,7 @@
                         <td class="text-center">{{activity.updatedAt | date:'hh:mm:ss dd-MM-yyyy' }}</td>
                         <td class="text-center">
                             <p-image alt="payment-pic" src="{{fileLink}}{{activity.fileId}}" [preview]="true"
-                                width="40px">
+                                width="50px">
                             </p-image>
                         </td>
                     </tr>

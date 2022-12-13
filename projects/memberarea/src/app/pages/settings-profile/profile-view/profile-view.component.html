@@ -1,6 +1,5 @@
 <div class="container" infinite-scroll (scrolled)="onScroll()">
-    <div class="grid mt-3">
-
+    <div class="grid mt-2">
         <!-- Left Page -->
         <div class="lg:col-4 col-12">
             <div class="sticky top-0">
@@ -159,58 +158,54 @@
                                                 [baseZIndex]="100000">
                                                 <ng-template pTemplate="item" let-item>
                                                     <img src={{fileLink}}{{item.fileId}}
-                                                        style="width: 100%; display: block;" />
-                                                </ng-template>
-                                                <ng-template pTemplate="thumbnail" let-item>
-                                                    <div class="grid grid-nogutter justify-content-center">
-                                                        <img src={{fileLink}}{{item.fileId}}
-                                                            style="width: 100%; display: block;" />
-                                                    </div>
+                                                        style="max-width: 850px; max-height: 500px; display: block; " />
                                                 </ng-template>
                                             </p-galleria>
 
                                             <ng-container *ngFor="let attach of data.attachmentPostDatas ; index as j">
                                                 <ng-container *ngIf="data.attachmentPostDatas.length == 1">
-                                                    <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                        class="w-full h-15rem cursor-pointer"
-                                                        style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                    <div class="col-12 flex justify-content-center p-0 m-0">
+                                                        <img src={{fileLink}}{{attach.fileId}} alt="image"
+                                                            class="w-full md:w-20rem h-10rem cursor-pointer"
+                                                            style="object-fit: cover" (click)="imageClick(i,j)" />
+                                                    </div>
                                                 </ng-container>
 
                                                 <ng-container *ngIf="data.attachmentPostDatas.length == 2">
-                                                    <div class="w-full flex">
+                                                    <div class="col-6 flex p-0">
                                                         <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                            class="w-full h-15rem cursor-pointer"
-                                                            style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                            class="w-full h-12rem cursor-pointer"
+                                                            style="object-fit: cover" (click)="imageClick(i,j)" />
                                                     </div>
                                                 </ng-container>
                                                 <ng-container *ngIf="data.attachmentPostDatas.length == 3">
                                                     <div class="w-full flex">
                                                         <img src={{fileLink}}{{attach.fileId}} alt="image"
                                                             class="w-full h-12rem cursor-pointer"
-                                                            style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                            style="object-fit: cover" (click)="imageClick(i,j)" />
                                                     </div>
                                                 </ng-container>
                                                 <ng-container *ngIf="data.attachmentPostDatas.length > 3">
-                                                    <ng-container *ngIf="j == 3; else elsePict">
+                                                    <ng-container *ngIf="j == 2; else elsePict">
                                                         <div
-                                                            class="w-full flex justify-content-center align-content-center h-15rem overflow-hidden pb-1 relative">
+                                                            class="w-full flex justify-content-center align-content-center overflow-hidden pb-1 relative">
                                                             <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                                class="h-auto cursor-pointer" style="object-fit: cover"
-                                                                (click)="imageClick(i,j)" />
+                                                                class="w-full h-12rem cursor-pointer"
+                                                                style="object-fit: cover" (click)="imageClick(i,j)" />
                                                             <div class="absolute w-full h-full bg-black-alpha-90 opacity-80 flex justify-content-center align-items-center"
                                                                 (click)="imageClick(i,j)">
                                                                 <h1 class="text-white">
-                                                                    {{data.attachmentPostDatas.length -3}} +
+                                                                    {{data.attachmentPostDatas.length -2}} +
                                                                 </h1>
                                                             </div>
                                                         </div>
                                                     </ng-container>
                                                     <ng-template #elsePict>
-                                                        <div *ngIf=" j<=3"
-                                                            class="w-full flex justify-content-center align-content-center h-15rem overflow-hidden pb-1 relative">
+                                                        <div *ngIf=" j<=2"
+                                                            class="w-full flex justify-content-center align-content-center overflow-hidden pb-1 relative">
                                                             <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                                class="h-auto cursor-pointer" style="object-fit: cover"
-                                                                (click)="imageClick(i,j)" />
+                                                                class="w-full h-12rem cursor-pointer"
+                                                                style="object-fit: cover" (click)="imageClick(i,j)" />
                                                         </div>
                                                     </ng-template>
                                                 </ng-container>
@@ -226,52 +221,54 @@
                                                 [baseZIndex]="100000">
                                                 <ng-template pTemplate="item" let-item>
                                                     <img src={{fileLink}}{{item.fileId}}
-                                                        style="height: 100vh; width: fit-content; object-fit: fill; display: block;" />
+                                                        style="max-width: 850px; max-height: 500px; display: block; " />
                                                 </ng-template>
                                             </p-galleria>
 
                                             <ng-container *ngFor="let attach of data.attachmentPostDatas ; index as j">
                                                 <ng-container *ngIf="data.attachmentPostDatas.length == 1">
-                                                    <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                        class="w-full h-15rem cursor-pointer"
-                                                        style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                    <div class="col-12 flex justify-content-center p-0 m-0">
+                                                        <img src={{fileLink}}{{attach.fileId}} alt="image"
+                                                            class="w-full md:w-20rem h-10rem cursor-pointer"
+                                                            style="object-fit: cover" (click)="imageClick(i,j)" />
+                                                    </div>
                                                 </ng-container>
 
                                                 <ng-container *ngIf="data.attachmentPostDatas.length == 2">
-                                                    <div class="w-full flex">
+                                                    <div class="col-6 flex p-0">
                                                         <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                            class="w-full h-15rem cursor-pointer"
-                                                            style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                            class="w-full h-12rem cursor-pointer"
+                                                            style="object-fit: cover" (click)="imageClick(i,j)" />
                                                     </div>
                                                 </ng-container>
                                                 <ng-container *ngIf="data.attachmentPostDatas.length == 3">
                                                     <div class="w-full flex">
                                                         <img src={{fileLink}}{{attach.fileId}} alt="image"
                                                             class="w-full h-12rem cursor-pointer"
-                                                            style="object-fit: contain" (click)="imageClick(i,j)" />
+                                                            style="object-fit: cover" (click)="imageClick(i,j)" />
                                                     </div>
                                                 </ng-container>
                                                 <ng-container *ngIf="data.attachmentPostDatas.length > 3">
-                                                    <ng-container *ngIf="j == 3; else elsePict">
+                                                    <ng-container *ngIf="j == 2; else elsePict">
                                                         <div
-                                                            class="w-full flex justify-content-center align-content-center h-10rem overflow-hidden pb-1 relative">
+                                                            class="w-full flex justify-content-center align-content-center overflow-hidden pb-1 relative">
                                                             <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                                class="h-auto cursor-pointer" style="object-fit: cover"
-                                                                (click)="imageClick(i,j)" />
+                                                                class="w-full h-12rem cursor-pointer"
+                                                                style="object-fit: cover" (click)="imageClick(i,j)" />
                                                             <div class="absolute w-full h-full bg-black-alpha-90 opacity-80 flex justify-content-center align-items-center"
                                                                 (click)="imageClick(i,j)">
                                                                 <h1 class="text-white">
-                                                                    {{data.attachmentPostDatas.length -3}} +
+                                                                    {{data.attachmentPostDatas.length -2}} +
                                                                 </h1>
                                                             </div>
                                                         </div>
                                                     </ng-container>
                                                     <ng-template #elsePict>
-                                                        <div *ngIf=" j<=3"
-                                                            class="w-full flex justify-content-center align-content-center h-10rem overflow-hidden pb-1 relative">
+                                                        <div *ngIf=" j<=2"
+                                                            class="w-full flex justify-content-center align-content-center overflow-hidden pb-1 relative">
                                                             <img src={{fileLink}}{{attach.fileId}} alt="image"
-                                                                class="h-auto cursor-pointer" style="object-fit: cover"
-                                                                (click)="imageClick(i,j)" />
+                                                                class="w-full h-12rem cursor-pointer"
+                                                                style="object-fit: cover" (click)="imageClick(i,j)" />
                                                         </div>
                                                     </ng-template>
                                                 </ng-container>
@@ -292,13 +289,13 @@
                                                     {{poll.pollContent}} | votes: ({{poll.countVote}})
                                                 </div>
                                                 <ng-container *ngIf="poll.isVoted; else optionNotVoted">
-                                                    <p-progressBar styleClass="h-2rem border-round-3xl"
+                                                    <p-progressBar styleClass="h-2rem"
                                                         [value]="pollValue(poll, data.pollData)"
                                                         class="customProgressBar">
                                                     </p-progressBar>
                                                 </ng-container>
                                                 <ng-template #optionNotVoted>
-                                                    <p-progressBar styleClass="h-2rem border-round-3xl"
+                                                    <p-progressBar styleClass="h-2rem"
                                                         [value]="pollValue(poll, data.pollData)"
                                                         class="customProgressBarReg">
                                                     </p-progressBar>
@@ -527,5 +524,6 @@
     </form>
 </p-dialog>
 
-<p-confirmDialog [style]="{width: '45vw'}" key="positionDialog" rejectButtonStyleClass="p-button-secondary p-button-sm"
+<p-confirmDialog [style]="{width: '45vw'}" [breakpoints]="{'960px': '90vw'}" key="positionDialog"
+    rejectButtonStyleClass="p-button-secondary p-button-sm"
     acceptButtonStyleClass="p-button-danger p-button-sm"></p-confirmDialog>
